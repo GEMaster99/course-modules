@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 3 — ¡Luces, cámara, acción! · SPAN 2010</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400;9..144,500;9..144,700;9..144,900&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F4EEE2; --bg-elevated: #FBF6EB;
+    --ink: #1F1A14; --ink-soft: #4F443A; --ink-faint: #8A7E70;
+    --accent: #B84A1F; --accent-soft: #EBC7B0; --accent-pale: #F5DDC9;
+    --secondary: #2A4D5E; --wsu: #492365;
+    --line: #1F1A14; --line-soft: #D8CFBC;
+    --correct: #2D6A4F; --incorrect: #B84A1F;
+    --shadow-paper: 0 1px 0 #D8CFBC, 0 8px 24px -12px rgba(31,26,20,0.15);
+    --shadow-lift: 0 2px 0 #1F1A14, 0 10px 30px -8px rgba(31,26,20,0.25);
+  }
+  [data-theme="dark"] {
+    --bg: #16120F; --bg-elevated: #1F1A16;
+    --ink: #F0E8D8; --ink-soft: #B5AB9A; --ink-faint: #7A7163;
+    --accent: #E07856; --accent-soft: #6B3525; --accent-pale: #3D2017;
+    --secondary: #6BA2B5; --wsu: #B292C9;
+    --line: #F0E8D8; --line-soft: #3A312A;
+    --correct: #6BB48E; --incorrect: #E07856;
+    --shadow-paper: 0 1px 0 #3A312A, 0 8px 24px -12px rgba(0,0,0,0.4);
+    --shadow-lift: 0 2px 0 #F0E8D8, 0 10px 30px -8px rgba(0,0,0,0.5);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--ink); font-family: 'Manrope', system-ui, sans-serif; font-size: 16px; line-height: 1.6; min-height: 100vh; transition: background-color 0.3s ease, color 0.3s ease; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.4; background-image: radial-gradient(circle at 20% 30%, var(--line-soft) 0.5px, transparent 0.5px), radial-gradient(circle at 80% 70%, var(--line-soft) 0.5px, transparent 0.5px); background-size: 40px 40px, 60px 60px; }
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 clamp(16px,4vw,48px); position: relative; z-index: 1; }
+  header { padding: 32px 0 24px; border-bottom: 1px solid var(--line-soft); }
+  .header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand-mark { width: 44px; height: 44px; border-radius: 50%; background: var(--wsu); color: #FBF6EB; display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-weight: 900; font-size: 18px; font-variation-settings: "SOFT" 50; flex-shrink: 0; }
+  .brand-text { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-soft); line-height: 1.4; }
+  .brand-text strong { color: var(--ink); font-weight: 500; }
+  .theme-toggle { background: var(--bg-elevated); border: 1.5px solid var(--line); color: var(--ink); width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease, background 0.2s ease; flex-shrink: 0; }
+  .theme-toggle:hover { transform: rotate(15deg) scale(1.05); background: var(--accent-pale); }
+  .theme-toggle svg { width: 20px; height: 20px; }
+  .theme-toggle .sun { display: none; } .theme-toggle .moon { display: block; }
+  [data-theme="dark"] .theme-toggle .sun { display: block; } [data-theme="dark"] .theme-toggle .moon { display: none; }
+  .title-block { padding: 36px 0 28px; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+  .eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--line-soft); max-width: 120px; }
+  h1.module-title { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 144, "SOFT" 30; font-size: clamp(40px,7vw,84px); line-height: 0.95; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 18px; }
+  h1.module-title em { font-style: italic; font-weight: 400; color: var(--accent); font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; }
+  .module-subtitle { font-size: 17px; color: var(--ink-soft); max-width: 640px; line-height: 1.5; }
+  .tabs { display: flex; margin: 32px 0 8px; border-bottom: 2px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn { background: none; border: none; color: var(--ink-soft); font-family: 'Fraunces', serif; font-weight: 500; font-size: 19px; font-variation-settings: "opsz" 24, "SOFT" 20; padding: 14px 24px; cursor: pointer; position: relative; transition: color 0.2s ease; white-space: nowrap; display: flex; align-items: center; gap: 10px; }
+  .tab-btn .tab-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); font-weight: 400; }
+  .tab-btn:hover { color: var(--ink); } .tab-btn.active { color: var(--ink); }
+  .tab-btn.active .tab-num { color: var(--accent); }
+  .tab-btn.active::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 4px; background: var(--accent); }
+  main { padding: 40px 0 80px; }
+  .panel { display: none; animation: fadeIn 0.4s ease; } .panel.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+  .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px dashed var(--line-soft); }
+  .section-head h2 { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 72, "SOFT" 40; font-size: clamp(28px,4vw,40px); letter-spacing: -0.01em; line-height: 1.1; }
+  .section-head .marker { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
+  .pill-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .pill { background: var(--bg-elevated); border: 1.5px solid var(--line-soft); color: var(--ink-soft); padding: 8px 18px; border-radius: 24px; font-family: 'Manrope', sans-serif; font-weight: 500; font-size: 14px; cursor: pointer; transition: all 0.2s ease; }
+  .pill:hover { border-color: var(--line); color: var(--ink); } .pill.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .sub-panel { display: none; } .sub-panel.active { display: block; animation: fadeIn 0.3s ease; }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: 14px; }
+  .flashcard { aspect-ratio: 4/3; perspective: 1000px; cursor: pointer; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); transform-style: preserve-3d; }
+  .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+  .card-face { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; border: 1.5px solid var(--line); box-shadow: var(--shadow-paper); }
+  .card-front { background: var(--bg-elevated); }
+  .card-back { background: var(--ink); color: var(--bg); transform: rotateY(180deg); border-color: var(--ink); }
+  .card-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-faint); }
+  .card-back .card-label { opacity: 0.7; }
+  .card-word { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 72, "SOFT" 50; font-size: 22px; line-height: 1.05; letter-spacing: -0.01em; }
+  .card-word em { font-style: italic; color: var(--accent); font-variation-settings: "opsz" 72, "SOFT" 100, "WONK" 1; }
+  .card-back .card-word em { color: var(--accent-soft); }
+  .card-hint { font-size: 11px; color: var(--ink-faint); font-style: italic; }
+  .card-back .card-hint { color: var(--accent-soft); }
+  .grammar-block { background: var(--bg-elevated); border: 1.5px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 28px; box-shadow: var(--shadow-paper); }
+  .grammar-block h3 { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 48, "SOFT" 30; font-size: 26px; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .grammar-block .lede { color: var(--ink-soft); font-size: 15px; margin-bottom: 20px; max-width: 640px; }
+  .grammar-block p { color: var(--ink-soft); font-size: 15px; margin-bottom: 14px; max-width: 680px; }
+  .grammar-block p:last-of-type { margin-bottom: 0; }
+  .grammar-block strong { color: var(--ink); }
+  .conj-table { background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
+  .conj-table table { width: 100%; border-collapse: collapse; }
+  .conj-table th { background: var(--ink); color: var(--bg); text-align: left; padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+  .conj-table td { padding: 13px 16px; border-top: 1px solid var(--line-soft); font-size: 16px; vertical-align: middle; }
+  .conj-table td:first-child { color: var(--ink-soft); font-style: italic; width: 26%; font-family: 'Fraunces', serif; }
+  .conj-table td:nth-child(2), .conj-table td:nth-child(3), .conj-table td:nth-child(4) { font-family: 'Fraunces', serif; font-weight: 500; font-size: 17px; }
+  .conj-table.pairs td:nth-child(2) { color: var(--accent); }
+  .tip-block { background: var(--accent-pale); border: 1.5px solid var(--accent); border-radius: 10px; padding: 16px 20px; margin-top: 20px; font-size: 14px; color: var(--ink-soft); }
+  .tip-block strong { color: var(--ink); }
+  .practice-block { background: var(--accent-pale); border: 1.5px solid var(--accent); border-radius: 14px; padding: 24px; margin-top: 24px; }
+  .practice-q { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px dashed var(--line-soft); }
+  .practice-q:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .practice-prompt { font-size: 16px; margin-bottom: 12px; font-family: 'Fraunces', serif; font-style: italic; }
+  .practice-prompt .blank { display: inline-block; min-width: 100px; border-bottom: 2px solid var(--accent); margin: 0 4px; }
+  .practice-options { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt-btn { background: var(--bg-elevated); border: 1.5px solid var(--line); color: var(--ink); padding: 8px 16px; border-radius: 8px; font-family: 'Fraunces', serif; font-style: italic; font-size: 15px; cursor: pointer; transition: all 0.15s ease; }
+  .opt-btn:hover { background: var(--ink); color: var(--bg); }
+  .opt-btn.correct { background: var(--correct); color: #FBF6EB; border-color: var(--correct); }
+  .opt-btn.incorrect { background: var(--incorrect); color: #FBF6EB; border-color: var(--incorrect); opacity: 0.7; }
+  .opt-btn:disabled { cursor: default; }
+  .opt-btn:disabled:hover { background: var(--bg-elevated); color: var(--ink); }
+  .opt-btn.correct:disabled, .opt-btn.correct:disabled:hover { background: var(--correct); color: #FBF6EB; }
+  .opt-btn.incorrect:disabled, .opt-btn.incorrect:disabled:hover { background: var(--incorrect); color: #FBF6EB; }
+  .listen-intro { background: var(--bg-elevated); border-left: 3px solid var(--secondary); padding: 18px 22px; border-radius: 4px; margin-bottom: 28px; font-size: 14px; color: var(--ink-soft); }
+  .listen-intro strong { color: var(--ink); }
+  .listen-exercise { background: var(--bg-elevated); border: 1.5px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 24px; box-shadow: var(--shadow-paper); }
+  .listen-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+  .listen-head h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 22px; font-variation-settings: "opsz" 36, "SOFT" 40; }
+  .listen-counter { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-faint); background: var(--bg); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line-soft); white-space: nowrap; }
+  .play-btn { background: var(--accent); color: #FBF6EB; border: 1.5px solid var(--accent); border-radius: 12px; padding: 14px 24px; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 15px; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: transform 0.15s ease, background 0.15s ease; margin-bottom: 18px; }
+  .play-btn:hover { transform: translate(-1px,-1px); box-shadow: 0 2px 0 var(--ink); }
+  .play-btn:active { transform: translate(1px,1px); box-shadow: none; }
+  .play-btn.speaking { background: var(--secondary); border-color: var(--secondary); }
+  .play-btn svg { width: 16px; height: 16px; }
+  .listen-options { display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: 10px; margin-bottom: 16px; }
+  .listen-options.cols-2 { grid-template-columns: repeat(2,1fr); max-width: 500px; }
+  .listen-opt { background: var(--bg); border: 1.5px solid var(--line); color: var(--ink); padding: 14px 16px; border-radius: 10px; font-family: 'Fraunces', serif; font-style: italic; font-size: 15px; cursor: pointer; transition: all 0.15s ease; text-align: center; }
+  .listen-opt:hover { background: var(--ink); color: var(--bg); transform: translate(-1px,-1px); }
+  .listen-opt.correct { background: var(--correct); color: #FBF6EB; border-color: var(--correct); }
+  .listen-opt.incorrect { background: var(--incorrect); color: #FBF6EB; border-color: var(--incorrect); opacity: 0.6; }
+  .listen-opt:disabled { cursor: default; }
+  .listen-opt:disabled:hover { transform: none; }
+  .listen-opt:disabled:hover:not(.correct):not(.incorrect) { background: var(--bg); color: var(--ink); }
+  .feedback { font-family: 'Fraunces', serif; font-style: italic; font-size: 16px; padding: 14px 18px; border-radius: 8px; margin-top: 12px; display: none; }
+  .feedback.show { display: block; animation: fadeIn 0.3s ease; }
+  .feedback.correct { background: rgba(45,106,79,0.1); color: var(--correct); border-left: 3px solid var(--correct); }
+  .feedback.incorrect { background: var(--accent-pale); color: var(--accent); border-left: 3px solid var(--accent); }
+  .feedback strong { font-weight: 700; font-style: normal; }
+  .next-btn { background: var(--ink); color: var(--bg); border: 1.5px solid var(--ink); border-radius: 10px; padding: 12px 22px; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; margin-top: 12px; transition: transform 0.15s ease; }
+  .next-btn:hover { transform: translate(-1px,-1px); box-shadow: 0 2px 0 var(--accent); }
+  .next-btn:disabled { opacity: 0.4; cursor: default; }
+  .progress-bar { height: 4px; background: var(--line-soft); border-radius: 2px; overflow: hidden; margin-bottom: 20px; }
+  .progress-fill { height: 100%; background: var(--accent); transition: width 0.4s ease; width: 0%; }
+  .done-message { text-align: center; padding: 32px 20px; background: var(--accent-pale); border-radius: 12px; border: 1.5px solid var(--accent); display: none; }
+  .done-message.show { display: block; animation: fadeIn 0.4s ease; }
+  .done-message h4 { font-family: 'Fraunces', serif; font-style: italic; font-size: 28px; color: var(--accent); margin-bottom: 8px; }
+  .done-message p { color: var(--ink-soft); margin-bottom: 16px; }
+  .done-message .score { font-family: 'Fraunces', serif; font-weight: 700; font-size: 22px; color: var(--ink); margin-bottom: 16px; }
+  .voice-notice { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); margin-top: 16px; font-style: italic; }
+  footer { border-top: 1px solid var(--line-soft); padding: 24px 0; color: var(--ink-faint); font-size: 13px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.08em; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  @media (max-width: 720px) {
+    .grammar-block { padding: 20px; }
+    .listen-exercise { padding: 20px; }
+    .tab-btn { padding: 12px 14px; font-size: 17px; }
+    .tab-btn .tab-num { display: none; }
+    .conj-table td:first-child { width: 34%; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="header-row">
+    <div class="brand">
+      <div class="brand-mark">W</div>
+      <div class="brand-text"><strong>SPAN 2010</strong> · Third Semester Spanish<br>Weber State University</div>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+  </div>
+  <div class="title-block">
+    <div class="eyebrow">Módulo 3 · Module Three</div>
+    <h1 class="module-title">¡Luces, <em>cámara</em>, acción!</h1>
+    <p class="module-subtitle">Technology and entertainment vocabulary (<em>la tecnología</em>, <em>el entretenimiento</em>), the imperfect tense — regular verbs plus the three irregulars <em>ser</em>, <em>ir</em>, and <em>ver</em> — and indefinite and negative expressions.</p>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab-btn active" data-tab="vocab" role="tab"><span class="tab-num">01</span> Vocabulario</button>
+  <button class="tab-btn" data-tab="grammar" role="tab"><span class="tab-num">02</span> Gramática</button>
+  <button class="tab-btn" data-tab="listen" role="tab"><span class="tab-num">03</span> Audición</button>
+</nav>
+
+<main>
+<!-- VOCABULARIO PANEL -->
+<section class="panel active" id="panel-vocab">
+  <div class="pill-nav">
+    <button class="pill active" data-sub="tv">TV y cine</button>
+    <button class="pill" data-sub="tech">Tecnología</button>
+    <button class="pill" data-sub="verbos">Verbos</button>
+  </div>
+
+  <div class="sub-panel active" id="sub-tv">
+    <div class="section-head"><h2>Televisión y cine</h2><span class="marker">Genres &amp; programs</span></div>
+    <p style="color:var(--ink-soft);margin-bottom:20px;max-width:680px">Programs, genres, and movie types — including two tricky pairs where the broadcast (<em>la televisión</em>, <em>la radio</em>) and the device (<em>el televisor</em>, <em>el radio</em>) each take a different gender.</p>
+    <div class="card-grid" id="tvGrid"></div>
+  </div>
+
+  <div class="sub-panel" id="sub-tech">
+    <div class="section-head"><h2>Tecnología digital</h2><span class="marker">Devices &amp; the internet</span></div>
+    <p style="color:var(--ink-soft);margin-bottom:20px;max-width:680px">Devices, apps, and everything related to going online — the words you need for talking about phones, tablets, and social media.</p>
+    <div class="card-grid" id="techGrid"></div>
+  </div>
+
+  <div class="sub-panel" id="sub-verbos">
+    <div class="section-head"><h2>Verbos de la tecnología</h2><span class="marker">What you do with it</span></div>
+    <p style="color:var(--ink-soft);margin-bottom:20px;max-width:680px">The actions that go with all that vocabulary above — chatting, recording, clicking, connecting.</p>
+    <div class="card-grid" id="verbosGrid"></div>
+  </div>
+</section>
+
+<!-- GRAMÁTICA PANEL -->
+<section class="panel" id="panel-grammar">
+  <div class="pill-nav">
+    <button class="pill active" data-sub="imp-reg">El imperfecto regular</button>
+    <button class="pill" data-sub="imp-irreg">Ser, ir, ver</button>
+    <button class="pill" data-sub="indef">Indefinidas y negativas</button>
+    <button class="pill" data-sub="practice">Práctica</button>
+  </div>
+
+  <div class="sub-panel active" id="sub-imp-reg">
+    <div class="grammar-block">
+      <h3>El imperfecto: verbos regulares</h3>
+      <p class="lede">Spanish has two ways to talk about the past. The preterit narrates completed actions — what happened. The imperfect describes: repeated or habitual actions in the past, actions that were ongoing, and what things used to be like.</p>
+      <p>Look for time-cue words that signal the imperfect: <strong>siempre</strong>, <strong>todos los días</strong>, <strong>todos los años</strong>, <strong>con frecuencia</strong>, <strong>usualmente</strong>, <strong>normalmente</strong>, <strong>a veces</strong>.</p>
+      <div class="conj-table">
+        <table>
+          <tr><th>Pronombre</th><th>-AR: chatear</th><th>-ER/-IR: leer</th></tr>
+          <tr><td>yo</td><td>chateaba</td><td>leía</td></tr>
+          <tr><td>tú</td><td>chateabas</td><td>leías</td></tr>
+          <tr><td>él/ella/usted</td><td>chateaba</td><td>leía</td></tr>
+          <tr><td>nosotros</td><td>chateábamos</td><td>leíamos</td></tr>
+          <tr><td>vosotros</td><td>chateabais</td><td>leíais</td></tr>
+          <tr><td>ellos/ustedes</td><td>chateaban</td><td>leían</td></tr>
+        </table>
+      </div>
+      <p><strong>-AR</strong> verbs carry only one accent mark, on the <em>nosotros</em> form. <strong>-ER/-IR</strong> verbs carry an accented <em>í</em> in every single form.</p>
+      <p>Examples: <em>Cuando era niña, no había móviles.</em> (When I was a little girl, there were no cellphones.) <em>Yo chateaba por internet mientras mi hermano montaba en bicicleta.</em> (I chatted online while my brother rode a bike.)</p>
+      <div class="tip-block"><strong>Good news for irregular verbs:</strong> the imperfect has no stem changes at all. <em>Poder</em> (puedo in the present) becomes a perfectly regular <em>podía, podías, podía…</em> and <em>tener</em> (tengo) becomes <em>tenía, tenías, tenía…</em> The imperfect flattens out present-tense irregularities like these.</div>
+      <div class="tip-block" style="margin-top:14px"><strong>Watch out for haber:</strong> <em>hay</em> (present), <em>hubo</em> (preterit), and <em>había</em> (imperfect) are each used only in the singular form, no matter what follows — <em>había móviles</em>, not <em>habían móviles</em>.</div>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="sub-imp-irreg">
+    <div class="grammar-block">
+      <h3>Ser, ir y ver en el imperfecto</h3>
+      <p class="lede">Only three verbs are irregular in the imperfect: <em>ser</em>, <em>ir</em>, and <em>ver</em>. Every other verb in Spanish — regular or irregular in other tenses — follows the regular pattern you just saw.</p>
+      <div class="conj-table">
+        <table>
+          <tr><th>Pronombre</th><th>Ser</th><th>Ir</th><th>Ver</th></tr>
+          <tr><td>yo</td><td>era</td><td>iba</td><td>veía</td></tr>
+          <tr><td>tú</td><td>eras</td><td>ibas</td><td>veías</td></tr>
+          <tr><td>él/ella/usted</td><td>era</td><td>iba</td><td>veía</td></tr>
+          <tr><td>nosotros</td><td>éramos</td><td>íbamos</td><td>veíamos</td></tr>
+          <tr><td>vosotros</td><td>erais</td><td>ibais</td><td>veíais</td></tr>
+          <tr><td>ellos/ustedes</td><td>eran</td><td>iban</td><td>veían</td></tr>
+        </table>
+      </div>
+      <p>Notice that <em>ver</em> keeps the <em>e</em> from its stem (ve-) and just adds the regular -ER/-IR imperfect endings — the only irregularity is that it doesn't drop down to a plain "ía", it stays "veía". <em>Ser</em> and <em>ir</em> are the only truly irregular stems.</p>
+      <div class="tip-block"><strong>Memory tip:</strong> Only three verbs, and all three describe things that "just were" — who you were (<em>ser</em>), where you went habitually (<em>ir</em>), and what you used to watch (<em>ver</em>) — fittingly, for a module about television.</div>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="sub-indef">
+    <div class="grammar-block">
+      <h3>Palabras indefinidas y negativas</h3>
+      <p class="lede">Indefinite words (something, someone, always) each pair with a negative counterpart (nothing, no one, never). If a question uses the indefinite word, a negative answer uses its negative partner.</p>
+      <div class="conj-table pairs">
+        <table>
+          <tr><th>Palabras indefinidas</th><th>Palabras negativas</th></tr>
+          <tr><td>alguien (someone/anyone)</td><td>nadie (no one)</td></tr>
+          <tr><td>algo (something)</td><td>nada (nothing)</td></tr>
+          <tr><td>siempre (always)</td><td>nunca / jamás (never)</td></tr>
+          <tr><td>también (also)</td><td>tampoco (neither/either)</td></tr>
+          <tr><td>algún (alguno), alguna, algunos, algunas (some)</td><td>ningún (ninguno), ninguna, ningunos, ningunas (none/any)</td></tr>
+          <tr><td>o…o (either…or)</td><td>ni…ni (neither…nor)</td></tr>
+        </table>
+      </div>
+      <p>Example: <em>¿Alguien tiene un MP3?</em> (Does anyone have an MP3 player?) → <em>Nadie tiene un MP3.</em> (No one has an MP3 player.)</p>
+      <p>Unlike English, Spanish allows — and often requires — double negatives. If a negative word comes after the verb, you still need <strong>no</strong> (or another negative word) in front of the verb: <em>No juego videojuegos tampoco.</em> (I don't play videogames either.) But <strong>nadie</strong>, <strong>nunca</strong>, and <strong>tampoco</strong> can also go directly before the verb, acting as the subject, with no <em>no</em> needed: <em>Nadie compra cosas en una tienda hoy en día.</em> (No one buys things in a store these days.) <em>Nada es fácil.</em> (Nothing is easy.)</p>
+      <p><strong>Algún/alguno</strong> and <strong>ningún/ninguno</strong> must agree in number and gender with the noun they describe, and they shorten (apocopate) to <strong>algún</strong> / <strong>ningún</strong> right before a singular masculine noun: <em>ningún correo</em>, not <em>ninguno correo</em>. When you drop the noun entirely, use <em>ninguno</em> or <em>ninguna</em> on their own — and note that the negative is almost always kept singular, even when talking about a plural idea: <em>No tengo ningún libro en mi Kindle. / No tengo ninguno.</em></p>
+      <div class="tip-block"><strong>Try it:</strong> <em>Tengo algunos libros en mi Kindle. ¿Y tú?</em> — <em>No, no tengo ningún libro en mi Kindle.</em></div>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="sub-practice">
+    <div class="section-head"><h2>Práctica rápida</h2><span class="marker">Quick check</span></div>
+    <p style="color:var(--ink-soft);margin-bottom:20px;max-width:640px">Eight questions mixing regular and irregular imperfect conjugation with indefinite/negative expressions.</p>
+    <div class="practice-block" id="practiceBlock"></div>
+  </div>
+</section>
+
+<!-- AUDICIÓN PANEL -->
+<section class="panel" id="panel-listen">
+  <div class="listen-intro"><strong>How this works:</strong> Click play to hear a sentence, then choose the answer that fits. Exercise 1 has you match a spoken description to the technology word it defines. Exercise 2 has you identify which subject pronoun matches the imperfect verb form you hear. Exercise 3 has you pick the English meaning of a sentence built around an indefinite or negative expression.</div>
+  <div class="pill-nav">
+    <button class="pill active" data-sub="ear-adivina">Adivina la palabra</button>
+    <button class="pill" data-sub="ear-persona">¿Quién habla?</button>
+    <button class="pill" data-sub="ear-indef">Indefinidas y negativas</button>
+  </div>
+
+  <!-- EXERCISE 1 -->
+  <div class="sub-panel active" id="sub-ear-adivina">
+    <div class="listen-exercise" id="exAdivina">
+      <div class="listen-head"><h3>Ejercicio 1 · Adivina la palabra</h3><span class="listen-counter" id="adivinaCounter">1 / 6</span></div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-bottom:18px">Listen to the description and choose the technology or entertainment word it defines.</p>
+      <div class="progress-bar"><div class="progress-fill" id="adivinaProgress"></div></div>
+      <button class="play-btn" id="adivinaPlay"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Reproducir</button>
+      <div class="listen-options" id="adivinaOptions"></div>
+      <div class="feedback" id="adivinaFeedback"></div>
+      <button class="next-btn" id="adivinaNext" disabled>Siguiente →</button>
+      <div class="done-message" id="adivinaDone"><h4>¡Excelente!</h4><div class="score" id="adivinaScore"></div><p>You've got the technology vocabulary down.</p><button class="next-btn" id="adivinaReset">Empezar otra vez</button></div>
+    </div>
+  </div>
+
+  <!-- EXERCISE 2 -->
+  <div class="sub-panel" id="sub-ear-persona">
+    <div class="listen-exercise" id="exPersona">
+      <div class="listen-head"><h3>Ejercicio 2 · ¿Quién habla?</h3><span class="listen-counter" id="personaCounter">1 / 6</span></div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-bottom:18px">Listen to the sentence in the imperfect and choose which subject pronoun matches the verb form.</p>
+      <div class="progress-bar"><div class="progress-fill" id="personaProgress"></div></div>
+      <button class="play-btn" id="personaPlay"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Reproducir</button>
+      <div class="listen-options cols-2" id="personaOptions"></div>
+      <div class="feedback" id="personaFeedback"></div>
+      <button class="next-btn" id="personaNext" disabled>Siguiente →</button>
+      <div class="done-message" id="personaDone"><h4>¡Excelente!</h4><div class="score" id="personaScore"></div><p>You can hear the difference between imperfect endings.</p><button class="next-btn" id="personaReset">Empezar otra vez</button></div>
+    </div>
+  </div>
+
+  <!-- EXERCISE 3 -->
+  <div class="sub-panel" id="sub-ear-indef">
+    <div class="listen-exercise" id="exIndef">
+      <div class="listen-head"><h3>Ejercicio 3 · Indefinidas y negativas</h3><span class="listen-counter" id="indefCounter">1 / 6</span></div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-bottom:18px">Listen to the sentence and choose the English meaning that matches.</p>
+      <div class="progress-bar"><div class="progress-fill" id="indefProgress"></div></div>
+      <button class="play-btn" id="indefPlay"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Reproducir</button>
+      <div class="listen-options cols-2" id="indefOptions"></div>
+      <div class="feedback" id="indefFeedback"></div>
+      <button class="next-btn" id="indefNext" disabled>Siguiente →</button>
+      <div class="done-message" id="indefDone"><h4>¡Excelente!</h4><div class="score" id="indefScore"></div><p>Nadie te va a confundir con un doble negativo ahora.</p><button class="next-btn" id="indefReset">Empezar otra vez</button></div>
+    </div>
+  </div>
+  <p class="voice-notice">ⓘ If you don't hear anything, try Chrome, Edge, or Safari — these usually include Spanish TTS out of the box.</p>
+</section>
+</main>
+
+<footer>
+  <div>SPAN 2010 · Módulo 3</div>
+  <div>Paul Rama, PhD · paulrama@weber.edu</div>
+</footer>
+</div>
+
+<script>
+// ---------- Theme toggle ----------
+const themeToggle = document.getElementById('themeToggle');
+const savedTheme = (() => { try { return localStorage.getItem('span2010-theme'); } catch { return null; } })();
+if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+themeToggle.addEventListener('click', () => {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  isDark ? document.documentElement.removeAttribute('data-theme') : document.documentElement.setAttribute('data-theme','dark');
+  try { localStorage.setItem('span2010-theme', isDark ? 'light' : 'dark'); } catch {}
+});
+
+// ---------- Tab / pill navigation ----------
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === `panel-${btn.dataset.tab}`));
+    window.speechSynthesis && window.speechSynthesis.cancel();
+  });
+});
+document.querySelectorAll('.panel').forEach(panel => {
+  panel.querySelectorAll('.pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      panel.querySelectorAll('.pill').forEach(p => p.classList.toggle('active', p === pill));
+      panel.querySelectorAll('.sub-panel').forEach(sp => sp.classList.toggle('active', sp.id === `sub-${pill.dataset.sub}`));
+      window.speechSynthesis && window.speechSynthesis.cancel();
+    });
+  });
+});
+
+// ---------- Flashcards ----------
+function buildFlashcards(containerId, items) {
+  const grid = document.getElementById(containerId);
+  items.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'flashcard';
+    card.innerHTML = `<div class="flashcard-inner">
+      <div class="card-face card-front">
+        <div class="card-label">Español</div>
+        <div class="card-word"><em>${item.es}</em></div>
+        <div class="card-hint">click to flip</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="card-label">English</div>
+        <div class="card-word">${item.en}</div>
+        <div class="card-hint">${item.hint}</div>
+      </div>
+    </div>`;
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    grid.appendChild(card);
+  });
+}
+
+const vocabTV = [
+  { es: 'la televisión', en: 'television (the signal/broadcast)', hint: 'not the physical set' },
+  { es: 'el televisor', en: 'the TV set', hint: 'the device itself' },
+  { es: 'la radio', en: 'the radio (broadcast)', hint: 'the signal, not the device' },
+  { es: 'el radio', en: 'the radio (device)', hint: 'the physical device' },
+  { es: 'el canal', en: 'channel', hint: '' },
+  { es: 'la serie de…', en: 'the … series', hint: 'e.g. la serie de crímenes' },
+  { es: 'la comedia', en: 'comedy', hint: '' },
+  { es: 'el drama', en: 'drama', hint: '' },
+  { es: 'el documental', en: 'documentary', hint: '' },
+  { es: 'la telenovela', en: 'soap opera', hint: '' },
+  { es: 'los dibujos animados', en: 'cartoons', hint: '' },
+  { es: 'el noticiero', en: 'the news (program)', hint: '' },
+  { es: 'el programa de concursos', en: 'game show', hint: '' },
+  { es: 'el programa de telerrealidad', en: 'reality TV', hint: '' },
+  { es: 'la película', en: 'movie', hint: '' },
+  { es: 'el cine', en: 'cinema, movie theater', hint: '' },
+  { es: 'una película de horror / de miedo', en: 'a horror / scary movie', hint: '' },
+  { es: 'una película de misterio', en: 'a mystery movie', hint: '' },
+  { es: 'una película de drama', en: 'a drama (movie)', hint: '' },
+  { es: 'una película romántica', en: 'a romantic movie', hint: '' },
+  { es: 'la clasificación', en: 'rating', hint: 'movie/TV rating' }
+];
+buildFlashcards('tvGrid', vocabTV);
+
+const vocabTech = [
+  { es: 'la tecnología digital', en: 'digital technology', hint: '' },
+  { es: 'la pantalla táctil', en: 'touch screen', hint: '' },
+  { es: 'la aplicación', en: 'application, app', hint: '' },
+  { es: 'los navegadores del internet/la red', en: 'web browsers', hint: '' },
+  { es: 'las redes sociales', en: 'social networks', hint: '' },
+  { es: 'los sitios web', en: 'websites', hint: '' },
+  { es: 'la tableta', en: 'tablet', hint: '' },
+  { es: 'el libro electrónico', en: 'ebook', hint: '' },
+  { es: 'el MP3', en: 'MP3 player', hint: '' },
+  { es: 'el portátil', en: 'laptop', hint: '' },
+  { es: 'la mensajería instantánea', en: 'instant messaging (IM)', hint: '' }
+];
+buildFlashcards('techGrid', vocabTech);
+
+const vocabVerbos = [
+  { es: 'chatear / textear / mensajear', en: 'to chat, text, send IMs', hint: '' },
+  { es: 'grabar en audio', en: 'to record audio', hint: '' },
+  { es: 'grabar un video', en: 'to record video, to film', hint: '' },
+  { es: 'disfrutar', en: 'to enjoy', hint: '' },
+  { es: 'entretenerse', en: 'to be entertained', hint: '' },
+  { es: 'digitar', en: 'to type', hint: '' },
+  { es: 'pulsar', en: 'to click, press', hint: '' },
+  { es: 'mover (o&gt;ue) el cursor hacia arriba/abajo', en: 'to move the cursor up/down', hint: 'stem-changing in the present' },
+  { es: 'conectarse', en: 'to connect', hint: '' },
+  { es: 'desbloquear / bloquear', en: 'to unlock / to lock (unblock / block)', hint: '' }
+];
+buildFlashcards('verbosGrid', vocabVerbos);
+
+// ---------- Practice questions ----------
+const practiceQuestions = [
+  { prompt: 'También, mi mamá y sus hermanos ___ (jugar) videojuegos en el Atari.', options: ['jugaron', 'jugaban', 'juegan', 'jugarán'], correct: 1, explain: 'Regular -ar imperfect: <em>jugar → jugaba, jugabas, jugábamos…</em> Even though <em>jugar</em> stem-changes in the present (juego), the imperfect never stem-changes.' },
+  { prompt: 'Un MP3 era un dispositivo electrónico que ___ (poder) reproducir música de un formato digital.', options: ['pudo', 'podía', 'puede', 'podrá'], correct: 1, explain: '<em>Poder</em> is stem-changing in the present (puedo) but perfectly regular in the imperfect: <strong>podía</strong>, podías, podía… The imperfect neutralizes present-tense stem changes.' },
+  { prompt: 'Los iPods ___ (tener) diferentes tamaños de memoria y eran de diferentes colores.', options: ['tuvieron', 'tenían', 'tienen', 'tendrán'], correct: 1, explain: 'Same pattern as <em>poder</em>: <em>tener</em> is irregular in the present (tengo) but regular in the imperfect — <strong>tenía</strong>, tenías, teníamos…' },
+  { prompt: 'Cuando yo ___ (ser) niño, no había móviles para escuchar música.', options: ['fui', 'era', 'soy', 'seré'], correct: 1, explain: '<em>Ser</em> is one of only three irregular verbs in the imperfect (with <em>ir</em> and <em>ver</em>): <strong>era</strong>, eras, era, éramos, erais, eran.' },
+  { prompt: 'Todos los veranos, mi familia y yo ___ (ir) a la playa.', options: ['fuimos', 'íbamos', 'vamos', 'iremos'], correct: 1, explain: '<em>Ir</em> is irregular in the imperfect: iba, ibas, iba, <strong>íbamos</strong>, ibais, iban. <em>Todos los veranos</em> is a classic imperfect cue — a repeated, habitual action.' },
+  { prompt: '¡No te creo, yo no tengo ___ correo!', options: ['algún', 'ningún', 'ninguno', 'alguno'], correct: 1, explain: '<em>Algún/ningún</em> apocopate (drop the final -o) right before a singular masculine noun: <strong>ningún correo</strong>, not <em>ninguno correo</em>.' },
+  { prompt: 'Ah, mira, necesitas eliminar ___ correos.', options: ['nadie', 'o', 'ningunos', 'algunos'], correct: 3, explain: 'This is an affirmative statement — some emails need deleting — so use the indefinite <strong>algunos</strong>, not a negative word. <em>Ningunos</em> is almost never used; the negative stays singular (<em>ninguno</em>).' },
+  { prompt: 'Yo no juego videojuegos, y mi hermano ___.', options: ['también', 'tampoco', 'alguien', 'nada'], correct: 1, explain: '<strong>Tampoco</strong> is the negative counterpart of <em>también</em> — it agrees with a negative statement, like saying "me neither" in English.' }
+];
+const practiceBlock = document.getElementById('practiceBlock');
+practiceBlock.innerHTML = practiceQuestions.map((q, qi) => `
+  <div class="practice-q">
+    <div class="practice-prompt">${q.prompt.replace('___','<span class="blank"></span>')}</div>
+    <div class="practice-options">${q.options.map((o,oi) => `<button class="opt-btn" data-q="${qi}" data-o="${oi}">${o}</button>`).join('')}</div>
+    <div class="feedback" id="practice-fb-${qi}"></div>
+  </div>`).join('');
+practiceBlock.addEventListener('click', e => {
+  if (!e.target.classList.contains('opt-btn')) return;
+  const qi = +e.target.dataset.q, oi = +e.target.dataset.o;
+  const q = practiceQuestions[qi];
+  const allBtns = practiceBlock.querySelectorAll(`.opt-btn[data-q="${qi}"]`);
+  allBtns.forEach(b => b.disabled = true);
+  allBtns[q.correct].classList.add('correct');
+  if (oi !== q.correct) e.target.classList.add('incorrect');
+  const fb = document.getElementById(`practice-fb-${qi}`);
+  fb.className = oi === q.correct ? 'feedback correct show' : 'feedback incorrect show';
+  fb.innerHTML = oi === q.correct ? `✓ ${q.explain}` : `The answer is <strong>${q.options[q.correct]}</strong>. ${q.explain}`;
+});
+
+// ---------- TTS setup ----------
+let spanishVoice = null;
+function pickSpanishVoice() {
+  const voices = window.speechSynthesis.getVoices();
+  for (const lang of ['es-MX','es-US','es-419','es-CO','es-AR','es-ES','es']) {
+    const v = voices.find(v => v.lang === lang || v.lang.toLowerCase().startsWith(lang.toLowerCase()));
+    if (v) return v;
+  }
+  return voices.find(v => v.lang.toLowerCase().startsWith('es')) || null;
+}
+if ('speechSynthesis' in window) {
+  spanishVoice = pickSpanishVoice();
+  window.speechSynthesis.onvoiceschanged = () => { spanishVoice = pickSpanishVoice(); };
+}
+function speak(text, btn) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'es-MX'; u.rate = 0.88; u.pitch = 1;
+  if (spanishVoice) u.voice = spanishVoice;
+  if (btn) { btn.classList.add('speaking'); u.onend = u.onerror = () => btn.classList.remove('speaking'); }
+  window.speechSynthesis.speak(u);
+}
+
+// ---------- Exercise factory ----------
+function buildExercise(config) {
+  let idx = 0, score = 0, answered = false;
+  const playBtn    = document.getElementById(config.playId);
+  const optionsEl  = document.getElementById(config.optionsId);
+  const feedbackEl = document.getElementById(config.feedbackId);
+  const nextBtn    = document.getElementById(config.nextId);
+  const counterEl  = document.getElementById(config.counterId);
+  const progressEl = document.getElementById(config.progressId);
+  const doneEl     = document.getElementById(config.doneId);
+  const scoreEl    = document.getElementById(config.scoreId);
+  const resetBtn   = document.getElementById(config.resetId);
+  const root       = playBtn.closest('.listen-exercise');
+  function render() {
+    const q = config.questions[idx];
+    counterEl.textContent = `${idx + 1} / ${config.questions.length}`;
+    progressEl.style.width = `${(idx / config.questions.length) * 100}%`;
+    feedbackEl.classList.remove('show','correct','incorrect');
+    nextBtn.disabled = true; answered = false;
+    optionsEl.innerHTML = '';
+    q.options.forEach((opt, i) => {
+      const b = document.createElement('button');
+      b.className = 'listen-opt'; b.textContent = opt;
+      b.addEventListener('click', () => handleAnswer(i, b));
+      optionsEl.appendChild(b);
+    });
+    setTimeout(() => speak(config.getAudio(q), playBtn), 250);
+  }
+  function handleAnswer(selected, btn) {
+    if (answered) return;
+    answered = true;
+    const q = config.questions[idx];
+    const allBtns = optionsEl.querySelectorAll('.listen-opt');
+    allBtns.forEach(b => b.disabled = true);
+    const ci = config.getCorrectIndex(q);
+    allBtns[ci].classList.add('correct');
+    if (selected === ci) { score++; btn.classList.add('correct'); feedbackEl.className = 'feedback correct show'; feedbackEl.innerHTML = `✓ ¡Correcto! ${q.hint||''}`; }
+    else { btn.classList.add('incorrect'); feedbackEl.className = 'feedback incorrect show'; feedbackEl.innerHTML = `The answer is <strong>${q.options[ci]}</strong>. ${q.hint||''}`; }
+    nextBtn.disabled = false;
+  }
+  playBtn.addEventListener('click', () => speak(config.getAudio(config.questions[idx]), playBtn));
+  nextBtn.addEventListener('click', () => { idx++; idx >= config.questions.length ? finish() : render(); });
+  function finish() {
+    progressEl.style.width = '100%';
+    root.querySelectorAll('.listen-head,.progress-bar,.play-btn,.listen-options,.feedback,.next-btn').forEach(el => el.style.display='none');
+    doneEl.classList.add('show');
+    scoreEl.textContent = `${score} / ${config.questions.length}`;
+  }
+  resetBtn.addEventListener('click', () => {
+    idx = 0; score = 0; answered = false;
+    doneEl.classList.remove('show');
+    root.querySelectorAll('.listen-head,.progress-bar,.play-btn,.listen-options,.feedback,.next-btn').forEach(el => el.style.display='');
+    feedbackEl.style.display='none'; nextBtn.style.display='';
+    render();
+  });
+  render();
+}
+
+// Exercise 1: Adivina la palabra
+const adivinaQuestions = [
+  { audio: 'Son lugares específicos en la red donde puedes encontrar información.', options: ['los sitios web', 'la pantalla táctil', 'el documental', 'la aplicación'], correct: 0, hint: '<em>Los sitios web</em> = websites, specific places on the internet.' },
+  { audio: 'Este aparato nos permite leer textos como novelas y cuentos en formato electrónico.', options: ['el libro electrónico', 'la tableta', 'el MP3', 'el portátil'], correct: 0, hint: '<em>El libro electrónico</em> = ebook — a device for reading digital text.' },
+  { audio: 'Lo utilizas cuando quieres escuchar música individualmente sin molestar a otras personas.', options: ['el MP3', 'el televisor', 'el canal', 'la radio'], correct: 0, hint: '<em>El MP3</em> = MP3 player, for personal listening.' },
+  { audio: 'Es un computador que puedes transportar fácilmente porque es pequeño y liviano.', options: ['el portátil', 'el televisor', 'el documental', 'la clasificación'], correct: 0, hint: '<em>El portátil</em> = laptop, literally "the portable one."' },
+  { audio: 'Es un programa de televisión o radio sobre los eventos del día.', options: ['el noticiero', 'la telenovela', 'el documental', 'los dibujos animados'], correct: 0, hint: '<em>El noticiero</em> = the news program.' },
+  { audio: 'Es el tipo de pantalla popular en los teléfonos y las tabletas de hoy en día.', options: ['la pantalla táctil', 'el navegador', 'la aplicación', 'la red social'], correct: 0, hint: '<em>La pantalla táctil</em> = touch screen.' }
+];
+buildExercise({
+  questions: adivinaQuestions,
+  playId:'adivinaPlay', optionsId:'adivinaOptions', feedbackId:'adivinaFeedback',
+  nextId:'adivinaNext', counterId:'adivinaCounter', progressId:'adivinaProgress',
+  doneId:'adivinaDone', scoreId:'adivinaScore', resetId:'adivinaReset',
+  getAudio: q => q.audio, getCorrectIndex: q => q.correct
+});
+
+// Exercise 2: ¿Quién habla?
+const personaQuestions = [
+  { audio: 'Yo chateaba por internet mientras mi hermano montaba en bicicleta.', options: ['yo', 'tú', 'nosotros', 'ellos'], correct: 0, hint: '<em>Chateaba</em> ends in -aba: first-person singular (yo).' },
+  { audio: 'Nosotros jugábamos videojuegos todos los fines de semana.', options: ['yo', 'nosotros', 'ella', 'ustedes'], correct: 1, hint: '<em>Jugábamos</em> — the accented -ábamos ending is unique to nosotros.' },
+  { audio: 'Ella siempre veía telenovelas por la tarde.', options: ['yo', 'tú', 'ella', 'ellos'], correct: 2, hint: '<em>Veía</em> could be yo or ella — the pronoun in the sentence tells you it\'s ella.' },
+  { audio: 'Tú ibas al cine todos los sábados.', options: ['yo', 'tú', 'nosotros', 'ellos'], correct: 1, hint: '<em>Ibas</em> ends in -as: the tú form of ir.' },
+  { audio: 'Mis padres eran muy estrictos con la tecnología.', options: ['yo', 'tú', 'mis padres', 'mi hermana'], correct: 2, hint: '<em>Eran</em> is the plural ellos/ellas form of ser.' },
+  { audio: 'Yo no tenía ni computadora ni tableta.', options: ['yo', 'tú', 'nosotros', 'ellos'], correct: 0, hint: '<em>Tenía</em> — first-person singular, confirmed by the pronoun yo.' }
+];
+buildExercise({
+  questions: personaQuestions,
+  playId:'personaPlay', optionsId:'personaOptions', feedbackId:'personaFeedback',
+  nextId:'personaNext', counterId:'personaCounter', progressId:'personaProgress',
+  doneId:'personaDone', scoreId:'personaScore', resetId:'personaReset',
+  getAudio: q => q.audio, getCorrectIndex: q => q.correct
+});
+
+// Exercise 3: Indefinidas y negativas
+const indefQuestions = [
+  { audio: 'Nadie tiene un MP3 en la clase.', options: ['No one has an MP3 in class.', 'Someone has an MP3 in class.', 'Everyone has an MP3 in class.', 'Anyone has an MP3 in class.'], correct: 0, hint: '<em>Nadie</em> = no one.' },
+  { audio: 'No tengo ningún libro electrónico.', options: ["I don't have any ebook.", 'I have several ebooks.', 'I always read ebooks.', 'Someone has my ebook.'], correct: 0, hint: '<em>No…ningún</em> = don\'t have any.' },
+  { audio: 'Mi abuelo nunca usaba una tableta.', options: ['My grandfather never used a tablet.', 'My grandfather always used a tablet.', 'My grandfather sometimes used a tablet.', 'My grandfather bought a tablet.'], correct: 0, hint: '<em>Nunca</em> = never.' },
+  { audio: 'Yo no juego videojuegos, y mi hermano tampoco.', options: ["My brother doesn't either.", 'My brother does too.', 'My brother never plays alone.', 'My brother plays something else.'], correct: 0, hint: '<em>Tampoco</em> agrees with a negative statement — "me neither."' },
+  { audio: '¿Tienes algo interesante en tu móvil?', options: ['Do you have something interesting on your phone?', 'Do you have anything at all on your phone?', 'You have nothing interesting on your phone.', 'I have something interesting on my phone.'], correct: 0, hint: '<em>Algo</em> = something.' },
+  { audio: 'No tengo ni computadora ni tableta.', options: ['I have neither a computer nor a tablet.', 'I have a computer but no tablet.', 'I have both a computer and a tablet.', 'I have a computer or a tablet.'], correct: 0, hint: '<em>Ni…ni</em> = neither…nor.' }
+];
+buildExercise({
+  questions: indefQuestions,
+  playId:'indefPlay', optionsId:'indefOptions', feedbackId:'indefFeedback',
+  nextId:'indefNext', counterId:'indefCounter', progressId:'indefProgress',
+  doneId:'indefDone', scoreId:'indefScore', resetId:'indefReset',
+  getAudio: q => q.audio, getCorrectIndex: q => q.correct
+});
+</script>
+</body>
+</html>
