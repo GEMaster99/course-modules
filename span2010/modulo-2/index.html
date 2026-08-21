@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 2 — ¿Le dio un regalo? · SPAN 2010</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400;9..144,500;9..144,700;9..144,900&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F4EEE2; --bg-elevated: #FBF6EB;
+    --ink: #1F1A14; --ink-soft: #4F443A; --ink-faint: #8A7E70;
+    --accent: #B84A1F; --accent-soft: #EBC7B0; --accent-pale: #F5DDC9;
+    --secondary: #2A4D5E; --wsu: #492365;
+    --line: #1F1A14; --line-soft: #D8CFBC;
+    --correct: #2D6A4F; --incorrect: #B84A1F;
+    --shadow-paper: 0 1px 0 #D8CFBC, 0 8px 24px -12px rgba(31,26,20,0.15);
+    --shadow-lift: 0 2px 0 #1F1A14, 0 10px 30px -8px rgba(31,26,20,0.25);
+  }
+  [data-theme="dark"] {
+    --bg: #16120F; --bg-elevated: #1F1A16;
+    --ink: #F0E8D8; --ink-soft: #B5AB9A; --ink-faint: #7A7163;
+    --accent: #E07856; --accent-soft: #6B3525; --accent-pale: #3D2017;
+    --secondary: #6BA2B5; --wsu: #B292C9;
+    --line: #F0E8D8; --line-soft: #3A312A;
+    --correct: #6BB48E; --incorrect: #E07856;
+    --shadow-paper: 0 1px 0 #3A312A, 0 8px 24px -12px rgba(0,0,0,0.4);
+    --shadow-lift: 0 2px 0 #F0E8D8, 0 10px 30px -8px rgba(0,0,0,0.5);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--ink); font-family: 'Manrope', system-ui, sans-serif; font-size: 16px; line-height: 1.6; min-height: 100vh; transition: background-color 0.3s ease, color 0.3s ease; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.4; background-image: radial-gradient(circle at 20% 30%, var(--line-soft) 0.5px, transparent 0.5px), radial-gradient(circle at 80% 70%, var(--line-soft) 0.5px, transparent 0.5px); background-size: 40px 40px, 60px 60px; }
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 clamp(16px,4vw,48px); position: relative; z-index: 1; }
+  header { padding: 32px 0 24px; border-bottom: 1px solid var(--line-soft); }
+  .header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand-mark { width: 44px; height: 44px; border-radius: 50%; background: var(--wsu); color: #FBF6EB; display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-weight: 900; font-size: 18px; font-variation-settings: "SOFT" 50; flex-shrink: 0; }
+  .brand-text { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-soft); line-height: 1.4; }
+  .brand-text strong { color: var(--ink); font-weight: 500; }
+  .theme-toggle { background: var(--bg-elevated); border: 1.5px solid var(--line); color: var(--ink); width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease, background 0.2s ease; flex-shrink: 0; }
+  .theme-toggle:hover { transform: rotate(15deg) scale(1.05); background: var(--accent-pale); }
+  .theme-toggle svg { width: 20px; height: 20px; }
+  .theme-toggle .sun { display: none; } .theme-toggle .moon { display: block; }
+  [data-theme="dark"] .theme-toggle .sun { display: block; } [data-theme="dark"] .theme-toggle .moon { display: none; }
+  .title-block { padding: 36px 0 28px; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+  .eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--line-soft); max-width: 120px; }
+  h1.module-title { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 144, "SOFT" 30; font-size: clamp(34px,6vw,72px); line-height: 1.02; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 18px; }
+  h1.module-title em { font-style: italic; font-weight: 400; color: var(--accent); font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; }
+  .module-subtitle { font-size: 17px; color: var(--ink-soft); max-width: 640px; line-height: 1.5; }
+  .tabs { display: flex; margin: 32px 0 8px; border-bottom: 2px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn { background: none; border: none; color: var(--ink-soft); font-family: 'Fraunces', serif; font-weight: 500; font-size: 19px; font-variation-settings: "opsz" 24, "SOFT" 20; padding: 14px 24px; cursor: pointer; position: relative; transition: color 0.2s ease; white-space: nowrap; display: flex; align-items: center; gap: 10px; }
+  .tab-btn .tab-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); font-weight: 400; }
+  .tab-btn:hover { color: var(--ink); } .tab-btn.active { color: var(--ink); }
+  .tab-btn.active .tab-num { color: var(--accent); }
+  .tab-btn.active::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 4px; background: var(--accent); }
+  main { padding: 40px 0 80px; }
+  .panel { display: none; animation: fadeIn 0.4s ease; } .panel.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+  .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px dashed var(--line-soft); }
+  .section-head h2 { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 72, "SOFT" 40; font-size: clamp(28px,4vw,40px); letter-spacing: -0.01em; line-height: 1.1; }
+  .section-head .marker { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
+  .pill-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .pill { background: var(--bg-elevated); border: 1.5px solid var(--line-soft); color: var(--ink-soft); padding: 8px 18px; border-radius: 24px; font-family: 'Manrope', sans-serif; font-weight: 500; font-size: 14px; cursor: pointer; transition: all 0.2s ease; }
+  .pill:hover { border-color: var(--line); color: var(--ink); } .pill.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .sub-panel { display: none; } .sub-panel.active { display: block; animation: fadeIn 0.3s ease; }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: 14px; }
+  .flashcard { aspect-ratio: 4/3; perspective: 1000px; cursor: pointer; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); transform-style: preserve-3d; }
+  .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+  .card-face { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; border: 1.5px solid var(--line); box-shadow: var(--shadow-paper); }
+  .card-front { background: var(--bg-elevated); }
+  .card-back { background: var(--ink); color: var(--bg); transform: rotateY(180deg); border-color: var(--ink); }
+  .card-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-faint); }
+  .card-back .card-label { opacity: 0.7; }
+  .card-word { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 72, "SOFT" 50; font-size: 22px; line-height: 1.05; letter-spacing: -0.01em; }
+  .card-word em { font-style: italic; color: var(--accent); font-variation-settings: "opsz" 72, "SOFT" 100, "WONK" 1; }
+  .card-back .card-word em { color: var(--accent-soft); }
+  .card-hint { font-size: 11px; color: var(--ink-faint); font-style: italic; }
+  .card-back .card-hint { color: var(--accent-soft); }
+  .expr-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(240px,1fr)); gap: 12px; }
+  .expr-card { background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px; padding: 14px 18px; transition: transform 0.15s ease; }
+  .expr-card:hover { transform: translate(-1px,-1px); box-shadow: var(--shadow-lift); }
+  .expr-es { font-family: 'Fraunces', serif; font-weight: 500; font-style: italic; font-size: 18px; color: var(--ink); margin-bottom: 4px; }
+  .expr-en { color: var(--ink-soft); font-size: 13px; }
+  .grammar-block { background: var(--bg-elevated); border: 1.5px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 28px; box-shadow: var(--shadow-paper); }
+  .grammar-block h3 { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 48, "SOFT" 30; font-size: 26px; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .grammar-block .lede { color: var(--ink-soft); font-size: 15px; margin-bottom: 20px; max-width: 640px; }
+  .pronoun-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .pronoun-row { display: grid; grid-template-columns: 170px 1fr; gap: 12px; padding: 10px 14px; border-radius: 8px; background: var(--bg); border: 1px solid var(--line-soft); align-items: center; }
+  .pronoun-row strong { font-family: 'Fraunces', serif; font-weight: 500; font-style: italic; color: var(--accent); font-size: 16px; }
+  .pronoun-row .gloss { color: var(--ink-soft); font-size: 13px; }
+  .conj-table { background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
+  .conj-table table { width: 100%; border-collapse: collapse; }
+  .conj-table th { background: var(--ink); color: var(--bg); text-align: left; padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+  .conj-table td { padding: 13px 16px; border-top: 1px solid var(--line-soft); font-size: 16px; vertical-align: middle; }
+  .conj-table td:first-child { color: var(--ink-soft); font-style: italic; width: 30%; font-family: 'Fraunces', serif; }
+  .conj-table td:nth-child(2) { font-family: 'Fraunces', serif; font-weight: 500; font-size: 18px; }
+  .stem-change { color: var(--accent); font-weight: 700; }
+  .conj-table td:last-child { color: var(--ink-faint); font-size: 13px; font-style: italic; }
+  .conj-split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .conj-split-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); margin-bottom: 8px; }
+  .prep-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap: 10px; margin-bottom: 20px; }
+  .prep-card { background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px; padding: 12px 16px; display: flex; flex-direction: column; gap: 4px; }
+  .prep-es { font-family: 'Fraunces', serif; font-style: italic; font-weight: 600; font-size: 18px; color: var(--accent); }
+  .prep-en { font-size: 13px; color: var(--ink-soft); }
+  .prep-ex { font-family: 'Fraunces', serif; font-style: italic; font-size: 13px; color: var(--ink-faint); border-top: 1px dashed var(--line-soft); padding-top: 6px; margin-top: 4px; }
+  .weather-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .weather-card { background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px; padding: 14px 18px; }
+  .weather-es { font-family: 'Fraunces', serif; font-weight: 500; font-style: italic; font-size: 18px; color: var(--ink); margin-bottom: 4px; }
+  .weather-en { color: var(--ink-soft); font-size: 13px; }
+  .weather-verb { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary); margin-bottom: 6px; }
+  .num-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 10px; margin-bottom: 20px; }
+  .num-row { background: var(--bg); border: 1px solid var(--line-soft); border-radius: 8px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; }
+  .num-digit { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--ink-faint); }
+  .num-word { font-family: 'Fraunces', serif; font-style: italic; font-size: 17px; color: var(--accent); }
+  .culture-block { background: var(--bg-elevated); border: 1.5px solid var(--secondary); border-radius: 14px; padding: 24px; margin-bottom: 28px; position: relative; }
+  .culture-tag { position: absolute; top: -10px; left: 20px; background: var(--secondary); color: #FBF6EB; padding: 3px 10px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .culture-block h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 22px; margin-bottom: 10px; margin-top: 4px; }
+  .culture-block p { color: var(--ink-soft); font-size: 14px; line-height: 1.6; }
+  .culture-block p + p { margin-top: 10px; }
+  .culture-block ul { color: var(--ink-soft); font-size: 14px; line-height: 1.7; margin: 10px 0 0 20px; }
+  .tip-block { background: var(--accent-pale); border: 1.5px solid var(--accent); border-radius: 10px; padding: 16px 20px; margin-top: 20px; font-size: 14px; color: var(--ink-soft); }
+  .tip-block strong { color: var(--ink); }
+  .practice-block { background: var(--accent-pale); border: 1.5px solid var(--accent); border-radius: 14px; padding: 24px; margin-top: 24px; }
+  .practice-q { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px dashed var(--line-soft); }
+  .practice-q:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .practice-prompt { font-size: 16px; margin-bottom: 12px; font-family: 'Fraunces', serif; font-style: italic; }
+  .practice-prompt .blank { display: inline-block; min-width: 100px; border-bottom: 2px solid var(--accent); margin: 0 4px; }
+  .practice-options { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt-btn { background: var(--bg-elevated); border: 1.5px solid var(--line); color: var(--ink); padding: 8px 16px; border-radius: 8px; font-family: 'Fraunces', serif; font-style: italic; font-size: 15px; cursor: pointer; transition: all 0.15s ease; }
+  .opt-btn:hover { background: var(--ink); color: var(--bg); }
+  .opt-btn.correct { background: var(--correct); color: #FBF6EB; border-color: var(--correct); }
+  .opt-btn.incorrect { background: var(--incorrect); color: #FBF6EB; border-color: var(--incorrect); opacity: 0.7; }
+  .opt-btn:disabled { cursor: default; }
+  .opt-btn:disabled:hover { background: var(--bg-elevated); color: var(--ink); }
+  .opt-btn.correct:disabled, .opt-btn.correct:disabled:hover { background: var(--correct); color: #FBF6EB; }
+  .opt-btn.incorrect:disabled, .opt-btn.incorrect:disabled:hover { background: var(--incorrect); color: #FBF6EB; }
+  .listen-intro { background: var(--bg-elevated); border-left: 3px solid var(--secondary); padding: 18px 22px; border-radius: 4px; margin-bottom: 28px; font-size: 14px; color: var(--ink-soft); }
+  .listen-intro strong { color: var(--ink); }
+  .listen-exercise { background: var(--bg-elevated); border: 1.5px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 24px; box-shadow: var(--shadow-paper); }
+  .listen-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+  .listen-head h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 22px; font-variation-settings: "opsz" 36, "SOFT" 40; }
+  .listen-counter { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-faint); background: var(--bg); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line-soft); white-space: nowrap; }
+  .play-btn { background: var(--accent); color: #FBF6EB; border: 1.5px solid var(--accent); border-radius: 12px; padding: 14px 24px; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 15px; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: transform 0.15s ease, background 0.15s ease; margin-bottom: 18px; }
+  .play-btn:hover { transform: translate(-1px,-1px); box-shadow: 0 2px 0 var(--ink); }
+  .play-btn:active { transform: translate(1px,1px); box-shadow: none; }
+  .play-btn.speaking { background: var(--secondary); border-color: var(--secondary); }
+  .play-btn svg { width: 16px; height: 16px; }
+  .listen-options { display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: 10px; margin-bottom: 16px; }
+  .listen-options.cols-2 { grid-template-columns: repeat(2,1fr); max-width: 500px; }
+  .listen-opt { background: var(--bg); border: 1.5px solid var(--line); color: var(--ink); padding: 14px 16px; border-radius: 10px; font-family: 'Fraunces', serif; font-style: italic; font-size: 15px; cursor: pointer; transition: all 0.15s ease; text-align: center; }
+  .listen-opt:hover { background: var(--ink); color: var(--bg); transform: translate(-1px,-1px); }
+  .listen-opt.correct { background: var(--correct); color: #FBF6EB; border-color: var(--correct); }
+  .listen-opt.incorrect { background: var(--incorrect); color: #FBF6EB; border-color: var(--incorrect); opacity: 0.6; }
+  .listen-opt:disabled { cursor: default; }
+  .listen-opt:disabled:hover { transform: none; }
+  .listen-opt:disabled:hover:not(.correct):not(.incorrect) { background: var(--bg); color: var(--ink); }
+  .feedback { font-family: 'Fraunces', serif; font-style: italic; font-size: 16px; padding: 14px 18px; border-radius: 8px; margin-top: 12px; display: none; }
+  .feedback.show { display: block; animation: fadeIn 0.3s ease; }
+  .feedback.correct { background: rgba(45,106,79,0.1); color: var(--correct); border-left: 3px solid var(--correct); }
+  .feedback.incorrect { background: var(--accent-pale); color: var(--accent); border-left: 3px solid var(--accent); }
+  .feedback strong { font-weight: 700; font-style: normal; }
+  .next-btn { background: var(--ink); color: var(--bg); border: 1.5px solid var(--ink); border-radius: 10px; padding: 12px 22px; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; margin-top: 12px; transition: transform 0.15s ease; }
+  .next-btn:hover { transform: translate(-1px,-1px); box-shadow: 0 2px 0 var(--accent); }
+  .next-btn:disabled { opacity: 0.4; cursor: default; }
+  .progress-bar { height: 4px; background: var(--line-soft); border-radius: 2px; overflow: hidden; margin-bottom: 20px; }
+  .progress-fill { height: 100%; background: var(--accent); transition: width 0.4s ease; width: 0%; }
+  .done-message { text-align: center; padding: 32px 20px; background: var(--accent-pale); border-radius: 12px; border: 1.5px solid var(--accent); display: none; }
+  .done-message.show { display: block; animation: fadeIn 0.4s ease; }
+  .done-message h4 { font-family: 'Fraunces', serif; font-style: italic; font-size: 28px; color: var(--accent); margin-bottom: 8px; }
+  .done-message p { color: var(--ink-soft); margin-bottom: 16px; }
+  .done-message .score { font-family: 'Fraunces', serif; font-weight: 700; font-size: 22px; color: var(--ink); margin-bottom: 16px; }
+  .voice-notice { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); margin-top: 16px; font-style: italic; }
+  footer { border-top: 1px solid var(--line-soft); padding: 24px 0; color: var(--ink-faint); font-size: 13px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.08em; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  @media (max-width: 720px) {
+    .pronoun-grid { grid-template-columns: 1fr; }
+    .pronoun-row { grid-template-columns: 130px 1fr; }
+    .conj-split { grid-template-columns: 1fr; }
+    .grammar-block { padding: 20px; }
+    .listen-exercise { padding: 20px; }
+    .tab-btn { padding: 12px 14px; font-size: 17px; }
+    .tab-btn .tab-num { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="header-row">
+    <div class="brand">
+      <div class="brand-mark">W</div>
+      <div class="brand-text"><strong>SPAN 2010</strong> · Third Semester Spanish<br>Weber State University</div>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+  </div>
+  <div class="title-block">
+    <div class="eyebrow">Módulo 2 · Module Two</div>
+    <h1 class="module-title">¿Le <em>dio</em> un regalo?</h1>
+    <p class="module-subtitle">Los pronombres de objeto indirecto, los pronombres combinados de objeto directo e indirecto, y el vocabulario de los hoteles.</p>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab-btn active" data-tab="vocab" role="tab"><span class="tab-num">01</span> Vocabulario</button>
+  <button class="tab-btn" data-tab="grammar" role="tab"><span class="tab-num">02</span> Gramática</button>
+  <button class="tab-btn" data-tab="listen" role="tab"><span class="tab-num">03</span> Audición</button>
+</nav>
+
+<main>
+<!-- VOCABULARIO PANEL -->
+<section class="panel active" id="panel-vocab">
+  <div class="pill-nav">
+    <button class="pill active" data-sub="antes">Antes de llegar</button>
+    <button class="pill" data-sub="llegar">Al llegar</button>
+    <button class="pill" data-sub="amenidades">Amenidades y al irse</button>
+  </div>
+
+  <div class="sub-panel active" id="sub-antes">
+    <div class="section-head"><h2>Vocabulario: antes de llegar</h2><span class="marker">18.1 · ¿Llamaste a la recepción?</span></div>
+    <p style="color:var(--ink-soft);margin-bottom:24px;max-width:640px">The official vocabulary for this module, as it appears in your Lumen Study Plan: everything that happens before you set foot in the hotel — making the reservation (<em>hacer la reserva</em>), choosing the room type, and packing your suitcase (<em>hacer la maleta</em>). Click each card to see the translation.</p>
+    <div class="card-grid" id="antesGrid"></div>
+  </div>
+
+  <div class="sub-panel" id="sub-llegar">
+    <div class="section-head"><h2>Vocabulario: al llegar</h2><span class="marker">18.1 · ¿Llamaste a la recepción?</span></div>
+    <p style="color:var(--ink-soft);margin-bottom:24px;max-width:640px">Once you're at the hotel: checking in (<em>registrarte</em>), bringing up the luggage, and everything you need to settle into your room.</p>
+    <div class="card-grid" id="llegarGrid"></div>
+  </div>
+
+  <div class="sub-panel" id="sub-amenidades">
+    <div class="section-head"><h2>Amenidades, servicios, y al irse</h2><span class="marker">18.1 · ¿Llamaste a la recepción?</span></div>
+    <p style="color:var(--ink-soft);margin-bottom:24px;max-width:640px">What the hotel offers during your stay — and what you need to know to pay the bill (<em>pagar la cuenta</em>) and check out at the end.</p>
+    <div class="card-grid" id="amenidadesGrid"></div>
+  </div>
+</section>
+
+<!-- GRAMÁTICA PANEL -->
+<section class="panel" id="panel-grammar">
+  <div class="pill-nav">
+    <button class="pill active" data-sub="objeto">Objeto indirecto</button>
+    <button class="pill" data-sub="combinados">¿Te lo compro?</button>
+    <button class="pill" data-sub="culture">Cultura</button>
+    <button class="pill" data-sub="practice">Práctica</button>
+  </div>
+
+  <!-- TOPIC 1: indirect object pronouns + gustar-type verbs -->
+  <div class="sub-panel active" id="sub-objeto">
+    <div class="grammar-block">
+      <h3>Le di las maletas a su hijo</h3>
+      <p class="lede">Ya sabes que el objeto directo es lo que recibe directamente la acción del verbo: <em>Compré un recuerdo en Cuernavaca</em> → <em>Lo compré en Cuernavaca</em>. Pero, ¿y si compré el recuerdo <strong>para alguien</strong>? Esa persona no es el objeto directo (¡no compré a una persona!), pero sí recibe el efecto indirecto de la acción. La persona o cosa para quien o a quien se hace algo es el <strong>objeto indirecto</strong> del verbo — muy común con verbos de dar o transferir algo, y con verbos de comunicación.</p>
+      <div class="conj-table">
+        <table>
+          <tr><th>Persona</th><th>Pronombre</th></tr>
+          <tr><td>1.ª singular</td><td>me</td></tr>
+          <tr><td>2.ª singular</td><td>te</td></tr>
+          <tr><td>3.ª singular</td><td>le</td></tr>
+          <tr><td>1.ª plural</td><td>nos</td></tr>
+          <tr><td>2.ª plural (España)</td><td>os</td></tr>
+          <tr><td>3.ª plural</td><td>les</td></tr>
+        </table>
+      </div>
+      <p class="lede" style="margin-bottom:12px">El pronombre de objeto indirecto sigue las mismas reglas de colocación que ya conoces: normalmente va justo delante del verbo conjugado, aunque también puede pegarse al final de un infinitivo o gerundio.</p>
+      <ul style="margin:0 0 16px 20px;color:var(--ink-soft);font-size:15px;line-height:1.8">
+        <li><em>Te</em> dije la fecha y la hora de mi vuelo.</li>
+        <li>El recepcionista <em>les</em> dijo la contraseña del wifi a los turistas.</li>
+        <li>El conserje va a pedir<em>le</em> un taxi para la señora.</li>
+      </ul>
+      <p class="lede" style="margin-bottom:0">Fíjate: el pronombre aparece incluso cuando el objeto indirecto también está presente como frase preposicional (<em>a los turistas</em>, <em>para la señora</em>) — en español el pronombre es obligatorio, y la frase con "a" o "para" solo sirve para aclarar.</p>
+      <div class="tip-block"><strong>"Gustar" y verbos parecidos:</strong> ¿Reconociste estos pronombres? Los aprendiste con <em>gustar</em>. Recuerda que <em>Me gusta</em> no significa "I like it" sino "It pleases me" — <em>me</em> es el objeto indirecto y lo que da placer es el objeto directo tácito. Hay varios verbos como <em>gustar</em> que usan el objeto indirecto para expresar a quién afecta un estado emocional, físico o situacional:</div>
+      <div class="pronoun-grid" style="margin-top:16px">
+        <div class="pronoun-row"><strong>doler</strong> <span class="gloss">to be painful to someone, to hurt</span></div>
+        <div class="pronoun-row"><strong>encantar</strong> <span class="gloss">to be enchanting to someone, to love/adore</span></div>
+        <div class="pronoun-row"><strong>faltar</strong> <span class="gloss">to be lacking or missing from someone, to need</span></div>
+        <div class="pronoun-row"><strong>gustar</strong> <span class="gloss">to be pleasing to someone, to like</span></div>
+        <div class="pronoun-row"><strong>importar</strong> <span class="gloss">to be important to someone, to care about</span></div>
+        <div class="pronoun-row"><strong>molestar</strong> <span class="gloss">to be irritating to someone, to bother</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPIC 2: combined direct + indirect object pronouns -->
+  <div class="sub-panel" id="sub-combinados">
+    <div class="grammar-block">
+      <h3>¿Te lo compro?</h3>
+      <p class="lede">Ya sabes usar los objetos directos e indirectos por separado — <em>Le compré unos recuerdos a mi papá</em>, o <em>Te mandé una tarjeta postal. ¿La recibiste?</em> Ahora los vamos a combinar en la misma oración.</p>
+      <div class="tip-block" style="margin-top:0;margin-bottom:20px"><strong>Orden fijo:</strong> (Sujeto) + (no) + objeto indirecto + objeto directo + verbo. Los dos pronombres siempre van juntos, en ese orden — el indirecto primero.</div>
+      <ul style="margin:0 0 20px 20px;color:var(--ink-soft);font-size:15px;line-height:1.8">
+        <li>¿Los pasajes de avión? <em>Nos los</em> mandaron por correo electrónico.</li>
+        <li>¿Tu pasaporte? ¿No <em>te lo</em> devolví?</li>
+        <li>Mamá imprimió mi tarjeta de embarcación y va a dár<em>mela</em> al entrar en el puesto de seguridad.</li>
+      </ul>
+      <p class="lede" style="margin-bottom:12px">Cuando los dos pronombres de tercera persona se juntan (por ejemplo, "dárselo a ellos" o "recibirlo de ella"), tanto el objeto indirecto como el directo empiezan con "L" — <em>le/les</em> + <em>lo/la/los/las</em>. Por razones puramente fonéticas (¡y no para confundirlo con el reflexivo!), el objeto indirecto cambia a <strong>se</strong>.</p>
+      <ul style="margin:0 0 16px 20px;color:var(--ink-soft);font-size:15px;line-height:1.8">
+        <li>¿Los pasajes de avión para usted? <span class="stem-change">Se</span> los puse en este sobre. <em>(no "le los")</em></li>
+        <li>Tu papá sabe todo sobre el vuelo, <span class="stem-change">se</span> lo dije ayer.</li>
+        <li>Aquí está tu visa para los oficiales de inmigración; necesitas presentár<span class="stem-change">se</span>la ahora.</li>
+      </ul>
+      <div class="tip-block"><strong>Cuando "se" es ambiguo:</strong> si no está claro a quién se refiere <em>se</em>, aclara con una frase preposicional. <em>Compré regalos para mi mamá y mi papá; se los di a ella para su cumpleaños y se los di a él para el Día del Padre.</em></div>
+    </div>
+  </div>
+
+  <!-- CULTURE -->
+  <div class="sub-panel" id="sub-culture">
+    <div class="culture-block">
+      <span class="culture-tag">Cultura</span>
+      <h3>Las maravillas del mundo suramericano</h3>
+      <p>Este es uno de los pocos módulos de este curso con un punto cultural oficial en el Study Plan de Lumen: la historia de Mike, un estadounidense, y Ximena, una argentina, que se conocieron en 2018 trabajando como guías de ecoturismo en Buenos Aires. Ambos crecieron en familias de ambientalistas, investigadores y fotógrafos que les enseñaron a amar las bellezas naturales — a Mike eso le inspiró a estudiar español con el sueño de algún día cruzar los Andes.</p>
+      <p>Su primer viaje juntos fue a <strong>las cataratas del Iguazú</strong>, en la frontera entre Argentina y Brasil. Más tarde, en <strong>Punta del Este, Uruguay</strong>, Mike le propuso matrimonio a Ximena — y la invitó a un viaje hacia el norte, atravesando el continente. Entraron a Bolivia para ver el <strong>Salar de Uyuni</strong>, viajando en carro, autobús, bicicleta y hasta burro. De ahí su meta era <strong>Machu Picchu</strong>, en Perú, pero volaron primero a <strong>Quito, Ecuador</strong>, para avanzar más rápido — y desde allí no pudieron seguir sin conocer las <strong>Islas Galápagos</strong>, adonde llegaron en un barco pequeño y exploraron a pie y a caballo.</p>
+      <p>Siguieron por <strong>la selva y el río Amazonas</strong> — que comparten Colombia, Perú, Brasil y Venezuela — hasta llegar a <strong>Cartagena, Colombia</strong>, donde se quedaron un tiempo trabajando otra vez como guías turísticos, incluyendo excursiones al <strong>Parque Tayrona</strong> y a la <strong>Ciudad Perdida</strong>, en la Sierra Nevada. Terminaron su viaje en <strong>el Canal de Panamá</strong> antes de volar a Denver, Colorado — el hogar de la familia de Mike.</p>
+      <p>El viaje resultó "mucho más largo y agotador" de lo que esperaban, y se quedaron en hostales, hoteles y hasta en casas de familia por el camino — el vocabulario exacto de este módulo. Ximena, criada en Buenos Aires como hija única de escaladores, artistas y fotógrafos, ya conocía de niña otras maravillas suramericanas: <strong>Ushuaia</strong> y la <strong>Tierra del Fuego</strong> en la Patagonia, los <strong>glaciares argentinos</strong>, <strong>las Torres del Paine</strong> y el <strong>desierto de Atacama</strong> en Chile, y hasta subió las faldas del <strong>Aconcagua</strong> con su padre sin llegar a la cumbre.</p>
+    </div>
+  </div>
+
+  <!-- PRACTICE -->
+  <div class="sub-panel" id="sub-practice">
+    <div class="section-head"><h2>Práctica rápida</h2><span class="marker">Quick check</span></div>
+    <p style="color:var(--ink-soft);margin-bottom:20px;max-width:640px">Eight questions — adapted directly from the official Lumen exercises — combining indirect object pronouns with combined direct and indirect object pronouns.</p>
+    <div class="practice-block" id="practiceBlock"></div>
+  </div>
+</section>
+
+<!-- AUDICIÓN PANEL -->
+<section class="panel" id="panel-listen">
+  <div class="listen-intro"><strong>How this works:</strong> Click Play to hear the sentence, then choose the correct answer. Exercise 1 practices hotel vocabulary; Exercise 2 focuses on indirect object pronouns (including verbs like <em>gustar</em>); Exercise 3 practices combined direct and indirect object pronouns.</div>
+  <div class="pill-nav">
+    <button class="pill active" data-sub="ear-hotel">1 · En el hotel</button>
+    <button class="pill" data-sub="ear-objeto">2 · ¿A quién?</button>
+    <button class="pill" data-sub="ear-compro">3 · ¿Te lo compro?</button>
+  </div>
+
+  <!-- EXERCISE 1 -->
+  <div class="sub-panel active" id="sub-ear-hotel">
+    <div class="listen-exercise" id="exHotel">
+      <div class="listen-head"><h3>Ejercicio 1 · En el hotel</h3><span class="listen-counter" id="hotelCounter">1 / 6</span></div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-bottom:18px">Listen to each sentence and choose the correct English translation.</p>
+      <div class="progress-bar"><div class="progress-fill" id="hotelProgress"></div></div>
+      <button class="play-btn" id="hotelPlay"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Play</button>
+      <div class="listen-options" id="hotelOptions"></div>
+      <div class="feedback" id="hotelFeedback"></div>
+      <button class="next-btn" id="hotelNext" disabled>Next →</button>
+      <div class="done-message" id="hotelDone"><h4>Excellent!</h4><div class="score" id="hotelScore"></div><p>You've mastered hotel and lodging vocabulary.</p><button class="next-btn" id="hotelReset">Start over</button></div>
+    </div>
+  </div>
+
+  <!-- EXERCISE 2 -->
+  <div class="sub-panel" id="sub-ear-objeto">
+    <div class="listen-exercise" id="exObjeto">
+      <div class="listen-head"><h3>Ejercicio 2 · ¿A quién?</h3><span class="listen-counter" id="objetoCounter">1 / 6</span></div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-bottom:18px">Listen to each sentence with an indirect object and choose the correct English paraphrase.</p>
+      <div class="progress-bar"><div class="progress-fill" id="objetoProgress"></div></div>
+      <button class="play-btn" id="objetoPlay"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Play</button>
+      <div class="listen-options" id="objetoOptions"></div>
+      <div class="feedback" id="objetoFeedback"></div>
+      <button class="next-btn" id="objetoNext" disabled>Next →</button>
+      <div class="done-message" id="objetoDone"><h4>Excellent!</h4><div class="score" id="objetoScore"></div><p>You can now recognize the indirect object and verbs like <em>gustar</em>.</p><button class="next-btn" id="objetoReset">Start over</button></div>
+    </div>
+  </div>
+
+  <!-- EXERCISE 3 -->
+  <div class="sub-panel" id="sub-ear-compro">
+    <div class="listen-exercise" id="exCompro">
+      <div class="listen-head"><h3>Ejercicio 3 · ¿Te lo compro?</h3><span class="listen-counter" id="comproCounter">1 / 6</span></div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-bottom:18px">Listen to each sentence with combined pronouns and choose the correct English paraphrase.</p>
+      <div class="progress-bar"><div class="progress-fill" id="comproProgress"></div></div>
+      <button class="play-btn" id="comproPlay"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Play</button>
+      <div class="listen-options" id="comproOptions"></div>
+      <div class="feedback" id="comproFeedback"></div>
+      <button class="next-btn" id="comproNext" disabled>Next →</button>
+      <div class="done-message" id="comproDone"><h4>Excellent!</h4><div class="score" id="comproScore"></div><p>You can now distinguish and order combined direct and indirect object pronouns.</p><button class="next-btn" id="comproReset">Start over</button></div>
+    </div>
+  </div>
+  <p class="voice-notice">ⓘ If you don't hear anything, try Chrome, Edge, or Safari — these usually include Spanish (español) voices built in.</p>
+</section>
+</main>
+
+<footer>
+  <div>SPAN 2010 · Módulo 2</div>
+  <div>Paul Rama, PhD · paulrama@weber.edu</div>
+</footer>
+</div>
+
+<script>
+// ===== Theme toggle =====
+const themeToggle = document.getElementById('themeToggle');
+const savedTheme = (() => { try { return localStorage.getItem('span2010-theme'); } catch { return null; } })();
+if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+themeToggle.addEventListener('click', () => {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  isDark ? document.documentElement.removeAttribute('data-theme') : document.documentElement.setAttribute('data-theme','dark');
+  try { localStorage.setItem('span2010-theme', isDark ? 'light' : 'dark'); } catch {}
+});
+
+// ===== Tab navigation =====
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === `panel-${btn.dataset.tab}`));
+    window.speechSynthesis && window.speechSynthesis.cancel();
+  });
+});
+document.querySelectorAll('.panel').forEach(panel => {
+  panel.querySelectorAll('.pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      panel.querySelectorAll('.pill').forEach(p => p.classList.toggle('active', p === pill));
+      panel.querySelectorAll('.sub-panel').forEach(sp => sp.classList.toggle('active', sp.id === `sub-${pill.dataset.sub}`));
+      window.speechSynthesis && window.speechSynthesis.cancel();
+    });
+  });
+});
+
+// ===== Flashcard builder =====
+function buildFlashcards(containerId, items) {
+  const grid = document.getElementById(containerId);
+  items.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'flashcard';
+    card.innerHTML = `<div class="flashcard-inner">
+      <div class="card-face card-front">
+        <div class="card-label">Español</div>
+        <div class="card-word"><em>${item.es}</em></div>
+        <div class="card-hint">click to flip</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="card-label">English</div>
+        <div class="card-word">${item.en}</div>
+        <div class="card-hint">${item.hint}</div>
+      </div>
+    </div>`;
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    grid.appendChild(card);
+  });
+}
+
+// ===== Vocabulary data (from the official Lumen Study Plan, PPT 18.1 ¿Llamaste a la recepción?) =====
+const antesItems = [
+  { es: 'hacer la reserva / reservación', en: 'to make the reservation', hint: '' },
+  { es: 'la habitación (sencilla / doble / triple)', en: 'the single / double / triple room', hint: '' },
+  { es: 'la duración de la estancia', en: 'the length of stay', hint: '' },
+  { es: 'el baño privado', en: 'private bathroom', hint: '' },
+  { es: 'la tarjeta de crédito', en: 'credit card', hint: '' },
+  { es: 'venir antes de la hora de entrada', en: 'to come before check-in time', hint: 'i.e. before the room is ready' },
+  { es: 'hacer la maleta', en: 'to pack a suitcase', hint: '' }
+];
+const llegarItems = [
+  { es: 'alojarse', en: 'to stay at a hotel', hint: '' },
+  { es: 'registrarse en el mostrador de recepción', en: 'to check in at the reception desk', hint: '' },
+  { es: 'la llave / tarjeta de acceso', en: 'key / key card', hint: '' },
+  { es: 'la contraseña del internet / wifi', en: 'wifi password', hint: '' },
+  { es: 'el botones', en: 'bellhop, bellboy', hint: '' },
+  { es: 'el huésped', en: 'guest', hint: '' },
+  { es: 'subir / bajar el equipaje', en: 'to bring the luggage upstairs / downstairs', hint: '' },
+  { es: 'el ascensor', en: 'elevator', hint: '' },
+  { es: 'las escaleras', en: 'stairs', hint: '' }
+];
+const amenidadesItems = [
+  { es: 'el servicio de habitación', en: 'room service', hint: '' },
+  { es: 'llamar a la recepción', en: 'to call the reception desk', hint: '' },
+  { es: 'el estacionamiento', en: 'parking', hint: '' },
+  { es: 'la piscina', en: 'pool', hint: '' },
+  { es: 'el conserje', en: 'concierge', hint: 'gives info on restaurants, activities, etc.' },
+  { es: 'la hora de salida', en: 'check-out time', hint: '' },
+  { es: 'pedir (e→i) un taxi', en: 'to call / ask for a taxi', hint: '' },
+  { es: 'pagar la cuenta', en: 'to pay the bill', hint: '' }
+];
+buildFlashcards('antesGrid', antesItems);
+buildFlashcards('llegarGrid', llegarItems);
+buildFlashcards('amenidadesGrid', amenidadesItems);
+
+// ===== Practice questions (8) — adapted from the official Lumen exercises for this module =====
+const practiceQuestions = [
+  { prompt: 'El huésped ___ (le/te) dio la tarjeta de crédito a la recepcionista del hotel.', options: ['le','te','les','nos'], correct: 0, explain: 'The indirect object is <em>a la recepcionista</em> (3rd person singular) → <strong>le</strong>.' },
+  { prompt: 'Los turistas ___ (les/nos) compraron recuerdos a sus familiares en la tienda del museo.', options: ['les','nos','le','me'], correct: 0, explain: 'The indirect object is <em>a sus familiares</em> (3rd person plural) → <strong>les</strong>.' },
+  { prompt: 'A mí, mis padres ___ (nos/me) trajeron un vestido precioso de Yucatán.', options: ['me','nos','te','le'], correct: 0, explain: '<em>A mí</em> = 1st person singular → <strong>me</strong>, not <em>nos</em>.' },
+  { prompt: 'El mes pasado, nosotros ___ (les/le) enviamos unas postales a nuestras tías en Maine.', options: ['les','le','nos','os'], correct: 0, explain: '<em>A nuestras tías</em> is plural → <strong>les</strong>, not <em>le</em>.' },
+  { prompt: 'A mí ___ dieron las direcciones equivocadas para llegar al jardín botánico.', options: ['me','les','le','las'], correct: 0, explain: '<em>A mí</em> requires the 1st person singular pronoun: <strong>me</strong>.' },
+  { prompt: 'El conserje del hotel ___ explicó a nosotros cómo llegar al centro de artesanías.', options: ['nos','lo','les','le'], correct: 0, explain: '<em>A nosotros</em> = 1st person plural → <strong>nos</strong>.' },
+  { prompt: 'Yo compré un recuerdo para mi abuelo. Yo ___ compré un recuerdo.', options: ['Se lo','Le lo','Lo lo','Le se'], correct: 0, explain: 'When the indirect object <em>le</em> combines with the direct object <em>lo</em>, <em>le</em> changes to <strong>se</strong>: <em>se lo compré</em>, never "le lo".' },
+  { prompt: 'La agente hace las reservaciones para nosotros. La agente ___ hace las reservaciones.', options: ['Nos las','Las nos','Se las','Nos se'], correct: 0, explain: 'Indirect object (<em>nos</em>) + direct object (<em>las</em>, for <em>las reservaciones</em>) in that order: <strong>nos las</strong>.' }
+];
+const practiceBlock = document.getElementById('practiceBlock');
+practiceBlock.innerHTML = practiceQuestions.map((q, qi) => `
+  <div class="practice-q">
+    <div class="practice-prompt">${q.prompt.replace('___','<span class="blank"></span>')}</div>
+    <div class="practice-options">${q.options.map((o,oi) => `<button class="opt-btn" data-q="${qi}" data-o="${oi}">${o}</button>`).join('')}</div>
+    <div class="feedback" id="practice-fb-${qi}"></div>
+  </div>`).join('');
+practiceBlock.addEventListener('click', e => {
+  if (!e.target.classList.contains('opt-btn')) return;
+  const qi = +e.target.dataset.q, oi = +e.target.dataset.o;
+  const q = practiceQuestions[qi];
+  const allBtns = practiceBlock.querySelectorAll(`.opt-btn[data-q="${qi}"]`);
+  allBtns.forEach(b => b.disabled = true);
+  allBtns[q.correct].classList.add('correct');
+  if (oi !== q.correct) e.target.classList.add('incorrect');
+  const fb = document.getElementById(`practice-fb-${qi}`);
+  fb.className = oi === q.correct ? 'feedback correct show' : 'feedback incorrect show';
+  fb.innerHTML = oi === q.correct ? `✓ ${q.explain}` : `The answer is <strong>${q.options[q.correct]}</strong>. ${q.explain}`;
+});
+
+// ===== TTS setup =====
+let spanishVoice = null;
+function pickSpanishVoice() {
+  const voices = window.speechSynthesis.getVoices();
+  for (const lang of ['es-MX','es-US','es-419','es-CO','es-AR','es-ES','es']) {
+    const v = voices.find(v => v.lang === lang || v.lang.toLowerCase().startsWith(lang.toLowerCase()));
+    if (v) return v;
+  }
+  return voices.find(v => v.lang.toLowerCase().startsWith('es')) || null;
+}
+if ('speechSynthesis' in window) {
+  spanishVoice = pickSpanishVoice();
+  window.speechSynthesis.onvoiceschanged = () => { spanishVoice = pickSpanishVoice(); };
+}
+function speak(text, btn) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'es-MX'; u.rate = 0.88; u.pitch = 1;
+  if (spanishVoice) u.voice = spanishVoice;
+  if (btn) { btn.classList.add('speaking'); u.onend = u.onerror = () => btn.classList.remove('speaking'); }
+  window.speechSynthesis.speak(u);
+}
+
+// ===== buildExercise factory =====
+function buildExercise(config) {
+  let idx = 0, score = 0, answered = false;
+  const playBtn    = document.getElementById(config.playId);
+  const optionsEl  = document.getElementById(config.optionsId);
+  const feedbackEl = document.getElementById(config.feedbackId);
+  const nextBtn    = document.getElementById(config.nextId);
+  const counterEl  = document.getElementById(config.counterId);
+  const progressEl = document.getElementById(config.progressId);
+  const doneEl     = document.getElementById(config.doneId);
+  const scoreEl    = document.getElementById(config.scoreId);
+  const resetBtn   = document.getElementById(config.resetId);
+  const root       = playBtn.closest('.listen-exercise');
+  function render() {
+    const q = config.questions[idx];
+    counterEl.textContent = `${idx + 1} / ${config.questions.length}`;
+    progressEl.style.width = `${(idx / config.questions.length) * 100}%`;
+    feedbackEl.classList.remove('show','correct','incorrect');
+    nextBtn.disabled = true; answered = false;
+    optionsEl.innerHTML = '';
+    q.options.forEach((opt, i) => {
+      const b = document.createElement('button');
+      b.className = 'listen-opt'; b.textContent = opt;
+      b.addEventListener('click', () => handleAnswer(i, b));
+      optionsEl.appendChild(b);
+    });
+    setTimeout(() => speak(config.getAudio(q), playBtn), 250);
+  }
+  function handleAnswer(selected, btn) {
+    if (answered) return;
+    answered = true;
+    const q = config.questions[idx];
+    const allBtns = optionsEl.querySelectorAll('.listen-opt');
+    allBtns.forEach(b => b.disabled = true);
+    const ci = config.getCorrectIndex(q);
+    allBtns[ci].classList.add('correct');
+    if (selected === ci) { score++; btn.classList.add('correct'); feedbackEl.className = 'feedback correct show'; feedbackEl.innerHTML = `✓ Correct! ${q.hint||''}`; }
+    else { btn.classList.add('incorrect'); feedbackEl.className = 'feedback incorrect show'; feedbackEl.innerHTML = `The answer is <strong>${q.options[ci]}</strong>. ${q.hint||''}`; }
+    nextBtn.disabled = false;
+  }
+  playBtn.addEventListener('click', () => speak(config.getAudio(config.questions[idx]), playBtn));
+  nextBtn.addEventListener('click', () => { idx++; idx >= config.questions.length ? finish() : render(); });
+  function finish() {
+    progressEl.style.width = '100%';
+    root.querySelectorAll('.listen-head,.progress-bar,.play-btn,.listen-options,.feedback,.next-btn').forEach(el => el.style.display='none');
+    doneEl.classList.add('show');
+    scoreEl.textContent = `${score} / ${config.questions.length}`;
+  }
+  resetBtn.addEventListener('click', () => {
+    idx = 0; score = 0; answered = false;
+    doneEl.classList.remove('show');
+    root.querySelectorAll('.listen-head,.progress-bar,.play-btn,.listen-options,.feedback,.next-btn').forEach(el => el.style.display='');
+    feedbackEl.style.display='none'; nextBtn.style.display='';
+    render();
+  });
+  render();
+}
+
+// ===== Listening data =====
+const hotelQuestions = [
+  { audio: 'Voy a alojarme en un hotel cerca de la playa.', options: ["I'm going to stay at a hotel near the beach.","I'm going to reserve a room near the beach.","I'm going to work at a hotel near the beach.","I'm going to visit a hotel near the beach."], correct: 0, hint: '<em>Alojarse</em> = to stay at a hotel.' },
+  { audio: 'El botones subió mi equipaje al tercer piso.', options: ['The bellhop brought my luggage up to the third floor.','The guest carried his own luggage up.','The concierge called a taxi to the airport.','The receptionist checked me in on the third floor.'], correct: 0, hint: '<em>El botones</em> = the bellhop; <em>subir el equipaje</em> = to bring the luggage up.' },
+  { audio: 'Necesito la contraseña del wifi para conectar mi teléfono.', options: ['I need the wifi password to connect my phone.','I need the key card to open my room.','I need to pay the bill before leaving.','I need a taxi to go to the airport.'], correct: 0, hint: '<em>La contraseña del wifi</em> = the wifi password.' },
+  { audio: '¿A qué hora es la hora de salida del hotel?', options: ['What time is the check-out time?','What time is the check-in time?','What time does the pool open?','What time does room service arrive?'], correct: 0, hint: '<em>La hora de salida</em> = check-out time.' },
+  { audio: 'El conserje nos recomendó un restaurante muy bueno cerca del hotel.', options: ['The concierge recommended a good restaurant near the hotel.','The bellhop carried our bags to a restaurant.','The receptionist called a taxi to a restaurant.','The guest asked for room service.'], correct: 0, hint: '<em>El conserje</em> = the concierge, who gives recommendations.' },
+  { audio: 'Preferimos una habitación doble con baño privado.', options: ['We prefer a double room with a private bathroom.','We prefer a single room with a shared bathroom.','We prefer a triple room with a pool view.','We prefer to pay with a credit card.'], correct: 0, hint: '<em>La habitación doble</em> = double room; <em>el baño privado</em> = private bathroom.' }
+];
+const objetoQuestions = [
+  { audio: 'El recepcionista le explicó las reglas del hotel al huésped.', options: ['The receptionist explained the rules to the guest.','The receptionist explained the rules to himself.','The guest explained the rules to the receptionist.','The bellhop explained the rules to the guest.'], correct: 0, hint: '<em>Le</em> refers to <em>al huésped</em> (the guest) — the indirect object of <em>explicar</em>.' },
+  { audio: 'A mí me encanta este hotel boutique.', options: ['I love this boutique hotel.','I hate this boutique hotel.','He loves this boutique hotel.','We love this boutique hotel.'], correct: 0, hint: '<em>Encantar</em> works like <em>gustar</em>: <em>me</em> = to me.' },
+  { audio: 'A los turistas les falta tiempo para ver todo el pueblo.', options: ['The tourists are lacking time to see the whole town.','The tourists have plenty of time.','The guide is lacking time.','The tourists forgot their luggage.'], correct: 0, hint: '<em>Faltar</em> = to be lacking to someone; <em>les</em> = to the tourists.' },
+  { audio: '¿Te molesta el ruido de la piscina?', options: ['Does the pool noise bother you?','Do you like the pool noise?','Does the pool noise bother them?','Are you bothered by the elevator?'], correct: 0, hint: '<em>Molestar</em> + <em>te</em> = to bother you.' },
+  { audio: 'Al conserje le importa mucho la satisfacción de los huéspedes.', options: ['Guest satisfaction matters a lot to the concierge.','The concierge doesn’t care about guest satisfaction.','Guest satisfaction matters to the bellhop.','The guests care about the concierge.'], correct: 0, hint: '<em>Importarle a alguien</em> = to matter to someone; <em>le</em> = to the concierge.' },
+  { audio: 'Nos dolió pagar tanto por una habitación tan pequeña.', options: ['It pained us to pay so much for such a small room.','It pleased us to pay so much.','It surprised the receptionist.','It bothered the bellhop.'], correct: 0, hint: '<em>Doler</em> + <em>nos</em> = it pained/hurt us.' }
+];
+const comproQuestions = [
+  { audio: '¿El pasaporte? Ya te lo di ayer.', options: ['I already gave it to you yesterday.','I already gave it to him yesterday.','You already gave it to me yesterday.','They already gave it to us yesterday.'], correct: 0, hint: '<em>Te lo</em> = to you, it (el pasaporte).' },
+  { audio: '¿Los boletos? Se los mandamos por correo electrónico.', options: ['We sent them to him/her/them by email.','We sent them to you by email.','We sent them to ourselves by email.','You sent them to us by email.'], correct: 0, hint: '<em>Se los</em> replaces <em>le/les los</em> — to him, her, or them.' },
+  { audio: '¿La llave de la habitación? El botones nos la trajo enseguida.', options: ['The bellhop brought it to us right away.','The bellhop brought it to himself.','We brought it to the bellhop.','The guest brought it to the bellhop.'], correct: 0, hint: '<em>Nos la</em> = to us, it (la llave).' },
+  { audio: '¿Mi maleta? El conserje va a subírmela.', options: ['The concierge is going to bring it up to me.','The concierge is going to bring it up to himself.','I am going to bring it up to the concierge.','The bellhop is going to bring it up to them.'], correct: 0, hint: '<em>Subírmela</em> = subir + me + la, attached to the infinitive.' },
+  { audio: '¿Las toallas? Se las pedí a la recepcionista.', options: ['I asked her for them.','She asked me for them.','I asked them for her.','They asked me for them.'], correct: 0, hint: '<em>Se las</em> = to her, the towels (<em>las toallas</em>) — <em>se</em> replaces <em>le</em> before <em>las</em>.' },
+  { audio: '¿El recibo? Aquí está, te lo doy ahora mismo.', options: ['Here it is, I’m giving it to you right now.','Here it is, I’m giving it to him right now.','Here it is, you’re giving it to me right now.','Here it is, we’re giving it to them right now.'], correct: 0, hint: '<em>Te lo doy</em> = I give it to you.' }
+];
+
+buildExercise({ questions: hotelQuestions, playId:'hotelPlay', optionsId:'hotelOptions', feedbackId:'hotelFeedback', nextId:'hotelNext', counterId:'hotelCounter', progressId:'hotelProgress', doneId:'hotelDone', scoreId:'hotelScore', resetId:'hotelReset', getAudio: q => q.audio, getCorrectIndex: q => q.correct });
+buildExercise({ questions: objetoQuestions, playId:'objetoPlay', optionsId:'objetoOptions', feedbackId:'objetoFeedback', nextId:'objetoNext', counterId:'objetoCounter', progressId:'objetoProgress', doneId:'objetoDone', scoreId:'objetoScore', resetId:'objetoReset', getAudio: q => q.audio, getCorrectIndex: q => q.correct });
+buildExercise({ questions: comproQuestions, playId:'comproPlay', optionsId:'comproOptions', feedbackId:'comproFeedback', nextId:'comproNext', counterId:'comproCounter', progressId:'comproProgress', doneId:'comproDone', scoreId:'comproScore', resetId:'comproReset', getAudio: q => q.audio, getCorrectIndex: q => q.correct });
+</script>
+</body>
+</html>
