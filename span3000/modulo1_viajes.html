@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 1 — De viaje · SPAN 3000</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400;9..144,500;9..144,700;9..144,900&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F4EEE2; --bg-elevated: #FBF6EB;
+    --ink: #1F1A14; --ink-soft: #4F443A; --ink-faint: #8A7E70;
+    --accent: #B84A1F; --accent-soft: #EBC7B0; --accent-pale: #F5DDC9;
+    --secondary: #2A4D5E; --wsu: #492365;
+    --line: #1F1A14; --line-soft: #D8CFBC;
+    --correct: #2D6A4F; --incorrect: #B84A1F;
+    --shadow-paper: 0 1px 0 #D8CFBC, 0 8px 24px -12px rgba(31,26,20,0.15);
+    --shadow-lift: 0 2px 0 #1F1A14, 0 10px 30px -8px rgba(31,26,20,0.25);
+  }
+  [data-theme="dark"] {
+    --bg: #16120F; --bg-elevated: #1F1A16;
+    --ink: #F0E8D8; --ink-soft: #B5AB9A; --ink-faint: #7A7163;
+    --accent: #E07856; --accent-soft: #6B3525; --accent-pale: #3D2017;
+    --secondary: #6BA2B5; --wsu: #B292C9;
+    --line: #F0E8D8; --line-soft: #3A312A;
+    --correct: #6BB48E; --incorrect: #E07856;
+    --shadow-paper: 0 1px 0 #3A312A, 0 8px 24px -12px rgba(0,0,0,0.4);
+    --shadow-lift: 0 2px 0 #F0E8D8, 0 10px 30px -8px rgba(0,0,0,0.5);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--ink); font-family: 'Manrope', system-ui, sans-serif; font-size: 16px; line-height: 1.6; min-height: 100vh; transition: background-color 0.3s ease, color 0.3s ease; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.4; background-image: radial-gradient(circle at 20% 30%, var(--line-soft) 0.5px, transparent 0.5px), radial-gradient(circle at 80% 70%, var(--line-soft) 0.5px, transparent 0.5px); background-size: 40px 40px, 60px 60px; }
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 clamp(16px,4vw,48px); position: relative; z-index: 1; }
+  header { padding: 32px 0 24px; border-bottom: 1px solid var(--line-soft); }
+  .header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand-mark { width: 44px; height: 44px; border-radius: 50%; background: var(--wsu); color: #FBF6EB; display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-weight: 900; font-size: 18px; font-variation-settings: "SOFT" 50; flex-shrink: 0; }
+  .brand-text { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-soft); line-height: 1.4; }
+  .brand-text strong { color: var(--ink); font-weight: 500; }
+  .theme-toggle { background: var(--bg-elevated); border: 1.5px solid var(--line); color: var(--ink); width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease, background 0.2s ease; flex-shrink: 0; }
+  .theme-toggle:hover { transform: rotate(15deg) scale(1.05); background: var(--accent-pale); }
+  .theme-toggle svg { width: 20px; height: 20px; }
+  .theme-toggle .sun { display: none; } .theme-toggle .moon { display: block; }
+  [data-theme="dark"] .theme-toggle .sun { display: block; } [data-theme="dark"] .theme-toggle .moon { display: none; }
+  .title-block { padding: 36px 0 28px; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+  .eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--line-soft); max-width: 120px; }
+  h1.module-title { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 144, "SOFT" 30; font-size: clamp(40px,7vw,84px); line-height: 0.95; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 18px; }
+  h1.module-title em { font-style: italic; font-weight: 400; color: var(--accent); font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; }
+  .module-subtitle { font-size: 17px; color: var(--ink-soft); max-width: 640px; line-height: 1.5; }
+  .tabs { display: flex; margin: 32px 0 8px; border-bottom: 2px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn { background: none; border: none; color: var(--ink-soft); font-family: 'Fraunces', serif; font-weight: 500; font-size: 19px; font-variation-settings: "opsz" 24, "SOFT" 20; padding: 14px 24px; cursor: pointer; position: relative; transition: color 0.2s ease; white-space: nowrap; display: flex; align-items: center; gap: 10px; }
+  .tab-btn .tab-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); font-weight: 400; }
+  .tab-btn:hover { color: var(--ink); } .tab-btn.active { color: var(--ink); }
+  .tab-btn.active .tab-num { color: var(--accent); }
+  .tab-btn.active::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 4px; background: var(--accent); }
+  main { padding: 40px 0 80px; }
+  .panel { display: none; animation: fadeIn 0.4s ease; } .panel.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+  .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px dashed var(--line-soft); }
+  .section-head h2 { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 72, "SOFT" 40; font-size: clamp(28px,4vw,40px); letter-spacing: -0.01em; line-height: 1.1; }
+  .section-head .marker { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
+  .pill-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .pill { background: var(--bg-elevated); border: 1.5px solid var(--line-soft); color: var(--ink-soft); padding: 8px 18px; border-radius: 24px; font-family: 'Manrope', sans-serif; font-weight: 500; font-size: 14px; cursor: pointer; transition: all 0.2s ease; }
+  .pill:hover { border-color: var(--line); color: var(--ink); } .pill.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .sub-panel { display: none; } .sub-panel.active { display: block; animation: fadeIn 0.3s ease; }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: 14px; }
+  .flashcard { aspect-ratio: 4/3; perspective: 1000px; cursor: pointer; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); transform-style: preserve-3d; }
+  .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+  .card-face { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; border: 1.5px solid var(--line); box-shadow: var(--shadow-paper); }
+  .card-front { background: var(--bg-elevated); }
+  .card-back { background: var(--ink); color: var(--bg); transform: rotateY(180deg); border-color: var(--ink); }
+  .card-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-faint); }
+  .card-back .card-label { opacity: 0.7; }
+  .card-word { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 72, "SOFT" 50; font-size: 22px; line-height: 1.05; letter-spacing: -0.01em; }
+  .card-word em { font-style: italic; color: var(--accent); font-variation-settings: "opsz" 72, "SOFT" 100, "WONK" 1; }
+  .card-back .card-word em { color: var(--accent-soft); }
+  .card-hint { font-size: 11px; color: var(--ink-faint); font-style: italic; }
+  .card-back .card-hint { color: var(--accent-soft); }
+  .expr-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(240px,1fr)); gap: 12px; }
+  .expr-card { background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px; padding: 14px 18px; transition: transform 0.15s ease; }
+  .expr-card:hover { transform: translate(-1px,-1px); box-shadow: var(--shadow-lift); }
+  .expr-es { font-family: 'Fraunces', serif; font-weight: 500; font-style: italic; font-size: 18px; color: var(--ink); margin-bottom: 4px; }
+  .expr-en { color: var(--ink-soft); font-size: 13px; }
+  .grammar-block { background: var(--bg-elevated); border: 1.5px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 28px; box-shadow: var(--shadow-paper); }
+  .grammar-block h3 { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 48, "SOFT" 30; font-size: 26px; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .grammar-block .lede { color: var(--ink-soft); font-size: 15px; margin-bottom: 20px; max-width: 640px; }
+  .pronoun-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .pronoun-row { display: grid; grid-template-columns: 170px 1fr; gap: 12px; padding: 10px 14px; border-radius: 8px; background: var(--bg); border: 1px solid var(--line-soft); align-items: center; }
+  .pronoun-row strong { font-family: 'Fraunces', serif; font-weight: 500; font-style: italic; color: var(--accent); font-size: 16px; }
+  .pronoun-row .gloss { color: var(--ink-soft); font-size: 13px; }
+  .conj-table { background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
+  .conj-table table { width: 100%; border-collapse: collapse; }
+  .conj-table th { background: var(--ink); color: var(--bg); text-align: left; padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+  .conj-table td { padding: 13px 16px; border-top: 1px solid var(--line-soft); font-size: 16px; vertical-align: middle; }
+  .conj-table td:first-child { color: var(--ink-soft); font-style: italic; width: 30%; font-family: 'Fraunces', serif; }
+  .conj-table td:nth-child(2) { font-family: 'Fraunces', serif; font-weight: 500; font-size: 18px; }
+  .stem-change { color: var(--accent); font-weight: 700; }
+  .conj-table td:last-child { color: var(--ink-faint); font-size: 13px; font-style: italic; }
+  .conj-split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .conj-split-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); margin-bottom: 8px; }
+  .culture-block { background: var(--bg-elevated); border: 1.5px solid var(--secondary); border-radius: 14px; padding: 24px; margin-bottom: 28px; position: relative; }
+  .culture-tag { position: absolute; top: -10px; left: 20px; background: var(--secondary); color: #FBF6EB; padding: 3px 10px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .culture-block h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 22px; margin-bottom: 10px; margin-top: 4px; }
+  .culture-block p { color: var(--ink-soft); font-size: 14px; line-height: 1.6; }
+  .culture-block p + p { margin-top: 10px; }
+  .tip-block { background: var(--accent-pale); border: 1.5px solid var(--accent); border-radius: 10px; padding: 16px 20px; margin-top: 20px; font-size: 14px; color: var(--ink-soft); }
+  .tip-block strong { color: var(--ink); }
+  .practice-block { background: var(--accent-pale); border: 1.5px solid var(--accent); border-radius: 14px; padding: 24px; margin-top: 24px; }
+  .practice-q { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px dashed var(--line-soft); }
+  .practice-q:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .practice-prompt { font-size: 16px; margin-bottom: 12px; font-family: 'Fraunces', serif; font-style: italic; }
+  .practice-prompt .blank { display: inline-block; min-width: 100px; border-bottom: 2px solid var(--accent); margin: 0 4px; }
+  .practice-options { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt-btn { background: var(--bg-elevated); border: 1.5px solid var(--line); color: var(--ink); padding: 8px 16px; border-radius: 8px; font-family: 'Fraunces', serif; font-style: italic; font-size: 15px; cursor: pointer; transition: all 0.15s ease; }
+  .opt-btn:hover { background: var(--ink); color: var(--bg); }
+  .opt-btn.correct { background: var(--correct); color: #FBF6EB; border-color: var(--correct); }
+  .opt-btn.incorrect { background: var(--incorrect); color: #FBF6EB; border-color: var(--incorrect); opacity: 0.7; }
+  .opt-btn:disabled { cursor: default; }
+  .opt-btn:disabled:hover { background: var(--bg-elevated); color: var(--ink); }
+  .opt-btn.correct:disabled, .opt-btn.correct:disabled:hover { background: var(--correct); color: #FBF6EB; }
+  .opt-btn.incorrect:disabled, .opt-btn.incorrect:disabled:hover { background: var(--incorrect); color: #FBF6EB; }
+  .listen-intro { background: var(--bg-elevated); border-left: 3px solid var(--secondary); padding: 18px 22px; border-radius: 4px; margin-bottom: 28px; font-size: 14px; color: var(--ink-soft); }
+  .listen-intro strong { color: var(--ink); }
+  .listen-exercise { background: var(--bg-elevated); border: 1.5px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 24px; box-shadow: var(--shadow-paper); }
+  .listen-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+  .listen-head h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 22px; font-variation-settings: "opsz" 36, "SOFT" 40; }
+  .listen-counter { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-faint); background: var(--bg); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line-soft); white-space: nowrap; }
+  .play-btn { background: var(--accent); color: #FBF6EB; border: 1.5px solid var(--accent); border-radius: 12px; padding: 14px 24px; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 15px; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: transform 0.15s ease, background 0.15s ease; margin-bottom: 18px; }
+  .play-btn:hover { transform: translate(-1px,-1px); box-shadow: 0 2px 0 var(--ink); }
+  .play-btn:active { transform: translate(1px,1px); box-shadow: none; }
+  .play-btn.speaking { background: var(--secondary); border-color: var(--secondary); }
+  .play-btn svg { width: 16px; height: 16px; }
+  .listen-options { display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: 10px; margin-bottom: 16px; }
+  .listen-options.cols-2 { grid-template-columns: repeat(2,1fr); max-width: 700px; }
+  .listen-opt { background: var(--bg); border: 1.5px solid var(--line); color: var(--ink); padding: 14px 16px; border-radius: 10px; font-family: 'Fraunces', serif; font-style: italic; font-size: 15px; cursor: pointer; transition: all 0.15s ease; text-align: center; }
+  .listen-opt:hover { background: var(--ink); color: var(--bg); transform: translate(-1px,-1px); }
+  .listen-opt.correct { background: var(--correct); color: #FBF6EB; border-color: var(--correct); }
+  .listen-opt.incorrect { background: var(--incorrect); color: #FBF6EB; border-color: var(--incorrect); opacity: 0.6; }
+  .listen-opt:disabled { cursor: default; }
+  .listen-opt:disabled:hover { transform: none; }
+  .listen-opt:disabled:hover:not(.correct):not(.incorrect) { background: var(--bg); color: var(--ink); }
+  .feedback { font-family: 'Fraunces', serif; font-style: italic; font-size: 16px; padding: 14px 18px; border-radius: 8px; margin-top: 12px; display: none; }
+  .feedback.show { display: block; animation: fadeIn 0.3s ease; }
+  .feedback.correct { background: rgba(45,106,79,0.1); color: var(--correct); border-left: 3px solid var(--correct); }
+  .feedback.incorrect { background: var(--accent-pale); color: var(--accent); border-left: 3px solid var(--accent); }
+  .feedback strong { font-weight: 700; font-style: normal; }
+  .next-btn { background: var(--ink); color: var(--bg); border: 1.5px solid var(--ink); border-radius: 10px; padding: 12px 22px; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; margin-top: 12px; transition: transform 0.15s ease; }
+  .next-btn:hover { transform: translate(-1px,-1px); box-shadow: 0 2px 0 var(--accent); }
+  .next-btn:disabled { opacity: 0.4; cursor: default; }
+  .progress-bar { height: 4px; background: var(--line-soft); border-radius: 2px; overflow: hidden; margin-bottom: 20px; }
+  .progress-fill { height: 100%; background: var(--accent); transition: width 0.4s ease; width: 0%; }
+  .done-message { text-align: center; padding: 32px 20px; background: var(--accent-pale); border-radius: 12px; border: 1.5px solid var(--accent); display: none; }
+  .done-message.show { display: block; animation: fadeIn 0.4s ease; }
+  .done-message h4 { font-family: 'Fraunces', serif; font-style: italic; font-size: 28px; color: var(--accent); margin-bottom: 8px; }
+  .done-message p { color: var(--ink-soft); margin-bottom: 16px; }
+  .done-message .score { font-family: 'Fraunces', serif; font-weight: 700; font-size: 22px; color: var(--ink); margin-bottom: 16px; }
+  .voice-notice { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); margin-top: 16px; font-style: italic; }
+  footer { border-top: 1px solid var(--line-soft); padding: 24px 0; color: var(--ink-faint); font-size: 13px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.08em; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  @media (max-width: 720px) {
+    .pronoun-grid { grid-template-columns: 1fr; }
+    .pronoun-row { grid-template-columns: 130px 1fr; }
+    .conj-split { grid-template-columns: 1fr; }
+    .grammar-block { padding: 20px; }
+    .listen-exercise { padding: 20px; }
+    .tab-btn { padding: 12px 14px; font-size: 17px; }
+    .tab-btn .tab-num { display: none; }
+    .listen-options.cols-2 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="header-row">
+    <div class="brand">
+      <div class="brand-mark">W</div>
+      <div class="brand-text"><strong>SPAN 3000</strong> · Conversational Spanish<br>Weber State University</div>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+  </div>
+  <div class="title-block">
+    <div class="eyebrow">Módulo 1 · Module One</div>
+    <h1 class="module-title">De <em>viaje</em></h1>
+    <p class="module-subtitle">Contamos lo que hicimos este verano y planeamos adónde vamos después. Repasamos el pretérito y el imperfecto, ser y estar, los pronombres de objeto, y damos el primer paso hacia el subjuntivo — todo a través del viaje.</p>
+    <p style="margin-top:18px;font-family:'Fraunces',serif;font-style:italic;font-size:19px;color:var(--accent);max-width:640px">¿Dónde está mi español hoy, y adónde quiero llevarlo este semestre?</p>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab-btn active" data-tab="vocab" role="tab"><span class="tab-num">01</span> Vocabulario</button>
+  <button class="tab-btn" data-tab="grammar" role="tab"><span class="tab-num">02</span> Gramática</button>
+  <button class="tab-btn" data-tab="listen" role="tab"><span class="tab-num">03</span> Audición</button>
+</nav>
+
+<main>
+<section class="panel active" id="panel-vocab">
+  <div class="pill-nav">
+    <button class="pill active" data-sub="viaje">El viaje</button>
+    <button class="pill" data-sub="modismos">Modismos</button>
+    <button class="pill" data-sub="contar">Contar y reaccionar</button>
+  </div>
+
+  <div class="sub-panel active" id="sub-viaje">
+    <div class="section-head"><h2>El viaje: de la maleta al regreso</h2><span class="marker">Practical travel language</span></div>
+    <p style="color:var(--ink-soft);margin-bottom:24px;max-width:660px">Vocabulario práctico del viaje a nivel de tercer año — no "el aeropuerto" y "el hotel", sino las palabras que de verdad necesitas para contar un viaje: <em>la escala</em>, <em>el imprevisto</em>, <em>recorrer</em>, <em>alojarse</em>. Mucho de esto ya lo reconoces; el objetivo es pasarlo de reconocimiento a uso activo.</p>
+    <div class="card-grid" id="grid-viaje"></div>
+  </div>
+
+  <div class="sub-panel" id="sub-modismos">
+    <div class="section-head"><h2>Modismos y frases hechas del viajero</h2><span class="marker">The real work of this module</span></div>
+    <p style="color:var(--ink-soft);margin-bottom:24px;max-width:660px">Aquí está la carga nueva de verdad. Estas dieciocho frases hechas son lo que separa a alguien que <em>sabe</em> español de alguien que <em>habla</em> español. Se recuperan en bloque, no palabra por palabra, y por eso compran fluidez de inmediato. Apréndetelas enteras.</p>
+    <div class="card-grid" id="grid-modismos"></div>
+  </div>
+
+  <div class="sub-panel" id="sub-contar">
+    <div class="section-head"><h2>Contar el viaje: conectores y reacciones</h2><span class="marker">Your phrase bank for the whole term</span></div>
+    <p style="color:var(--ink-soft);margin-bottom:24px;max-width:660px">Contar bien un viaje depende menos del tiempo verbal que de los conectores. Estas frases enlazan el fondo (<em>imperfecto</em>) con los giros (<em>pretérito</em>) — y las de reacción te dejan responder sin congelarte. Vuelven en todos los módulos del semestre.</p>
+    <div class="card-grid" id="grid-contar"></div>
+  </div>
+</section>
+
+<section class="panel" id="panel-grammar">
+  <div class="pill-nav">
+    <button class="pill active" data-sub="pretimp">Pretérito/Imperfecto</button>
+    <button class="pill" data-sub="serestar">Ser/Estar</button>
+    <button class="pill" data-sub="pronombres">Pronombres</button>
+    <button class="pill" data-sub="subjuntivo">Adelanto: Subjuntivo</button>
+    <button class="pill" data-sub="culture">Cultura</button>
+    <button class="pill" data-sub="practice">Práctica</button>
+  </div>
+
+  <div class="sub-panel active" id="sub-pretimp">
+    <div class="grammar-block">
+      <h3>Pretérito vs. imperfecto: cómo se cuenta un viaje</h3>
+      <p class="lede">Todo relato de viaje es una trenza de dos hilos. El <em>imperfecto</em> pinta el
+      decorado: cómo era el sitio, qué tiempo hacía, qué hacían ustedes todos los días. El
+      <em>pretérito</em> es lo que <strong>pasó</strong>: el vuelo que se canceló, la noche que se
+      perdieron, el día que decidieron quedarse una semana más.</p>
+      <div class="conj-split">
+        <div>
+          <div class="conj-split-label">Pretérito — el hilo de los sucesos</div>
+          <div class="conj-table"><table>
+            <tr><th>Sujeto</th><th>viajar</th><th>perder / salir</th></tr>
+            <tr><td>yo</td><td>viaj<span class="stem-change">é</span></td><td>perd<span class="stem-change">í</span></td></tr>
+            <tr><td>tú</td><td>viaj<span class="stem-change">aste</span></td><td>perd<span class="stem-change">iste</span></td></tr>
+            <tr><td>él/ella/Ud.</td><td>viaj<span class="stem-change">ó</span></td><td>perd<span class="stem-change">ió</span></td></tr>
+            <tr><td>nosotros</td><td>viaj<span class="stem-change">amos</span></td><td>perd<span class="stem-change">imos</span></td></tr>
+            <tr><td>ellos/Uds.</td><td>viaj<span class="stem-change">aron</span></td><td>perd<span class="stem-change">ieron</span></td></tr>
+          </table></div>
+        </div>
+        <div>
+          <div class="conj-split-label">Imperfecto — el hilo del decorado</div>
+          <div class="conj-table"><table>
+            <tr><th>Sujeto</th><th>viajar</th><th>perder / salir</th></tr>
+            <tr><td>yo</td><td>viaj<span class="stem-change">aba</span></td><td>perd<span class="stem-change">ía</span></td></tr>
+            <tr><td>tú</td><td>viaj<span class="stem-change">abas</span></td><td>perd<span class="stem-change">ías</span></td></tr>
+            <tr><td>él/ella/Ud.</td><td>viaj<span class="stem-change">aba</span></td><td>perd<span class="stem-change">ía</span></td></tr>
+            <tr><td>nosotros</td><td>viaj<span class="stem-change">ábamos</span></td><td>perd<span class="stem-change">íamos</span></td></tr>
+            <tr><td>ellos/Uds.</td><td>viaj<span class="stem-change">aban</span></td><td>perd<span class="stem-change">ían</span></td></tr>
+          </table></div>
+        </div>
+      </div>
+      <div class="conj-table"><table>
+        <tr><th>Irregulares que salen en todo relato de viaje</th><th>yo</th><th>Nota</th></tr>
+        <tr><td>ir / ser</td><td>fui</td><td>idénticos: "fui a Lima" y "fui guía" se distinguen por contexto</td></tr>
+        <tr><td>estar</td><td>estuve</td><td>estuv- + terminaciones sin acento</td></tr>
+        <tr><td>tener</td><td>tuve</td><td>"tuvimos que cambiar el vuelo"</td></tr>
+        <tr><td>hacer</td><td>hice</td><td>hizo en tercera persona (c → z)</td></tr>
+        <tr><td>poder / poner</td><td>pude / puse</td><td>"no pudimos entrar"</td></tr>
+        <tr><td>venir / decir</td><td>vine / dije</td><td>dijeron pierde la i</td></tr>
+        <tr><td>andar</td><td>anduve</td><td>"anduvimos por todo el casco viejo"</td></tr>
+      </table></div>
+      <div class="tip-block"><strong>La prueba rápida:</strong> si en inglés cabe
+      <em>"used to"</em> o <em>"was/were -ing"</em>, es imperfecto. Si es algo que podrías poner
+      en una línea de tiempo con una fecha, es pretérito. Y cuando los dos aparecen en la misma
+      frase, casi siempre el imperfecto es el fondo y el pretérito lo interrumpe:
+      <em>mientras <strong>esperábamos</strong>, se <strong>canceló</strong> el vuelo</em>.</div>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="sub-serestar">
+    <div class="grammar-block">
+      <h3>Ser y estar: describir un lugar sin equivocarse</h3>
+      <p class="lede">Viajar obliga a describir sitios constantemente, y ahí es donde este par se
+      cae. La pregunta no es "¿es permanente?" sino <strong>¿qué tipo de información estoy dando?</strong>
+      Identidad y características van con <em>ser</em>; ubicación, condición y estado van con <em>estar</em>.</p>
+      <div class="pronoun-grid">
+        <div class="pronoun-row"><strong>ser</strong><span class="gloss">cómo es el lugar: bonito, caro, antiguo</span></div>
+        <div class="pronoun-row"><strong>estar</strong><span class="gloss">dónde está el lugar: cerca, en el centro</span></div>
+        <div class="pronoun-row"><strong>ser</strong><span class="gloss">de dónde eres tú: origen</span></div>
+        <div class="pronoun-row"><strong>estar</strong><span class="gloss">dónde estás tú ahora</span></div>
+        <div class="pronoun-row"><strong>ser</strong><span class="gloss">dónde ocurre un evento</span></div>
+        <div class="pronoun-row"><strong>estar</strong><span class="gloss">cómo te sientes: cansado, emocionado</span></div>
+        <div class="pronoun-row"><strong>ser</strong><span class="gloss">la hora, la fecha, el precio fijo</span></div>
+        <div class="pronoun-row"><strong>estar</strong><span class="gloss">cómo sabe la comida hoy</span></div>
+      </div>
+      <div class="tip-block"><strong>La trampa del viajero:</strong>
+      <em>el concierto <strong>es</strong> en la plaza</em> pero <em>la plaza <strong>está</strong> en el centro</em>.
+      Los eventos ocurren (ser); los lugares se ubican (estar). Y ojo con los adjetivos que cambian
+      de sentido: <em>ser aburrido</em> (es un sitio soso) frente a <em>estar aburrido</em> (yo me aburro);
+      <em>ser rico</em> (adinerado) frente a <em>estar rico</em> (esto sabe buenísimo).</div>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="sub-pronombres">
+    <div class="grammar-block">
+      <h3>Pronombres de objeto: hablar de cosas sin repetirlas</h3>
+      <p class="lede">Cuando cuentas un viaje repites objetos sin parar — los boletos, las fotos,
+      el regalo, la recomendación. El español culto los sustituye por pronombres casi de inmediato.
+      Lo difícil no son los pronombres sueltos, sino apilarlos.</p>
+      <div class="conj-split">
+        <div>
+          <div class="conj-split-label">Objeto directo (¿qué?)</div>
+          <div class="conj-table"><table>
+            <tr><th>me</th><td>me</td></tr>
+            <tr><th>te</th><td>you</td></tr>
+            <tr><th>lo / la</th><td>it, him / it, her</td></tr>
+            <tr><th>nos</th><td>us</td></tr>
+            <tr><th>los / las</th><td>them</td></tr>
+          </table></div>
+        </div>
+        <div>
+          <div class="conj-split-label">Objeto indirecto (¿a quién?)</div>
+          <div class="conj-table"><table>
+            <tr><th>me</th><td>to/for me</td></tr>
+            <tr><th>te</th><td>to/for you</td></tr>
+            <tr><th>le</th><td>to/for him/her/you</td></tr>
+            <tr><th>nos</th><td>to/for us</td></tr>
+            <tr><th>les</th><td>to/for them/you all</td></tr>
+          </table></div>
+        </div>
+      </div>
+      <div class="pronoun-grid">
+        <div class="pronoun-row"><strong>le/les + lo/la/los/las → se</strong><span class="gloss">"se lo regalé", nunca "le lo regalé"</span></div>
+        <div class="pronoun-row"><strong>indirecto antes que directo</strong><span class="gloss">te lo, me la, nos los, se las</span></div>
+        <div class="pronoun-row"><strong>delante del verbo conjugado</strong><span class="gloss">te lo recomiendo</span></div>
+        <div class="pronoun-row"><strong>pegados al infinitivo o al imperativo</strong><span class="gloss">recomendártelo · cuéntamelo</span></div>
+      </div>
+      <div class="tip-block"><strong>En contexto:</strong>
+      <em>&mdash;¿Y las fotos del viaje? &mdash;<strong>Te las</strong> mando esta noche.</em><br>
+      <em>&mdash;¿Le diste el imán a tu hermana? &mdash;Sí, <strong>se lo</strong> di en el aeropuerto.</em><br>
+      Fíjate en <em>cuéntamelo todo</em> del vocabulario: imperativo + indirecto + directo, los tres pegados.</div>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="sub-subjuntivo">
+    <div class="grammar-block">
+      <h3>Adelanto: el subjuntivo de los planes</h3>
+      <p class="lede">La segunda mitad de la pregunta del curso &mdash; <em>¿adónde quiero llevarlo?</em>
+      &mdash; es terreno de subjuntivo puro. En cuanto hablas de viajes que <strong>todavía no han
+      pasado</strong>, el español cambia de modo. Aquí solo lo reconocemos; a partir del Módulo 3 lo
+      construimos entero.</p>
+      <p style="color:var(--ink-soft);margin-bottom:16px">El patrón:
+      <strong>[deseo, duda o emoción] + que + [otro sujeto] + [subjuntivo]</strong>.</p>
+      <div class="pronoun-grid">
+        <div class="pronoun-row"><strong>ojalá (que) haga buen tiempo</strong><span class="gloss">I hope the weather is good</span></div>
+        <div class="pronoun-row"><strong>espero que no se retrase</strong><span class="gloss">I hope it isn't delayed</span></div>
+        <div class="pronoun-row"><strong>quiero que vengas conmigo</strong><span class="gloss">I want you to come with me</span></div>
+        <div class="pronoun-row"><strong>dudo que consigamos billetes</strong><span class="gloss">I doubt we'll get tickets</span></div>
+        <div class="pronoun-row"><strong>cuando llegue, te escribo</strong><span class="gloss">when I arrive (future, not yet real)</span></div>
+        <div class="pronoun-row"><strong>en cuanto aterricemos</strong><span class="gloss">as soon as we land</span></div>
+      </div>
+      <p style="color:var(--ink-soft);margin-top:16px">Cómo se forma, en una línea: toma la forma
+      <em>yo</em> del presente, quítale la <em>-o</em>, y cambia la vocal. <em>Llegar</em> &rarr; llego
+      &rarr; <strong>llegue</strong>. <em>Hacer</em> &rarr; hago &rarr; <strong>haga</strong>.
+      <em>Venir</em> &rarr; vengo &rarr; <strong>venga</strong>.</p>
+      <div class="tip-block"><strong>Por ahora solo nótalo.</strong> Vas a oír <em>ojalá</em> y
+      <em>espero que</em> en casi todas las conversaciones de esta clase. No hace falta que lo
+      produzcas todavía &mdash; pero cuando lleguemos al Módulo 3, quiero que ya te suene familiar.</div>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="sub-culture">
+    <div class="culture-block">
+      <span class="culture-tag">Nota cultural</span>
+      <h3>Agosto, el veraneo y el arte de hacer puente</h3>
+      <p>En España, agosto no es un mes: es un éxodo. Ciudades enteras se vacían mientras las familias se van <em>de veraneo</em> — a la costa, al pueblo de los abuelos, a cualquier sitio que no sea la ciudad en agosto. Muchos negocios pequeños cierran semanas enteras con un cartel escrito a mano: <em>Cerrado por vacaciones</em>. No es pereza; es un calendario cultural distinto, donde el descanso largo se da por sentado en lugar de negociarse.</p><p>De ahí viene también <em>hacer puente</em>. Si un festivo cae en jueves, el viernes se convierte en el "puente" que lo conecta con el fin de semana, y prácticamente nadie trabaja. Cuando el festivo cae en miércoles y alguien se toma toda la semana, se le llama <em>acueducto</em> — la broma es que hacen falta más arcos.</p><p>En América Latina el patrón se invierte por el hemisferio: las vacaciones largas caen en diciembre y enero, y la Semana Santa mueve a más gente que ningún otro momento del año. Distinta fecha, misma idea de fondo — el viaje no es un lujo excepcional, es parte del ritmo normal del año.</p>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="sub-practice">
+    <div class="section-head"><h2>Práctica rápida</h2><span class="marker">Quick check</span></div>
+    <p style="color:var(--ink-soft);margin-bottom:20px;max-width:640px">Ocho preguntas sobre los cuatro
+    puntos de gramática, todas en contexto de viaje. No cuenta para la nota &mdash; repítela hasta
+    acertarlas todas.</p>
+    <div class="practice-block" id="practiceBlock"></div>
+  </div>
+</section>
+
+<section class="panel" id="panel-listen">
+  <div class="listen-intro"><strong>Cómo funciona:</strong> haz clic en &ldquo;Reproducir&rdquo; para escuchar una frase en español, y elige la lectura en inglés que mejor capte su significado. Los dos primeros ejercicios prueban la gramática del módulo; el tercero, los modismos.</div>
+  <div class="pill-nav">
+    <button class="pill active" data-sub="ear-pretimp">Pretérito/Imperfecto</button>
+    <button class="pill" data-sub="ear-serestar">Ser/Estar</button>
+    <button class="pill" data-sub="ear-modismos">Modismos</button>
+  </div>
+
+  <div class="sub-panel active" id="sub-ear-pretimp">
+    <div class="listen-exercise" id="exPretimp">
+      <div class="listen-head"><h3>Ejercicio 1 · ¿Pretérito o imperfecto?</h3><span class="listen-counter" id="pretimpCounter">1 / 6</span></div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-bottom:18px">Escucha si la acción es un suceso acabado o el fondo continuo del viaje, y elige la lectura que corresponde.</p>
+      <div class="progress-bar"><div class="progress-fill" id="pretimpProgress"></div></div>
+      <button class="play-btn" id="pretimpPlay"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Reproducir</button>
+      <div class="listen-options cols-2" id="pretimpOptions"></div>
+      <div class="feedback" id="pretimpFeedback"></div>
+      <button class="next-btn" id="pretimpNext" disabled>Siguiente &rarr;</button>
+      <div class="done-message" id="pretimpDone"><h4>&iexcl;Excelente!</h4><div class="score" id="pretimpScore"></div><p>Buen oído para el aspecto verbal — es la mitad de contar bien un viaje.</p><button class="next-btn" id="pretimpReset">Empezar otra vez</button></div>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="sub-ear-serestar">
+    <div class="listen-exercise" id="exSerestar">
+      <div class="listen-head"><h3>Ejercicio 2 · Ser o estar en el viaje</h3><span class="listen-counter" id="serestarCounter">1 / 6</span></div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-bottom:18px">Escucha cuál de los dos verbos se usó, y elige la lectura que capta el matiz correcto.</p>
+      <div class="progress-bar"><div class="progress-fill" id="serestarProgress"></div></div>
+      <button class="play-btn" id="serestarPlay"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Reproducir</button>
+      <div class="listen-options cols-2" id="serestarOptions"></div>
+      <div class="feedback" id="serestarFeedback"></div>
+      <button class="next-btn" id="serestarNext" disabled>Siguiente &rarr;</button>
+      <div class="done-message" id="serestarDone"><h4>&iexcl;Excelente!</h4><div class="score" id="serestarScore"></div><p>Ese contraste es más sutil de lo que parece — bien hecho.</p><button class="next-btn" id="serestarReset">Empezar otra vez</button></div>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="sub-ear-modismos">
+    <div class="listen-exercise" id="exModismos">
+      <div class="listen-head"><h3>Ejercicio 3 · Modismos del viajero</h3><span class="listen-counter" id="modismosCounter">1 / 6</span></div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-bottom:18px">Escucha la frase hecha en contexto y elige lo que significa de verdad — no lo que dicen las palabras por separado.</p>
+      <div class="progress-bar"><div class="progress-fill" id="modismosProgress"></div></div>
+      <button class="play-btn" id="modismosPlay"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Reproducir</button>
+      <div class="listen-options cols-2" id="modismosOptions"></div>
+      <div class="feedback" id="modismosFeedback"></div>
+      <button class="next-btn" id="modismosNext" disabled>Siguiente &rarr;</button>
+      <div class="done-message" id="modismosDone"><h4>&iexcl;Excelente!</h4><div class="score" id="modismosScore"></div><p>Los modismos son lo que te hace sonar natural. Estos ya son tuyos.</p><button class="next-btn" id="modismosReset">Empezar otra vez</button></div>
+    </div>
+  </div>
+  <p class="voice-notice">&#9432; Si no oyes nada, prueba Chrome, Edge o Safari &mdash; suelen traer voces en español de fábrica.</p>
+</section>
+</main>
+
+<footer>
+  <div>SPAN 3000 · Módulo 1 · De viaje</div>
+  <div>Paul Rama, PhD · paul.rama@weber.edu</div>
+</footer>
+</div>
+
+<script>
+const themeToggle = document.getElementById('themeToggle');
+const savedTheme = (() => { try { return localStorage.getItem('span3000-theme'); } catch { return null; } })();
+if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+themeToggle.addEventListener('click', () => {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  isDark ? document.documentElement.removeAttribute('data-theme') : document.documentElement.setAttribute('data-theme','dark');
+  try { localStorage.setItem('span3000-theme', isDark ? 'light' : 'dark'); } catch {}
+});
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === `panel-${btn.dataset.tab}`));
+    window.speechSynthesis && window.speechSynthesis.cancel();
+  });
+});
+document.querySelectorAll('.panel').forEach(panel => {
+  panel.querySelectorAll('.pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      panel.querySelectorAll('.pill').forEach(p => p.classList.toggle('active', p === pill));
+      panel.querySelectorAll('.sub-panel').forEach(sp => sp.classList.toggle('active', sp.id === `sub-${pill.dataset.sub}`));
+      window.speechSynthesis && window.speechSynthesis.cancel();
+    });
+  });
+});
+
+function buildFlashcards(containerId, items) {
+  const grid = document.getElementById(containerId);
+  items.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'flashcard';
+    card.innerHTML = `<div class="flashcard-inner">
+      <div class="card-face card-front">
+        <div class="card-label">Español</div>
+        <div class="card-word"><em>${item.es}</em></div>
+        <div class="card-hint">click to flip</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="card-label">English</div>
+        <div class="card-word">${item.en}</div>
+        <div class="card-hint">${item.hint}</div>
+      </div>
+    </div>`;
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    grid.appendChild(card);
+  });
+}
+
+const items_viaje = [{"es": "hacer las maletas", "en": "to pack (bags)", "hint": "no \"empacar\" en España — allí \"hacer la maleta\""}, {"es": "el equipaje de mano", "en": "carry-on luggage", "hint": "lo que no facturas"}, {"es": "facturar el equipaje", "en": "to check luggage", "hint": "en México y otros: \"documentar\""}, {"es": "la escala", "en": "layover, stopover", "hint": "\"un vuelo con dos escalas\""}, {"es": "retrasarse", "en": "to be delayed", "hint": "\"el vuelo se retrasó tres horas\""}, {"es": "despegar / aterrizar", "en": "to take off / to land", "hint": "el par que siempre va junto"}, {"es": "el alojamiento", "en": "lodging, accommodation", "hint": "formal; cubre hotel, hostal, Airbnb"}, {"es": "alojarse", "en": "to stay, to lodge", "hint": "\"nos alojamos en un hostal\""}, {"es": "el/la mochilero/a", "en": "backpacker", "hint": "de \"mochila\" — viajar con poco"}, {"es": "hacer turismo", "en": "to sightsee", "hint": "más natural que \"turistear\""}, {"es": "el itinerario", "en": "itinerary", "hint": "el plan del viaje, día por día"}, {"es": "recorrer", "en": "to travel around, to cover", "hint": "\"recorrimos toda la costa\""}, {"es": "desplazarse", "en": "to get around, to move about", "hint": "formal; el verbo del transporte urbano"}, {"es": "el trayecto", "en": "the leg, the journey", "hint": "un tramo del viaje, no el viaje entero"}, {"es": "madrugar", "en": "to get up very early", "hint": "un solo verbo para toda la idea"}, {"es": "la temporada alta / baja", "en": "high / low season", "hint": "determina el precio de todo"}, {"es": "el imprevisto", "en": "unexpected hitch, snag", "hint": "\"surgió un imprevisto\""}, {"es": "el/la guiri", "en": "foreign tourist (Sp., colloq.)", "hint": "coloquial, entre burlón y cariñoso"}, {"es": "el billete / el boleto", "en": "ticket", "hint": "\"billete\" en España, \"boleto\" en América"}, {"es": "darse un capricho", "en": "to treat oneself", "hint": "el gasto que no necesitabas pero valió la pena"}];
+const items_modismos = [{"es": "quedar en", "en": "to agree to (meet / to do something)", "hint": "\"quedamos en vernos a las ocho\" — no es \"quedarse\""}, {"es": "sobre la marcha", "en": "as we go, improvising", "hint": "\"lo decidimos sobre la marcha\""}, {"es": "a lo loco", "en": "recklessly, with no plan", "hint": "\"nos fuimos a lo loco, sin reservar nada\""}, {"es": "a última hora", "en": "at the last minute", "hint": "\"lo reservamos a última hora\""}, {"es": "por si acaso", "en": "just in case", "hint": "\"llevo el pasaporte por si acaso\" — va sola, al final"}, {"es": "estar de paso", "en": "to be just passing through", "hint": "\"solo estoy de paso\" — no me quedo"}, {"es": "dar una vuelta", "en": "to go for a stroll / a spin", "hint": "el plan más común del mundo hispano"}, {"es": "valer la pena", "en": "to be worth it", "hint": "\"caro, pero valió la pena\""}, {"es": "costar un ojo de la cara", "en": "to cost a fortune", "hint": "el modismo más útil del viajero"}, {"es": "estar hecho/a polvo", "en": "to be wiped out, exhausted", "hint": "concuerda: hecha polvo, hechos polvo"}, {"es": "pasarla genial / pasarlo bomba", "en": "to have a blast", "hint": "América: \"pasarla genial\"; España: \"pasarlo bomba\""}, {"es": "por fin", "en": "finally, at last", "hint": "el remate de casi toda anécdota de viaje"}, {"es": "tener ganas de", "en": "to feel like, to be eager to", "hint": "\"tengo muchas ganas de volver\" — tener ganas DE"}, {"es": "darse cuenta de", "en": "to realize", "hint": "el falso amigo clásico: \"realizar\" NO es to realize"}, {"es": "meter la pata", "en": "to mess up, to put your foot in it", "hint": "frecuentísimo y pan-hispánico"}, {"es": "quedarse con las ganas", "en": "to miss out on something you wanted", "hint": "frustración, no renuncia"}, {"es": "perderse algo", "en": "to miss out on something", "hint": "distinto de \"perderse\" = extraviarse"}, {"es": "echar de menos", "en": "to miss (someone / something)", "hint": "España; América prefiere \"extrañar\""}];
+const items_contar = [{"es": "resulta que", "en": "it turns out that", "hint": "monta el giro de la historia"}, {"es": "de repente", "en": "suddenly", "hint": "señal de pretérito: algo interrumpe"}, {"es": "mientras tanto", "en": "meanwhile", "hint": "acción paralela"}, {"es": "en aquel entonces", "en": "back then", "hint": "monta escena en imperfecto"}, {"es": "al final", "en": "in the end", "hint": "suele ir con pretérito"}, {"es": "total, que", "en": "anyway, so", "hint": "coloquial; cierra una historia larga"}, {"es": "a todo esto", "en": "by the way, meanwhile", "hint": "abre una tangente"}, {"es": "para colmo", "en": "to top it all off", "hint": "siempre introduce algo malo"}, {"es": "por si fuera poco", "en": "as if that weren't enough", "hint": "acumula quejas o detalles"}, {"es": "menos mal que", "en": "thank goodness that", "hint": "alivio después del problema"}, {"es": "lo mejor de todo fue", "en": "the best part was", "hint": "estructura de superlativo con \"lo\""}, {"es": "lo peor fue", "en": "the worst part was", "hint": "el par de la anterior"}, {"es": "¿qué tal estuvo?", "en": "how was it?", "hint": "la pregunta que abre toda conversación de viaje"}, {"es": "cuéntamelo todo", "en": "tell me everything", "hint": "pronombres pegados al imperativo"}, {"es": "¡no me digas!", "en": "no way! you don't say!", "hint": "sorpresa genuina"}, {"es": "¿en serio?", "en": "seriously? really?", "hint": "la reacción más usada del español hablado"}, {"es": "¡qué envidia!", "en": "I'm so jealous!", "hint": "sin connotación negativa — es un cumplido"}, {"es": "me muero por ir", "en": "I'm dying to go", "hint": "\"morirse por\" + infinitivo = deseo intenso"}];
+buildFlashcards('grid-viaje', items_viaje);
+buildFlashcards('grid-modismos', items_modismos);
+buildFlashcards('grid-contar', items_contar);
+
+const practiceQuestions = [{"prompt": "Cuando ___ en Barcelona, caminábamos a todas partes.", "options": ["estuvimos", "estábamos", "estamos", "estaremos"], "correct": 1, "explain": "El fondo continuo del viaje va en <strong>imperfecto</strong>: <em>estábamos</em>. La acción habitual (\"caminábamos\") confirma el aspecto."}, {"prompt": "El vuelo ___ tres horas y perdimos la conexión.", "options": ["se retrasaba", "se retrasó", "se retrasa", "se retrasaría"], "correct": 1, "explain": "Un suceso puntual y acabado con consecuencia: <strong>pretérito</strong>, <em>se retrasó</em>."}, {"prompt": "El hostal ___ en pleno centro, a dos calles de la plaza.", "options": ["era", "estaba", "fue", "estuvo"], "correct": 1, "explain": "La ubicación de un lugar siempre lleva <strong>estar</strong>: <em>estaba</em>. <em>Ser</em> se usaría para dónde <em>ocurre un evento</em>, no dónde está un edificio."}, {"prompt": "La comida ___ carísima, pero valió la pena.", "options": ["estaba", "era", "estuvo", "fue"], "correct": 1, "explain": "Una característica inherente del sitio (los precios) va con <strong>ser</strong>: <em>era carísima</em>. Con <em>estaba</em> hablarías de cómo sabía ese día."}, {"prompt": "¿Los boletos? ___ compré por internet la semana anterior.", "options": ["Los", "Les", "Se los", "Le los"], "correct": 0, "explain": "Solo hay objeto directo (los boletos, masc. pl.): <strong>los</strong>. No hay a quién, así que no entra pronombre indirecto."}, {"prompt": "A mi hermana le encantó el imán del museo, así que ___ regalé.", "options": ["le lo", "se lo", "se le", "lo le"], "correct": 1, "explain": "<em>Le</em> (a mi hermana) se convierte en <strong>se</strong> delante de <em>lo</em> (el imán): <em>se lo regalé</em>. Nunca \"le lo\"."}, {"prompt": "Ojalá que el año que viene ___ ir a Perú.", "options": ["podemos", "podamos", "podremos", "pudimos"], "correct": 1, "explain": "<em>Ojalá (que)</em> siempre exige <strong>subjuntivo</strong>: <em>podamos</em>. Es el disparador más puro que existe."}, {"prompt": "Cuando ___ a Madrid, te escribo.", "options": ["llego", "llegue", "llegaré", "llegaba"], "correct": 1, "explain": "<em>Cuando</em> + acción futura todavía no ocurrida pide <strong>subjuntivo</strong>: <em>llegue</em>. Con indicativo (\"cuando llego\") sería una rutina habitual."}];
+const practiceBlock = document.getElementById('practiceBlock');
+practiceBlock.innerHTML = practiceQuestions.map((q, qi) => `
+  <div class="practice-q">
+    <div class="practice-prompt">${q.prompt.replace('___','<span class="blank"></span>')}</div>
+    <div class="practice-options">${q.options.map((o,oi) => `<button class="opt-btn" data-q="${qi}" data-o="${oi}">${o}</button>`).join('')}</div>
+    <div class="feedback" id="practice-fb-${qi}"></div>
+  </div>`).join('');
+practiceBlock.addEventListener('click', e => {
+  if (!e.target.classList.contains('opt-btn')) return;
+  const qi = +e.target.dataset.q, oi = +e.target.dataset.o;
+  const q = practiceQuestions[qi];
+  const allBtns = practiceBlock.querySelectorAll(`.opt-btn[data-q="${qi}"]`);
+  allBtns.forEach(b => b.disabled = true);
+  allBtns[q.correct].classList.add('correct');
+  if (oi !== q.correct) e.target.classList.add('incorrect');
+  const fb = document.getElementById(`practice-fb-${qi}`);
+  fb.className = oi === q.correct ? 'feedback correct show' : 'feedback incorrect show';
+  fb.innerHTML = oi === q.correct ? `&#10003; ${q.explain}` : `La respuesta es <strong>${q.options[q.correct]}</strong>. ${q.explain}`;
+});
+
+let spanishVoice = null;
+function pickSpanishVoice() {
+  const voices = window.speechSynthesis.getVoices();
+  for (const lang of ['es-MX','es-US','es-419','es-CO','es-AR','es-ES','es']) {
+    const v = voices.find(v => v.lang === lang || v.lang.toLowerCase().startsWith(lang.toLowerCase()));
+    if (v) return v;
+  }
+  return voices.find(v => v.lang.toLowerCase().startsWith('es')) || null;
+}
+if ('speechSynthesis' in window) {
+  spanishVoice = pickSpanishVoice();
+  window.speechSynthesis.onvoiceschanged = () => { spanishVoice = pickSpanishVoice(); };
+}
+function speak(text, btn) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'es-MX'; u.rate = 0.88; u.pitch = 1;
+  if (spanishVoice) u.voice = spanishVoice;
+  if (btn) { btn.classList.add('speaking'); u.onend = u.onerror = () => btn.classList.remove('speaking'); }
+  window.speechSynthesis.speak(u);
+}
+
+function buildExercise(config) {
+  let idx = 0, score = 0, answered = false;
+  const playBtn    = document.getElementById(config.playId);
+  const optionsEl  = document.getElementById(config.optionsId);
+  const feedbackEl = document.getElementById(config.feedbackId);
+  const nextBtn    = document.getElementById(config.nextId);
+  const counterEl  = document.getElementById(config.counterId);
+  const progressEl = document.getElementById(config.progressId);
+  const doneEl     = document.getElementById(config.doneId);
+  const scoreEl    = document.getElementById(config.scoreId);
+  const resetBtn   = document.getElementById(config.resetId);
+  const root       = playBtn.closest('.listen-exercise');
+  function render() {
+    const q = config.questions[idx];
+    counterEl.textContent = `${idx + 1} / ${config.questions.length}`;
+    progressEl.style.width = `${(idx / config.questions.length) * 100}%`;
+    feedbackEl.classList.remove('show','correct','incorrect');
+    nextBtn.disabled = true; answered = false;
+    optionsEl.innerHTML = '';
+    q.options.forEach((opt, i) => {
+      const b = document.createElement('button');
+      b.className = 'listen-opt'; b.textContent = opt;
+      b.addEventListener('click', () => handleAnswer(i, b));
+      optionsEl.appendChild(b);
+    });
+    setTimeout(() => speak(config.getAudio(q), playBtn), 250);
+  }
+  function handleAnswer(selected, btn) {
+    if (answered) return;
+    answered = true;
+    const q = config.questions[idx];
+    const allBtns = optionsEl.querySelectorAll('.listen-opt');
+    allBtns.forEach(b => b.disabled = true);
+    const ci = config.getCorrectIndex(q);
+    allBtns[ci].classList.add('correct');
+    if (selected === ci) { score++; btn.classList.add('correct'); feedbackEl.className = 'feedback correct show'; feedbackEl.innerHTML = `&#10003; &iexcl;Correcto! ${q.hint||''}`; }
+    else { btn.classList.add('incorrect'); feedbackEl.className = 'feedback incorrect show'; feedbackEl.innerHTML = `La respuesta es <strong>${q.options[ci]}</strong>. ${q.hint||''}`; }
+    nextBtn.disabled = false;
+  }
+  playBtn.addEventListener('click', () => speak(config.getAudio(config.questions[idx]), playBtn));
+  nextBtn.addEventListener('click', () => { idx++; idx >= config.questions.length ? finish() : render(); });
+  function finish() {
+    progressEl.style.width = '100%';
+    root.querySelectorAll('.listen-head,.progress-bar,.play-btn,.listen-options,.feedback,.next-btn').forEach(el => el.style.display='none');
+    doneEl.classList.add('show');
+    scoreEl.textContent = `${score} / ${config.questions.length}`;
+  }
+  resetBtn.addEventListener('click', () => {
+    idx = 0; score = 0; answered = false;
+    doneEl.classList.remove('show');
+    root.querySelectorAll('.listen-head,.progress-bar,.play-btn,.listen-options,.feedback,.next-btn').forEach(el => el.style.display='');
+    feedbackEl.style.display='none'; nextBtn.style.display='';
+    render();
+  });
+  render();
+}
+
+const q_pretimp = [{"audio": "Cuando era estudiante, viajaba a México todos los veranos.", "options": ["When I was a student, I used to travel to Mexico every summer.", "When I was a student, I traveled to Mexico one summer.", "When I am a student, I will travel to Mexico every summer.", "When I had been a student, I traveled to Mexico."], "correct": 0, "hint": "<em>Era</em> y <em>viajaba</em> son imperfecto: estado de fondo más hábito repetido."}, {"audio": "El verano pasado hicimos las maletas y nos fuimos a Colombia.", "options": ["Last summer we used to pack and go to Colombia.", "Last summer we packed and went to Colombia.", "Every summer we pack and go to Colombia.", "Last summer we were packing when we went to Colombia."], "correct": 1, "hint": "<em>Hicimos</em> y <em>nos fuimos</em> son pretérito: secuencia acabada en un verano concreto."}, {"audio": "Mientras esperábamos la conexión, se canceló el vuelo.", "options": ["While we were waiting for the connection, the flight used to get canceled.", "While we waited for the connection, the flight will be canceled.", "While we were waiting for the connection, the flight got canceled.", "We waited because the flight was canceled."], "correct": 2, "hint": "<em>Esperábamos</em> (imperfecto) es el fondo; <em>se canceló</em> (pretérito) lo interrumpe."}, {"audio": "De repente empezó a llover y tuvimos que cambiar todo el itinerario.", "options": ["Suddenly it used to rain and we would change the itinerary.", "Suddenly it started to rain and we had to change the whole itinerary.", "Suddenly it was raining and we were changing the itinerary.", "It rained so we always changed the itinerary."], "correct": 1, "hint": "<em>De repente</em> anuncia pretérito: <em>empezó</em>, <em>tuvimos</em>. Sucesos puntuales."}, {"audio": "El hostal no era gran cosa, pero estaba limpio y quedaba cerca de todo.", "options": ["The hostel was not much, but it was clean and it was close to everything.", "The hostel used to be great and got clean.", "The hostel was not much, but it got cleaned and moved closer.", "The hostel will not be much, but it is clean."], "correct": 0, "hint": "Tres imperfectos describiendo el fondo: <em>era</em> (característica), <em>estaba</em> (condición), <em>quedaba</em> (ubicación)."}, {"audio": "Yo tenía veinte años cuando salí del país por primera vez.", "options": ["I turned twenty when I left the country for the first time.", "I was twenty years old when I left the country for the first time.", "I am twenty and I leave the country often.", "I had been twenty when I was leaving the country."], "correct": 1, "hint": "<em>Tenía</em> (imperfecto) da la edad de fondo; <em>salí</em> (pretérito) es el suceso puntual."}];
+const q_serestar = [{"audio": "Cartagena es una ciudad preciosa en la costa caribeña.", "options": ["Cartagena is looking pretty today.", "Cartagena is a beautiful city — that is what it is like.", "Cartagena is temporarily located on the coast.", "Cartagena was pretty once."], "correct": 1, "hint": "<em>Ser</em> + adjetivo describe una característica inherente del lugar."}, {"audio": "El museo está cerrado los lunes.", "options": ["The museum is a permanently closed building.", "The museum is closed on Mondays — a recurring state.", "The museum is boring on Mondays.", "The museum is located on Mondays."], "correct": 1, "hint": "<em>Estar</em> + participio describe una condición o estado resultante."}, {"audio": "La fiesta es en la plaza mayor, no en el hotel.", "options": ["The party is glued to the plaza.", "The party takes place in the main square, not at the hotel.", "The party feels good in the plaza.", "The party is located temporarily in the plaza."], "correct": 1, "hint": "Los <strong>eventos</strong> usan <em>ser</em> para decir dónde ocurren, nunca <em>estar</em>."}, {"audio": "Después de catorce horas de vuelo, estábamos hechos polvo.", "options": ["We are exhausted people by nature.", "After fourteen hours of flying, we were wiped out.", "We were made of dust after the flight.", "We will be tired after fourteen hours."], "correct": 1, "hint": "<em>Estar hecho polvo</em> = estar agotado. Estado temporal, siempre con <em>estar</em>."}, {"audio": "Mis abuelos son de Sevilla, pero ahora están en Valencia.", "options": ["My grandparents are made of Seville and located in Valencia.", "My grandparents are originally from Seville but are currently in Valencia.", "My grandparents were in Seville and will be in Valencia.", "My grandparents belong to both cities equally."], "correct": 1, "hint": "<em>Ser de</em> = origen; <em>estar en</em> = ubicación actual. La pareja clásica."}, {"audio": "La paella estaba riquísima, aunque el restaurante era carísimo.", "options": ["The paella is always delicious and the restaurant is always expensive.", "The paella tasted delicious that day, though the restaurant was an expensive one.", "The paella was located deliciously in an expensive restaurant.", "The paella became rich and the restaurant became expensive."], "correct": 1, "hint": "<em>Estaba</em> comenta cómo sabía <em>ese día</em>; <em>era</em> describe cómo es el sitio en general."}];
+const q_modismos = [{"audio": "No podemos quedarnos: solo estamos de paso.", "options": ["We are just passing through.", "We are lost.", "We are staying a long time.", "We are walking."], "correct": 0, "hint": "<em>Estar de paso</em> = no quedarse, ir de camino a otro sitio."}, {"audio": "El hotel nos costó un ojo de la cara.", "options": ["The hotel was a bargain.", "The hotel cost us a fortune.", "The hotel hurt our eyes.", "The hotel was worth it."], "correct": 1, "hint": "<em>Costar un ojo de la cara</em> = costar carísimo. El equivalente de \"an arm and a leg\"."}, {"audio": "No reservamos nada; lo fuimos decidiendo sobre la marcha.", "options": ["We decided everything in advance.", "We decided as we went along.", "We decided while walking.", "We never decided."], "correct": 1, "hint": "<em>Sobre la marcha</em> = improvisando, según avanza la cosa."}, {"audio": "Después de la excursión estábamos hechos polvo, pero valió la pena.", "options": ["We were bored, and it was pointless.", "We were exhausted, but it was worth it.", "We were dusty, but it was cheap.", "We were energized and it was worth it."], "correct": 1, "hint": "<em>Hechos polvo</em> = agotados. <em>Valer la pena</em> = merecer el esfuerzo."}, {"audio": "Me quedé con las ganas de ver la Alhambra.", "options": ["I gave up wanting to see the Alhambra.", "I saw the Alhambra twice.", "I never got to see the Alhambra, and I wanted to.", "I got tired of the Alhambra."], "correct": 2, "hint": "<em>Quedarse con las ganas</em> = no conseguir algo que querías. Frustración, no renuncia."}, {"audio": "Metí la pata cuando le pregunté por su ex.", "options": ["I broke my leg.", "I said the wrong thing — I put my foot in it.", "I paid too much.", "I got completely lost."], "correct": 1, "hint": "<em>Meter la pata</em> = equivocarse, decir algo inoportuno. Nada que ver con pies ni piernas."}];
+
+buildExercise({
+  questions: q_pretimp,
+  playId:'pretimpPlay', optionsId:'pretimpOptions', feedbackId:'pretimpFeedback',
+  nextId:'pretimpNext', counterId:'pretimpCounter', progressId:'pretimpProgress',
+  doneId:'pretimpDone', scoreId:'pretimpScore', resetId:'pretimpReset',
+  getAudio: q => q.audio, getCorrectIndex: q => q.correct
+});
+buildExercise({
+  questions: q_serestar,
+  playId:'serestarPlay', optionsId:'serestarOptions', feedbackId:'serestarFeedback',
+  nextId:'serestarNext', counterId:'serestarCounter', progressId:'serestarProgress',
+  doneId:'serestarDone', scoreId:'serestarScore', resetId:'serestarReset',
+  getAudio: q => q.audio, getCorrectIndex: q => q.correct
+});
+buildExercise({
+  questions: q_modismos,
+  playId:'modismosPlay', optionsId:'modismosOptions', feedbackId:'modismosFeedback',
+  nextId:'modismosNext', counterId:'modismosCounter', progressId:'modismosProgress',
+  doneId:'modismosDone', scoreId:'modismosScore', resetId:'modismosReset',
+  getAudio: q => q.audio, getCorrectIndex: q => q.correct
+});
+</script>
+</body>
+</html>
