@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El presente: tiempo, aspecto y modo · SPAN 3000</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400;9..144,500;9..144,700;9..144,900&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F4EEE2; --bg-elevated: #FBF6EB;
+    --ink: #1F1A14; --ink-soft: #4F443A; --ink-faint: #8A7E70;
+    --accent: #B84A1F; --accent-soft: #EBC7B0; --accent-pale: #F5DDC9;
+    --secondary: #2A4D5E; --wsu: #492365;
+    --line: #1F1A14; --line-soft: #D8CFBC;
+    --correct: #2D6A4F; --incorrect: #B84A1F;
+    --shadow-paper: 0 1px 0 #D8CFBC, 0 8px 24px -12px rgba(31,26,20,0.15);
+    --shadow-lift: 0 2px 0 #1F1A14, 0 10px 30px -8px rgba(31,26,20,0.25);
+  }
+  [data-theme="dark"] {
+    --bg: #16120F; --bg-elevated: #1F1A16;
+    --ink: #F0E8D8; --ink-soft: #B5AB9A; --ink-faint: #7A7163;
+    --accent: #E07856; --accent-soft: #6B3525; --accent-pale: #3D2017;
+    --secondary: #6BA2B5; --wsu: #B292C9;
+    --line: #F0E8D8; --line-soft: #3A312A;
+    --correct: #6BB48E; --incorrect: #E07856;
+    --shadow-paper: 0 1px 0 #3A312A, 0 8px 24px -12px rgba(0,0,0,0.4);
+    --shadow-lift: 0 2px 0 #F0E8D8, 0 10px 30px -8px rgba(0,0,0,0.5);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--ink); font-family: 'Manrope', system-ui, sans-serif; font-size: 16px; line-height: 1.6; min-height: 100vh; transition: background-color 0.3s ease, color 0.3s ease; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.4; background-image: radial-gradient(circle at 20% 30%, var(--line-soft) 0.5px, transparent 0.5px), radial-gradient(circle at 80% 70%, var(--line-soft) 0.5px, transparent 0.5px); background-size: 40px 40px, 60px 60px; }
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 clamp(16px,4vw,48px); position: relative; z-index: 1; }
+  header { padding: 32px 0 24px; border-bottom: 1px solid var(--line-soft); }
+  .header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand-mark { width: 44px; height: 44px; border-radius: 50%; background: var(--wsu); color: #FBF6EB; display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-weight: 900; font-size: 18px; font-variation-settings: "SOFT" 50; flex-shrink: 0; }
+  .brand-text { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-soft); line-height: 1.4; }
+  .brand-text strong { color: var(--ink); font-weight: 500; }
+  .theme-toggle { background: var(--bg-elevated); border: 1.5px solid var(--line); color: var(--ink); width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease, background 0.2s ease; flex-shrink: 0; }
+  .theme-toggle:hover { transform: rotate(15deg) scale(1.05); background: var(--accent-pale); }
+  .theme-toggle svg { width: 20px; height: 20px; }
+  .theme-toggle .sun { display: none; } .theme-toggle .moon { display: block; }
+  [data-theme="dark"] .theme-toggle .sun { display: block; } [data-theme="dark"] .theme-toggle .moon { display: none; }
+  .title-block { padding: 36px 0 28px; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+  .eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--line-soft); max-width: 120px; }
+  h1.module-title { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 144, "SOFT" 30; font-size: clamp(34px,6vw,68px); line-height: 1.0; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 18px; }
+  h1.module-title em { font-style: italic; font-weight: 400; color: var(--accent); font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; }
+  .module-subtitle { font-size: 17px; color: var(--ink-soft); max-width: 700px; line-height: 1.5; }
+  .tabs { display: flex; margin: 32px 0 8px; border-bottom: 2px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn { background: none; border: none; color: var(--ink-soft); font-family: 'Fraunces', serif; font-weight: 500; font-size: 19px; font-variation-settings: "opsz" 24, "SOFT" 20; padding: 14px 24px; cursor: pointer; position: relative; transition: color 0.2s ease; white-space: nowrap; display: flex; align-items: center; gap: 10px; }
+  .tab-btn .tab-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); font-weight: 400; }
+  .tab-btn:hover { color: var(--ink); } .tab-btn.active { color: var(--ink); }
+  .tab-btn.active .tab-num { color: var(--accent); }
+  .tab-btn.active::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 4px; background: var(--accent); }
+  main { padding: 40px 0 80px; }
+  .panel { display: none; animation: fadeIn 0.4s ease; } .panel.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+  .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px dashed var(--line-soft); }
+  .section-head h2 { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 72, "SOFT" 40; font-size: clamp(26px,4vw,36px); letter-spacing: -0.01em; line-height: 1.1; }
+  .section-head .marker { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
+  .pill-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .pill { background: var(--bg-elevated); border: 1.5px solid var(--line-soft); color: var(--ink-soft); padding: 8px 18px; border-radius: 24px; font-family: 'Manrope', sans-serif; font-weight: 500; font-size: 14px; cursor: pointer; transition: all 0.2s ease; }
+  .pill:hover { border-color: var(--line); color: var(--ink); } .pill.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .sub-panel { display: none; } .sub-panel.active { display: block; animation: fadeIn 0.3s ease; }
+  .grammar-block { background: var(--bg-elevated); border: 1.5px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 28px; box-shadow: var(--shadow-paper); }
+  .grammar-block h3 { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 48, "SOFT" 30; font-size: 25px; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .grammar-block h4 { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); margin: 18px 0 8px; }
+  .grammar-block .lede { color: var(--ink-soft); font-size: 15px; margin-bottom: 16px; max-width: 700px; }
+  .name-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
+  .name-chip { background: var(--bg); border: 1.5px solid var(--line-soft); border-radius: 8px; padding: 8px 12px; font-size: 13.5px; }
+  .name-chip em { font-family: 'Fraunces', serif; font-style: italic; color: var(--accent); }
+  .name-chip .src { display: block; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin-top: 3px; }
+  .ex-block { background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px; padding: 14px 18px; margin: 14px 0; }
+  .ex-es { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; font-size: 18px; color: var(--ink); }
+  .ex-en { color: var(--ink-soft); font-size: 13.5px; margin-top: 3px; }
+  .use-note { font-size: 14.5px; color: var(--ink-soft); }
+  .use-note strong { color: var(--ink); }
+  .tip-block { background: var(--accent-pale); border: 1.5px solid var(--accent); border-radius: 10px; padding: 16px 20px; margin-top: 18px; font-size: 14px; color: var(--ink-soft); }
+  .tip-block strong { color: var(--ink); }
+  .concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 16px; margin: 20px 0 8px; }
+  .concept-card { background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px; padding: 18px 20px; }
+  .concept-card .k { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary); margin-bottom: 6px; }
+  .concept-card h4 { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; font-size: 19px; margin: 0 0 8px; color: var(--ink); }
+  .concept-card p { font-size: 13.5px; color: var(--ink-soft); }
+  .ref-table { background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px; overflow: hidden; margin: 18px 0 20px; }
+  .ref-table table { width: 100%; border-collapse: collapse; }
+  .ref-table th { background: var(--ink); color: var(--bg); text-align: left; padding: 10px 14px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; }
+  .ref-table td { padding: 11px 14px; border-top: 1px solid var(--line-soft); font-size: 13.5px; vertical-align: top; }
+  .ref-table td:first-child { font-family: 'Fraunces', serif; font-style: italic; color: var(--accent); font-weight: 600; white-space: nowrap; }
+  .culture-block { background: var(--bg-elevated); border: 1.5px solid var(--secondary); border-radius: 14px; padding: 24px; margin-bottom: 28px; position: relative; }
+  .culture-tag { position: absolute; top: -10px; left: 20px; background: var(--secondary); color: #FBF6EB; padding: 3px 10px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .culture-block h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 22px; margin-bottom: 10px; margin-top: 4px; }
+  .culture-block p { color: var(--ink-soft); font-size: 14px; line-height: 1.6; }
+  .culture-block p + p { margin-top: 10px; }
+  .practice-intro { background: var(--bg-elevated); border-left: 3px solid var(--secondary); padding: 18px 22px; border-radius: 4px; margin-bottom: 28px; font-size: 14px; color: var(--ink-soft); }
+  .practice-intro strong { color: var(--ink); }
+  .practice-block { background: var(--accent-pale); border: 1.5px solid var(--accent); border-radius: 14px; padding: 24px; margin-top: 8px; }
+  .practice-q { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px dashed var(--line-soft); }
+  .practice-q:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .practice-q-num { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .practice-prompt { font-size: 17px; margin-bottom: 12px; font-family: 'Fraunces', serif; font-style: italic; color: var(--ink); }
+  .practice-options { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt-btn { background: var(--bg-elevated); border: 1.5px solid var(--line); color: var(--ink); padding: 8px 14px; border-radius: 8px; font-family: 'Manrope', sans-serif; font-weight: 500; font-size: 13.5px; cursor: pointer; transition: all 0.15s ease; }
+  .opt-btn:hover { background: var(--ink); color: var(--bg); }
+  .opt-btn.correct { background: var(--correct); color: #FBF6EB; border-color: var(--correct); }
+  .opt-btn.incorrect { background: var(--incorrect); color: #FBF6EB; border-color: var(--incorrect); opacity: 0.7; }
+  .opt-btn:disabled { cursor: default; }
+  .opt-btn:disabled:hover { background: var(--bg-elevated); color: var(--ink); }
+  .opt-btn.correct:disabled, .opt-btn.correct:disabled:hover { background: var(--correct); color: #FBF6EB; }
+  .opt-btn.incorrect:disabled, .opt-btn.incorrect:disabled:hover { background: var(--incorrect); color: #FBF6EB; }
+  .feedback { font-family: 'Fraunces', serif; font-style: italic; font-size: 15px; padding: 12px 16px; border-radius: 8px; margin-top: 10px; display: none; }
+  .feedback.show { display: block; animation: fadeIn 0.3s ease; }
+  .feedback.correct { background: rgba(45,106,79,0.1); color: var(--correct); border-left: 3px solid var(--correct); }
+  .feedback.incorrect { background: rgba(184,74,31,0.08); color: var(--accent); border-left: 3px solid var(--accent); }
+  .feedback strong { font-weight: 700; font-style: normal; }
+  .score-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--bg-elevated); border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 20px; margin-bottom: 20px; flex-wrap: wrap; }
+  .score-bar .score-count { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--ink-soft); }
+  .score-bar .score-count strong { color: var(--accent); font-size: 16px; }
+  .reset-btn { background: var(--ink); color: var(--bg); border: 1.5px solid var(--ink); border-radius: 8px; padding: 8px 16px; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 13px; cursor: pointer; }
+  .reset-btn:hover { transform: translate(-1px,-1px); box-shadow: 0 2px 0 var(--accent); }
+  footer { border-top: 1px solid var(--line-soft); padding: 24px 0; color: var(--ink-faint); font-size: 13px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.08em; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  @media (max-width: 720px) {
+    .grammar-block { padding: 20px; }
+    .tab-btn { padding: 12px 14px; font-size: 17px; }
+    .tab-btn .tab-num { display: none; }
+    .ref-table { overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="header-row">
+    <div class="brand">
+      <div class="brand-mark">W</div>
+      <div class="brand-text"><strong>SPAN 3000</strong> · Intermediate Spanish Conversation<br>Weber State University</div>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+  </div>
+  <div class="title-block">
+    <div class="eyebrow">Repaso de gramática · Grammar Review</div>
+    <h1 class="module-title">El <em>presente</em>: tiempo, aspecto y modo</h1>
+    <p class="module-subtitle">A reference for every present-tense form in Spanish — five inflected tenses plus six aspectual periphrases — with every standard name (RAE, Andrés Bello, and pedagogical traditions), notes on Peninsular and Latin American variation, and a self-check identification quiz.</p>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab-btn active" data-tab="fund" role="tab"><span class="tab-num">01</span> Fundamentos</button>
+  <button class="tab-btn" data-tab="ref" role="tab"><span class="tab-num">02</span> Referencia</button>
+  <button class="tab-btn" data-tab="practica" role="tab"><span class="tab-num">03</span> Práctica</button>
+</nav>
+
+<main>
+
+<!-- ================= PANEL 1: FUNDAMENTOS ================= -->
+<section class="panel active" id="panel-fund">
+  <div class="section-head">
+    <h2>Tres sistemas, un solo verbo</h2>
+    <span class="marker">Before You Start</span>
+  </div>
+  <div class="grammar-block">
+    <p class="lede">Every conjugated Spanish verb form is the intersection of <strong>three independent grammatical systems</strong> at once. Confusing them is the single most common source of confusion when students first meet terms like <em>antepresente</em> or <em>perífrasis aspectual</em> — so before looking at any individual form, it helps to separate the three questions each one is answering.</p>
+    <div class="concept-grid">
+      <div class="concept-card">
+        <div class="k">Tiempo · Tense</div>
+        <h4>¿Cuándo?</h4>
+        <p>Locates the action on the timeline relative to the moment of speech: past, present, or future. This is the axis most students already know from English.</p>
+      </div>
+      <div class="concept-card">
+        <div class="k">Aspecto · Aspect</div>
+        <h4>¿Cómo se desarrolla?</h4>
+        <p>Describes the internal shape of the action, independent of when it happens: is it complete or still unfolding? A single event or a repeated habit? Finished a moment ago, or still in progress right now?</p>
+      </div>
+      <div class="concept-card">
+        <div class="k">Modo · Mood</div>
+        <h4>¿Qué actitud tiene el hablante?</h4>
+        <p>Reflects the speaker's stance toward the action: asserted as real and factual (indicative), or filtered through doubt, emotion, volition, or unreality (subjunctive).</p>
+      </div>
+    </div>
+    <div class="tip-block">
+      <strong>Why this matters for the present tense specifically:</strong> Spanish has <em>one</em> present tense but at least <em>five</em> inflected present-tense forms plus <em>four</em> common periphrastic constructions — because tense stays constant (everything below is anchored to "now") while aspect and mood keep varying. <em>Hablo</em>, <em>he hablado</em>, <em>estoy hablando</em>, <em>hable</em>, and <em>haya hablado</em> are all, in a sense, "present" — they just package the present moment differently.
+    </div>
+  </div>
+
+  <div class="grammar-block">
+    <h3>Aspecto perfectivo vs. imperfectivo</h3>
+    <p class="lede">Within the present-time forms below, aspect divides roughly into three families. Recognizing which family a form belongs to is more useful for production than memorizing labels in isolation.</p>
+    <div class="ref-table">
+      <table>
+        <thead><tr><th>Aspect family</th><th>What it signals</th><th>Present-tense forms that carry it</th></tr></thead>
+        <tbody>
+          <tr><td>Imperfectivo</td><td>Ongoing, habitual, or open-ended — no inherent endpoint in view.</td><td>Presente simple; presente de subjuntivo; perífrasis habitual</td></tr>
+          <tr><td>Perfectivo / resultativo</td><td>Viewed as a completed, bounded unit with continuing relevance to now.</td><td>Presente perfecto; presente perfecto de subjuntivo; perífrasis terminativa</td></tr>
+          <tr><td>Durativo / progresivo</td><td>Caught mid-unfolding, in the exact instant of speaking.</td><td>Presente progresivo; perífrasis acumulativa; perífrasis continuativa</td></tr>
+          <tr><td>Prospectivo</td><td>Located after now — not begun, but intention or likelihood is already present.</td><td>Perífrasis prospectiva (<em>ir a</em> + infinitivo)</td></tr>
+          <tr><td>Incoativo / ingresivo</td><td>The <em>onset</em> of an action — the moment it starts.</td><td><em>Ponerse a</em>, <em>echarse a</em>, <em>romper a</em>, <em>empezar a</em> + infinitivo</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tip-block" style="background:var(--bg);border-color:var(--secondary);border-style:dashed">
+      <strong>Two honest caveats about the table above.</strong> First, Spanish's <em>morphological</em> aspect contrast lives in the past tense (<em>pretérito</em> vs. <em>imperfecto</em>), not the present — the present has no aspectually contrastive endings. What's grouped here as "aspect families" is aspect expressed <em>periphrastically</em> (through auxiliary verbs) plus the inherent aspect of the verb itself. The RAE treats <em>perífrasis verbales</em> in a separate chapter from <em>tiempos verbales</em> for exactly this reason. Second, the RAE classifies the <em>pretérito perfecto compuesto</em> (<em>he hablado</em>) as a <strong>past</strong> tense, not a present one. Collecting it here under "the present" is a deliberate teaching device — it groups everything anchored to <em>now</em> — not the standard taxonomy. Both simplifications are useful; just don't mistake either for what a reference grammar will tell you.
+    </div>
+    <p class="use-note">A useful diagnostic: <strong>simple vs. compound.</strong> Spanish tenses come in one-word simple forms (<em>hablo</em>) and auxiliary + participle compound forms (<em>he hablado</em>). Compound forms always express <strong>anteriority</strong> — an action prior to a reference point — which is exactly why Andrés Bello's system prefixes them with <em>ante-</em> (<em>antepresente</em> = "before the present," i.e., completed relative to now).</p>
+  </div>
+
+  <div class="grammar-block">
+    <h3>Las tres tradiciones terminológicas</h3>
+    <p class="lede">The name variation students encounter across grammars, textbooks, and reference tools comes from three overlapping traditions. All three appear throughout the Referencia tab so students can recognize a form no matter which source names it.</p>
+    <div class="ref-table">
+      <table>
+        <thead><tr><th>Tradición</th><th>Origin &amp; logic</th><th>Where you'll meet it</th></tr></thead>
+        <tbody>
+          <tr><td>RAE</td><td>The official terminology of the <em>Real Academia Española</em>, used in the <em>Nueva gramática de la lengua española</em> (2009) and most European Spanish schooling.</td><td>aplica.rae.es/grweb — this course's primary reference</td></tr>
+          <tr><td>Andrés Bello</td><td>19th-century Venezuelan grammarian; names each tense by its temporal relation to a reference point using prefixes — <em>ante-</em> (before), <em>pos-</em> (after), <em>co-</em> (simultaneous with).</td><td>Widely dominant in Latin American pedagogy and many heritage-speaker textbooks</td></tr>
+          <tr><td>Pedagógica</td><td>Common in U.S. Spanish-as-L2 textbooks; often calqued directly from English tense names.</td><td>Most American high school and university intro sequences</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="culture-block">
+    <div class="culture-tag">Beyond the Basics</div>
+    <h3>Other jobs the simple present quietly does</h3>
+    <p>Because the simple present is Spanish's default, unmarked, imperfective form, it moonlights in several roles that surprise students who only expect it to mean "I do / I am doing":</p>
+    <p><strong>Presente histórico</strong> narrates a past event as if it were unfolding live, for dramatic immediacy — <em>Cristóbal Colón llega a América en 1492.</em> <strong>Presente por futuro</strong> reports a scheduled or near-certain future event — <em>El tren sale a las ocho mañana.</em> <strong>Presente de mandato</strong> issues a firm instruction more directly than a formal command — <em>Te vas ahora mismo.</em> None of these change the verb's form; only context tells you which job it's doing.</p>
+  </div>
+</section>
+
+<!-- ================= PANEL 2: REFERENCIA ================= -->
+<section class="panel" id="panel-ref">
+  <div class="section-head">
+    <h2>Cada forma, todos los nombres</h2>
+    <span class="marker">Reference</span>
+  </div>
+  <div class="pill-nav" id="refPills">
+    <button class="pill active" data-sub="simple">Presente simple</button>
+    <button class="pill" data-sub="perfecto">Presente perfecto</button>
+    <button class="pill" data-sub="progresivo">Presente progresivo</button>
+    <button class="pill" data-sub="subjuntivo">Presente de subjuntivo</button>
+    <button class="pill" data-sub="perfsubj">Presente perfecto de subjuntivo</button>
+    <button class="pill" data-sub="perifrasis">Perífrasis aspectuales + variación dialectal</button>
+  </div>
+
+  <div class="sub-panel active" id="sub-simple">
+    <div class="grammar-block">
+      <h3>1 · Presente simple (indicativo)</h3>
+      <p class="lede">The default, unmarked present — one word, imperfective aspect, indicative mood.</p>
+      <h4>Todos los nombres</h4>
+      <div class="name-chips">
+        <div class="name-chip"><em>Presente de indicativo</em><span class="src">RAE</span></div>
+        <div class="name-chip"><em>Presente</em><span class="src">Andrés Bello</span></div>
+        <div class="name-chip"><em>Simple Present</em><span class="src">Pedagógica</span></div>
+      </div>
+      <div class="ex-block">
+        <div class="ex-es">Escribo un informe.</div>
+        <div class="ex-en">I write a report. / I am writing a report.</div>
+      </div>
+      <p class="use-note"><strong>Uso:</strong> universal truths, habitual actions, present states, immediate scheduled future, and the historical narrative present.</p>
+      <div class="tip-block"><strong>Watch for overlap:</strong> habitual meaning here can look identical in translation to the <em>perífrasis habitual</em> (<em>soler</em> + infinitivo) below — the difference is that the simple present carries habitual meaning on its own, with no auxiliary verb.</div>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="sub-perfecto">
+    <div class="grammar-block">
+      <h3>2 · Presente perfecto (indicativo)</h3>
+      <p class="lede">A compound form — <em>haber</em> conjugated in the present + participio — expressing perfective/resultative aspect.</p>
+      <h4>Todos los nombres</h4>
+      <div class="name-chips">
+        <div class="name-chip"><em>Pretérito perfecto compuesto de indicativo</em><span class="src">RAE, oficial</span></div>
+        <div class="name-chip"><em>Presente perfecto de indicativo</em><span class="src">Pedagógica / gramática moderna</span></div>
+        <div class="name-chip"><em>Antepresente de indicativo</em><span class="src">Andrés Bello</span></div>
+        <div class="name-chip"><em>Pretérito perfecto</em><span class="src">Uso tradicional europeo</span></div>
+        <div class="name-chip"><em>Present Perfect</em><span class="src">Pedagógica (inglés)</span></div>
+      </div>
+      <div class="ex-block">
+        <div class="ex-es">He terminado la reunión hoy.</div>
+        <div class="ex-en">I have finished the meeting today.</div>
+      </div>
+      <p class="use-note"><strong>Uso (norma peninsular):</strong> actions completed within a psychological or temporal frame that includes the present (<em>hoy, este año, nunca, ya</em>), or completed past actions with current relevance.</p>
+      <div class="tip-block"><strong>This is the form where dialect matters most.</strong> The description above is the <em>Peninsular</em> norm. In most of Latin America — Mexico and the Río de la Plata especially — <em>He terminado la reunión hoy</em> sounds odd, and speakers say <strong><em>Terminé la reunión hoy</em></strong> instead. See the dialect note at the bottom of this tab before you assume either pattern is "the rule."</div>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="sub-progresivo">
+    <div class="grammar-block">
+      <h3>3 · Presente progresivo / continuo</h3>
+      <p class="lede"><em>Estar</em> conjugated in the present + gerundio — durative aspect, action captured mid-unfolding.</p>
+      <h4>Todos los nombres</h4>
+      <div class="name-chips">
+        <div class="name-chip"><em>Presente continuo</em> / <em>presente progresivo</em><span class="src">Uso general</span></div>
+        <div class="name-chip"><em>Perífrasis durativa de presente</em> (<em>estar</em> + gerundio)<span class="src">Descriptiva</span></div>
+        <div class="name-chip"><em>Aspecto cursivo / durativo en presente</em><span class="src">Terminología aspectual</span></div>
+        <div class="name-chip"><em>Present Progressive / Continuous</em><span class="src">Pedagógica (inglés)</span></div>
+      </div>
+      <div class="ex-block">
+        <div class="ex-es">Estoy calificando los exámenes.</div>
+        <div class="ex-en">I am grading the exams.</div>
+      </div>
+      <p class="use-note"><strong>Uso:</strong> an action actively unfolding in real time at the precise moment of speech, or an ongoing, temporary present process.</p>
+      <div class="tip-block"><strong>Watch for overlap:</strong> both this form and the <em>perífrasis acumulativa</em> (<em>llevar/venir</em> + gerundio) use a gerundio — the difference is the auxiliary verb and the meaning it contributes: <em>estar</em> = happening right now; <em>llevar/venir</em> = accumulating duration up to now.</div>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="sub-subjuntivo">
+    <div class="grammar-block">
+      <h3>4 · Presente de subjuntivo</h3>
+      <p class="lede">Same time-frame as the indicative present, but filtered through the subjunctive mood.</p>
+      <h4>Todos los nombres</h4>
+      <div class="name-chips">
+        <div class="name-chip"><em>Presente de subjuntivo</em><span class="src">RAE</span></div>
+        <div class="name-chip"><em>Presente de subjuntivo</em><span class="src">Andrés Bello</span></div>
+        <div class="name-chip"><em>Present Subjunctive</em><span class="src">Pedagógica</span></div>
+      </div>
+      <div class="ex-block">
+        <div class="ex-es">Es necesario que asistas.</div>
+        <div class="ex-en">It is necessary that you attend.</div>
+      </div>
+      <p class="use-note"><strong>Uso:</strong> subjective mood — doubt, emotion, volition, hypothetical scenarios, unfulfilled demands — anchored to the present or future.</p>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="sub-perfsubj">
+    <div class="grammar-block">
+      <h3>5 · Presente perfecto de subjuntivo</h3>
+      <p class="lede">The compound counterpart of the present subjunctive — perfective aspect inside the subjunctive mood.</p>
+      <h4>Todos los nombres</h4>
+      <div class="name-chips">
+        <div class="name-chip"><em>Pretérito perfecto compuesto de subjuntivo</em><span class="src">RAE, oficial</span></div>
+        <div class="name-chip"><em>Presente perfecto de subjuntivo</em><span class="src">Pedagógica / gramática moderna</span></div>
+        <div class="name-chip"><em>Antepresente de subjuntivo</em><span class="src">Andrés Bello</span></div>
+        <div class="name-chip"><em>Pretérito perfecto de subjuntivo</em><span class="src">Uso tradicional</span></div>
+        <div class="name-chip"><em>Present Perfect Subjunctive</em><span class="src">Pedagógica (inglés)</span></div>
+      </div>
+      <div class="ex-block">
+        <div class="ex-es">Me alegro de que hayas venido.</div>
+        <div class="ex-en">I am glad that you have come.</div>
+      </div>
+      <p class="use-note"><strong>Uso:</strong> subjunctive triggers applied to an action completed prior to the present moment, or expected to be completed prior to a future reference point.</p>
+    </div>
+  </div>
+
+  <div class="sub-panel" id="sub-perifrasis">
+    <div class="grammar-block">
+      <h3>6 · Perífrasis aspectuales de presente</h3>
+      <p class="lede">Verbal periphrases that use an inflected present-tense auxiliary to add a specific aspectual nuance the plain tenses above can't express on their own. Each one is built as <em>auxiliar conjugado</em> + (conector) + <em>infinitivo / gerundio</em>.</p>
+    </div>
+
+    <div class="grammar-block">
+      <h3 style="font-size:20px">Aspecto prospectivo</h3>
+      <div class="name-chips">
+        <div class="name-chip"><em>Perífrasis prospectiva</em> (<em>ir a</em> + infinitivo)<span class="src">RAE / NGLE</span></div>
+        <div class="name-chip"><em>Perífrasis de futuro próximo</em><span class="src">Pedagógica</span></div>
+        <div class="name-chip"><em>Futuro perifrástico</em><span class="src">Uso tradicional</span></div>
+      </div>
+      <div class="ex-block">
+        <div class="ex-es">Voy a comenzar la clase.</div>
+        <div class="ex-en">I am going to begin class.</div>
+      </div>
+      <p class="use-note"><strong>Uso:</strong> posteriority — an action located after the present moment, with intention or likelihood already in view now.</p>
+      <div class="tip-block"><strong>A correction worth knowing:</strong> many textbooks label <em>ir a</em> + infinitivo <em>incoativa</em> or <em>ingresiva</em>. That's inaccurate. <strong>Incoative</strong> periphrases mark the <em>onset</em> of an action already beginning — <em>ponerse a</em>, <em>echarse a</em>, <em>romper a</em>, <em>empezar a</em> (<em>Se puso a llover</em> = it started raining). <em>Ir a</em> + infinitivo marks <strong>posteriority</strong>: the action hasn't started at all. The NGLE keeps these separate, and so should you.</div>
+    </div>
+
+    <div class="grammar-block">
+      <h3 style="font-size:20px">Aspecto terminativo / perfectivo reciente</h3>
+      <div class="name-chips">
+        <div class="name-chip"><em>Perífrasis de pasado inmediato / terminativa</em> (<em>acabar de</em> + infinitivo)</div>
+      </div>
+      <div class="ex-block">
+        <div class="ex-es">Acabo de enviar el correo.</div>
+        <div class="ex-en">I just sent / have just sent the email.</div>
+      </div>
+      <p class="use-note"><strong>Uso:</strong> an action completed immediately before the present instant.</p>
+    </div>
+
+    <div class="grammar-block">
+      <h3 style="font-size:20px">Aspecto habitual / frecuentativo / iterativo</h3>
+      <div class="name-chips">
+        <div class="name-chip"><em>Perífrasis frecuentativa / de hábito</em> (<em>soler</em> + infinitivo / <em>acostumbrar a</em> + infinitivo)</div>
+      </div>
+      <div class="ex-block">
+        <div class="ex-es">Suelo revisar mis notas.</div>
+        <div class="ex-en">I usually review my notes.</div>
+      </div>
+      <p class="use-note"><strong>Uso:</strong> recurring, customary present routines.</p>
+    </div>
+
+    <div class="grammar-block">
+      <h3 style="font-size:20px">Aspecto durativo acumulativo</h3>
+      <div class="name-chips">
+        <div class="name-chip"><em>Perífrasis acumulativa / continuativa</em> (<em>llevar</em> + gerundio / <em>venir</em> + gerundio)</div>
+      </div>
+      <div class="ex-block">
+        <div class="ex-es">Llevo enseñando veinte años.</div>
+        <div class="ex-en">I have been teaching for twenty years.</div>
+      </div>
+      <p class="use-note"><strong>Uso:</strong> an action originating in the past that persists uninterrupted and accumulates duration up to the exact present.</p>
+      <div class="tip-block"><strong>Frequency note:</strong> <em>llevar</em> + gerundio is far more common in speech than <em>venir</em> + gerundio. <em>Venir</em> + gerundio adds a sense of gradual development toward the present (<em>Vengo notando un cambio</em> — I've been gradually noticing a change) and leans formal.</div>
+    </div>
+
+    <div class="grammar-block">
+      <h3 style="font-size:20px">Aspecto continuativo</h3>
+      <div class="name-chips">
+        <div class="name-chip"><em>Perífrasis continuativa</em> (<em>seguir</em> + gerundio / <em>continuar</em> + gerundio)<span class="src">RAE / NGLE</span></div>
+        <div class="name-chip"><em>Perífrasis durativa continuativa</em><span class="src">Terminología aspectual</span></div>
+      </div>
+      <div class="ex-block">
+        <div class="ex-es">Sigo trabajando en el proyecto.</div>
+        <div class="ex-en">I'm still working on the project.</div>
+      </div>
+      <p class="use-note"><strong>Uso:</strong> an action that was already underway and has <em>not stopped</em> — the emphasis is on non-interruption, often against an expectation that it might have ended. <em>Seguir</em> is the everyday choice; <em>continuar</em> is the more formal register.</p>
+      <div class="tip-block"><strong>Very high frequency in speech.</strong> <em>Seguir</em> + gerundio is one of the most common periphrases in spoken Spanish, and it is often the natural equivalent of English "still" — which learners tend to render with the adverb <em>todavía</em> plus a plain present. Both work, but <em>Sigo trabajando</em> is more idiomatic than <em>Todavía trabajo</em> here.</div>
+    </div>
+
+    <div class="grammar-block">
+      <h3 style="font-size:20px">Aspecto durativo coloquial / frecuentativo</h3>
+      <div class="name-chips">
+        <div class="name-chip"><em>Perífrasis durativa</em> (<em>andar</em> + gerundio)<span class="src">RAE / NGLE</span></div>
+        <div class="name-chip"><em>Perífrasis frecuentativa coloquial</em><span class="src">Descriptiva</span></div>
+      </div>
+      <div class="ex-block">
+        <div class="ex-es">Anda diciendo que se va a mudar.</div>
+        <div class="ex-en">He's going around saying he's going to move.</div>
+      </div>
+      <p class="use-note"><strong>Uso:</strong> a durative action with a scattered, repeated, or unfocused quality — spread across time rather than happening at one instant. Frequently carries a mild connotation of disapproval or gossip.</p>
+      <div class="tip-block"><strong>Why this one is worth knowing:</strong> <em>andar</em> + gerundio is markedly frequent in Mexican and Central American speech and almost absent from textbooks. It is unmistakably colloquial — students will hear it constantly and rarely see it written. Contrast <em>Está diciendo</em> (saying it right now) with <em>Anda diciendo</em> (going around saying it repeatedly).</div>
+    </div>
+
+    <div class="culture-block">
+      <div class="culture-tag">Variación dialectal</div>
+      <h3>España y América: el perfecto compuesto</h3>
+      <p>The single biggest regional split in the present-tense system is how the compound perfect (<em>he hablado</em>) divides labor with the simple preterite (<em>hablé</em>).</p>
+      <p><strong>Peninsular Spanish (most of Spain):</strong> the compound perfect covers <em>hodiernal</em> past — anything within today, or within a time frame the speaker still counts as current. <em>Hoy he comido tarde. Este año he viajado mucho. ¿Ya has terminado?</em> Using the preterite there would sound like the event has been pushed away into a closed past.</p>
+      <p><strong>Mexican, Central American, Caribbean, and Rioplatense Spanish:</strong> the simple preterite takes over nearly all of that territory. <em>Hoy comí tarde. Este año viajé mucho. ¿Ya terminaste?</em> The compound perfect survives mainly for <strong>continuative</strong> or <strong>iterative</strong> readings — actions that began in the past and are still going, or that have happened repeatedly: <em>He vivido aquí diez años. He ido a Oaxaca varias veces.</em></p>
+      <p><strong>Andean Spanish (Bolivia, Peru, Ecuador, NW Argentina):</strong> patterns differently again, with the compound perfect extended into some evidential and narrative uses not found in either of the above.</p>
+      <p style="margin-top:14px"><strong>What this means for this class:</strong> none of these is more correct than the others. If your Spanish comes from a mission, a family, or a country, your intuition here is data, not error — and it may legitimately conflict with what a grammar book or a Spain-published textbook says. What matters for an intermediate conversation course is that you can recognize both systems when you hear them, and that you're internally consistent within your own variety.</p>
+    </div>
+
+    <div class="culture-block">
+      <div class="culture-tag">Variación dialectal</div>
+      <h3>Otras diferencias que afectan al presente</h3>
+      <p><strong><em>Vosotros</em> vs. <em>ustedes</em>:</strong> Spain distinguishes informal plural <em>vosotros habláis</em> from formal <em>ustedes hablan</em>. All of Latin America uses <em>ustedes</em> for both, so the <em>vosotros</em> forms simply don't appear in the paradigm — one fewer form to conjugate, in every tense on this page.</p>
+      <p><strong><em>Voseo</em>:</strong> in Argentina, Uruguay, Paraguay, and much of Central America, <em>vos</em> replaces <em>tú</em> with its own present-tense endings: <em>vos hablás, vos comés, vos vivís</em> (stress on the final syllable, no stem change — <em>vos podés</em>, not <em>vos puedes</em>). The present subjunctive varies regionally: Rioplatense typically uses the <em>tú</em> form (<em>que vos hables</em>), while Central American voseo often keeps a distinct <em>que vos hablés</em>.</p>
+      <p><strong>Progressive frequency:</strong> the <em>estar</em> + gerundio progressive is used more freely in Latin American Spanish, and its use has expanded further in U.S. Spanish under contact with English. Peninsular Spanish more often prefers the plain simple present where an English speaker would reach for a progressive.</p>
+      <p><strong>Periphrasis preferences:</strong> <em>andar</em> + gerundio is strongly Mexican/Central American. <em>Acostumbrar a</em> + infinitivo is more common in Latin America than in Spain, where <em>soler</em> dominates. And in casual Latin American speech, <em>ir a</em> + infinitivo has largely displaced the synthetic future (<em>voy a ir</em> over <em>iré</em>).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PANEL 3: PRÁCTICA ================= -->
+<section class="panel" id="panel-practica">
+  <div class="section-head">
+    <h2>Identifica la forma</h2>
+    <span class="marker">Self-Check Quiz</span>
+  </div>
+  <div class="practice-intro"><strong>Instrucciones:</strong> Read each sentence and choose which present-tense form or aspectual periphrasis it uses. Feedback explains the reasoning and, where relevant, the contrast with a commonly confused form.</div>
+
+  <div class="score-bar">
+    <div class="score-count">Puntuación: <strong id="scoreDisplay">0 / 0</strong></div>
+    <button class="reset-btn" id="resetPractice">Empezar otra vez</button>
+  </div>
+
+  <div class="practice-block" id="practiceBlock"></div>
+</section>
+
+</main>
+
+<footer>
+  <div>SPAN 3000 · Repaso: El presente</div>
+  <div>Paul Rama, PhD · paulrama@weber.edu</div>
+</footer>
+</div>
+
+<script>
+// ---------- Theme toggle ----------
+const themeToggle = document.getElementById('themeToggle');
+const savedTheme = (() => { try { return localStorage.getItem('span3000-presente-theme'); } catch { return null; } })();
+if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+themeToggle.addEventListener('click', () => {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  isDark ? document.documentElement.removeAttribute('data-theme') : document.documentElement.setAttribute('data-theme','dark');
+  try { localStorage.setItem('span3000-presente-theme', isDark ? 'light' : 'dark'); } catch {}
+});
+
+// ---------- Tab navigation ----------
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === `panel-${btn.dataset.tab}`));
+  });
+});
+document.querySelectorAll('#refPills .pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('#refPills .pill').forEach(p => p.classList.toggle('active', p === pill));
+    document.querySelectorAll('.sub-panel').forEach(sp => sp.classList.toggle('active', sp.id === `sub-${pill.dataset.sub}`));
+  });
+});
+
+// ---------- Practice data ----------
+const practiceQuestions = [
+  {
+    prompt: 'Como cereal todas las mañanas.',
+    options: ['Presente simple', 'Perífrasis habitual (soler + inf.)', 'Presente progresivo', 'Presente perfecto'],
+    correct: 0,
+    explain: 'The simple present carries habitual meaning entirely on its own — no auxiliary is used. Compare this with <em>Suelo comer cereal</em>, which expresses the same idea through the <em>habitual periphrasis</em> instead.'
+  },
+  {
+    prompt: 'Suelo revisar mis notas antes de un examen.',
+    options: ['Presente simple', 'Perífrasis habitual (soler + inf.)', 'Perífrasis prospectiva (ir a + inf.)', 'Presente de subjuntivo'],
+    correct: 1,
+    explain: '<em>Soler</em> + infinitivo is the <strong>aspecto habitual / frecuentativo</strong> periphrasis — it explicitly marks the action as customary routine, distinct from the unmarked habitual reading of the plain simple present.'
+  },
+  {
+    prompt: 'Estoy calificando los exámenes ahora mismo.',
+    options: ['Perífrasis acumulativa (llevar + ger.)', 'Presente perfecto', 'Presente progresivo', 'Presente simple'],
+    correct: 2,
+    explain: '<em>Estar</em> + gerundio marks the <strong>presente progresivo</strong>: an action captured mid-unfolding at this exact instant. <em>Ahora mismo</em> is a strong cue.'
+  },
+  {
+    prompt: 'He terminado la reunión hoy.',
+    options: ['Presente perfecto', 'Presente perfecto de subjuntivo', 'Perífrasis terminativa (acabar de + inf.)', 'Presente simple'],
+    correct: 0,
+    explain: '<em>Haber</em> (present) + participio = <strong>presente perfecto</strong> (also called <em>antepresente</em> by Bello). <em>Hoy</em> places the completed action inside a time frame that still includes the present — though note this is the <em>Peninsular</em> pattern; most Latin American varieties would say <em>Terminé la reunión hoy</em>.'
+  },
+  {
+    prompt: 'Acabo de enviar el correo.',
+    options: ['Perífrasis prospectiva (ir a + inf.)', 'Perífrasis terminativa (acabar de + inf.)', 'Presente perfecto', 'Perífrasis acumulativa (llevar + ger.)'],
+    correct: 1,
+    explain: '<em>Acabar de</em> + infinitivo is the <strong>aspecto terminativo / perfectivo reciente</strong> periphrasis: an action completed immediately before the present instant — even more recent than a plain <em>presente perfecto</em>.'
+  },
+  {
+    prompt: 'Voy a comenzar la clase en cinco minutos.',
+    options: ['Perífrasis terminativa (acabar de + inf.)', 'Presente de subjuntivo', 'Perífrasis prospectiva (ir a + inf.)', 'Presente progresivo'],
+    correct: 2,
+    explain: '<em>Ir a</em> + infinitivo is the <strong>aspecto prospectivo</strong> periphrasis: posteriority — the action hasn\'t started yet.'
+  },
+  {
+    prompt: 'Llevo enseñando veinte años en esta universidad.',
+    options: ['Presente progresivo', 'Perífrasis acumulativa (llevar + ger.)', 'Presente perfecto', 'Perífrasis habitual (soler + inf.)'],
+    correct: 1,
+    explain: '<em>Llevar</em> + gerundio is the <strong>aspecto durativo acumulativo</strong> periphrasis: an action beginning in the past that persists uninterrupted, accumulating duration right up to now — different from <em>estar</em> + gerundio, which has no cumulative "since when" meaning.'
+  },
+  {
+    prompt: 'Es necesario que asistas a la reunión.',
+    options: ['Presente de subjuntivo', 'Presente simple', 'Presente perfecto de subjuntivo', 'Perífrasis prospectiva (ir a + inf.)'],
+    correct: 0,
+    explain: 'The impersonal expression of necessity triggers the <strong>presente de subjuntivo</strong>: subjective mood anchored to the present/future, with no completed action in view.'
+  },
+  {
+    prompt: 'Me alegro de que hayas venido.',
+    options: ['Presente perfecto', 'Presente de subjuntivo', 'Presente perfecto de subjuntivo', 'Perífrasis terminativa (acabar de + inf.)'],
+    correct: 2,
+    explain: '<em>Haya venido</em> is <em>haber</em> (present subjunctive) + participio — the <strong>presente perfecto de subjuntivo</strong> (Bello: <em>antepresente de subjuntivo</em>): a subjunctive trigger applied to an action already completed.'
+  },
+  {
+    prompt: 'El tren sale a las ocho mañana.',
+    options: ['Perífrasis prospectiva (ir a + inf.)', 'Presente simple', 'Presente progresivo', 'Presente de subjuntivo'],
+    correct: 1,
+    explain: 'This is the <strong>presente simple</strong> used for a scheduled future event (<em>presente por futuro</em>) — the verb form itself doesn\'t change, context and the future time marker (<em>mañana</em>) carry the future meaning.'
+  },
+  {
+    prompt: 'Vengo estudiando este tema desde enero.',
+    options: ['Presente progresivo', 'Perífrasis acumulativa (venir + ger.)', 'Presente perfecto', 'Perífrasis habitual (soler + inf.)'],
+    correct: 1,
+    explain: '<em>Venir</em> + gerundio is a variant of the <strong>aspecto durativo acumulativo</strong> periphrasis, functioning like <em>llevar</em> + gerundio: continuous accumulation from a starting point (<em>desde enero</em>) up to now.'
+  },
+  {
+    prompt: 'Dudo que ella haya terminado el informe.',
+    options: ['Presente de subjuntivo', 'Presente perfecto de subjuntivo', 'Presente perfecto', 'Perífrasis terminativa (acabar de + inf.)'],
+    correct: 1,
+    explain: '<em>Dudar</em> triggers the subjunctive, and <em>haya terminado</em> is the compound (perfect) subjunctive form — <strong>presente perfecto de subjuntivo</strong> — because the doubted action is framed as already completed.'
+  },
+  {
+    prompt: 'Acostumbro a caminar por las mañanas.',
+    options: ['Perífrasis habitual (acostumbrar a + inf.)', 'Presente simple', 'Perífrasis prospectiva (ir a + inf.)', 'Presente progresivo'],
+    correct: 0,
+    explain: '<em>Acostumbrar a</em> + infinitivo is a less-frequent but fully standard variant of the <strong>aspecto habitual / frecuentativo</strong> periphrasis, interchangeable with <em>soler</em> + infinitivo in most contexts.'
+  },
+  {
+    prompt: 'Estamos aprendiendo mucho en esta clase.',
+    options: ['Perífrasis acumulativa (llevar + ger.)', 'Presente perfecto', 'Presente progresivo', 'Presente de subjuntivo'],
+    correct: 2,
+    explain: '<em>Estar</em> + gerundio = <strong>presente progresivo</strong>: an ongoing, temporary present process, without the cumulative "since when" meaning that <em>llevar/venir</em> + gerundio would add.'
+  },
+  {
+    prompt: 'Cristóbal Colón llega a América en 1492.',
+    options: ['Presente perfecto', 'Presente simple (histórico)', 'Perífrasis prospectiva (ir a + inf.)', 'Presente progresivo'],
+    correct: 1,
+    explain: 'This is the <strong>presente histórico</strong> — a special use of the plain <em>presente simple</em> to narrate a past event as if unfolding live, for dramatic immediacy. The verb form is identical to any other simple present.'
+  },
+  {
+    prompt: 'Espero que estés bien.',
+    options: ['Presente perfecto de subjuntivo', 'Presente de subjuntivo', 'Presente simple', 'Perífrasis habitual (soler + inf.)'],
+    correct: 1,
+    explain: '<em>Esperar que</em> triggers the subjunctive, and <em>estés</em> is simple (not compound) — <strong>presente de subjuntivo</strong>, expressing a present/ongoing hope with no completed action involved.'
+  },
+  {
+    prompt: 'Acabamos de llegar.',
+    options: ['Perífrasis terminativa (acabar de + inf.)', 'Presente perfecto', 'Perífrasis prospectiva (ir a + inf.)', 'Presente progresivo'],
+    correct: 0,
+    explain: '<em>Acabar de</em> + infinitivo (here, <em>acabamos de llegar</em>) is the <strong>aspecto terminativo / perfectivo reciente</strong> periphrasis: the action of arriving finished an instant ago.'
+  },
+  {
+    prompt: 'Va a llover esta tarde.',
+    options: ['Presente de subjuntivo', 'Perífrasis terminativa (acabar de + inf.)', 'Perífrasis prospectiva (ir a + inf.)', 'Presente progresivo'],
+    correct: 2,
+    explain: '<em>Ir a</em> + infinitivo = <strong>aspecto prospectivo</strong> periphrasis: a near-future event whose likelihood or preparation is already present, distinct from the plain scheduled-future use of the simple present.'
+  },
+  {
+    prompt: 'Sigo trabajando en el proyecto.',
+    options: ['Presente progresivo', 'Perífrasis continuativa (seguir + ger.)', 'Perífrasis acumulativa (llevar + ger.)', 'Perífrasis habitual (soler + inf.)'],
+    correct: 1,
+    explain: '<em>Seguir</em> + gerundio is the <strong>aspecto continuativo</strong> periphrasis — the action was already underway and has <em>not stopped</em>. Compare <em>Estoy trabajando</em> (happening right now) and <em>Llevo trabajando tres horas</em> (accumulated duration).'
+  },
+  {
+    prompt: 'Anda diciendo que se va a mudar.',
+    options: ['Presente progresivo', 'Perífrasis acumulativa (venir + ger.)', 'Perífrasis durativa coloquial (andar + ger.)', 'Perífrasis continuativa (seguir + ger.)'],
+    correct: 2,
+    explain: '<em>Andar</em> + gerundio is the <strong>durativo coloquial / frecuentativo</strong> periphrasis: a scattered, repeated action spread across time, often with a hint of disapproval. Very frequent in Mexican and Central American speech. <em>Está diciendo</em> would mean he\'s saying it right now.'
+  },
+  {
+    prompt: 'De repente se puso a llover.',
+    options: ['Perífrasis prospectiva (ir a + inf.)', 'Perífrasis incoativa (ponerse a + inf.)', 'Perífrasis terminativa (acabar de + inf.)', 'Presente progresivo'],
+    correct: 1,
+    explain: '<em>Ponerse a</em> + infinitivo is a genuine <strong>incoative / ingressive</strong> periphrasis — it marks the <em>onset</em> of the action. This is the category that <em>ir a</em> + infinitivo is often mislabeled as; <em>ir a</em> marks posteriority, not inception.'
+  },
+  {
+    prompt: '¿Ya has terminado la tarea? — (norma peninsular)',
+    options: ['Presente perfecto', 'Presente perfecto de subjuntivo', 'Perífrasis terminativa (acabar de + inf.)', 'Presente simple'],
+    correct: 0,
+    explain: '<strong>Presente perfecto</strong>, and a textbook case of dialectal split: <em>ya</em> plus a still-current time frame takes the compound perfect in Spain, while most Latin American varieties would say <em>¿Ya terminaste la tarea?</em> with the simple preterite. Neither is more correct.'
+  }
+];
+
+let score = 0, answeredCount = 0;
+const scoreDisplay = document.getElementById('scoreDisplay');
+function updateScore() { scoreDisplay.textContent = `${score} / ${answeredCount}`; }
+updateScore();
+
+function renderPractice() {
+  const practiceBlock = document.getElementById('practiceBlock');
+  practiceBlock.innerHTML = practiceQuestions.map((q, qi) => `
+    <div class="practice-q">
+      <div class="practice-q-num">Oración ${qi + 1} / ${practiceQuestions.length}</div>
+      <div class="practice-prompt">${q.prompt}</div>
+      <div class="practice-options">${q.options.map((o,oi) => `<button class="opt-btn" data-q="${qi}" data-o="${oi}">${o}</button>`).join('')}</div>
+      <div class="feedback" id="practice-fb-${qi}"></div>
+    </div>`).join('');
+}
+renderPractice();
+
+document.getElementById('practiceBlock').addEventListener('click', e => {
+  if (!e.target.classList.contains('opt-btn')) return;
+  const qi = +e.target.dataset.q, oi = +e.target.dataset.o;
+  const q = practiceQuestions[qi];
+  const allBtns = document.querySelectorAll(`.opt-btn[data-q="${qi}"]`);
+  allBtns.forEach(b => b.disabled = true);
+  allBtns[q.correct].classList.add('correct');
+  const isCorrect = oi === q.correct;
+  if (!isCorrect) e.target.classList.add('incorrect');
+  const fb = document.getElementById(`practice-fb-${qi}`);
+  fb.className = isCorrect ? 'feedback correct show' : 'feedback incorrect show';
+  fb.innerHTML = isCorrect ? `✓ ${q.explain}` : `La respuesta correcta es <strong>${q.options[q.correct]}</strong>. ${q.explain}`;
+  score += isCorrect ? 1 : 0;
+  answeredCount++;
+  updateScore();
+});
+
+document.getElementById('resetPractice').addEventListener('click', () => {
+  score = 0; answeredCount = 0; updateScore(); renderPractice();
+});
+</script>
+</body>
+</html>
