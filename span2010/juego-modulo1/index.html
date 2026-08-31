@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ronda de Vocabulario — Módulo 1 · SPAN 2010</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400;9..144,500;9..144,700;9..144,900&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F4EEE2; --card-bg: #FBF6EB;
+    --ink: #1F1A14; --ink-soft: #4F443A; --ink-faint: #8A7E70;
+    --accent: #B84A1F; --accent-pale: #F5DDC9;
+    --secondary: #2A4D5E; --secondary-pale: #E3ECEF;
+    --wsu: #492365; --wsu-pale: #EFE6F4;
+    --line: #1F1A14; --line-soft: #D8CFBC;
+    --correct: #2D6A4F; --correct-pale: #E4F0EA;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'Manrope', system-ui, sans-serif;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh; padding: 1.5rem;
+  }
+  .stage {
+    width: 100%; max-width: 820px;
+    display: flex; flex-direction: column; gap: 1.1rem;
+  }
+  .header { text-align: center; }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--wsu); font-weight: 600; margin-bottom: 0.4rem;
+  }
+  .title {
+    font-family: 'Fraunces', serif; font-weight: 600;
+    font-size: clamp(1.6rem, 4vw, 2.1rem); color: var(--ink);
+  }
+  .title em { font-style: italic; color: var(--accent); }
+  .subtitle {
+    font-size: 0.92rem; color: var(--ink-soft); margin-top: 0.35rem;
+  }
+
+  .board {
+    background: var(--card-bg); border-radius: 20px;
+    border: 1.5px solid var(--line);
+    box-shadow: 0 2px 0 var(--line), 0 12px 34px rgba(0,0,0,0.09);
+    padding: 2.2rem 2rem 1.6rem;
+    display: flex; flex-direction: column; align-items: center; gap: 1.1rem;
+    min-height: 360px;
+    position: relative;
+  }
+
+  .top-row {
+    width: 100%; display: flex; justify-content: space-between; align-items: center;
+  }
+  .cat-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+    letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600;
+    padding: 0.3rem 0.7rem; border-radius: 999px;
+    border: 1.5px solid var(--line-soft); color: var(--ink-soft);
+    background: var(--bg);
+  }
+  .pts-badge {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+    letter-spacing: 0.06em; font-weight: 700;
+    padding: 0.35rem 0.85rem; border-radius: 999px;
+    border: 1.5px solid var(--line);
+  }
+  .pts-1 { background: var(--correct-pale); color: var(--correct); }
+  .pts-2 { background: var(--accent-pale); color: var(--accent); }
+  .pts-3 { background: var(--wsu-pale); color: var(--wsu); }
+
+  .word-zone {
+    flex: 1; width: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; gap: 0.9rem; padding: 1rem 0.5rem;
+  }
+  .es-word {
+    font-family: 'Fraunces', serif; font-weight: 600;
+    font-size: clamp(2.1rem, 6vw, 3.4rem); line-height: 1.15; color: var(--ink);
+  }
+  .meaning {
+    font-family: 'Manrope', sans-serif; font-size: 1rem; color: var(--ink-faint);
+    min-height: 1.4rem; visibility: hidden;
+  }
+  .meaning.shown { visibility: visible; }
+  .prompt-line {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+    color: var(--ink-faint); letter-spacing: 0.03em;
+  }
+
+  .timer-wrap {
+    width: 100%; display: flex; align-items: center; gap: 0.7rem;
+  }
+  .timer-bar-track {
+    flex: 1; height: 8px; border-radius: 999px;
+    background: var(--bg); border: 1.5px solid var(--line-soft); overflow: hidden;
+  }
+  .timer-bar-fill {
+    height: 100%; width: 100%; border-radius: 999px;
+    background: var(--correct); transition: width 1s linear, background-color 0.4s ease;
+  }
+  .timer-bar-fill.warn { background: var(--accent); }
+  .timer-bar-fill.danger { background: var(--wsu); }
+  .timer-num {
+    font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 0.85rem;
+    color: var(--ink-soft); min-width: 2.6rem; text-align: right;
+  }
+  .timer-num.danger { color: var(--wsu); }
+  @keyframes timerPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.45; }
+  }
+  .timer-num.done { animation: timerPulse 0.8s ease-in-out infinite; }
+
+  .reveal-btn {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+    letter-spacing: 0.05em; text-transform: uppercase; font-weight: 600;
+    background: transparent; border: none; color: var(--secondary);
+    cursor: pointer; text-decoration: underline; text-underline-offset: 3px;
+    padding: 0.2rem;
+  }
+  .reveal-btn:hover { color: var(--accent); }
+
+  .footer-row {
+    width: 100%; display: flex; justify-content: space-between; align-items: center;
+    gap: 0.75rem; flex-wrap: wrap;
+  }
+  .counter {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+    color: var(--ink-faint); letter-spacing: 0.04em;
+  }
+  .nav-btns { display: flex; gap: 0.6rem; }
+  .btn {
+    font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 0.9rem;
+    padding: 0.65rem 1.3rem; border-radius: 10px; cursor: pointer;
+    border: 1.5px solid var(--line); transition: transform 0.08s ease;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn-secondary { background: var(--bg); color: var(--ink); }
+  .btn-primary { background: var(--wsu); color: #fff; border-color: var(--wsu); }
+  .btn-primary:hover { background: #3a1c50; }
+
+  .hint-line {
+    text-align: center; font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem; color: var(--ink-faint); letter-spacing: 0.04em;
+  }
+
+  .scoreboard {
+    background: var(--card-bg); border-radius: 16px;
+    border: 1.5px solid var(--line);
+    box-shadow: 0 2px 0 var(--line), 0 8px 20px rgba(0,0,0,0.06);
+    padding: 1rem 1.3rem;
+    display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .team {
+    display: flex; align-items: center; gap: 0.7rem;
+    flex: 1; min-width: 160px; justify-content: space-between;
+  }
+  .team-name {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+    text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); font-weight: 600;
+  }
+  .team-score {
+    font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.6rem; color: var(--wsu);
+    min-width: 2.2rem; text-align: center;
+  }
+  .team-add {
+    font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 0.85rem;
+    background: var(--secondary); color: #fff; border: none; border-radius: 8px;
+    width: 2.1rem; height: 2.1rem; cursor: pointer;
+  }
+  .team-add:hover { background: var(--accent); }
+  .divider { width: 1.5px; align-self: stretch; background: var(--line-soft); }
+  .reset-link {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+    color: var(--ink-faint); background: none; border: none; cursor: pointer;
+    text-decoration: underline; text-underline-offset: 2px;
+  }
+
+  .footer-credit {
+    text-align: center; font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; color: var(--ink-faint); letter-spacing: 0.03em; margin-top: 0.2rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="header">
+    <div class="eyebrow">Módulo 1 · SPAN 2010</div>
+    <h1 class="title">Ronda de <em>Vocabulario</em></h1>
+    <p class="subtitle">Use whatever appears on the board in your conversation. Higher points = harder word.</p>
+  </div>
+
+  <div class="board" id="board">
+    <div class="timer-wrap">
+      <div class="timer-bar-track">
+        <div class="timer-bar-fill" id="timer-bar"></div>
+      </div>
+      <span class="timer-num" id="timer-num">25</span>
+    </div>
+    <div class="top-row">
+      <span class="cat-tag" id="cat-tag">Vocabulario</span>
+      <span class="pts-badge pts-1" id="pts-badge">1 punto</span>
+    </div>
+    <div class="word-zone">
+      <div class="es-word" id="es-word">—</div>
+      <div class="meaning" id="meaning">—</div>
+      <button class="reveal-btn" id="reveal-btn" onclick="toggleMeaning()">Show meaning</button>
+    </div>
+    <div class="prompt-line">Work it into your conversation before the next card.</div>
+  </div>
+
+  <div class="footer-row">
+    <span class="counter" id="counter">Card 0</span>
+    <div class="nav-btns">
+      <button class="btn btn-secondary" id="prev-btn" onclick="prevCard()" disabled>&larr; Back</button>
+      <button class="btn btn-primary" id="next-btn" onclick="nextCard()">Next &rarr;</button>
+    </div>
+  </div>
+
+  <p class="hint-line">Space / &rarr; : next card &nbsp;·&nbsp; &larr; : previous &nbsp;·&nbsp; click "Show meaning" for the English gloss</p>
+
+  <div class="scoreboard">
+    <div class="team">
+      <span class="team-name">Equipo A</span>
+      <span class="team-score" id="scoreA">0</span>
+      <button class="team-add" id="addA" onclick="addScore('A')" title="Award current card's points">+</button>
+    </div>
+    <div class="divider"></div>
+    <div class="team">
+      <span class="team-name">Equipo B</span>
+      <span class="team-score" id="scoreB">0</span>
+      <button class="team-add" id="addB" onclick="addScore('B')" title="Award current card's points">+</button>
+    </div>
+    <button class="reset-link" onclick="resetScores()">reset scores</button>
+  </div>
+
+  <div class="footer-credit">Paul Rama, PhD · paulrama@weber.edu</div>
+</div>
+
+<script>
+  // ---- Módulo 1 item bank (17_1 travel vocab, 17_2 irregular preterite, 17_3 "become/realize" expressions) ----
+  const deck = [
+    // Level 1 — core vocabulary nouns (easiest to drop into a sentence)
+    { es: "el aeropuerto", en: "the airport", cat: "vocab", pts: 1 },
+    { es: "el avión", en: "the airplane", cat: "vocab", pts: 1 },
+    { es: "el pasaporte", en: "the passport", cat: "vocab", pts: 1 },
+    { es: "el pasaje / el boleto", en: "the ticket", cat: "vocab", pts: 1 },
+    { es: "las salidas", en: "departures", cat: "vocab", pts: 1 },
+    { es: "las llegadas", en: "arrivals", cat: "vocab", pts: 1 },
+    { es: "el vuelo", en: "the flight", cat: "vocab", pts: 1 },
+    { es: "la puerta", en: "the gate", cat: "vocab", pts: 1 },
+    { es: "a tiempo", en: "on time", cat: "vocab", pts: 1 },
+    { es: "retrasado", en: "delayed", cat: "vocab", pts: 1 },
+    { es: "el tren", en: "the train", cat: "vocab", pts: 1 },
+    { es: "el autobús", en: "the bus", cat: "vocab", pts: 1 },
+    { es: "el metro", en: "the subway", cat: "vocab", pts: 1 },
+    { es: "la estación", en: "the station", cat: "vocab", pts: 1 },
+    { es: "el conductor", en: "the driver", cat: "vocab", pts: 1 },
+    { es: "la parada", en: "the stop", cat: "vocab", pts: 1 },
+
+    // Level 2 — compound/phrasal travel vocabulary
+    { es: "facturar el equipaje", en: "to check luggage", cat: "vocab", pts: 2 },
+    { es: "recoger el equipaje", en: "to pick up luggage (baggage claim)", cat: "vocab", pts: 2 },
+    { es: "pasar por aduanas", en: "to go through customs", cat: "vocab", pts: 2 },
+    { es: "la tarjeta de embarcación", en: "the boarding pass", cat: "vocab", pts: 2 },
+    { es: "un asiento de pasillo", en: "an aisle seat", cat: "vocab", pts: 2 },
+    { es: "un asiento de ventana", en: "a window seat", cat: "vocab", pts: 2 },
+    { es: "la hora de embarcación", en: "boarding time", cat: "vocab", pts: 2 },
+    { es: "la escala", en: "the layover", cat: "vocab", pts: 2 },
+    { es: "los auriculares / audífonos", en: "the headphones", cat: "vocab", pts: 2 },
+    { es: "el/la asistente de vuelo", en: "the flight attendant", cat: "vocab", pts: 2 },
+    { es: "la tienda libre de impuestos", en: "the duty-free shop", cat: "vocab", pts: 2 },
+    { es: "subir al tren", en: "to get on the train", cat: "vocab", pts: 2 },
+    { es: "bajarse del tren", en: "to get off the train", cat: "vocab", pts: 2 },
+    { es: "perder el autobús", en: "to miss the bus", cat: "vocab", pts: 2 },
+    { es: "el transbordo", en: "the transfer", cat: "vocab", pts: 2 },
+    { es: "el coche-comedor", en: "the dining car", cat: "vocab", pts: 2 },
+    { es: "el coche-cama", en: "the sleeper car", cat: "vocab", pts: 2 },
+    { es: "la salida de emergencias", en: "the emergency exit", cat: "vocab", pts: 2 },
+
+    // Level 2 — common irregular preterite (yo form)
+    { es: "tuve", en: "I had (tener)", cat: "verb", pts: 2 },
+    { es: "hice", en: "I did / made (hacer)", cat: "verb", pts: 2 },
+    { es: "vine", en: "I came (venir)", cat: "verb", pts: 2 },
+    { es: "vi", en: "I saw (ver)", cat: "verb", pts: 2 },
+    { es: "fui", en: "I went / I was (ir / ser)", cat: "verb", pts: 2 },
+    { es: "di", en: "I gave (dar)", cat: "verb", pts: 2 },
+    { es: "puse", en: "I put (poner)", cat: "verb", pts: 2 },
+
+    // Level 3 — trickier irregular preterite (less common, harder to produce on the fly)
+    { es: "anduve", en: "I walked / went around (andar)", cat: "verb", pts: 3 },
+    { es: "conduje", en: "I drove (conducir)", cat: "verb", pts: 3 },
+    { es: "traje", en: "I brought (traer)", cat: "verb", pts: 3 },
+    { es: "dije", en: "I said (decir)", cat: "verb", pts: 3 },
+    { es: "supe", en: "I found out (saber)", cat: "verb", pts: 3 },
+    { es: "pude", en: "I was able to / I could (poder)", cat: "verb", pts: 3 },
+    { es: "quise", en: "I wanted / I tried (querer)", cat: "verb", pts: 3 },
+
+    // Level 3 — reflexive "to become / to realize" expressions (full construction needed)
+    { es: "ponerse + [emoción/estado]", en: "to become (sudden, physical/emotional)", cat: "expr", pts: 3 },
+    { es: "volverse loco/a", en: "to become crazy (sudden, extreme change)", cat: "expr", pts: 3 },
+    { es: "hacerse / llegar a ser / pasar a ser + [profesión]", en: "to become (long-term, requires effort)", cat: "expr", pts: 3 },
+    { es: "darse cuenta de (que)", en: "to realize / to find out", cat: "expr", pts: 3 },
+  ];
+
+  const catLabels = { vocab: "Vocabulario", verb: "Verbo irregular", expr: "Expresión reflexiva" };
+
+  let bag = [];
+  let history = [];
+  let pointer = -1; // index into history
+  let meaningShown = false;
+
+  const TIMER_SECONDS = 25;
+  let timerInterval = null;
+
+  function startTimer() {
+    clearInterval(timerInterval);
+    let remaining = TIMER_SECONDS;
+    const bar = document.getElementById('timer-bar');
+    const num = document.getElementById('timer-num');
+
+    function paint() {
+      num.textContent = remaining;
+      bar.style.width = (remaining / TIMER_SECONDS * 100) + "%";
+      bar.classList.remove('warn', 'danger');
+      num.classList.remove('danger', 'done');
+      if (remaining <= 0) {
+        bar.classList.add('danger');
+        num.classList.add('danger', 'done');
+      } else if (remaining <= 8) {
+        bar.classList.add('danger');
+        num.classList.add('danger');
+      } else if (remaining <= 15) {
+        bar.classList.add('warn');
+      }
+    }
+
+    paint();
+    timerInterval = setInterval(() => {
+      remaining--;
+      if (remaining < 0) {
+        clearInterval(timerInterval);
+        return;
+      }
+      paint();
+    }, 1000);
+  }
+
+  function shuffledBag() {
+    const arr = deck.map((_, i) => i);
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function refillBag() {
+    let newBag = shuffledBag();
+    // avoid an immediate repeat across the reshuffle boundary
+    const lastShown = history[history.length - 1];
+    if (lastShown !== undefined && newBag[0] === lastShown && newBag.length > 1) {
+      [newBag[0], newBag[1]] = [newBag[1], newBag[0]];
+    }
+    bag = newBag;
+  }
+
+  function drawNext() {
+    if (bag.length === 0) refillBag();
+    return bag.pop();
+  }
+
+  function render(idx) {
+    const item = deck[idx];
+    document.getElementById('cat-tag').textContent = catLabels[item.cat];
+    document.getElementById('es-word').textContent = item.es;
+    document.getElementById('meaning').textContent = item.en;
+    const badge = document.getElementById('pts-badge');
+    badge.textContent = item.pts === 1 ? "1 punto" : item.pts + " puntos";
+    badge.className = "pts-badge pts-" + item.pts;
+    meaningShown = false;
+    document.getElementById('meaning').classList.remove('shown');
+    document.getElementById('reveal-btn').textContent = "Show meaning";
+    document.getElementById('counter').textContent = "Card " + (pointer + 1);
+    document.getElementById('prev-btn').disabled = (pointer <= 0);
+    startTimer();
+  }
+
+  function nextCard() {
+    const idx = drawNext();
+    history = history.slice(0, pointer + 1);
+    history.push(idx);
+    pointer++;
+    render(idx);
+  }
+
+  function prevCard() {
+    if (pointer > 0) {
+      pointer--;
+      render(history[pointer]);
+    }
+  }
+
+  function toggleMeaning() {
+    meaningShown = !meaningShown;
+    document.getElementById('meaning').classList.toggle('shown', meaningShown);
+    document.getElementById('reveal-btn').textContent = meaningShown ? "Hide meaning" : "Show meaning";
+  }
+
+  function currentPoints() {
+    if (pointer < 0) return 0;
+    return deck[history[pointer]].pts;
+  }
+
+  function addScore(team) {
+    const el = document.getElementById('score' + team);
+    el.textContent = parseInt(el.textContent, 10) + currentPoints();
+  }
+
+  function resetScores() {
+    document.getElementById('scoreA').textContent = "0";
+    document.getElementById('scoreB').textContent = "0";
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') {
+      e.preventDefault();
+      nextCard();
+    } else if (e.key === 'ArrowLeft') {
+      prevCard();
+    } else if (e.key === 't' || e.key === 'T') {
+      toggleMeaning();
+    }
+  });
+
+  // start the game
+  nextCard();
+</script>
+
+</body>
+</html>
