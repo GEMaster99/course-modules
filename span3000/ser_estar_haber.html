@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ser, Estar, Haber &middot; SPAN 3000</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400;9..144,500;9..144,700;9..144,900&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F4EEE2; --bg-elevated: #FBF6EB;
+    --ink: #1F1A14; --ink-soft: #4F443A; --ink-faint: #8A7E70;
+    --accent: #B84A1F; --accent-soft: #EBC7B0; --accent-pale: #F5DDC9;
+    --secondary: #2A4D5E; --wsu: #492365;
+    --line: #1F1A14; --line-soft: #D8CFBC;
+    --correct: #2D6A4F; --incorrect: #B84A1F;
+    --shadow-paper: 0 1px 0 #D8CFBC, 0 8px 24px -12px rgba(31,26,20,0.15);
+    --shadow-lift: 0 2px 0 #1F1A14, 0 10px 30px -8px rgba(31,26,20,0.25);
+  }
+  [data-theme="dark"] {
+    --bg: #16120F; --bg-elevated: #1F1A16;
+    --ink: #F0E8D8; --ink-soft: #B5AB9A; --ink-faint: #7A7163;
+    --accent: #E07856; --accent-soft: #6B3525; --accent-pale: #3D2017;
+    --secondary: #6BA2B5; --wsu: #B292C9;
+    --line: #F0E8D8; --line-soft: #3A312A;
+    --correct: #6BB48E; --incorrect: #E07856;
+    --shadow-paper: 0 1px 0 #3A312A, 0 8px 24px -12px rgba(0,0,0,0.4);
+    --shadow-lift: 0 2px 0 #F0E8D8, 0 10px 30px -8px rgba(0,0,0,0.5);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--ink); font-family: 'Manrope', system-ui, sans-serif; font-size: 16px; line-height: 1.6; min-height: 100vh; transition: background-color 0.3s ease, color 0.3s ease; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.4; background-image: radial-gradient(circle at 20% 30%, var(--line-soft) 0.5px, transparent 0.5px), radial-gradient(circle at 80% 70%, var(--line-soft) 0.5px, transparent 0.5px); background-size: 40px 40px, 60px 60px; }
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 clamp(16px,4vw,48px); position: relative; z-index: 1; }
+  header { padding: 32px 0 24px; border-bottom: 1px solid var(--line-soft); }
+  .header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand-mark { width: 44px; height: 44px; border-radius: 50%; background: var(--wsu); color: #FBF6EB; display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-weight: 900; font-size: 18px; font-variation-settings: "SOFT" 50; flex-shrink: 0; }
+  .brand-text { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-soft); line-height: 1.4; }
+  .brand-text strong { color: var(--ink); font-weight: 500; }
+  .theme-toggle { background: var(--bg-elevated); border: 1.5px solid var(--line); color: var(--ink); width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease, background 0.2s ease; flex-shrink: 0; }
+  .theme-toggle:hover { transform: rotate(15deg) scale(1.05); background: var(--accent-pale); }
+  .theme-toggle svg { width: 20px; height: 20px; }
+  .theme-toggle .sun { display: none; } .theme-toggle .moon { display: block; }
+  [data-theme="dark"] .theme-toggle .sun { display: block; } [data-theme="dark"] .theme-toggle .moon { display: none; }
+  .title-block { padding: 36px 0 28px; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+  .eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--line-soft); max-width: 120px; }
+  h1.module-title { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 144, "SOFT" 30; font-size: clamp(40px,7vw,84px); line-height: 0.95; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 18px; }
+  h1.module-title em { font-style: italic; font-weight: 400; color: var(--accent); font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; }
+  .module-subtitle { font-size: 17px; color: var(--ink-soft); max-width: 640px; line-height: 1.5; }
+  .tabs { display: flex; margin: 32px 0 8px; border-bottom: 2px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn { background: none; border: none; color: var(--ink-soft); font-family: 'Fraunces', serif; font-weight: 500; font-size: 19px; font-variation-settings: "opsz" 24, "SOFT" 20; padding: 14px 24px; cursor: pointer; position: relative; transition: color 0.2s ease; white-space: nowrap; display: flex; align-items: center; gap: 10px; }
+  .tab-btn .tab-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); font-weight: 400; }
+  .tab-btn:hover { color: var(--ink); } .tab-btn.active { color: var(--ink); }
+  .tab-btn.active .tab-num { color: var(--accent); }
+  .tab-btn.active::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 4px; background: var(--accent); }
+  main { padding: 40px 0 80px; }
+  .panel { display: none; animation: fadeIn 0.4s ease; } .panel.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+  .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px dashed var(--line-soft); }
+  .section-head h2 { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 72, "SOFT" 40; font-size: clamp(28px,4vw,40px); letter-spacing: -0.01em; line-height: 1.1; }
+  .section-head .marker { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
+  .pill-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .pill { background: var(--bg-elevated); border: 1.5px solid var(--line-soft); color: var(--ink-soft); padding: 8px 18px; border-radius: 24px; font-family: 'Manrope', sans-serif; font-weight: 500; font-size: 14px; cursor: pointer; transition: all 0.2s ease; }
+  .pill:hover { border-color: var(--line); color: var(--ink); } .pill.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .sub-panel { display: none; } .sub-panel.active { display: block; animation: fadeIn 0.3s ease; }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: 14px; }
+  .flashcard { aspect-ratio: 4/3; perspective: 1000px; cursor: pointer; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); transform-style: preserve-3d; }
+  .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+  .card-face { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; border: 1.5px solid var(--line); box-shadow: var(--shadow-paper); }
+  .card-front { background: var(--bg-elevated); }
+  .card-back { background: var(--ink); color: var(--bg); transform: rotateY(180deg); border-color: var(--ink); }
+  .card-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-faint); }
+  .card-back .card-label { opacity: 0.7; }
+  .card-word { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 72, "SOFT" 50; font-size: 22px; line-height: 1.05; letter-spacing: -0.01em; }
+  .card-word em { font-style: italic; color: var(--accent); font-variation-settings: "opsz" 72, "SOFT" 100, "WONK" 1; }
+  .card-back .card-word em { color: var(--accent-soft); }
+  .card-hint { font-size: 11px; color: var(--ink-faint); font-style: italic; }
+  .card-back .card-hint { color: var(--accent-soft); }
+  .expr-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(240px,1fr)); gap: 12px; }
+  .expr-card { background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px; padding: 14px 18px; transition: transform 0.15s ease; }
+  .expr-card:hover { transform: translate(-1px,-1px); box-shadow: var(--shadow-lift); }
+  .expr-es { font-family: 'Fraunces', serif; font-weight: 500; font-style: italic; font-size: 18px; color: var(--ink); margin-bottom: 4px; }
+  .expr-en { color: var(--ink-soft); font-size: 13px; }
+  .grammar-block { background: var(--bg-elevated); border: 1.5px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 28px; box-shadow: var(--shadow-paper); }
+  .grammar-block h3 { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 48, "SOFT" 30; font-size: 26px; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .grammar-block .lede { color: var(--ink-soft); font-size: 15px; margin-bottom: 20px; max-width: 640px; }
+  .pronoun-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .pronoun-row { display: grid; grid-template-columns: 170px 1fr; gap: 12px; padding: 10px 14px; border-radius: 8px; background: var(--bg); border: 1px solid var(--line-soft); align-items: center; }
+  .pronoun-row strong { font-family: 'Fraunces', serif; font-weight: 500; font-style: italic; color: var(--accent); font-size: 16px; }
+  .pronoun-row .gloss { color: var(--ink-soft); font-size: 13px; }
+  .conj-table { background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
+  .conj-table table { width: 100%; border-collapse: collapse; }
+  .conj-table th { background: var(--ink); color: var(--bg); text-align: left; padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+  .conj-table td { padding: 13px 16px; border-top: 1px solid var(--line-soft); font-size: 16px; vertical-align: middle; }
+  .conj-table td:first-child { color: var(--ink-soft); font-style: italic; width: 30%; font-family: 'Fraunces', serif; }
+  .conj-table td:nth-child(2) { font-family: 'Fraunces', serif; font-weight: 500; font-size: 18px; }
+  .stem-change { color: var(--accent); font-weight: 700; }
+  .conj-table td:last-child { color: var(--ink-faint); font-size: 13px; font-style: italic; }
+  .conj-split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .conj-split-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); margin-bottom: 8px; }
+  .culture-block { background: var(--bg-elevated); border: 1.5px solid var(--secondary); border-radius: 14px; padding: 24px; margin-bottom: 28px; position: relative; }
+  .culture-tag { position: absolute; top: -10px; left: 20px; background: var(--secondary); color: #FBF6EB; padding: 3px 10px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .culture-block h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 22px; margin-bottom: 10px; margin-top: 4px; }
+  .culture-block p { color: var(--ink-soft); font-size: 14px; line-height: 1.6; }
+  .culture-block p + p { margin-top: 10px; }
+  .tip-block { background: var(--accent-pale); border: 1.5px solid var(--accent); border-radius: 10px; padding: 16px 20px; margin-top: 20px; font-size: 14px; color: var(--ink-soft); }
+  .tip-block strong { color: var(--ink); }
+  .practice-block { background: var(--accent-pale); border: 1.5px solid var(--accent); border-radius: 14px; padding: 24px; margin-top: 24px; }
+  .practice-q { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px dashed var(--line-soft); }
+  .practice-q:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .practice-prompt { font-size: 16px; margin-bottom: 12px; font-family: 'Fraunces', serif; font-style: italic; }
+  .practice-prompt .blank { display: inline-block; min-width: 100px; border-bottom: 2px solid var(--accent); margin: 0 4px; }
+  .practice-options { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt-btn { background: var(--bg-elevated); border: 1.5px solid var(--line); color: var(--ink); padding: 8px 16px; border-radius: 8px; font-family: 'Fraunces', serif; font-style: italic; font-size: 15px; cursor: pointer; transition: all 0.15s ease; }
+  .opt-btn:hover { background: var(--ink); color: var(--bg); }
+  .opt-btn.correct { background: var(--correct); color: #FBF6EB; border-color: var(--correct); }
+  .opt-btn.incorrect { background: var(--incorrect); color: #FBF6EB; border-color: var(--incorrect); opacity: 0.7; }
+  .opt-btn:disabled { cursor: default; }
+  .opt-btn:disabled:hover { background: var(--bg-elevated); color: var(--ink); }
+  .opt-btn.correct:disabled, .opt-btn.correct:disabled:hover { background: var(--correct); color: #FBF6EB; }
+  .opt-btn.incorrect:disabled, .opt-btn.incorrect:disabled:hover { background: var(--incorrect); color: #FBF6EB; }
+  .listen-intro { background: var(--bg-elevated); border-left: 3px solid var(--secondary); padding: 18px 22px; border-radius: 4px; margin-bottom: 28px; font-size: 14px; color: var(--ink-soft); }
+  .listen-intro strong { color: var(--ink); }
+  .listen-exercise { background: var(--bg-elevated); border: 1.5px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 24px; box-shadow: var(--shadow-paper); }
+  .listen-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+  .listen-head h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 22px; font-variation-settings: "opsz" 36, "SOFT" 40; }
+  .listen-counter { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-faint); background: var(--bg); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line-soft); white-space: nowrap; }
+  .play-btn { background: var(--accent); color: #FBF6EB; border: 1.5px solid var(--accent); border-radius: 12px; padding: 14px 24px; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 15px; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: transform 0.15s ease, background 0.15s ease; margin-bottom: 18px; }
+  .play-btn:hover { transform: translate(-1px,-1px); box-shadow: 0 2px 0 var(--ink); }
+  .play-btn:active { transform: translate(1px,1px); box-shadow: none; }
+  .play-btn.speaking { background: var(--secondary); border-color: var(--secondary); }
+  .play-btn svg { width: 16px; height: 16px; }
+  .listen-options { display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: 10px; margin-bottom: 16px; }
+  .listen-options.cols-2 { grid-template-columns: repeat(2,1fr); max-width: 700px; }
+  .listen-opt { background: var(--bg); border: 1.5px solid var(--line); color: var(--ink); padding: 14px 16px; border-radius: 10px; font-family: 'Fraunces', serif; font-style: italic; font-size: 15px; cursor: pointer; transition: all 0.15s ease; text-align: center; }
+  .listen-opt:hover { background: var(--ink); color: var(--bg); transform: translate(-1px,-1px); }
+  .listen-opt.correct { background: var(--correct); color: #FBF6EB; border-color: var(--correct); }
+  .listen-opt.incorrect { background: var(--incorrect); color: #FBF6EB; border-color: var(--incorrect); opacity: 0.6; }
+  .listen-opt:disabled { cursor: default; }
+  .listen-opt:disabled:hover { transform: none; }
+  .listen-opt:disabled:hover:not(.correct):not(.incorrect) { background: var(--bg); color: var(--ink); }
+  .feedback { font-family: 'Fraunces', serif; font-style: italic; font-size: 16px; padding: 14px 18px; border-radius: 8px; margin-top: 12px; display: none; }
+  .feedback.show { display: block; animation: fadeIn 0.3s ease; }
+  .feedback.correct { background: rgba(45,106,79,0.1); color: var(--correct); border-left: 3px solid var(--correct); }
+  .feedback.incorrect { background: var(--accent-pale); color: var(--accent); border-left: 3px solid var(--accent); }
+  .feedback strong { font-weight: 700; font-style: normal; }
+  .next-btn { background: var(--ink); color: var(--bg); border: 1.5px solid var(--ink); border-radius: 10px; padding: 12px 22px; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; margin-top: 12px; transition: transform 0.15s ease; }
+  .next-btn:hover { transform: translate(-1px,-1px); box-shadow: 0 2px 0 var(--accent); }
+  .next-btn:disabled { opacity: 0.4; cursor: default; }
+  .progress-bar { height: 4px; background: var(--line-soft); border-radius: 2px; overflow: hidden; margin-bottom: 20px; }
+  .progress-fill { height: 100%; background: var(--accent); transition: width 0.4s ease; width: 0%; }
+  .done-message { text-align: center; padding: 32px 20px; background: var(--accent-pale); border-radius: 12px; border: 1.5px solid var(--accent); display: none; }
+  .done-message.show { display: block; animation: fadeIn 0.4s ease; }
+  .done-message h4 { font-family: 'Fraunces', serif; font-style: italic; font-size: 28px; color: var(--accent); margin-bottom: 8px; }
+  .done-message p { color: var(--ink-soft); margin-bottom: 16px; }
+  .done-message .score { font-family: 'Fraunces', serif; font-weight: 700; font-size: 22px; color: var(--ink); margin-bottom: 16px; }
+  .voice-notice { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); margin-top: 16px; font-style: italic; }
+  footer { border-top: 1px solid var(--line-soft); padding: 24px 0; color: var(--ink-faint); font-size: 13px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.08em; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  @media (max-width: 720px) {
+    .pronoun-grid { grid-template-columns: 1fr; }
+    .pronoun-row { grid-template-columns: 130px 1fr; }
+    .conj-split { grid-template-columns: 1fr; }
+    .grammar-block { padding: 20px; }
+    .listen-exercise { padding: 20px; }
+    .tab-btn { padding: 12px 14px; font-size: 17px; }
+    .tab-btn .tab-num { display: none; }
+    .listen-options.cols-2 { grid-template-columns: 1fr; }
+  }
+</style>
+<style>
+  .quiz-shell { background: var(--bg-elevated); border: 1.5px solid var(--line); border-radius: 14px;
+    padding: 32px; box-shadow: var(--shadow-paper); max-width: 760px; margin: 0 auto; }
+  .quiz-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
+    margin-bottom: 18px; }
+  .quiz-head h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 22px;
+    font-variation-settings: "opsz" 36, "SOFT" 40; }
+  .quiz-counter { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-faint);
+    background: var(--bg); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line-soft);
+    white-space: nowrap; }
+  .quiz-type-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--accent); margin-bottom: 10px; }
+  .quiz-prompt { font-family: 'Fraunces', serif; font-style: italic; font-size: 19px; line-height: 1.4;
+    margin-bottom: 22px; color: var(--ink); }
+  .quiz-prompt .blank { display: inline-block; min-width: 70px; border-bottom: 2px solid var(--accent);
+    margin: 0 4px; }
+  .quiz-options { display: grid; gap: 10px; margin-bottom: 6px; }
+  .quiz-options.two-up { grid-template-columns: repeat(2, 1fr); max-width: 420px; }
+  .quiz-opt { background: var(--bg); border: 1.5px solid var(--line); color: var(--ink);
+    padding: 14px 18px; border-radius: 10px; font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 16px; cursor: pointer; text-align: left; transition: all 0.15s ease; }
+  .quiz-opt:hover { background: var(--ink); color: var(--bg); transform: translate(-1px, -1px); }
+  .quiz-opt.correct { background: var(--correct); color: #FBF6EB; border-color: var(--correct); }
+  .quiz-opt.incorrect { background: var(--incorrect); color: #FBF6EB; border-color: var(--incorrect);
+    opacity: 0.7; }
+  .quiz-opt:disabled { cursor: default; }
+  .quiz-opt:disabled:hover { transform: none; }
+  .quiz-opt:disabled:hover:not(.correct):not(.incorrect) { background: var(--bg); color: var(--ink); }
+  .flag-note { background: var(--accent-pale); border: 1.5px solid var(--accent); border-radius: 10px;
+    padding: 12px 16px; margin-top: 16px; font-size: 13px; color: var(--ink-soft); }
+  .flag-note strong { color: var(--ink); }
+  .quiz-nav-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px; }
+  .nav-pill { width: 32px; height: 32px; border-radius: 8px; border: 1.5px solid var(--line-soft);
+    background: var(--bg); color: var(--ink-soft); font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s ease; }
+  .nav-pill:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .nav-pill.current { border-color: var(--accent); border-width: 2px; color: var(--ink); font-weight: 700; }
+  .nav-pill.answered-correct { background: var(--correct); color: #FBF6EB; border-color: var(--correct); }
+  .nav-pill.answered-incorrect { background: var(--incorrect); color: #FBF6EB; border-color: var(--incorrect); }
+  .nav-pill.answered-correct.current, .nav-pill.answered-incorrect.current { box-shadow: 0 0 0 2px var(--accent); }
+  .quiz-footer-row { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    margin-top: 18px; flex-wrap: wrap; }
+  .quiz-score-live { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-faint); }
+  .nav-btn-row { display: flex; gap: 10px; }
+  .nav-btn { background: var(--ink); color: var(--bg); border: 1.5px solid var(--ink); border-radius: 10px;
+    padding: 12px 20px; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer;
+    transition: transform 0.15s ease; }
+  .nav-btn:hover { transform: translate(-1px, -1px); box-shadow: 0 2px 0 var(--accent); }
+  .nav-btn:disabled { opacity: 0.35; cursor: default; box-shadow: none; transform: none; }
+  .nav-btn.ghost { background: var(--bg); color: var(--ink); border-color: var(--line); }
+  .nav-btn.ghost:hover { background: var(--accent-pale); box-shadow: none; transform: none; }
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="header-row">
+    <div class="brand">
+      <div class="brand-mark">W</div>
+      <div class="brand-text"><strong>SPAN 3000</strong> &middot; Conversational Spanish<br>Weber State University</div>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+  </div>
+  <div class="title-block">
+    <div class="eyebrow">Gram&aacute;tica</div>
+    <h1 class="module-title">Ser, Estar, <em>Haber</em></h1>
+    <p class="module-subtitle">Pr&aacute;ctica interactiva de repaso &mdash; no cuenta para la nota. Salta a
+    cualquier pregunta con los n&uacute;meros de abajo, o usa Anterior / Siguiente.</p>
+  </div>
+</header>
+
+<main style="padding: 40px 0 80px">
+<section class="panel active">
+  <div class="quiz-shell">
+    <div class="quiz-head">
+      <h3 id="quizTitle">Ser, estar y haber</h3>
+      <span class="quiz-counter" id="qCounter">1 / 21</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="qProgress"></div></div>
+    <div class="quiz-nav-grid" id="qNavGrid"></div>
+    <div class="quiz-type-tag" id="qTypeTag">Completa el espacio</div>
+    <div class="quiz-prompt" id="qPrompt"></div>
+    <div class="quiz-options" id="qOptions"></div>
+    <div class="feedback" id="qFeedback"></div>
+    <div class="quiz-footer-row">
+      <span class="quiz-score-live" id="qScoreLive">0 / 21 respondidas</span>
+      <div class="nav-btn-row">
+        <button class="nav-btn ghost" id="qReset">Reiniciar</button>
+        <button class="nav-btn ghost" id="qPrev">&larr; Anterior</button>
+        <button class="nav-btn" id="qNext">Siguiente &rarr;</button>
+      </div>
+    </div>
+    <p style="text-align:center;color:var(--ink-faint);font-size:11px;font-family:'JetBrains Mono',monospace;margin-top:14px">
+    &larr; &rarr; para navegar con el teclado</p>
+  </div>
+  <p style="text-align:center;color:var(--ink-faint);font-size:12px;font-family:'JetBrains Mono',monospace;margin-top:18px;max-width:760px;margin-left:auto;margin-right:auto">
+  &#9432; El &iacute;tem 13 (&ldquo;I am done&rdquo;) no se resuelve con ser ni con estar &mdash; f&iacute;jate en
+  por qu&eacute; ninguna opci&oacute;n con la c&oacute;pula funciona.</p>
+</section>
+</main>
+
+<footer>
+  <div>SPAN 3000 &middot; Ser, Estar, Haber</div>
+  <div>Paul Rama, PhD &middot; paul.rama@weber.edu</div>
+</footer>
+</div>
+
+<script>
+const themeToggle = document.getElementById('themeToggle');
+const savedTheme = (() => { try { return localStorage.getItem('span3000-theme'); } catch { return null; } })();
+if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+themeToggle.addEventListener('click', () => {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  isDark ? document.documentElement.removeAttribute('data-theme') : document.documentElement.setAttribute('data-theme', 'dark');
+  try { localStorage.setItem('span3000-theme', isDark ? 'light' : 'dark'); } catch {}
+});
+
+const questions = [{"n": 1, "type": "fill", "prompt": "&iquest;Para cu&aacute;ndo ___ la pr&oacute;xima composici&oacute;n?", "options": ["es", "est&aacute;"], "correct": 0, "explain": "Fecha o plazo programado de algo &mdash; se usa <strong>ser</strong>."}, {"n": 2, "type": "fill", "prompt": "La ceremonia de la graduaci&oacute;n siempre ___ en el gimnasio.", "options": ["es", "est&aacute;"], "correct": 0, "explain": "D&oacute;nde <strong>ocurre</strong> un evento va con <strong>ser</strong>. Compara con el &iacute;tem 8: el edificio en s&iacute; se ubica con <em>estar</em>."}, {"n": 3, "type": "fill", "prompt": "Esa mujer ___ de gerente esta semana, hasta que regrese la gerente oficial.", "options": ["es", "est&aacute;"], "correct": 1, "explain": "<em>Estar de</em> + sustantivo = funci&oacute;n o rol temporal, no identidad. &ldquo;Est&aacute; de gerente&rdquo; = est&aacute; desempe&ntilde;ando ese papel, no lo es de verdad."}, {"n": 4, "type": "fill", "prompt": "El vuelo ___ por salir.", "options": ["es", "est&aacute;"], "correct": 1, "explain": "<em>Estar por</em> + infinitivo = a punto de."}, {"n": 5, "type": "fill", "prompt": "Ese actor ___ muerto.", "options": ["es", "est&aacute;"], "correct": 1, "explain": "Estado resultante de un cambio (muri&oacute; &rarr; est&aacute; muerto), no una identidad permanente. Igual que <em>est&aacute; vivo</em>."}, {"n": 6, "type": "fill", "prompt": "&iexcl;Qu&eacute; rico ___ el caf&eacute; esta ma&ntilde;ana!", "options": ["es", "est&aacute;"], "correct": 1, "explain": "Reacci&oacute;n o evaluaci&oacute;n puntual &mdash; c&oacute;mo sabe hoy &mdash; va con <strong>estar</strong>."}, {"n": 7, "type": "fill", "prompt": "Este pastel ___ riqu&iacute;simo.", "options": ["es", "est&aacute;"], "correct": 1, "explain": "Mismo patr&oacute;n que el &iacute;tem 6: c&oacute;mo sabe en este momento, no una cualidad fija."}, {"n": 8, "type": "fill", "prompt": "El auditorio ___ detr&aacute;s de la biblioteca.", "options": ["es", "est&aacute;"], "correct": 1, "explain": "Ubicaci&oacute;n de un lugar o edificio &mdash; siempre <strong>estar</strong>."}, {"n": 9, "type": "fill", "prompt": "Ese auditorio ___ de ladrillo.", "options": ["es", "est&aacute;"], "correct": 0, "explain": "<em>Ser de</em> + material = de qu&eacute; est&aacute; hecho algo &mdash; <strong>ser</strong>."}, {"n": 10, "type": "trans", "prompt": "I am boring.", "options": ["Soy aburrida", "Estoy aburrida"], "correct": 0, "explain": "Cualidad inherente &mdash; aburre a otros &mdash; es <strong>ser</strong>. <em>Estoy aburrida</em> traducir&iacute;a &ldquo;I am bored.&rdquo;"}, {"n": 11, "type": "trans", "prompt": "What time is the concert?", "options": ["&iquest;D&oacute;nde es el concierto?", "&iquest;Cu&aacute;ndo est&aacute; el concierto?", "&iquest;A qu&eacute; hora es el concierto?", "&iquest;A qu&eacute; hora est&aacute; el concierto?"], "correct": 2, "explain": "Hora de un evento programado &mdash; <strong>ser</strong>."}, {"n": 12, "type": "trans", "prompt": "We are preparing ourselves for the exam. The exam is on Tuesday.", "options": ["Somos preparando para el examen. El examen est&aacute; el martes.", "Nos hemos preparado para el examen. El examen es el martes.", "Estamos preparados para el examen. El examen est&aacute; el martes.", "Nos estamos preparando para el examen. El examen es el martes."], "correct": 3, "explain": "Acci&oacute;n en curso = <strong>estar</strong> + gerundio; fecha de un evento = <strong>ser</strong>."}, {"n": 13, "type": "trans", "prompt": "I am done.", "options": ["Estoy hecho.", "Estoy terminado.", "Soy terminado.", "He acabado."], "correct": 3, "explain": "Ni <em>ser</em> ni <em>estar</em> traducen esto de forma natural &mdash; es pret&eacute;rito perfecto. F&iacute;jate: ninguna opci&oacute;n con la c&oacute;pula suena bien aqu&iacute;, y eso es justo la trampa del &iacute;tem."}, {"n": 14, "type": "trans", "prompt": "Right now I'm a student, but soon I will graduate and will be a lawyer.", "options": ["Ahora estoy estudiante, pero pronto me graduar&eacute; y estar&eacute; abogado.", "Ahora soy estudiante, pero pronto me graduar&eacute; y estar&eacute; un abogado.", "Ahora soy estudiante, pero pronto me graduar&eacute; y ser&eacute; un abogado.", "Ahora estoy estudiando, pero pronto me graduar&eacute; y estar&eacute; abogado."], "correct": 2, "explain": "Profesi&oacute;n e identidad &mdash; <strong>ser</strong> en ambas cl&aacute;usulas."}, {"n": 15, "type": "trans", "prompt": "I am late.", "options": ["Soy tarde.", "Estoy tarde.", "Llegu&eacute; tarde.", "Fui tarde."], "correct": 2, "explain": "<em>Estar tarde</em> no es espa&ntilde;ol est&aacute;ndar; se resuelve con el pret&eacute;rito de <em>llegar</em>, no con la c&oacute;pula."}, {"n": 16, "type": "trans", "prompt": "It is okay for your friends to come.", "options": ["Est&aacute; bien que vengan tus amigos.", "Est&aacute; bueno que vengan tus amigos.", "Es bien que vengan tus amigos.", "Es bueno que vengan tus amigos."], "correct": 0, "explain": "Expresi&oacute;n fija <em>est&aacute; bien</em> + subjuntivo."}, {"n": 17, "type": "trans", "prompt": "I am sad to hear that.", "options": ["Lo siento escuchar eso.", "Me apena o&iacute;r eso.", "Estoy triste o&iacute;r eso.", "Soy triste o&iacute;r eso."], "correct": 1, "explain": "Traducci&oacute;n idiom&aacute;tica natural. <em>Estoy triste o&iacute;r eso</em> le falta la preposici&oacute;n <em>de</em>; <em>soy triste</em> describir&iacute;a personalidad, no una reacci&oacute;n puntual."}, {"n": 18, "type": "fill", "prompt": "(Yo) ___ estudiando para mi examen de espa&ntilde;ol.", "options": ["Estoy", "Soy"], "correct": 0, "explain": "<strong>Estar</strong> + gerundio = progresivo."}, {"n": 19, "type": "fill", "prompt": "(Yo) ___ de pie.", "options": ["Estoy", "Soy"], "correct": 0, "explain": "<em>Estar de pie</em> = posici&oacute;n f&iacute;sica, condici&oacute;n moment&aacute;nea."}, {"n": 20, "type": "fill", "prompt": "Ellas ___ mis amigas.", "options": ["son", "est&aacute;n"], "correct": 0, "explain": "Identidad o relaci&oacute;n &mdash; <strong>ser</strong>."}, {"n": 21, "type": "fill", "prompt": "(Nosotros) ___ de vacaciones.", "options": ["Estamos", "Somos"], "correct": 0, "explain": "<em>Estar de vacaciones</em> = expresi&oacute;n fija de estado temporal."}];
+const answers = new Array(questions.length).fill(null); // stores selected option index, or null
+
+let idx = 0;
+const counterEl = document.getElementById('qCounter');
+const progressEl = document.getElementById('qProgress');
+const navGridEl = document.getElementById('qNavGrid');
+const typeTagEl = document.getElementById('qTypeTag');
+const promptEl = document.getElementById('qPrompt');
+const optionsEl = document.getElementById('qOptions');
+const feedbackEl = document.getElementById('qFeedback');
+const scoreLiveEl = document.getElementById('qScoreLive');
+const prevBtn = document.getElementById('qPrev');
+const nextBtn = document.getElementById('qNext');
+const resetBtn = document.getElementById('qReset');
+
+// build the jump-to grid once
+questions.forEach((q, i) => {
+  const b = document.createElement('button');
+  b.className = 'nav-pill';
+  b.textContent = q.n;
+  b.addEventListener('click', () => { idx = i; render(); });
+  navGridEl.appendChild(b);
+});
+const navPills = navGridEl.querySelectorAll('.nav-pill');
+
+function updateNavGrid() {
+  navPills.forEach((p, i) => {
+    p.classList.toggle('current', i === idx);
+    p.classList.remove('answered-correct', 'answered-incorrect');
+    if (answers[i] !== null) {
+      p.classList.add(answers[i] === questions[i].correct ? 'answered-correct' : 'answered-incorrect');
+    }
+  });
+}
+
+function updateScoreLive() {
+  const answeredCount = answers.filter(a => a !== null).length;
+  const correctCount = answers.filter((a, i) => a !== null && a === questions[i].correct).length;
+  scoreLiveEl.innerHTML = `${answeredCount} / ${questions.length} respondidas &middot; ${correctCount} correctas`;
+}
+
+function render() {
+  const q = questions[idx];
+  counterEl.textContent = `${idx + 1} / ${questions.length}`;
+  progressEl.style.width = `${((idx + 1) / questions.length) * 100}%`;
+  feedbackEl.classList.remove('show', 'correct', 'incorrect');
+
+  if (q.type === 'trans') {
+    typeTagEl.innerHTML = 'Traduce al espa&ntilde;ol';
+    promptEl.innerHTML = `<span style="color:var(--ink-soft);font-style:normal;font-family:'Manrope',sans-serif;font-size:13px;display:block;margin-bottom:6px">Item ${q.n}</span>&ldquo;${q.prompt}&rdquo;`;
+  } else {
+    typeTagEl.textContent = 'Completa el espacio';
+    promptEl.innerHTML = `<span style="color:var(--ink-soft);font-style:normal;font-family:'Manrope',sans-serif;font-size:13px;display:block;margin-bottom:6px">Item ${q.n}</span>` + q.prompt.replace('___', '<span class="blank"></span>');
+  }
+
+  optionsEl.innerHTML = '';
+  optionsEl.className = 'quiz-options' + (q.options.length <= 2 ? ' two-up' : '');
+  const selected = answers[idx];
+  q.options.forEach((opt, i) => {
+    const b = document.createElement('button');
+    b.className = 'quiz-opt';
+    b.innerHTML = opt;
+    if (selected !== null) {
+      b.disabled = true;
+      if (i === q.correct) b.classList.add('correct');
+      else if (i === selected) b.classList.add('incorrect');
+    } else {
+      b.addEventListener('click', () => handleAnswer(i, b));
+    }
+    optionsEl.appendChild(b);
+  });
+
+  if (selected !== null) {
+    feedbackEl.classList.add('show', selected === q.correct ? 'correct' : 'incorrect');
+    feedbackEl.innerHTML = (selected === q.correct
+      ? `&#10003; ${q.explain}`
+      : `La respuesta es <strong>${q.options[q.correct]}</strong>. ${q.explain}`);
+  }
+
+  prevBtn.disabled = idx === 0;
+  nextBtn.disabled = idx === questions.length - 1;
+  updateNavGrid();
+  updateScoreLive();
+}
+
+function handleAnswer(i, btn) {
+  answers[idx] = i;
+  render();
+}
+
+prevBtn.addEventListener('click', () => { if (idx > 0) { idx--; render(); } });
+nextBtn.addEventListener('click', () => { if (idx < questions.length - 1) { idx++; render(); } });
+resetBtn.addEventListener('click', () => {
+  answers.fill(null);
+  idx = 0;
+  render();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowLeft' && idx > 0) { idx--; render(); }
+  else if (e.key === 'ArrowRight' && idx < questions.length - 1) { idx++; render(); }
+});
+
+render();
+</script>
+</body>
+</html>
