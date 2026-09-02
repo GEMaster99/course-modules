@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPAN 3000 · Planes de clase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400;9..144,500;9..144,700;9..144,900&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #16120F; --card: #1F1A16; --card-hover: #2A231D;
+    --ink: #F0E8D8; --ink-soft: #B5AB9A; --ink-faint: #7A7163;
+    --accent: #E07856; --wsu: #B292C9; --line: #3A312A;
+    --shadow: 0 10px 30px -12px rgba(0,0,0,0.5);
+  }
+  [data-theme="light"] {
+    --bg: #F4EEE2; --card: #FBF6EB; --card-hover: #F5DDC9;
+    --ink: #1F1A14; --ink-soft: #4F443A; --ink-faint: #8A7E70;
+    --accent: #B84A1F; --wsu: #492365; --line: #D8CFBC;
+    --shadow: 0 8px 24px -12px rgba(31,26,20,0.15);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: 'Manrope', system-ui, sans-serif; min-height: 100vh; padding: 0 0 80px; transition: background 0.3s ease, color 0.3s ease; }
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 clamp(20px,5vw,48px); }
+  .topbar { display: flex; justify-content: flex-end; padding: 20px 0 0; }
+  .theme-toggle { background: var(--card); border: 1.5px solid var(--line); color: var(--ink); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 16px; }
+  .hero { text-align: center; padding: 30px 0 48px; }
+  .breadcrumb { display: inline-flex; gap: 8px; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-faint); margin-bottom: 14px; flex-wrap: wrap; justify-content: center; }
+  .breadcrumb a { color: var(--ink-faint); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  h1 { font-family: 'Fraunces', serif; font-weight: 600; font-variation-settings: "opsz" 144, "SOFT" 20; font-size: clamp(36px,6vw,60px); line-height: 1.0; letter-spacing: -0.02em; margin-bottom: 14px; }
+  h1 em { font-style: italic; font-weight: 400; color: var(--accent); }
+  .hero-sub { color: var(--ink-soft); font-size: 16px; max-width: 620px; margin: 0 auto; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .card { background: var(--card); border: 1.5px solid var(--line); border-radius: 18px; padding: 26px; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease; }
+  .card:hover { transform: translateY(-3px); border-color: var(--accent); background: var(--card-hover); box-shadow: var(--shadow); }
+  .card-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .card h2 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 24px; letter-spacing: -0.01em; margin-bottom: 8px; line-height: 1.1; }
+  .card p { color: var(--ink-soft); font-size: 14px; line-height: 1.5; }
+  .card .arrow { margin-top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.08em; }
+  .empty-state { background: var(--card); border: 1.5px dashed var(--line); border-radius: 18px; padding: 40px 28px; text-align: center; color: var(--ink-faint); font-style: italic; grid-column: 1 / -1; }
+  footer { text-align: center; margin-top: 52px; color: var(--ink-faint); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="topbar">
+    <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">&#9788;</button>
+  </div>
+  <div class="hero">
+    <div class="breadcrumb"><a href="../../index.html">Course Modules</a> &rsaquo; <a href="../index.html">Spanish 3000</a> &rsaquo; Planes de clase</div>
+    <div class="eyebrow">Weber State University &middot; Paul Rama, PhD</div>
+    <h1>Planes de <em>clase</em></h1>
+    <p class="hero-sub">Planes diarios por sesión: objetivos, secuencia de actividades y materiales de aula.</p>
+  </div>
+  <div class="grid">
+    <div class="empty-state">Próximamente &mdash; los materiales de esta sección se irán publicando durante el semestre.</div>
+  </div>
+  <footer>SPAN 3000 &middot; Planes de clase &middot; gemaster99.github.io/course-modules</footer>
+</div>
+<script>
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    const root = document.documentElement;
+    const light = root.getAttribute('data-theme') === 'light';
+    if (light) { root.removeAttribute('data-theme'); document.getElementById('themeToggle').innerHTML = '&#9788;'; }
+    else { root.setAttribute('data-theme', 'light'); document.getElementById('themeToggle').innerHTML = '&#9789;'; }
+  });
+</script>
+</body>
+</html>
