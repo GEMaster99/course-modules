@@ -1,90 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spanish 2010 — Course Modules</title>
+<title>SPAN 3000 · Recursos del curso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400;9..144,500;9..144,700;9..144,900&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    background: #0f1115;
-    color: #e8e8e8;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    padding: 60px 20px;
+  :root {
+    --bg: #16120F; --card: #1F1A16; --card-hover: #2A231D;
+    --ink: #F0E8D8; --ink-soft: #B5AB9A; --ink-faint: #7A7163;
+    --accent: #E07856; --wsu: #B292C9; --line: #3A312A;
+    --shadow: 0 10px 30px -12px rgba(0,0,0,0.5);
   }
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 8px;
+  [data-theme="light"] {
+    --bg: #F4EEE2; --card: #FBF6EB; --card-hover: #F5DDC9;
+    --ink: #1F1A14; --ink-soft: #4F443A; --ink-faint: #8A7E70;
+    --accent: #B84A1F; --wsu: #492365; --line: #D8CFBC;
+    --shadow: 0 8px 24px -12px rgba(31,26,20,0.15);
   }
-  p.subtitle {
-    color: #9aa0aa;
-    margin-top: 0;
-    margin-bottom: 40px;
-    max-width: 480px;
-    line-height: 1.5;
-    text-align: center;
-  }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 20px;
-    width: 100%;
-    max-width: 900px;
-  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: 'Manrope', system-ui, sans-serif; min-height: 100vh; padding: 0 0 80px; transition: background 0.3s ease, color 0.3s ease; }
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 clamp(20px,5vw,48px); }
+  .topbar { display: flex; justify-content: flex-end; padding: 20px 0 0; }
+  .theme-toggle { background: var(--card); border: 1.5px solid var(--line); color: var(--ink); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 16px; }
+  .hero { text-align: center; padding: 40px 0 56px; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+  h1 { font-family: 'Fraunces', serif; font-weight: 600; font-variation-settings: "opsz" 144, "SOFT" 20; font-size: clamp(40px,7vw,72px); line-height: 1.0; letter-spacing: -0.02em; margin-bottom: 16px; }
+  h1 em { font-style: italic; font-weight: 400; color: var(--accent); }
+  .hero-sub { color: var(--ink-soft); font-size: 17px; }
+  .breadcrumb { display: inline-flex; gap: 8px; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-faint); margin-bottom: 8px; }
+  .breadcrumb a { color: var(--ink-faint); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--accent); }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
   .card {
-    background: #1a1d24;
-    border: 1px solid #2a2e37;
-    border-radius: 12px;
-    padding: 24px;
-    text-decoration: none;
-    color: inherit;
-    transition: border-color 0.15s ease, transform 0.15s ease;
+    background: var(--card); border: 1.5px solid var(--line); border-radius: 18px; padding: 28px;
+    text-decoration: none; color: inherit; display: flex; flex-direction: column;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
   }
-  .card:hover {
-    border-color: #4f7cff;
-    transform: translateY(-2px);
-  }
-  .card h2 {
-    margin: 0 0 8px;
-    font-size: 1.15rem;
-  }
-  .card p {
-    margin: 0;
-    color: #9aa0aa;
-    font-size: 0.9rem;
-  }
-  a.back {
-    margin-top: 40px;
-    color: #4f7cff;
-    text-decoration: none;
-    font-size: 0.9rem;
-  }
-  a.back:hover {
-    text-decoration: underline;
-  }
+  .card:hover { transform: translateY(-3px); border-color: var(--accent); background: var(--card-hover); box-shadow: var(--shadow); }
+  .card-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+  .card h2 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 28px; letter-spacing: -0.01em; margin-bottom: 8px; }
+  .card p { color: var(--ink-soft); font-size: 15px; line-height: 1.5; margin-bottom: 18px; }
+  .card ul { list-style: none; border-top: 1px solid var(--line); padding-top: 14px; margin-top: auto; }
+  .card li { font-size: 14px; color: var(--ink-soft); padding: 5px 0; display: flex; align-items: center; gap: 8px; }
+  .card li::before { content: '›'; color: var(--accent); font-weight: 700; }
+  .card li.empty { color: var(--ink-faint); font-style: italic; }
+  .card li.empty::before { content: '·'; }
+  .arrow { margin-top: 18px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.08em; }
+
+  footer { text-align: center; margin-top: 56px; color: var(--ink-faint); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
 </style>
 </head>
 <body>
-  <h1>Spanish 2010</h1>
-  <p class="subtitle">Intermediate Spanish. Interactive modules for this course.</p>
-  <div class="grid">
-    <a class="card" href="modulo-1/">
-      <h2>Módulo 1</h2>
-      <p>¿Adónde fuiste de vacaciones? — el pretérito irregular, maneras de decir "to become", y vocabulario de viajes.</p>
-    <a class="card" href="modulo-2/">
-     <h2>Módulo 2</h2>
-     <p>¿Le dio un regalo? — pronombres de objeto indirecto, pronombres combinados, y vocabulario de hoteles.</p>
-    </a>
-         <a class="card" href="modulo-3/">
-     <h2>Módulo 3</h2>
-     <p>¡Luces, cámara, acción! — el imperfecto, ser/ir/ver, palabras indefinidas y negativas, y vocabulario de tecnología.</p>
-    </a>
+<div class="container">
+  <div class="topbar">
+    <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">&#9788;</button>
   </div>
-  <a class="back" href="../">&larr; Back to all courses</a>
+
+  <div class="hero">
+    <div class="breadcrumb"><a href="../index.html">Course Modules</a> &rsaquo; Spanish 3000</div>
+    <div class="eyebrow">Weber State University · Paul Rama, PhD</div>
+    <h1>SPAN 3000 · <em>Recursos</em></h1>
+    <p class="hero-sub">Conversación intermedia en español — materiales del curso, organizados por tipo.</p>
+  </div>
+
+  <div class="grid">
+
+    <a class="card" href="videos/index.html">
+      <div class="card-tag">Videos</div>
+      <h2>Videos</h2>
+      <p>Cortos y clips con tablas de frases: vocabulario, modismos y gramática en uso, extraídos del audio original.</p>
+      <ul>
+        <li>Anónimos (Premios Goya 2012) — frases del Módulo 1</li>
+      </ul>
+      <div class="arrow">Entrar &rarr;</div>
+    </a>
+
+    <a class="card" href="references/index.html">
+      <div class="card-tag">Referencias</div>
+      <h2>Referencias</h2>
+      <p>Páginas de gramática con práctica interactiva: explicación, ejemplos y ejercicios autocalificados.</p>
+      <ul>
+        <li>Ser, estar y haber</li>
+        <li>El presente</li>
+      </ul>
+      <div class="arrow">Entrar &rarr;</div>
+    </a>
+
+    <a class="card" href="lesson-plans/index.html">
+      <div class="card-tag">Planes de clase</div>
+      <h2>Planes de clase</h2>
+      <p>Planes diarios por sesión: objetivos, secuencia de actividades y materiales de aula.</p>
+      <ul>
+        <li class="empty">Próximamente</li>
+      </ul>
+      <div class="arrow">Entrar &rarr;</div>
+    </a>
+
+  </div>
+
+  <footer>SPAN 3000 · Conversación intermedia · gemaster99.github.io/course-modules</footer>
+</div>
+
+<script>
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    const root = document.documentElement;
+    const light = root.getAttribute('data-theme') === 'light';
+    if (light) { root.removeAttribute('data-theme'); document.getElementById('themeToggle').innerHTML = '&#9788;'; }
+    else { root.setAttribute('data-theme', 'light'); document.getElementById('themeToggle').innerHTML = '&#9789;'; }
+  });
+</script>
 </body>
 </html>
