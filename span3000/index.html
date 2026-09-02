@@ -3,651 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SPAN 3000 — Intermediate Spanish Conversation · Fall 2026</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400;9..144,500;9..144,700;9..144,900&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Spanish 2010 — Course Modules</title>
 <style>
-:root {
-  --bg:#F4EEE2; --bg-elevated:#FBF6EB;
-  --ink:#1F1A14; --ink-soft:#4F443A; --ink-faint:#8A7E70;
-  --accent:#B84A1F; --accent-soft:#EBC7B0; --accent-pale:#F5DDC9;
-  --secondary:#2A4D5E; --wsu:#492365;
-  --line:#1F1A14; --line-soft:#D8CFBC;
-  --shadow-paper:0 1px 0 #D8CFBC, 0 8px 24px -12px rgba(31,26,20,0.15);
-  --shadow-lift:0 2px 0 #1F1A14, 0 10px 30px -8px rgba(31,26,20,0.25);
-}
-[data-theme="dark"] {
-  --bg:#16120F; --bg-elevated:#1F1A16;
-  --ink:#F0E8D8; --ink-soft:#B5AB9A; --ink-faint:#7A7163;
-  --accent:#E07856; --accent-soft:#6B3525; --accent-pale:#3D2017;
-  --secondary:#6BA2B5; --wsu:#B292C9;
-  --line:#F0E8D8; --line-soft:#3A312A;
-  --shadow-paper:0 1px 0 #3A312A, 0 8px 24px -12px rgba(0,0,0,0.4);
-  --shadow-lift:0 2px 0 #F0E8D8, 0 10px 30px -8px rgba(0,0,0,0.5);
-}
-* { box-sizing:border-box; margin:0; padding:0; }
-html { scroll-behavior:smooth; }
-body { background:var(--bg); color:var(--ink); font-family:'Manrope',system-ui,sans-serif; font-size:16px; line-height:1.65; min-height:100vh; transition:background-color .3s ease,color .3s ease; overflow-x:hidden; }
-body::before { content:''; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.4;
-  background-image:radial-gradient(circle at 20% 30%,var(--line-soft) .5px,transparent .5px),radial-gradient(circle at 80% 70%,var(--line-soft) .5px,transparent .5px);
-  background-size:40px 40px,60px 60px; }
-.container { max-width:1180px; margin:0 auto; padding:0 clamp(16px,4vw,48px); position:relative; z-index:1; }
-header { padding:32px 0 24px; border-bottom:1px solid var(--line-soft); }
-.header-row { display:flex; align-items:flex-start; justify-content:space-between; gap:24px; }
-.brand { display:flex; align-items:center; gap:14px; }
-.brand-mark { width:44px; height:44px; border-radius:50%; background:var(--wsu); color:#FBF6EB; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-weight:900; font-size:16px; flex-shrink:0; }
-.brand-text { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); line-height:1.5; }
-.brand-text strong { color:var(--ink); font-weight:500; }
-.theme-toggle { background:var(--bg-elevated); border:1.5px solid var(--line); color:var(--ink); width:44px; height:44px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:transform .2s ease,background .2s ease; flex-shrink:0; }
-.theme-toggle:hover { transform:rotate(15deg) scale(1.05); background:var(--accent-pale); }
-.theme-toggle svg { width:20px; height:20px; }
-.theme-toggle .sun { display:none; } .theme-toggle .moon { display:block; }
-[data-theme="dark"] .theme-toggle .sun { display:block; } [data-theme="dark"] .theme-toggle .moon { display:none; }
-.title-block { padding:40px 0 8px; }
-.eyebrow { font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:.18em; color:var(--accent); margin-bottom:16px; display:flex; align-items:center; gap:12px; }
-.eyebrow::after { content:''; flex:1; height:1px; background:var(--line-soft); max-width:160px; }
-h1 { font-family:'Fraunces',serif; font-weight:500; font-variation-settings:"opsz" 144,"SOFT" 30; font-size:clamp(38px,6.4vw,74px); line-height:.98; letter-spacing:-.02em; margin-bottom:16px; }
-h1 em { font-style:italic; font-weight:400; color:var(--accent); font-variation-settings:"opsz" 144,"SOFT" 100,"WONK" 1; }
-.meta-strip { display:flex; flex-wrap:wrap; gap:8px 10px; margin-top:22px; }
-.meta-chip { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; background:var(--bg-elevated); border:1.5px solid var(--line-soft); border-radius:20px; padding:6px 14px; color:var(--ink-soft); }
-.meta-chip strong { color:var(--ink); font-weight:500; }
-.tabs { display:flex; margin:34px 0 8px; border-bottom:2px solid var(--line); overflow-x:auto; scrollbar-width:none; }
-.tabs::-webkit-scrollbar { display:none; }
-.tab-btn { background:none; border:none; color:var(--ink-soft); font-family:'Fraunces',serif; font-weight:500; font-size:18px; padding:14px 20px; cursor:pointer; position:relative; transition:color .2s ease; white-space:nowrap; display:flex; align-items:center; gap:10px; }
-.tab-btn .tab-num { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-faint); font-weight:400; }
-.tab-btn:hover { color:var(--ink); } .tab-btn.active { color:var(--ink); }
-.tab-btn.active .tab-num { color:var(--accent); }
-.tab-btn.active::after { content:''; position:absolute; bottom:-2px; left:0; right:0; height:4px; background:var(--accent); }
-main { padding:44px 0 96px; }
-.panel { display:none; animation:fadeIn .4s ease; } .panel.active { display:block; }
-@keyframes fadeIn { from {opacity:0; transform:translateY(8px);} to {opacity:1; transform:translateY(0);} }
-.prose { max-width:760px; }
-.lede-big { font-size:19px; line-height:1.6; color:var(--ink-soft); margin-bottom:28px; }
-.prose h3, .sub-h { font-family:'Fraunces',serif; font-weight:500; font-size:27px; letter-spacing:-.01em; margin:40px 0 10px; }
-.sub { color:var(--ink-soft); font-size:15px; margin-bottom:18px; max-width:760px; }
-.outcomes { padding-left:22px; max-width:760px; }
-.outcomes li { margin-bottom:12px; color:var(--ink-soft); }
-.outcomes li::marker { color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:13px; }
-.callout { background:var(--bg-elevated); border:1.5px solid var(--line); border-left:5px solid var(--accent); border-radius:12px; padding:22px 26px; margin:28px 0; box-shadow:var(--shadow-paper); max-width:820px; }
-.callout-warn { border-left-color:var(--secondary); }
-.callout-label { font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.14em; color:var(--accent); margin-bottom:8px; }
-.callout-warn .callout-label { color:var(--secondary); }
-.callout p { color:var(--ink-soft); font-size:15px; }
-.week-block { background:var(--bg-elevated); border:1.5px solid var(--line); border-radius:16px; padding:30px; margin-bottom:26px; box-shadow:var(--shadow-paper); }
-.week-head { display:flex; align-items:baseline; gap:14px; margin-bottom:6px; }
-.week-num { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.14em; color:var(--accent); }
-.week-dates { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-faint); }
-.week-theme { font-family:'Fraunces',serif; font-weight:500; font-size:32px; letter-spacing:-.01em; margin-bottom:10px; }
-.week-theme em { font-style:italic; color:var(--accent); font-variation-settings:"SOFT" 100,"WONK" 1; }
-.week-context { color:var(--ink-soft); font-size:15px; margin-bottom:24px; max-width:720px; padding-bottom:20px; border-bottom:1px dashed var(--line-soft); }
-.session { display:grid; grid-template-columns:130px 1fr; gap:20px; padding:18px 0; border-bottom:1px dashed var(--line-soft); }
-.session:last-child { border-bottom:none; padding-bottom:0; }
-.session-day { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-faint); padding-top:4px; }
-.session-body h4 { font-family:'Fraunces',serif; font-weight:500; font-size:20px; margin-bottom:8px; }
-.session-body p { color:var(--ink-soft); font-size:15px; }
-.rhythm { display:grid; gap:12px; margin-bottom:14px; }
-.rhythm-row { display:grid; grid-template-columns:110px 250px 1fr; gap:18px; background:var(--bg-elevated); border:1.5px solid var(--line-soft); border-radius:12px; padding:18px 22px; align-items:start; }
-.rhythm-day { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--accent); padding-top:3px; }
-.rhythm-title { font-family:'Fraunces',serif; font-style:italic; font-weight:500; font-size:17px; }
-.rhythm-desc { color:var(--ink-soft); font-size:14px; }
-.table-wrap { overflow-x:auto; margin:16px 0 8px; border:1.5px solid var(--line); border-radius:12px; background:var(--bg-elevated); box-shadow:var(--shadow-paper); }
-table { width:100%; border-collapse:collapse; font-size:14px; min-width:640px; }
-thead th { font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.12em; color:var(--ink-faint); text-align:left; padding:14px 16px; border-bottom:1.5px solid var(--line); background:var(--bg); }
-tbody td { padding:14px 16px; border-bottom:1px solid var(--line-soft); color:var(--ink-soft); vertical-align:top; }
-tbody tr:last-child td { border-bottom:none; }
-.td-strong { color:var(--ink); font-weight:600; }
-.td-when, .td-pct { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent); white-space:nowrap; }
-.td-mile { font-size:12.5px; color:var(--ink-faint); }
-.td-content { font-style:italic; }
-.cal-table td:first-child { font-family:'JetBrains Mono',monospace; color:var(--accent); }
-.row-instr td { background:var(--accent-pale); }
-[data-theme="dark"] .row-instr td { background:var(--accent-pale); }
-.row-finals td { font-style:italic; }
-.cal-notes { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:8px; }
-.cal-note { display:flex; gap:14px; padding:11px 16px; background:var(--bg-elevated); border:1px solid var(--line-soft); border-radius:8px; font-size:14px; color:var(--ink-soft); }
-.cal-date { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--accent); min-width:104px; padding-top:2px; }
-.gram-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:18px; }
-.gram-card { background:var(--bg-elevated); border:1.5px solid var(--line); border-radius:14px; padding:24px; box-shadow:var(--shadow-paper); transition:transform .15s ease; }
-.gram-card:hover { transform:translate(-1px,-2px); box-shadow:var(--shadow-lift); }
-.gram-card.compressed { border-left:5px solid var(--secondary); }
-.gram-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px; }
-.gram-num { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.12em; color:var(--accent); }
-.gram-dates { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-faint); }
-.gram-badge { font-family:'JetBrains Mono',monospace; font-size:9.5px; text-transform:uppercase; letter-spacing:.1em; border:1px solid var(--line-soft); border-radius:12px; padding:3px 9px; color:var(--ink-faint); margin-left:auto; }
-.gram-card h3 { font-family:'Fraunces',serif; font-weight:500; font-size:22px; line-height:1.15; letter-spacing:-.01em; margin-bottom:16px; }
-.gram-field { margin-bottom:14px; }
-.field-label { font-family:'JetBrains Mono',monospace; font-size:9.5px; text-transform:uppercase; letter-spacing:.14em; color:var(--ink-faint); margin-bottom:5px; }
-.gram-field p { font-size:14px; color:var(--ink-soft); }
-.week-note { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--secondary); border-top:1px dashed var(--line-soft); padding-top:12px; margin-top:16px; }
-.mat-list { display:grid; gap:10px; max-width:860px; }
-.mat-row { display:grid; grid-template-columns:290px 1fr; gap:18px; background:var(--bg-elevated); border:1px solid var(--line-soft); border-radius:10px; padding:14px 18px; }
-.mat-name { font-family:'Fraunces',serif; font-style:italic; font-weight:500; font-size:16px; }
-.mat-desc { color:var(--ink-soft); font-size:14px; }
-.policy-list { padding-left:22px; max-width:600px; }
-.policy-list li { margin-bottom:8px; color:var(--ink-soft); }
-.policy-list li::marker { color:var(--accent); }
-footer { border-top:1px solid var(--line-soft); padding:26px 0 44px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em; }
-@media (max-width:760px) {
-  .session { grid-template-columns:1fr; gap:6px; }
-  .rhythm-row { grid-template-columns:1fr; gap:6px; }
-  .mat-row { grid-template-columns:1fr; gap:4px; }
-  .gram-grid { grid-template-columns:1fr; }
-}
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: #0f1115;
+    color: #e8e8e8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 60px 20px;
+  }
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+  p.subtitle {
+    color: #9aa0aa;
+    margin-top: 0;
+    margin-bottom: 40px;
+    max-width: 480px;
+    line-height: 1.5;
+    text-align: center;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 900px;
+  }
+  .card {
+    background: #1a1d24;
+    border: 1px solid #2a2e37;
+    border-radius: 12px;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .card:hover {
+    border-color: #4f7cff;
+    transform: translateY(-2px);
+  }
+  .card h2 {
+    margin: 0 0 8px;
+    font-size: 1.15rem;
+  }
+  .card p {
+    margin: 0;
+    color: #9aa0aa;
+    font-size: 0.9rem;
+  }
+  a.back {
+    margin-top: 40px;
+    color: #4f7cff;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  a.back:hover {
+    text-decoration: underline;
+  }
 </style>
 </head>
 <body>
-<div class="container">
-  <header>
-    <div class="header-row">
-      <div class="brand">
-        <div class="brand-mark">WSU</div>
-        <div class="brand-text">Weber State University<br><strong>Department of World Languages &amp; Cultures</strong></div>
-      </div>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-      </button>
-    </div>
-  </header>
-  <div class="title-block">
-    <div class="eyebrow">SPAN 3000 · Fall 2026</div>
-    <h1>Intermediate Spanish Conversation<br><em>Proficiency Development for Experienced Speakers</em></h1>
-    <div class="meta-strip">
-      <span class="meta-chip"><strong>3</strong> credits</span>
-      <span class="meta-chip">MWF, 50 minutes</span>
-      <span class="meta-chip">August 24 – December 11, 2026</span>
-      <span class="meta-chip"><strong>Paul Rama, PhD</strong></span>
-    </div>
+  <h1>Spanish 2010</h1>
+  <p class="subtitle">Intermediate Spanish. Interactive modules for this course.</p>
+  <div class="grid">
+    <a class="card" href="modulo-1/">
+      <h2>Módulo 1</h2>
+      <p>¿Adónde fuiste de vacaciones? — el pretérito irregular, maneras de decir "to become", y vocabulario de viajes.</p>
+    <a class="card" href="modulo-2/">
+     <h2>Módulo 2</h2>
+     <p>¿Le dio un regalo? — pronombres de objeto indirecto, pronombres combinados, y vocabulario de hoteles.</p>
+    </a>
+         <a class="card" href="modulo-3/">
+     <h2>Módulo 3</h2>
+     <p>¡Luces, cámara, acción! — el imperfecto, ser/ir/ver, palabras indefinidas y negativas, y vocabulario de tecnología.</p>
+    </a>
   </div>
-  <nav class="tabs"><button class="tab-btn active" data-tab="0"><span class="tab-num">01</span>Overview</button>
-<button class="tab-btn" data-tab="1"><span class="tab-num">02</span>Weeks 1–2</button>
-<button class="tab-btn" data-tab="2"><span class="tab-num">03</span>Group Model</button>
-<button class="tab-btn" data-tab="3"><span class="tab-num">04</span>Grammar Arc</button>
-<button class="tab-btn" data-tab="4"><span class="tab-num">05</span>Calendar</button>
-<button class="tab-btn" data-tab="5"><span class="tab-num">06</span>Grading &amp; Policies</button></nav>
-  <main><section class="panel active" data-panel="0">
-<div class="prose">
-  <p class="lede-big">This course is a transition into upper-division Spanish, and it is built around a fact that is usually treated as an inconvenience: the students in this room did not learn Spanish the same way. Some acquired it through two years of full-immersion service in a specific country and speech community. Some grew up with it at home and have never been formally schooled in it. Some arrived through the standard university sequence. Each of those paths produces a genuinely different Spanish — different strengths, different blind spots, different regional loyalties. Rather than flatten those differences, this course makes them the curriculum. Students bring the content and the context; the instructor supplies the grammatical spine that moves everyone from a serviceable, fluent Spanish toward a precise, register-flexible, academically and professionally credible one.</p>
-  <div class="callout">
-    <div class="callout-label">Who is in this room</div>
-    <p>Most students in this section arrive with substantial acquired proficiency — typically from LDS missionary service in a Spanish-speaking country, from heritage acquisition at home, or both. This is not a beginner-adjacent course and it is not remedial. The working assumption is that students can already say almost anything they want to say. The work of the semester is making them able to say it accurately, in the right register, with the right regional awareness, and in writing.</p>
-  </div>
-  <h3>Course Learning Outcomes</h3>
-  <p class="sub">By the end of the semester, students should be able to:</p>
-  <ol class="outcomes"><li>Sustain extended discourse across past, present, and future time frames with control of aspect, producing connected paragraphs rather than strings of sentences (ACTFL Advanced-Low → Advanced-Mid).</li>
-<li>Shift register deliberately — intimate, colloquial, professional, academic — and recognize when a familiar structure belongs to a speech community rather than to the language as a whole.</li>
-<li>Identify and correct fossilized structures carried over from a single acquisition context, including English calques and formulaic subjunctive use.</li>
-<li>Describe and use major regional variation in address systems, lexicon, clitic usage, and tense preference, without treating any one variety as the default.</li>
-<li>Handle hypothetical, counterfactual, and reported discourse — the structures that mark the boundary between Intermediate and Advanced proficiency.</li>
-<li>Write with control of Spanish orthography, accentuation, and punctuation as systems distinct from English.</li>
-<li>Design and lead a content-rich instructional session in Spanish, including curating vocabulary from authentic sources and facilitating peer discussion.</li></ol>
-</div>
-</section>
-<section class="panel" data-panel="1">
-<div class="prose">
-  <p class="lede-big">The first two weeks are instructor-designed and do two jobs at once: they diagnose what each student actually brings, and they model in full the kind of session students will be asked to run from Week 3 onward.</p>
-</div>
-    <div class="week-block">
-      <div class="week-head">
-        <span class="week-num">Week 1</span>
-        <span class="week-dates">August 24, 26, 28</span>
-      </div>
-      <h3 class="week-theme"><em>¿Qué español hablo yo?</em></h3>
-      <p class="week-context">Diagnostics, and the sociolinguistics of one&#x27;s own Spanish. The class opens by making its own linguistic diversity the object of study.</p>
-
-      <div class="session">
-        <div class="session-day">Mon, Aug 24</div>
-        <div class="session-body">
-          <h4>Autobiografía lingüística</h4>
-          <p>Course launch and the group-presentation contract. Each student delivers a three-minute spoken language autobiography: where the Spanish came from, which country or countries shaped it, which registers they own and which they have never needed. Recorded as the baseline oral sample (Muestra Oral 1). ACTFL Advanced descriptors are introduced so students can locate themselves honestly rather than by self-flattery or self-deprecation.</p>
-        </div>
-      </div>
-      <div class="session">
-        <div class="session-day">Wed, Aug 26</div>
-        <div class="session-body">
-          <h4>Registro y variedad</h4>
-          <p>Direct instruction on register and diatopic variation. Case study one: mission-acquired Spanish as a genuine sociolect — its lexical fingerprints, its usted-heavy and morally-inflected register, its ecclesiastical vocabulary crowding out secular equivalents, and the specific places where it helps and where it betrays. Case study two: heritage Spanish — oral command and pragmatic fluency alongside orthographic and formal-register gaps, and why the &#x27;you speak it wrong&#x27; framing is both false and pedagogically destructive. The point of the day is that everyone in the room has an incomplete Spanish, in different places.</p>
-        </div>
-      </div>
-      <div class="session">
-        <div class="session-day">Fri, Aug 28</div>
-        <div class="session-body">
-          <h4>Clínica gramatical 1: Ortografía y acentuación</h4>
-          <p>The accentuation system in full: agudas, llanas, esdrújulas, sobresdrújulas; diptongo, hiato, triptongo; tilde diacrítica; monosyllables; interrogatives and exclamatives in direct and indirect questions. Then the orthographic contrasts that hit heritage writers hardest (b/v, s/c/z, ll/y, h, g/j) and the ones that hit classroom learners hardest (double letters, English-influenced spellings). Diagnostic writing sample collected: 300 words, dictation plus free response (Muestra Escrita 1). Add deadline is today.</p>
-        </div>
-      </div>
-    </div>
-    <div class="week-block">
-      <div class="week-head">
-        <span class="week-num">Week 2</span>
-        <span class="week-dates">August 31, September 2, 4</span>
-      </div>
-      <h3 class="week-theme"><em>Cómo se construye una clase</em></h3>
-      <p class="week-context">The instructor teaches one complete model week so that students see exactly what they are being asked to produce — and so the first student group is not guessing.</p>
-
-      <div class="session">
-        <div class="session-day">Mon, Aug 31</div>
-        <div class="session-body">
-          <h4>Sesión modelo de contenido</h4>
-          <p>A full group-style content session, run by the instructor, on a sample topic. Suggested: el trabajo agrícola y la migración laboral en Utah — locally grounded, lexically rich, and register-flexible. The session visibly demonstrates the four moves students will have to make: framing a context worth an hour, curating high-value lexical items with regional variants marked, sourcing authentic audio and text, and designing a discussion protocol that produces talk rather than silence.</p>
-        </div>
-      </div>
-      <div class="session">
-        <div class="session-day">Wed, Sep 2</div>
-        <div class="session-body">
-          <h4>Clínica gramatical 2: El pasado narrativo</h4>
-          <p>Pretérito and imperfecto past the &#x27;completed versus ongoing&#x27; heuristic: aspectual grounding — foreground and background in narrative; verbs that shift meaning under aspect (supe/sabía, conocí/conocía, quise/quería, pude/podía, tuve/tenía); the imperfect for reported states and habitual frames; the preterite summarizing a bounded state (fue difícil, vivió allí veinte años). Deliberately modeled as the move of pulling grammar out of Monday&#x27;s content — the same move the instructor will make every Wednesday for the rest of the term.</p>
-        </div>
-      </div>
-      <div class="session">
-        <div class="session-day">Fri, Sep 4</div>
-        <div class="session-body">
-          <h4>Taller de diseño y formación de grupos</h4>
-          <p>Groups form. Topics are pitched, negotiated, and claimed, and the semester calendar is filled in live with students selecting their weeks against the published grammar spine. Rubric norming: students score a sample presentation and calibrate against each other. Vocabulary-curation lab: RAE, Diccionario panhispánico de dudas, Diccionario de americanismos, Corpus del Español — and a frank demonstration of where Google Translate and Linguee mislead at this level.</p>
-        </div>
-      </div>
-    </div>
-</section>
-<section class="panel" data-panel="2">
-<div class="prose">
-  <p class="lede-big">From Week 3 onward, students own the content and the context of the course. The instructor owns the grammar. The grammatical focus for every week is published in advance, so groups select topics already knowing which structure their week has to feed.</p>
-</div>
-<h3 class="sub-h">The weekly rhythm</h3>
-<div class="rhythm">
-  <div class="rhythm-row">
-    <div class="rhythm-day">Monday</div>
-    <div class="rhythm-title">Sesión de contenido — grupo</div>
-    <div class="rhythm-desc">The group runs the room for the full period: framing the context, presenting the curated lexical set, delivering authentic input, and facilitating discussion.</div>
-  </div>
-  <div class="rhythm-row">
-    <div class="rhythm-day">Wednesday</div>
-    <div class="rhythm-title">Clínica gramatical — instructor</div>
-    <div class="rhythm-desc">The instructor teaches the assigned grammatical focus using the group&#x27;s own content and vocabulary as the raw data, so the structure arrives attached to something students already care about.</div>
-  </div>
-  <div class="rhythm-row">
-    <div class="rhythm-day">Friday</div>
-    <div class="rhythm-title">Taller de producción — grupo e instructor</div>
-    <div class="rhythm-desc">Task-based output: debate, simulation, interview, roundtable, or recorded segment. The task must be designed so that the week&#x27;s grammar is structurally unavoidable, not merely encouraged.</div>
-  </div></div>
-<h3 class="sub-h">Group deliverables</h3>
-<div class="table-wrap">
-  <table>
-    <thead><tr><th>Deliverable</th><th>Due</th><th>What it is</th></tr></thead>
-    <tbody>
-  <tr><td class="td-strong">Propuesta de contexto</td><td class="td-when">Due two weeks before the assigned week</td><td>Topic, a defense of why it merits an hour of the cohort&#x27;s time, and three authentic sources in Spanish.</td></tr>
-  <tr><td class="td-strong">Léxico curado</td><td class="td-when">Due one week before</td><td>Eighteen to twenty-five items with regional variants flagged, register marked, and any false-friend or calque risk noted. Submitted early so the instructor can align the Wednesday clinic.</td></tr>
-  <tr><td class="td-strong">Sesión del lunes</td><td class="td-when">The assigned week</td><td>Fifty minutes the group plans and runs. Lecturing at the cohort is explicitly out of bounds.</td></tr>
-  <tr><td class="td-strong">Tarea del viernes</td><td class="td-when">The assigned week</td><td>A production task built so the week&#x27;s grammatical target is required by the task itself.</td></tr>
-  <tr><td class="td-strong">Reflexión posterior</td><td class="td-when">One week after</td><td>Five hundred words on what worked, what collapsed, and what they would change.</td></tr></tbody>
-  </table>
-</div>
-<div class="callout">
-  <div class="callout-label">Group assignment</div>
-  <p>Six groups of three to four students. Each group leads two weeks across Weeks 3 through 14; Week 15 is run collectively by the full cohort as roundtables. Weeks are claimed in Week 2 against the published grammar spine, on a first-committed basis.</p>
-</div>
-</section>
-<section class="panel" data-panel="3">
-<div class="prose">
-  <p class="lede-big">This is the fixed spine of the course. Student groups choose the content and the context of each week; the grammatical target below does not move. Groups pitch topics already knowing which structure their week must generate.</p>
-</div>
-<div class="gram-grid">
-    <div class="gram-card compressed">
-      <div class="gram-head">
-        <span class="gram-num">Week 3</span>
-        <span class="gram-dates">Sep 9, 11</span>
-        <span class="gram-badge">2 sessions</span>
-      </div>
-      <h3>Ser, estar, haber y el sistema de la pasiva</h3>
-      <div class="gram-field">
-        <div class="field-label">Focus</div>
-        <p>Ser versus estar past the adjective list. Estar + participio as resultant state, pasiva con ser as event, pasiva refleja (se construyó) as the unmarked Spanish default. Hay versus está. Ser for the location of events. The real limits of estar + gerundio.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Why this, for this cohort</div>
-        <p>Experienced speakers usually have serviceable ser/estar but default to English-shaped ser-passives (fue construido) where Spanish overwhelmingly prefers se construyó. This is the single most audible &#x27;translated&#x27; tell in otherwise fluent advanced writing.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Friday production task</div>
-        <p>Rewriting workshop: a journalistic text stripped of its passive strategies and rebuilt three ways, with judgments about which sounds native.</p>
-      </div>
-      <div class="week-note">Labor Day, Mon Sep 7 — no classes. Two-session week: content Wednesday, grammar and production compressed Friday.</div>
-    </div>
-    <div class="gram-card">
-      <div class="gram-head">
-        <span class="gram-num">Week 4</span>
-        <span class="gram-dates">Sep 14, 16, 18</span>
-        <span class="gram-badge">3 sessions</span>
-      </div>
-      <h3>El sistema del se</h3>
-      <div class="gram-field">
-        <div class="field-label">Focus</div>
-        <p>Reflexive, reciprocal, pasiva refleja, se impersonal, se de involuntariedad (se me olvidó), and the aspectual or intensifying se (comerse, irse, morirse, saberse). The agency distinction between se me cayó and lo dejé caer — grammar as a way of assigning or dodging blame.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Why this, for this cohort</div>
-        <p>Heritage speakers own this intuitively but cannot explain or deploy it under formal writing pressure. Classroom and mission learners systematically underuse the aspectual se and overreach with agentive constructions.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Friday production task</div>
-        <p>Incident narration: the same event told three times, shifting responsibility purely through se-constructions.</p>
-      </div>
-      <div class="week-note">Cancellation deadline, Mon Sep 14.</div>
-    </div>
-    <div class="gram-card">
-      <div class="gram-head">
-        <span class="gram-num">Week 5</span>
-        <span class="gram-dates">Sep 21, 23, 25</span>
-        <span class="gram-badge">3 sessions</span>
-      </div>
-      <h3>Subjuntivo I: cláusulas nominales y secuencia de tiempos</h3>
-      <div class="gram-field">
-        <div class="field-label">Focus</div>
-        <p>Volition, emotion, doubt, and denial. El hecho de que. The indicative/subjunctive contrast under creer, no creer, parecer, quizá(s), tal vez. The full sequence-of-tenses grid, including violations under past-tense matrices.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Why this, for this cohort</div>
-        <p>Mission-acquired Spanish is subjunctive-rich but formulaic — espero que, ojalá, quiero que. The gap is at the margins: emotion verbs with coreferential subjects, el que clauses, and sequence collapse when the matrix verb moves into the past.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Friday production task</div>
-        <p>Opinion panel on a contested topic drawn from the group&#x27;s content, structured so that hedged and attributed claims are required.</p>
-      </div>
-
-    </div>
-    <div class="gram-card">
-      <div class="gram-head">
-        <span class="gram-num">Week 6</span>
-        <span class="gram-dates">Sep 28, 30, Oct 2</span>
-        <span class="gram-badge">3 sessions</span>
-      </div>
-      <h3>Subjuntivo II: cláusulas adjetivas y adverbiales</h3>
-      <div class="gram-field">
-        <div class="field-label">Focus</div>
-        <p>Specificity and existence in relative clauses (busco a alguien que sabe versus que sepa). Adverbial conjunctions that always take subjunctive (para que, antes de que, a menos que, sin que) against those that alternate (cuando, aunque, después de que, mientras, hasta que). Aunque as concession versus hypothesis.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Why this, for this cohort</div>
-        <p>The alternating adverbials are where advanced speakers still leak, and the leak is meaning-bearing rather than cosmetic — the mood choice changes what is being claimed about the world.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Friday production task</div>
-        <p>Contingency planning simulation: a scenario requiring conditions, purposes, and time clauses under genuine uncertainty.</p>
-      </div>
-
-    </div>
-    <div class="gram-card compressed">
-      <div class="gram-head">
-        <span class="gram-num">Week 7</span>
-        <span class="gram-dates">Oct 5, 7</span>
-        <span class="gram-badge">2 sessions</span>
-      </div>
-      <h3>Imperfecto de subjuntivo, condicional y las cláusulas con si</h3>
-      <div class="gram-field">
-        <div class="field-label">Focus</div>
-        <p>All three si-clause types, plus como si and ojalá with imperfecto and pluscuamperfecto de subjuntivo. The -ra versus -se alternation and its regional distribution. The courtesy conditional (quisiera, debiera, podría). Counterfactual regret.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Why this, for this cohort</div>
-        <p>This is the register hinge of the course. Hypothetical and counterfactual reasoning is precisely what separates Advanced from Intermediate in the ACTFL descriptors, and it is where acquired fluency thins out fastest — speakers who never had to argue counterfactually in the field simply never built it.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Friday production task</div>
-        <p>Counterfactual history or counterfactual autobiography: what would have happened if.</p>
-      </div>
-      <div class="week-note">No classes Fri Oct 9. Two-session week: content Monday, grammar and production compressed Wednesday.</div>
-    </div>
-    <div class="gram-card">
-      <div class="gram-head">
-        <span class="gram-num">Week 8</span>
-        <span class="gram-dates">Oct 12, 14, 16</span>
-        <span class="gram-badge">3 sessions</span>
-      </div>
-      <h3>Pronombres átonos, duplicación y variación dialectal</h3>
-      <div class="gram-field">
-        <div class="field-label">Focus</div>
-        <p>Clitic order and placement. Clitic doubling (a mí me gusta; lo vi a Juan in Rioplatense). Leísmo, laísmo, and loísmo as regional norms rather than errors. Lo neutro (lo bueno, lo que). Pronominal verbs with dative experiencers: me falta, me sobra, me cuesta, me toca, me da igual.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Why this, for this cohort</div>
-        <p>The strongest hook of the semester for regional variation. Students who served in Spain and students who served in Peru will disagree in the room about what is correct — and both will be right. That disagreement is the lesson.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Friday production task</div>
-        <p>Dialect panel: students defend the usage of their own acquisition country against the others, with evidence from corpora rather than intuition.</p>
-      </div>
-
-    </div>
-    <div class="gram-card">
-      <div class="gram-head">
-        <span class="gram-num">Week 9</span>
-        <span class="gram-dates">Oct 19, 21, 23</span>
-        <span class="gram-badge">3 sessions</span>
-      </div>
-      <h3>Preposiciones, régimen verbal y los calcos</h3>
-      <div class="gram-field">
-        <div class="field-label">Focus</div>
-        <p>Por and para as a system rather than a memorized list. Verbs with obligatory prepositions: soñar con, contar con, insistir en, quedar en, tratar de versus tratarse de, depender de, consistir en. The personal a beyond simple animacy. A targeted audit of high-frequency English calques: aplicar para, asistir, atender, realizar, soportar, introducir, moverse, registrarse, estar supuesto a.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Why this, for this cohort</div>
-        <p>The highest-yield single week of the term for mission-acquired Spanish. These errors are fossilized precisely because they are socially invisible inside a missionary speech community — everyone said aplicar, so it never got corrected — and they are conspicuous the moment the speaker enters an academic or professional Spanish-language setting.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Friday production task</div>
-        <p>Personal calque inventory: each student audits their own recorded Week 1 sample and builds a private error list to carry into the portfolio.</p>
-      </div>
-
-    </div>
-    <div class="gram-card">
-      <div class="gram-head">
-        <span class="gram-num">Week 10</span>
-        <span class="gram-dates">Oct 26, 28, 30</span>
-        <span class="gram-badge">3 sessions</span>
-      </div>
-      <h3>Oraciones de relativo y subordinación compleja</h3>
-      <div class="gram-field">
-        <div class="field-label">Focus</div>
-        <p>Que, quien, el que, el cual, cuyo. Restrictive versus non-restrictive relatives and what the comma actually does. Preposition plus relative pronoun. Reduced clauses with participles and gerunds. Building forty-word sentences that stay grammatical to the end.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Why this, for this cohort</div>
-        <p>The move from Advanced-Low to Advanced-Mid is largely a matter of syntactic density. Oral fluency does not produce this on its own — speakers with excellent conversational Spanish often top out at short coordinate sentences. It has to be taught explicitly.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Friday production task</div>
-        <p>Sentence-combining laboratory, then a formal written abstract of the group&#x27;s topic under a sentence-length floor.</p>
-      </div>
-
-    </div>
-    <div class="gram-card">
-      <div class="gram-head">
-        <span class="gram-num">Week 11</span>
-        <span class="gram-dates">Nov 2, 4, 6</span>
-        <span class="gram-badge">3 sessions</span>
-      </div>
-      <h3>Registro, conectores y nominalización</h3>
-      <div class="gram-field">
-        <div class="field-label">Focus</div>
-        <p>Discourse markers organized by function: addition, contrast, cause, consequence, concession, reformulation. Nominalization as the engine of formal prose (decidieron becomes la decisión de). The address systems in full — tú, usted, vos, vosotros, ustedes — including voseo morphology in Argentina, Uruguay, Central America, and paisa Colombia, and an honest account of where vosotros actually lives.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Why this, for this cohort</div>
-        <p>Address systems are the most direct payoff of the regional thread, and experienced speakers frequently carry one country&#x27;s system as though it were the language itself. A returned missionary from Madrid and one from Buenos Aires have incompatible defaults, and neither has usually been told so.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Friday production task</div>
-        <p>Register transposition: one message rewritten for five audiences across three countries.</p>
-      </div>
-      <div class="week-note">Withdrawal deadline, Tue Nov 3.</div>
-    </div>
-    <div class="gram-card">
-      <div class="gram-head">
-        <span class="gram-num">Week 12</span>
-        <span class="gram-dates">Nov 9, 11, 13</span>
-        <span class="gram-badge">3 sessions</span>
-      </div>
-      <h3>Discurso referido y atribución</h3>
-      <div class="gram-field">
-        <div class="field-label">Focus</div>
-        <p>Reported speech and tense backshift. Dijo que versus dice que. Subjunctive under reported commands. Attribution and hedging verbs: sostener, afirmar, señalar, alegar, matizar, reconocer, desmentir. The reportative conditional in journalism (habría sido).</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Why this, for this cohort</div>
-        <p>This is the grammar of citing a source, which every group presentation already requires. It is also the structural core of academic and professional register — the ability to report a claim without endorsing it.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Friday production task</div>
-        <p>Press-review exercise: the same event as reported by outlets from three countries, with attribution strategies compared.</p>
-      </div>
-
-    </div>
-    <div class="gram-card">
-      <div class="gram-head">
-        <span class="gram-num">Week 13</span>
-        <span class="gram-dates">Nov 16, 18, 20</span>
-        <span class="gram-badge">3 sessions</span>
-      </div>
-      <h3>Tiempos compuestos y modalidad epistémica</h3>
-      <div class="gram-field">
-        <div class="field-label">Focus</div>
-        <p>The full compound paradigm: he, había, habré, habría, haya, hubiera plus participle. Pretérito perfecto compuesto versus indefinido and its sharp peninsular/American split. Future and conditional of probability (serán las tres; estaría enfermo). Deber de versus deber.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Why this, for this cohort</div>
-        <p>The perfect/preterite split is the cleanest peninsular-versus-American contrast available, and it lands unusually well with a group whose members acquired the language in different countries and have never had the difference named for them.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Friday production task</div>
-        <p>Speculation task: students reason aloud about an ambiguous scenario using only epistemic future and conditional forms.</p>
-      </div>
-
-    </div>
-    <div class="gram-card compressed">
-      <div class="gram-head">
-        <span class="gram-num">Week 14</span>
-        <span class="gram-dates">Nov 23, 25</span>
-        <span class="gram-badge">2 sessions</span>
-      </div>
-      <h3>Taller de escritura: ortografía, puntuación y pulido</h3>
-      <div class="gram-field">
-        <div class="field-label">Focus</div>
-        <p>Spanish punctuation as a system in its own right: inverted opening marks, raya de diálogo, comillas latinas, comma conventions that diverge from English, and the non-capitalization of nationalities, months, days, and languages. Accentuation review under time pressure. Each student assembles a personal error inventory from the semester&#x27;s accumulated writing.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Why this, for this cohort</div>
-        <p>Placed deliberately late. It works far better as a revision week feeding the portfolio than as a front-loaded rules lecture that students forget by October.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Friday production task</div>
-        <p>Portfolio revision workshop with structured peer editing against personal error inventories.</p>
-      </div>
-      <div class="week-note">Thanksgiving, Thu–Fri Nov 26–27 — no classes. Two-session week.</div>
-    </div>
-    <div class="gram-card">
-      <div class="gram-head">
-        <span class="gram-num">Week 15</span>
-        <span class="gram-dates">Nov 30, Dec 2, 4</span>
-        <span class="gram-badge">3 sessions</span>
-      </div>
-      <h3>Síntesis y mesas redondas</h3>
-      <div class="gram-field">
-        <div class="field-label">Focus</div>
-        <p>No new grammar. Student-run roundtables synthesizing the semester&#x27;s topics, with the whole cohort facilitating rather than a single group. Final oral sample recorded (Muestra Oral 3) and set directly against the Week 1 recording.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Why this, for this cohort</div>
-        <p>The comparison to the Week 1 baseline is the assessment. Students who have been told all semester that their Spanish is already good need concrete evidence of what actually changed.</p>
-      </div>
-      <div class="gram-field">
-        <div class="field-label">Friday production task</div>
-        <p>Portfolio due. Final self-assessment against the ACTFL descriptors introduced in Week 1.</p>
-      </div>
-      <div class="week-note">Last day of classes, Fri Dec 4.</div>
-    </div></div>
-</section>
-<section class="panel" data-panel="4">
-<div class="prose">
-  <p class="lede-big">Fifteen instructional weeks, forty-two class meetings. Three weeks lose a session to a university closure and are marked below; those weeks compress the content and grammar sessions rather than dropping the grammatical target.</p>
-</div>
-<div class="table-wrap">
-  <table class="cal-table">
-    <thead><tr><th>Wk</th><th>Dates</th><th>Led by</th><th>Content</th><th>Grammar focus</th><th>Milestones</th></tr></thead>
-    <tbody><tr class="row-instr"><td>1</td><td>Aug 24, 26, 28</td><td>Instructor</td><td>¿Qué español hablo yo? — diagnostics, register, variety</td><td>Ortografía y acentuación</td><td class="td-mile">Add deadline Aug 28 · Muestra Oral 1</td></tr><tr class="row-instr"><td>2</td><td>Aug 31, Sep 2, 4</td><td>Instructor</td><td>Cómo se construye una clase — model week</td><td>El pasado narrativo</td><td class="td-mile">Groups form; weeks claimed</td></tr><tr><td>3</td><td>Sep 9, 11</td><td>Student group</td><td class="td-content">Group-selected</td><td>Ser, estar, haber y el sistema de la pasiva</td><td class="td-mile">Labor Day Sep 7</td></tr><tr><td>4</td><td>Sep 14, 16, 18</td><td>Student group</td><td class="td-content">Group-selected</td><td>El sistema del se</td><td class="td-mile">Cancellation deadline Sep 14</td></tr><tr><td>5</td><td>Sep 21, 23, 25</td><td>Student group</td><td class="td-content">Group-selected</td><td>Subjuntivo I: cláusulas nominales y secuencia de tiempos</td><td class="td-mile"></td></tr><tr><td>6</td><td>Sep 28, 30, Oct 2</td><td>Student group</td><td class="td-content">Group-selected</td><td>Subjuntivo II: cláusulas adjetivas y adverbiales</td><td class="td-mile"></td></tr><tr><td>7</td><td>Oct 5, 7</td><td>Student group</td><td class="td-content">Group-selected</td><td>Imperfecto de subjuntivo, condicional y las cláusulas con si</td><td class="td-mile">No classes Oct 9</td></tr><tr><td>8</td><td>Oct 12, 14, 16</td><td>Student group</td><td class="td-content">Group-selected</td><td>Pronombres átonos, duplicación y variación dialectal</td><td class="td-mile">Muestra Oral 2</td></tr><tr><td>9</td><td>Oct 19, 21, 23</td><td>Student group</td><td class="td-content">Group-selected</td><td>Preposiciones, régimen verbal y los calcos</td><td class="td-mile"></td></tr><tr><td>10</td><td>Oct 26, 28, 30</td><td>Student group</td><td class="td-content">Group-selected</td><td>Oraciones de relativo y subordinación compleja</td><td class="td-mile"></td></tr><tr><td>11</td><td>Nov 2, 4, 6</td><td>Student group</td><td class="td-content">Group-selected</td><td>Registro, conectores y nominalización</td><td class="td-mile">Withdrawal deadline Nov 3</td></tr><tr><td>12</td><td>Nov 9, 11, 13</td><td>Student group</td><td class="td-content">Group-selected</td><td>Discurso referido y atribución</td><td class="td-mile"></td></tr><tr><td>13</td><td>Nov 16, 18, 20</td><td>Student group</td><td class="td-content">Group-selected</td><td>Tiempos compuestos y modalidad epistémica</td><td class="td-mile"></td></tr><tr><td>14</td><td>Nov 23, 25</td><td>Student group</td><td class="td-content">Group-selected</td><td>Taller de escritura: ortografía, puntuación y pulido</td><td class="td-mile">Thanksgiving Nov 26–27</td></tr><tr><td>15</td><td>Nov 30, Dec 2, 4</td><td>Cohort</td><td class="td-content">Group-selected</td><td>Síntesis y mesas redondas</td><td class="td-mile">Portfolio due · Muestra Oral 3 · Last day Dec 4</td></tr><tr class="row-finals"><td>—</td><td>Dec 7–10</td><td>Instructor</td><td>Finals week</td><td>—</td><td class="td-mile">Oral proficiency interviews</td></tr></tbody>
-  </table>
-</div>
-<h3 class="sub-h">University dates</h3>
-<div class="cal-notes"><div class="cal-note"><span class="cal-date">Mon, Aug 24</span><span>First day of classes</span></div>
-<div class="cal-note"><span class="cal-date">Fri, Aug 28</span><span>Add deadline</span></div>
-<div class="cal-note"><span class="cal-date">Mon, Sep 7</span><span>Labor Day — no classes</span></div>
-<div class="cal-note"><span class="cal-date">Mon, Sep 14</span><span>Cancellation deadline</span></div>
-<div class="cal-note"><span class="cal-date">Fri, Oct 9</span><span>No classes</span></div>
-<div class="cal-note"><span class="cal-date">Tue, Nov 3</span><span>Withdrawal deadline</span></div>
-<div class="cal-note"><span class="cal-date">Thu–Fri, Nov 26–27</span><span>Thanksgiving — no classes</span></div>
-<div class="cal-note"><span class="cal-date">Fri, Dec 4</span><span>Last day of classes</span></div>
-<div class="cal-note"><span class="cal-date">Mon–Thu, Dec 7–10</span><span>Final exams</span></div>
-<div class="cal-note"><span class="cal-date">Fri, Dec 11</span><span>Commencement</span></div></div>
-</section>
-<section class="panel" data-panel="5">
-<h3 class="sub-h">Grading</h3>
-<div class="table-wrap">
-  <table>
-    <thead><tr><th>Category</th><th>Weight</th><th>Notes</th></tr></thead>
-    <tbody><tr><td class="td-strong">Participación y mediación</td><td class="td-pct">15%</td><td>Sustained contribution in Spanish, including the work of drawing quieter classmates in. Attendance alone is not participation.</td></tr>
-<tr><td class="td-strong">Presentaciones de grupo</td><td class="td-pct">25%</td><td>Two led weeks at 12.5% each, scored on the full deliverable chain rather than the Monday performance alone.</td></tr>
-<tr><td class="td-strong">Clínicas y talleres gramaticales</td><td class="td-pct">15%</td><td>In-class and short take-home work attached to the Wednesday clinics.</td></tr>
-<tr><td class="td-strong">Portafolio escrito</td><td class="td-pct">20%</td><td>Three compositions with mandatory revision cycles, plus the personal error inventory.</td></tr>
-<tr><td class="td-strong">Muestras orales</td><td class="td-pct">15%</td><td>Three recorded samples (Weeks 1, 8, 15), each with a written self-assessment against ACTFL descriptors.</td></tr>
-<tr><td class="td-strong">Evaluación final oral</td><td class="td-pct">10%</td><td>Individual twelve-minute proficiency interview during finals week.</td></tr></tbody>
-  </table>
-</div>
-<h3 class="sub-h">Materials</h3>
-<div class="prose"><p class="sub">No textbook purchase is required. The reference set below is free or library-accessible, and the weekly content is sourced by student groups from authentic media.</p></div>
-<div class="mat-list"><div class="mat-row"><div class="mat-name">Nueva gramática básica de la lengua española</div><div class="mat-desc">Real Academia Española — the standing grammar reference for the clinics.</div></div>
-<div class="mat-row"><div class="mat-name">Diccionario panhispánico de dudas</div><div class="mat-desc">RAE/ASALE, free online. The default arbiter for usage disputes, including regional ones.</div></div>
-<div class="mat-row"><div class="mat-name">Diccionario de americanismos</div><div class="mat-desc">ASALE, free online. Essential for the regional-variation thread.</div></div>
-<div class="mat-row"><div class="mat-name">Corpus del Español</div><div class="mat-desc">Mark Davies. Used to settle frequency and regional-distribution questions with evidence rather than intuition.</div></div>
-<div class="mat-row"><div class="mat-name">Authentic media</div><div class="mat-desc">Sourced weekly by the presenting group: broadcast, print, podcast, and social media from the relevant country or countries.</div></div></div>
-<h3 class="sub-h">University policies</h3>
-<div class="callout callout-warn">
-  <div class="callout-label">Placeholder</div>
-  <p>The sections below are placeholders for the standard Weber State University policy language. Paste the current departmental block in before distribution.</p>
-</div>
-<ul class="policy-list"><li>Academic Integrity</li>
-<li>Accessibility and Disability Services</li>
-<li>WSU Core Beliefs</li>
-<li>Safe@Weber and Title IX</li>
-<li>Attendance and Absence</li>
-<li>Use of Generative AI</li>
-<li>Emergency and Weather Closure</li></ul>
-</section></main>
-  <footer>SPAN 3000 · Fall 2026 · Weber State University · Draft syllabus</footer>
-</div>
-<script>
-(function() {
-  var saved = null;
-  try { saved = localStorage.getItem('span3000-theme'); } catch(e) {}
-  if (saved === 'dark') document.documentElement.setAttribute('data-theme','dark');
-  var tg = document.getElementById('themeToggle');
-  tg.addEventListener('click', function() {
-    var dark = document.documentElement.getAttribute('data-theme') === 'dark';
-    if (dark) document.documentElement.removeAttribute('data-theme');
-    else document.documentElement.setAttribute('data-theme','dark');
-    try { localStorage.setItem('span3000-theme', dark ? 'light' : 'dark'); } catch(e) {}
-  });
-  var btns = document.querySelectorAll('.tab-btn');
-  var panels = document.querySelectorAll('.panel');
-  btns.forEach(function(b) {
-    b.addEventListener('click', function() {
-      var i = b.getAttribute('data-tab');
-      btns.forEach(function(x) { x.classList.remove('active'); });
-      panels.forEach(function(x) { x.classList.remove('active'); });
-      b.classList.add('active');
-      document.querySelector('.panel[data-panel="' + i + '"]').classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  });
-})();
-</script>
+  <a class="back" href="../">&larr; Back to all courses</a>
 </body>
 </html>
