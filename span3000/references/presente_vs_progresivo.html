@@ -104,10 +104,21 @@ footer { border-top: 1px solid var(--line-soft); padding: 24px 0; color: var(--i
   white-space: nowrap; }
 .quiz-type-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase;
   letter-spacing: 0.1em; color: var(--accent); margin-bottom: 10px; }
+.quiz-instr { font-size: 13px; color: var(--ink-faint); font-style: italic; margin-bottom: 14px; }
 .quiz-prompt { font-family: 'Fraunces', serif; font-style: italic; font-size: 19px; line-height: 1.4;
-  margin-bottom: 22px; color: var(--ink); }
+  margin-bottom: 10px; color: var(--ink); }
 .quiz-prompt .blank { display: inline-block; min-width: 70px; border-bottom: 2px solid var(--accent);
   margin: 0 4px; }
+.quiz-prompt-en { font-family: 'Manrope', sans-serif; font-style: normal; font-size: 12.5px;
+  color: var(--ink-faint); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+.reveal-row { margin: 18px 0 6px; }
+.reveal-btn { background: var(--accent); color: #FBF6EB; border: 1.5px solid var(--accent); border-radius: 10px;
+  padding: 13px 22px; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer;
+  transition: transform 0.15s ease; display: inline-flex; align-items: center; gap: 8px; }
+.reveal-btn:hover { transform: translate(-1px,-1px); box-shadow: 0 2px 0 var(--ink); }
+.pick-instr { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--secondary); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.pick-instr::before { content: '\2192'; font-size: 14px; }
 .quiz-options { display: grid; gap: 10px; margin-bottom: 6px; }
 .quiz-options.two-up { grid-template-columns: repeat(2, 1fr); max-width: 420px; }
 .quiz-opt { background: var(--bg); border: 1.5px solid var(--line); color: var(--ink);
@@ -280,8 +291,14 @@ footer { border-top: 1px solid var(--line-soft); padding: 24px 0; color: var(--i
     <div class="progress-bar"><div class="progress-fill" id="qProgress"></div></div>
     <div class="quiz-nav-grid" id="qNavGrid"></div>
     <div class="quiz-type-tag" id="qTypeTag">Completa el espacio</div>
+    <p class="quiz-instr" id="qInstr"></p>
+    <div class="quiz-prompt-en" id="qPromptEn" style="display:none"></div>
     <div class="quiz-prompt" id="qPrompt"></div>
-    <div class="quiz-options" id="qOptions"></div>
+    <div class="reveal-row" id="qRevealRow"><button class="reveal-btn" id="qReveal">Ver opciones</button></div>
+    <div id="qOptionsWrap" style="display:none">
+      <p class="pick-instr">Haz clic en la opci&oacute;n que coincide con tu respuesta</p>
+      <div class="quiz-options" id="qOptions"></div>
+    </div>
     <div class="feedback" id="qFeedback"></div>
     <div class="quiz-footer-row">
       <span class="quiz-score-live" id="qScoreLive">0 / 18 respondidas</span>
@@ -321,14 +338,22 @@ footer { border-top: 1px solid var(--line-soft); padding: 24px 0; color: var(--i
     panels[btn.dataset.tab].classList.add('active');
   }));
 
-  const questions = [{"n": 1, "type": "fill", "prompt": "Mi abuela ___ (hablar) tres idiomas.", "options": ["habla", "está hablando"], "correct": 0, "explain": "Característica o capacidad estable — no una acción puntual."}, {"n": 2, "type": "fill", "prompt": "¡Silencio, por favor! El bebé ___ (dormir).", "options": ["duerme", "está durmiendo"], "correct": 1, "explain": "Acción en curso, con énfasis en el ahora."}, {"n": 3, "type": "fill", "prompt": "El próximo lunes ___ (empezar, yo) las prácticas en el hospital.", "options": ["empiezo", "estoy empezando"], "correct": 0, "explain": "Futuro ya planeado. El progresivo nunca se usa para el futuro en español estándar."}, {"n": 4, "type": "fill", "prompt": "Este mes ___ (trabajar, yo) de noche para cubrir a un compañero.", "options": ["trabajo", "estoy trabajando"], "correct": 1, "explain": "Situación temporal, distinta de lo normal."}, {"n": 5, "type": "fill", "prompt": "Yo no ___ (saber) dónde vive el profesor.", "options": ["sé", "estoy sabiendo"], "correct": 0, "explain": "Verbo de estado — <em>saber</em> casi nunca va en progresivo."}, {"n": 6, "type": "fill", "prompt": "¡Mira por la ventana! ___ (nevar).", "options": ["Nieva", "Está nevando"], "correct": 1, "explain": "Proceso que se ve ahora mismo, en desarrollo."}, {"n": 7, "type": "fill", "prompt": "Todos los veranos mi familia ___ (ir) a Bear Lake.", "options": ["va", "está yendo"], "correct": 0, "explain": "Hábito o rutina, no un viaje puntual."}, {"n": 8, "type": "fill", "prompt": "¿Me ___ (pasar, tú) la sal?", "options": ["pasas", "estás pasando"], "correct": 0, "explain": "Petición hecha en el momento — el presente es lo natural aquí."}, {"n": 9, "type": "fill", "prompt": "Llevo tres años ___ (estudiar) español.", "options": ["estudio", "estudiando"], "correct": 1, "explain": "<em>Llevar</em> + tiempo + gerundio expresa duración desde el pasado hasta hoy."}, {"n": 10, "type": "fill", "prompt": "Últimamente ___ (dormir, yo) fatal por el estrés de los exámenes.", "options": ["duermo", "estoy durmiendo"], "correct": 1, "explain": "Actividad repetida en un periodo actual, distinta de lo habitual."}, {"n": 11, "type": "trans", "prompt": "I'm leaving tomorrow.", "options": ["Estoy saliendo mañana.", "Salgo mañana.", "Soy saliendo mañana."], "correct": 1, "explain": "El progresivo no expresa futuro en español. El presente simple (o <em>ir a</em> + infinitivo) sí."}, {"n": 12, "type": "trans", "prompt": "I've been studying Spanish for three years.", "options": ["Estoy estudiando español por tres años.", "Llevo tres años estudiando español.", "Estoy estudiado español tres años."], "correct": 1, "explain": "<em>Llevar</em> + tiempo + gerundio, no <em>por</em> + progresivo."}, {"n": 13, "type": "trans", "prompt": "Dancing is my favorite hobby.", "options": ["Bailando es mi pasatiempo favorito.", "Bailar es mi pasatiempo favorito.", "Estoy bailando es mi pasatiempo favorito."], "correct": 1, "explain": "Un verbo como sujeto de la oración es infinitivo, nunca gerundio."}, {"n": 14, "type": "trans", "prompt": "She's sitting in the front row.", "options": ["Está sentando en la primera fila.", "Está sentada en la primera fila.", "Es sentada en la primera fila."], "correct": 1, "explain": "Postura física: <em>estar</em> + participio, no gerundio."}, {"n": 15, "type": "trans", "prompt": "My brother has a new car.", "options": ["Mi hermano está teniendo un carro nuevo.", "Mi hermano tiene un carro nuevo.", "Mi hermano es teniendo un carro nuevo."], "correct": 1, "explain": "<em>Tener</em> de posesión es un verbo de estado; resiste el progresivo."}, {"n": 16, "type": "trans", "prompt": "Before leaving, turn off the lights.", "options": ["Antes de saliendo, apaga las luces.", "Antes de salir, apaga las luces.", "Antes salir, apaga las luces."], "correct": 1, "explain": "Preposición + infinitivo, nunca preposición + gerundio."}, {"n": 17, "type": "trans", "prompt": "Are you still living in Ogden?", "options": ["¿Estás todavía viviendo en Ogden?", "¿Sigues viviendo en Ogden?", "¿Vives todavía en Ogden?"], "correct": 1, "explain": "<em>Seguir</em> + gerundio es el equivalente idiomático de “still” — más natural que <em>todavía</em> + progresivo."}, {"n": 18, "type": "trans", "prompt": "I'm coming! (to someone calling you from another room)", "options": ["¡Estoy viniendo!", "¡Ya voy!", "¡Vengo!"], "correct": 1, "explain": "El español se orienta hacia el oyente, no hacia el hablante — de ahí <em>ir</em> y no <em>venir</em>."}];
+  const questions = [{"n": 1, "type": "fill", "prompt": "—¿Diga? —Perdona, no puedo hablar mucho ahorita: ___ (manejar) y hay mucho tráfico.", "options": ["manejo", "estoy manejando"], "correct": 1, "explain": "El contexto (“no puedo hablar mucho ahorita”) marca una acción interrumpida en curso, no un hábito general de saber manejar."}, {"n": 2, "type": "fill", "prompt": "—¿A qué te dedicas? —___ (traducir) documentos legales para el condado.", "options": ["Traduzco", "Estoy traduciendo"], "correct": 0, "explain": "“¿A qué te dedicas?” pregunta por una profesión habitual, no por lo que haces en este instante. Muchos calcan el inglés (“I'm a translator”) y eligen el progresivo aquí — es el error más común de este ítem."}, {"n": 3, "type": "fill", "prompt": "Tranquila, no llegamos tarde: el tren ___ (salir) dentro de quince minutos.", "options": ["sale", "está saliendo"], "correct": 0, "explain": "Horario programado — presente simple. “Está saliendo” diría que el tren ya se mueve ahora mismo, lo cual contradice “dentro de quince minutos”."}, {"n": 4, "type": "fill", "prompt": "En el noticiero dijeron que el nivel del lago ___ (bajar) de forma preocupante este año.", "options": ["baja", "está bajando"], "correct": 1, "explain": "Un proceso que avanza y que se destaca como noticia reciente — no un hecho general o un ciclo de siempre — pide el progresivo, igual que “los precios están subiendo”."}, {"n": 5, "type": "fill", "prompt": "No te preocupes por la cena: yo ___ (cocinar) esta noche.", "options": ["cocino", "estoy cocinando"], "correct": 0, "explain": "Un plan ya decidido para esta noche funciona con presente simple, igual que “el lunes empiezo mi nuevo trabajo”. La acción de cocinar todavía no ha comenzado, así que el progresivo suena raro aquí."}, {"n": 6, "type": "transfill", "en": "Look out the window! It's snowing.", "prompt": "¡Mira por la ventana! ___ (nevar).", "options": ["Nieva", "Está nevando"], "correct": 1, "explain": "Proceso que se ve ahora mismo, en desarrollo."}, {"n": 7, "type": "transfill", "en": "Every summer my family goes to Bear Lake.", "prompt": "Todos los veranos mi familia ___ (ir) a Bear Lake.", "options": ["va", "está yendo"], "correct": 0, "explain": "Hábito o rutina, no un viaje puntual."}, {"n": 8, "type": "transfill", "en": "Could you pass me the salt?", "prompt": "¿Me ___ (pasar, tú) la sal?", "options": ["pasas", "estás pasando"], "correct": 0, "explain": "Petición hecha en el momento — el presente es lo natural aquí."}, {"n": 9, "type": "transfill", "en": "I've been studying Spanish for three years.", "prompt": "Llevo tres años ___ (estudiar) español.", "options": ["estudio", "estudiando"], "correct": 1, "explain": "<em>Llevar</em> + tiempo + gerundio expresa duración desde el pasado hasta hoy."}, {"n": 10, "type": "transfill", "en": "Lately I've been sleeping terribly.", "prompt": "Últimamente ___ (dormir, yo) fatal.", "options": ["duermo", "estoy durmiendo"], "correct": 1, "explain": "Actividad repetida en un periodo actual, distinta de lo habitual."}, {"n": 11, "type": "trans", "prompt": "I'm leaving tomorrow.", "options": ["Estoy saliendo mañana.", "Salgo mañana.", "Soy saliendo mañana."], "correct": 1, "explain": "El progresivo no expresa futuro en español. El presente simple (o <em>ir a</em> + infinitivo) sí."}, {"n": 12, "type": "trans", "prompt": "I've been studying Spanish for three years.", "options": ["Estoy estudiando español por tres años.", "Llevo tres años estudiando español.", "Estoy estudiado español tres años."], "correct": 1, "explain": "<em>Llevar</em> + tiempo + gerundio, no <em>por</em> + progresivo."}, {"n": 13, "type": "trans", "prompt": "Dancing is my favorite hobby.", "options": ["Bailando es mi pasatiempo favorito.", "Bailar es mi pasatiempo favorito.", "Estoy bailando es mi pasatiempo favorito."], "correct": 1, "explain": "Un verbo como sujeto de la oración es infinitivo, nunca gerundio."}, {"n": 14, "type": "trans", "prompt": "She's sitting in the front row.", "options": ["Está sentando en la primera fila.", "Está sentada en la primera fila.", "Es sentada en la primera fila."], "correct": 1, "explain": "Postura física: <em>estar</em> + participio, no gerundio."}, {"n": 15, "type": "trans", "prompt": "My brother has a new car.", "options": ["Mi hermano está teniendo un carro nuevo.", "Mi hermano tiene un carro nuevo.", "Mi hermano es teniendo un carro nuevo."], "correct": 1, "explain": "<em>Tener</em> de posesión es un verbo de estado; resiste el progresivo."}, {"n": 16, "type": "trans", "prompt": "Before leaving, turn off the lights.", "options": ["Antes de saliendo, apaga las luces.", "Antes de salir, apaga las luces.", "Antes salir, apaga las luces."], "correct": 1, "explain": "Preposición + infinitivo, nunca preposición + gerundio."}, {"n": 17, "type": "trans", "prompt": "Are you still living in Ogden?", "options": ["¿Estás todavía viviendo en Ogden?", "¿Sigues viviendo en Ogden?", "¿Vives todavía en Ogden?"], "correct": 1, "explain": "<em>Seguir</em> + gerundio es el equivalente idiomático de “still” — más natural que <em>todavía</em> + progresivo."}, {"n": 18, "type": "trans", "prompt": "I'm coming! (to someone calling you from another room)", "options": ["¡Estoy viniendo!", "¡Ya voy!", "¡Vengo!"], "correct": 1, "explain": "El español se orienta hacia el oyente, no hacia el hablante — de ahí <em>ir</em> y no <em>venir</em>."}];
+  const maxStage = { fill: 1, transfill: 2, trans: 1 };
   const answers = new Array(questions.length).fill(null);
+  const stages = new Array(questions.length).fill(0);
   let idx = 0;
+
   const counterEl = document.getElementById('qCounter');
   const progressEl = document.getElementById('qProgress');
   const navGridEl = document.getElementById('qNavGrid');
   const typeTagEl = document.getElementById('qTypeTag');
+  const instrEl = document.getElementById('qInstr');
+  const promptEnEl = document.getElementById('qPromptEn');
   const promptEl = document.getElementById('qPrompt');
+  const revealRowEl = document.getElementById('qRevealRow');
+  const revealBtn = document.getElementById('qReveal');
+  const optionsWrapEl = document.getElementById('qOptionsWrap');
   const optionsEl = document.getElementById('qOptions');
   const feedbackEl = document.getElementById('qFeedback');
   const scoreLiveEl = document.getElementById('qScoreLive');
@@ -357,47 +382,86 @@ footer { border-top: 1px solid var(--line-soft); padding: 24px 0; color: var(--i
     const correctCount = answers.filter((a, i) => a !== null && a === questions[i].correct).length;
     scoreLiveEl.innerHTML = `${answeredCount} / ${questions.length} respondidas &middot; ${correctCount} correctas`;
   }
+
+  function blankify(s) { return s.replace('___', '<span class="blank"></span>'); }
+
   function render() {
     const q = questions[idx];
+    const stage = stages[idx];
+    const atMax = stage >= maxStage[q.type];
     counterEl.textContent = `${idx + 1} / ${questions.length}`;
     progressEl.style.width = `${((idx + 1) / questions.length) * 100}%`;
     feedbackEl.classList.remove('show', 'correct', 'incorrect');
-    if (q.type === 'trans') {
-      typeTagEl.innerHTML = 'Traduce al español';
-      promptEl.innerHTML = `<span style="color:var(--ink-soft);font-style:normal;font-family:'Manrope',sans-serif;font-size:13px;display:block;margin-bottom:6px">Item ${q.n}</span>&ldquo;${q.prompt}&rdquo;`;
-    } else {
+
+    const meta = `<span style="color:var(--ink-soft);font-style:normal;font-family:'Manrope',sans-serif;font-size:13px;display:block;margin-bottom:6px">Item ${q.n}</span>`;
+
+    if (q.type === 'fill') {
       typeTagEl.textContent = 'Completa el espacio';
-      promptEl.innerHTML = `<span style="color:var(--ink-soft);font-style:normal;font-family:'Manrope',sans-serif;font-size:13px;display:block;margin-bottom:6px">Item ${q.n}</span>` + q.prompt.replace('___', '<span class="blank"></span>');
-    }
-    optionsEl.innerHTML = '';
-    optionsEl.className = 'quiz-options' + (q.options.length <= 2 ? ' two-up' : '');
-    const selected = answers[idx];
-    q.options.forEach((opt, i) => {
-      const b = document.createElement('button');
-      b.className = 'quiz-opt';
-      b.innerHTML = opt;
-      if (selected !== null) {
-        b.disabled = true;
-        if (i === q.correct) b.classList.add('correct');
-        else if (i === selected) b.classList.add('incorrect');
+      instrEl.textContent = 'Completa el espacio — en voz alta o por escrito — y luego haz clic para comprobar tu respuesta.';
+      promptEnEl.style.display = 'none';
+      promptEl.innerHTML = meta + blankify(q.prompt);
+      revealBtn.textContent = 'Ver opciones';
+    } else if (q.type === 'transfill') {
+      typeTagEl.textContent = stage >= 1 ? 'Completa el espacio' : 'Traduce al español';
+      if (stage >= 1) {
+        instrEl.textContent = 'Completa el espacio y luego haz clic para comprobar tu respuesta.';
+        promptEnEl.style.display = 'block';
+        promptEnEl.textContent = q.en;
+        promptEl.innerHTML = meta + blankify(q.prompt);
+        revealBtn.textContent = 'Ver opciones';
       } else {
-        b.addEventListener('click', () => handleAnswer(i));
+        instrEl.textContent = 'Traduce esta frase al español — en voz alta o por escrito.';
+        promptEnEl.style.display = 'none';
+        promptEl.innerHTML = meta + `&ldquo;${q.en}&rdquo;`;
+        revealBtn.textContent = 'Ver la oración en español';
       }
-      optionsEl.appendChild(b);
-    });
-    if (selected !== null) {
-      feedbackEl.classList.add('show', selected === q.correct ? 'correct' : 'incorrect');
-      feedbackEl.innerHTML = (selected === q.correct ? `&#10003; ${q.explain}` : `La respuesta es <strong>${q.options[q.correct]}</strong>. ${q.explain}`);
+    } else { // trans
+      typeTagEl.innerHTML = 'Traduce al español';
+      instrEl.textContent = 'Traduce esta frase al español y luego haz clic para comprobar tu respuesta.';
+      promptEnEl.style.display = 'none';
+      promptEl.innerHTML = meta + `&ldquo;${q.prompt}&rdquo;`;
+      revealBtn.textContent = 'Ver opciones';
     }
+
+    revealRowEl.style.display = atMax ? 'none' : 'block';
+    optionsWrapEl.style.display = atMax ? 'block' : 'none';
+
+    if (atMax) {
+      optionsEl.innerHTML = '';
+      optionsEl.className = 'quiz-options' + (q.options.length <= 2 ? ' two-up' : '');
+      const selected = answers[idx];
+      q.options.forEach((opt, i) => {
+        const b = document.createElement('button');
+        b.className = 'quiz-opt';
+        b.innerHTML = opt;
+        if (selected !== null) {
+          b.disabled = true;
+          if (i === q.correct) b.classList.add('correct');
+          else if (i === selected) b.classList.add('incorrect');
+        } else {
+          b.addEventListener('click', () => handleAnswer(i));
+        }
+        optionsEl.appendChild(b);
+      });
+      const pickInstr = optionsWrapEl.querySelector('.pick-instr');
+      pickInstr.style.display = selected !== null ? 'none' : 'flex';
+      if (selected !== null) {
+        feedbackEl.classList.add('show', selected === q.correct ? 'correct' : 'incorrect');
+        feedbackEl.innerHTML = (selected === q.correct ? `&#10003; ${q.explain}` : `La respuesta es <strong>${q.options[q.correct]}</strong>. ${q.explain}`);
+      }
+    }
+
     prevBtn.disabled = idx === 0;
     nextBtn.disabled = idx === questions.length - 1;
     updateNavGrid();
     updateScoreLive();
   }
+
   function handleAnswer(i) { answers[idx] = i; render(); }
+  revealBtn.addEventListener('click', () => { stages[idx] = Math.min(stages[idx] + 1, maxStage[questions[idx].type]); render(); });
   prevBtn.addEventListener('click', () => { if (idx > 0) { idx--; render(); } });
   nextBtn.addEventListener('click', () => { if (idx < questions.length - 1) { idx++; render(); } });
-  resetBtn.addEventListener('click', () => { answers.fill(null); idx = 0; render(); });
+  resetBtn.addEventListener('click', () => { answers.fill(null); stages.fill(0); idx = 0; render(); });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft' && idx > 0) { idx--; render(); }
     else if (e.key === 'ArrowRight' && idx < questions.length - 1) { idx++; render(); }
