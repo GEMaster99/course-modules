@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presente simple vs. estar + gerundio &middot; SPAN 3000</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400;9..144,500;9..144,700;9..144,900&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F4EEE2; --bg-elevated: #FBF6EB;
+  --ink: #1F1A14; --ink-soft: #4F443A; --ink-faint: #8A7E70;
+  --accent: #B84A1F; --accent-soft: #EBC7B0; --accent-pale: #F5DDC9;
+  --secondary: #2A4D5E; --wsu: #492365;
+  --line: #1F1A14; --line-soft: #D8CFBC;
+  --correct: #2D6A4F; --incorrect: #B84A1F;
+  --shadow-paper: 0 1px 0 #D8CFBC, 0 8px 24px -12px rgba(31,26,20,0.15);
+  --shadow-lift: 0 2px 0 #1F1A14, 0 10px 30px -8px rgba(31,26,20,0.25);
+}
+[data-theme="dark"] {
+  --bg: #16120F; --bg-elevated: #1F1A16;
+  --ink: #F0E8D8; --ink-soft: #B5AB9A; --ink-faint: #7A7163;
+  --accent: #E07856; --accent-soft: #6B3525; --accent-pale: #3D2017;
+  --secondary: #6BA2B5; --wsu: #B292C9;
+  --line: #F0E8D8; --line-soft: #3A312A;
+  --correct: #6BB48E; --incorrect: #E07856;
+  --shadow-paper: 0 1px 0 #3A312A, 0 8px 24px -12px rgba(0,0,0,0.4);
+  --shadow-lift: 0 2px 0 #F0E8D8, 0 10px 30px -8px rgba(0,0,0,0.5);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--ink); font-family: 'Manrope', system-ui, sans-serif; font-size: 16px; line-height: 1.6; min-height: 100vh; transition: background-color 0.3s ease, color 0.3s ease; overflow-x: hidden; }
+body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.4; background-image: radial-gradient(circle at 20% 30%, var(--line-soft) 0.5px, transparent 0.5px), radial-gradient(circle at 80% 70%, var(--line-soft) 0.5px, transparent 0.5px); background-size: 40px 40px, 60px 60px; }
+.container { max-width: 1180px; margin: 0 auto; padding: 0 clamp(16px,4vw,48px); position: relative; z-index: 1; }
+header { padding: 32px 0 24px; border-bottom: 1px solid var(--line-soft); }
+.header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+.brand { display: flex; align-items: center; gap: 14px; }
+.brand-mark { width: 44px; height: 44px; border-radius: 50%; background: var(--wsu); color: #FBF6EB; display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-weight: 900; font-size: 18px; font-variation-settings: "SOFT" 50; flex-shrink: 0; }
+.brand-text { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-soft); line-height: 1.4; }
+.brand-text strong { color: var(--ink); font-weight: 500; }
+.theme-toggle { background: var(--bg-elevated); border: 1.5px solid var(--line); color: var(--ink); width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease, background 0.2s ease; flex-shrink: 0; }
+.theme-toggle:hover { transform: rotate(15deg) scale(1.05); background: var(--accent-pale); }
+.theme-toggle svg { width: 20px; height: 20px; }
+.theme-toggle .sun { display: none; } .theme-toggle .moon { display: block; }
+[data-theme="dark"] .theme-toggle .sun { display: block; } [data-theme="dark"] .theme-toggle .moon { display: none; }
+.title-block { padding: 36px 0 28px; }
+.eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+.eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--line-soft); max-width: 120px; }
+h1.module-title { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 144, "SOFT" 30; font-size: clamp(34px,6vw,68px); line-height: 1.0; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 18px; }
+h1.module-title em { font-style: italic; font-weight: 400; color: var(--accent); font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; }
+.module-subtitle { font-size: 17px; color: var(--ink-soft); max-width: 700px; line-height: 1.5; }
+.tabs { display: flex; margin: 32px 0 8px; border-bottom: 2px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab-btn { background: none; border: none; color: var(--ink-soft); font-family: 'Fraunces', serif; font-weight: 500; font-size: 19px; font-variation-settings: "opsz" 24, "SOFT" 20; padding: 14px 24px; cursor: pointer; position: relative; transition: color 0.2s ease; white-space: nowrap; display: flex; align-items: center; gap: 10px; }
+.tab-btn .tab-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); font-weight: 400; }
+.tab-btn:hover { color: var(--ink); } .tab-btn.active { color: var(--ink); }
+.tab-btn.active .tab-num { color: var(--accent); }
+.tab-btn.active::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 4px; background: var(--accent); }
+main { padding: 40px 0 80px; }
+.panel { display: none; animation: fadeIn 0.4s ease; } .panel.active { display: block; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px dashed var(--line-soft); }
+.section-head h2 { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 72, "SOFT" 40; font-size: clamp(26px,4vw,36px); letter-spacing: -0.01em; line-height: 1.1; }
+.section-head .marker { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
+.grammar-block { background: var(--bg-elevated); border: 1.5px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 28px; box-shadow: var(--shadow-paper); }
+.grammar-block h3 { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 48, "SOFT" 30; font-size: 24px; margin-bottom: 8px; letter-spacing: -0.01em; }
+.grammar-block .lede { color: var(--ink-soft); font-size: 15px; margin-bottom: 16px; max-width: 720px; }
+.ref-table { background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px; overflow: hidden; margin: 12px 0 18px; }
+.ref-table table { width: 100%; border-collapse: collapse; }
+.ref-table th { background: var(--ink); color: var(--bg); text-align: left; padding: 10px 14px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; }
+.ref-table td { padding: 11px 14px; border-top: 1px solid var(--line-soft); font-size: 13.5px; vertical-align: top; }
+.ref-table td:first-child { font-family: 'Fraunces', serif; font-style: italic; color: var(--accent); font-weight: 600; }
+.ref-table .bad { text-decoration: line-through; color: var(--incorrect); opacity: 0.75; font-style: italic; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.tip-block { background: var(--accent-pale); border: 1.5px solid var(--accent); border-radius: 10px; padding: 16px 20px; margin-top: 12px; font-size: 14px; color: var(--ink-soft); }
+.tip-block strong { color: var(--ink); }
+.tip-block ul { margin: 10px 0 0 18px; }
+.tip-block li { margin-bottom: 6px; }
+.culture-block { background: var(--bg-elevated); border: 1.5px solid var(--secondary); border-radius: 14px; padding: 24px; margin-bottom: 28px; position: relative; }
+.culture-tag { position: absolute; top: -10px; left: 20px; background: var(--secondary); color: #FBF6EB; padding: 3px 10px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+.culture-block h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 22px; margin-bottom: 10px; margin-top: 4px; }
+.culture-block p { color: var(--ink-soft); font-size: 14px; line-height: 1.6; }
+.culture-block p + p { margin-top: 10px; }
+.cite-note { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--ink-faint); margin-top: 4px; }
+.cite-note a { color: var(--ink-faint); }
+footer { border-top: 1px solid var(--line-soft); padding: 24px 0; color: var(--ink-faint); font-size: 13px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.08em; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+@media (max-width: 720px) {
+  .grammar-block { padding: 20px; }
+  .tab-btn { padding: 12px 14px; font-size: 17px; }
+  .tab-btn .tab-num { display: none; }
+  .ref-table { overflow-x: auto; }
+  .two-col { grid-template-columns: 1fr; }
+}
+
+.quiz-shell { background: var(--bg-elevated); border: 1.5px solid var(--line); border-radius: 14px;
+  padding: 32px; box-shadow: var(--shadow-paper); max-width: 760px; margin: 0 auto; }
+.quiz-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
+  margin-bottom: 18px; }
+.quiz-head h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 22px;
+  font-variation-settings: "opsz" 36, "SOFT" 40; }
+.quiz-counter { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-faint);
+  background: var(--bg); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line-soft);
+  white-space: nowrap; }
+.quiz-type-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--accent); margin-bottom: 10px; }
+.quiz-prompt { font-family: 'Fraunces', serif; font-style: italic; font-size: 19px; line-height: 1.4;
+  margin-bottom: 22px; color: var(--ink); }
+.quiz-prompt .blank { display: inline-block; min-width: 70px; border-bottom: 2px solid var(--accent);
+  margin: 0 4px; }
+.quiz-options { display: grid; gap: 10px; margin-bottom: 6px; }
+.quiz-options.two-up { grid-template-columns: repeat(2, 1fr); max-width: 420px; }
+.quiz-opt { background: var(--bg); border: 1.5px solid var(--line); color: var(--ink);
+  padding: 14px 18px; border-radius: 10px; font-family: 'Fraunces', serif; font-style: italic;
+  font-size: 16px; cursor: pointer; text-align: left; transition: all 0.15s ease; }
+.quiz-opt:hover { background: var(--ink); color: var(--bg); transform: translate(-1px, -1px); }
+.quiz-opt.correct { background: var(--correct); color: #FBF6EB; border-color: var(--correct); }
+.quiz-opt.incorrect { background: var(--incorrect); color: #FBF6EB; border-color: var(--incorrect);
+  opacity: 0.7; }
+.quiz-opt:disabled { cursor: default; }
+.quiz-opt:disabled:hover { transform: none; }
+.quiz-opt:disabled:hover:not(.correct):not(.incorrect) { background: var(--bg); color: var(--ink); }
+.feedback { font-family: 'Fraunces', serif; font-style: italic; font-size: 15px; padding: 12px 16px; border-radius: 8px; margin-top: 10px; display: none; }
+.feedback.show { display: block; animation: fadeIn 0.3s ease; }
+.feedback.correct { background: rgba(45,106,79,0.1); color: var(--correct); border-left: 3px solid var(--correct); }
+.feedback.incorrect { background: var(--accent-pale); color: var(--accent); border-left: 3px solid var(--accent); }
+.feedback strong { font-weight: 700; font-style: normal; }
+.progress-bar { height: 4px; background: var(--line-soft); border-radius: 2px; overflow: hidden; margin-bottom: 20px; }
+.progress-fill { height: 100%; background: var(--accent); transition: width 0.4s ease; width: 0%; }
+.quiz-nav-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px; }
+.nav-pill { width: 32px; height: 32px; border-radius: 8px; border: 1.5px solid var(--line-soft);
+  background: var(--bg); color: var(--ink-soft); font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s ease; }
+.nav-pill:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.nav-pill.current { border-color: var(--accent); border-width: 2px; color: var(--ink); font-weight: 700; }
+.nav-pill.answered-correct { background: var(--correct); color: #FBF6EB; border-color: var(--correct); }
+.nav-pill.answered-incorrect { background: var(--incorrect); color: #FBF6EB; border-color: var(--incorrect); }
+.nav-pill.answered-correct.current, .nav-pill.answered-incorrect.current { box-shadow: 0 0 0 2px var(--accent); }
+.quiz-footer-row { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  margin-top: 18px; flex-wrap: wrap; }
+.quiz-score-live { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-faint); }
+.nav-btn-row { display: flex; gap: 10px; }
+.nav-btn { background: var(--ink); color: var(--bg); border: 1.5px solid var(--ink); border-radius: 10px;
+  padding: 12px 20px; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer;
+  transition: transform 0.15s ease; }
+.nav-btn:hover { transform: translate(-1px, -1px); box-shadow: 0 2px 0 var(--accent); }
+.nav-btn:disabled { opacity: 0.35; cursor: default; box-shadow: none; transform: none; }
+.nav-btn.ghost { background: var(--bg); color: var(--ink); border-color: var(--line); }
+.nav-btn.ghost:hover { background: var(--accent-pale); box-shadow: none; transform: none; }
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="header-row">
+    <div class="brand">
+      <div class="brand-mark">W</div>
+      <div class="brand-text"><strong>SPAN 3000</strong> &middot; Intermediate Spanish Conversation<br>Weber State University</div>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+  </div>
+  <div class="title-block">
+    <div class="eyebrow">Repaso de gramática &middot; Grammar Review</div>
+    <h1 class="module-title">&iquest;Hago o <em>estoy haciendo</em>?</h1>
+    <p class="module-subtitle">El presente simple frente a <em>estar</em> + gerundio: cuándo se elige cada uno, cómo se forma el gerundio, los calcos más comunes del inglés, y las demás perífrasis de gerundio del nivel avanzado (<em>ir, andar, seguir, llevar, venir</em>).</p>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab-btn active" data-tab="expl" role="tab"><span class="tab-num">01</span> Explicación</button>
+  <button class="tab-btn" data-tab="prac" role="tab"><span class="tab-num">02</span> Práctica</button>
+</nav>
+
+<main>
+<section class="panel active" id="panel-expl">
+  <div class="section-head"><h2>La idea clave</h2><span class="marker">Fundamentos</span></div>
+  <div class="grammar-block">
+    <p class="lede">En español, el <strong>presente simple ya puede describir lo que está pasando ahora mismo</strong>. El progresivo (<em>estar</em> + gerundio) no es obligatorio: se elige para <strong>subrayar</strong> que una acción está en curso, en desarrollo, o que es temporal.</p>
+    <p class="lede" style="margin-bottom:0">En inglés, <em>What do you do?</em> y <em>What are you doing?</em> son preguntas distintas. En español, <strong>&iquest;Qué haces?</strong> puede significar las dos cosas — por eso el progresivo se usa menos en español que en inglés, y nunca para hablar del futuro.</p>
+  </div>
+
+  <div class="section-head"><h2>&iquest;Cuándo uso cada uno?</h2><span class="marker">Uso</span></div>
+  <div class="two-col">
+    <div class="ref-table"><table>
+      <thead><tr><th colspan="2">Presente simple &middot; <em>hago</em></th></tr></thead>
+      <tbody>
+        <tr><td>Rutinas y hábitos</td><td><em>Los sábados juego al fútbol.</em></td></tr>
+        <tr><td>Verdades generales</td><td><em>En Utah casi no llueve en julio.</em></td></tr>
+        <tr><td>Lo que pasa ahora, sin subrayarlo</td><td><em>—&iquest;Qué haces? —Leo el correo.</em></td></tr>
+        <tr><td>Futuro ya planeado</td><td><em>El lunes empiezo mi nuevo trabajo.</em></td></tr>
+        <tr><td>Ofertas y peticiones</td><td><em>&iquest;Te ayudo? &iquest;Me pasas la sal?</em></td></tr>
+        <tr><td>Presente narrativo</td><td><em>Entonces entra mi jefe y me dice&hellip;</em></td></tr>
+      </tbody>
+    </table></div>
+    <div class="ref-table"><table>
+      <thead><tr><th colspan="2">Estar + gerundio &middot; <em>estoy haciendo</em></th></tr></thead>
+      <tbody>
+        <tr><td>Acción en curso, énfasis en el "ahora"</td><td><em>No puedo hablar, estoy manejando.</em></td></tr>
+        <tr><td>Situación temporal, distinta de lo normal</td><td><em>Este semestre estoy viviendo con mis tíos.</em></td></tr>
+        <tr><td>Actividad repetida en un periodo actual</td><td><em>Últimamente estoy durmiendo fatal.</em></td></tr>
+        <tr><td>Proceso que cambia o avanza</td><td><em>Los precios están subiendo otra vez.</em></td></tr>
+        <tr><td>Reproche o sorpresa</td><td><em>&iexcl;Me estás tomando el pelo!</em></td></tr>
+        <tr><td>Con <em>ya, todavía, aún</em></td><td><em>Todavía estoy buscando piso.</em></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="section-head"><h2>Cómo se forma</h2><span class="marker">Formación</span></div>
+  <div class="grammar-block">
+    <p class="lede"><strong>estar</strong> (conjugado) + <strong>gerundio</strong> &nbsp;→&nbsp; <em>estoy, estás, está, estamos, estáis, están</em> + <em>hablando / comiendo / viviendo</em>. Solo <em>estar</em> se conjuga; el gerundio nunca cambia.</p>
+    <div class="ref-table"><table>
+      <thead><tr><th>Regla</th><th>Ejemplos</th><th>Ojo</th></tr></thead>
+      <tbody>
+        <tr><td>-ar &rarr; -ando<br>-er / -ir &rarr; -iendo</td><td>habl<strong>ando</strong>, com<strong>iendo</strong>, viv<strong>iendo</strong></td><td>&mdash;</td></tr>
+        <tr><td>vocal + -iendo &rarr; -yendo</td><td>leer &rarr; le<strong>yendo</strong>; oír &rarr; o<strong>yendo</strong>; ir &rarr; <strong>yendo</strong></td><td>También: caer, construir, creer, huir, traer.</td></tr>
+        <tr><td>-ir con cambio: e&rarr;i, o&rarr;u</td><td>pedir &rarr; p<strong>i</strong>diendo; decir &rarr; d<strong>i</strong>ciendo; dormir &rarr; d<strong>u</strong>rmiendo</td><td>También: seguir, sentir, servir, reír. Y poder &rarr; <strong>pudiendo</strong>.</td></tr>
+        <tr><td>Pronombres</td><td><strong>Lo</strong> estoy haciendo = Estoy haciéndo<strong>lo</strong></td><td>Antes de <em>estar</em> o pegados al gerundio (con tilde). Nunca en medio.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="section-head"><h2>Donde el inglés y el español no coinciden</h2><span class="marker">Calcos</span></div>
+  <div class="grammar-block">
+    <p class="lede">La terminación <em>-ing</em> del inglés hace muchos trabajos. En español, el gerundio solo hace uno de ellos.</p>
+    <div class="ref-table"><table>
+      <thead><tr><th>En inglés</th><th>Calco</th><th>En español</th></tr></thead>
+      <tbody>
+        <tr><td>I'm leaving tomorrow.</td><td class="bad">Estoy saliendo mañana.</td><td>Salgo / Me voy mañana.</td></tr>
+        <tr><td>I'm coming!</td><td class="bad">&iexcl;Estoy viniendo!</td><td>&iexcl;Ya voy!</td></tr>
+        <tr><td>I have two brothers.</td><td class="bad">Estoy teniendo dos hermanos.</td><td>Tengo dos hermanos.</td></tr>
+        <tr><td>Dancing is my favorite hobby.</td><td class="bad">Bailando es mi pasatiempo favorito.</td><td>Bailar es mi pasatiempo favorito.</td></tr>
+        <tr><td>She's sitting in the front row.</td><td class="bad">Está sentando en la primera fila.</td><td>Está sentada en la primera fila.</td></tr>
+        <tr><td>I've been studying Spanish for three years.</td><td class="bad">Estoy estudiando español por tres años.</td><td>Llevo tres años estudiando español.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tip-block">
+      <strong>Verbos que casi nunca van en progresivo:</strong> <em>ser, tener</em> (posesión), <em>saber, conocer, haber, gustar, parecer, necesitar</em>. Expresan estados, no actividades.
+      <ul>
+        <li><em>Pero:</em> <em>Estoy teniendo problemas con el wifi.</em> (algo que ocurre)</li>
+        <li><em>Estás siendo muy paciente conmigo.</em> (comportamiento en este momento)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-head"><h2>Más allá de estar</h2><span class="marker">Nivel avanzado</span></div>
+  <div class="grammar-block">
+    <p class="lede">Otras perífrasis de gerundio añaden un matiz que <em>estar</em> no tiene por sí solo.</p>
+    <div class="ref-table"><table>
+      <thead><tr><th>Perífrasis</th><th>Idea</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td>ir + gerundio</td><td>Avance gradual, poco a poco</td><td><em>Voy entendiendo mejor el voseo.</em></td></tr>
+        <tr><td>andar + gerundio</td><td>Acción intermitente; muy frecuente en México y Centroamérica</td><td><em>Ando buscando trabajo.</em></td></tr>
+        <tr><td>seguir + gerundio</td><td>Continuidad (inglés <em>still</em>)</td><td><em>&iquest;Sigues viviendo en Provo?</em></td></tr>
+        <tr><td>llevar + tiempo + gerundio</td><td>Duración desde el pasado hasta hoy</td><td><em>Llevo dos semanas practicando.</em></td></tr>
+        <tr><td>venir + gerundio</td><td>Proceso que viene repitiéndose hasta ahora</td><td><em>Te vengo diciendo lo mismo.</em></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="culture-block">
+    <div class="culture-tag">Variación dialectal</div>
+    <h3>Peninsular vs. americano</h3>
+    <p>En gran parte de América, <em>estamos llegando</em> y <em>vamos llegando</em> se usan casi igual con verbos de movimiento, en parte porque el avance ya está incluido en el significado de <em>ir</em>. El progresivo en general se oye con más frecuencia en el español americano que en el peninsular.</p>
+    <p>Si aprendiste español en México o Centroamérica, <em>andar + gerundio</em> probablemente ya te suena natural &mdash; en el español peninsular es mucho menos frecuente.</p>
+    <p class="cite-note">RAE y ASALE, <em>Nueva gramática de la lengua española</em> (aplica.rae.es/grweb): &sect;23.5&ndash;23.6 el presente &middot; &sect;28.12 estar + gerundio &middot; &sect;28.13 ir + gerundio &middot; &sect;28.14 andar y venir &middot; &sect;28.15 seguir, llevar.</p>
+  </div>
+</section>
+
+<section class="panel" id="panel-prac">
+  <div class="section-head"><h2>Autoevaluación</h2><span class="marker">Práctica</span></div>
+  <div class="quiz-shell">
+    <div class="quiz-head">
+      <h3 id="quizTitle">Presente simple o estar + gerundio</h3>
+      <span class="quiz-counter" id="qCounter">1 / 18</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="qProgress"></div></div>
+    <div class="quiz-nav-grid" id="qNavGrid"></div>
+    <div class="quiz-type-tag" id="qTypeTag">Completa el espacio</div>
+    <div class="quiz-prompt" id="qPrompt"></div>
+    <div class="quiz-options" id="qOptions"></div>
+    <div class="feedback" id="qFeedback"></div>
+    <div class="quiz-footer-row">
+      <span class="quiz-score-live" id="qScoreLive">0 / 18 respondidas</span>
+      <div class="nav-btn-row">
+        <button class="nav-btn ghost" id="qReset">Reiniciar</button>
+        <button class="nav-btn ghost" id="qPrev">&larr; Anterior</button>
+        <button class="nav-btn" id="qNext">Siguiente &rarr;</button>
+      </div>
+    </div>
+    <p style="text-align:center;color:var(--ink-faint);font-size:11px;font-family:'JetBrains Mono',monospace;margin-top:14px">&larr; &rarr; para navegar con el teclado</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div>SPAN 3000 &middot; Presente simple vs. estar + gerundio</div>
+  <div>Paul Rama, PhD &middot; paulrama@weber.edu</div>
+</footer>
+</div>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = (() => { try { return localStorage.getItem('span3000-theme'); } catch { return null; } })();
+  if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+  themeToggle.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    isDark ? document.documentElement.removeAttribute('data-theme') : document.documentElement.setAttribute('data-theme', 'dark');
+    try { localStorage.setItem('span3000-theme', isDark ? 'light' : 'dark'); } catch {}
+  });
+
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const panels = { expl: document.getElementById('panel-expl'), prac: document.getElementById('panel-prac') };
+  tabBtns.forEach(btn => btn.addEventListener('click', () => {
+    tabBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    Object.values(panels).forEach(p => p.classList.remove('active'));
+    panels[btn.dataset.tab].classList.add('active');
+  }));
+
+  const questions = [{"n": 1, "type": "fill", "prompt": "Mi abuela ___ (hablar) tres idiomas.", "options": ["habla", "está hablando"], "correct": 0, "explain": "Característica o capacidad estable — no una acción puntual."}, {"n": 2, "type": "fill", "prompt": "¡Silencio, por favor! El bebé ___ (dormir).", "options": ["duerme", "está durmiendo"], "correct": 1, "explain": "Acción en curso, con énfasis en el ahora."}, {"n": 3, "type": "fill", "prompt": "El próximo lunes ___ (empezar, yo) las prácticas en el hospital.", "options": ["empiezo", "estoy empezando"], "correct": 0, "explain": "Futuro ya planeado. El progresivo nunca se usa para el futuro en español estándar."}, {"n": 4, "type": "fill", "prompt": "Este mes ___ (trabajar, yo) de noche para cubrir a un compañero.", "options": ["trabajo", "estoy trabajando"], "correct": 1, "explain": "Situación temporal, distinta de lo normal."}, {"n": 5, "type": "fill", "prompt": "Yo no ___ (saber) dónde vive el profesor.", "options": ["sé", "estoy sabiendo"], "correct": 0, "explain": "Verbo de estado — <em>saber</em> casi nunca va en progresivo."}, {"n": 6, "type": "fill", "prompt": "¡Mira por la ventana! ___ (nevar).", "options": ["Nieva", "Está nevando"], "correct": 1, "explain": "Proceso que se ve ahora mismo, en desarrollo."}, {"n": 7, "type": "fill", "prompt": "Todos los veranos mi familia ___ (ir) a Bear Lake.", "options": ["va", "está yendo"], "correct": 0, "explain": "Hábito o rutina, no un viaje puntual."}, {"n": 8, "type": "fill", "prompt": "¿Me ___ (pasar, tú) la sal?", "options": ["pasas", "estás pasando"], "correct": 0, "explain": "Petición hecha en el momento — el presente es lo natural aquí."}, {"n": 9, "type": "fill", "prompt": "Llevo tres años ___ (estudiar) español.", "options": ["estudio", "estudiando"], "correct": 1, "explain": "<em>Llevar</em> + tiempo + gerundio expresa duración desde el pasado hasta hoy."}, {"n": 10, "type": "fill", "prompt": "Últimamente ___ (dormir, yo) fatal por el estrés de los exámenes.", "options": ["duermo", "estoy durmiendo"], "correct": 1, "explain": "Actividad repetida en un periodo actual, distinta de lo habitual."}, {"n": 11, "type": "trans", "prompt": "I'm leaving tomorrow.", "options": ["Estoy saliendo mañana.", "Salgo mañana.", "Soy saliendo mañana."], "correct": 1, "explain": "El progresivo no expresa futuro en español. El presente simple (o <em>ir a</em> + infinitivo) sí."}, {"n": 12, "type": "trans", "prompt": "I've been studying Spanish for three years.", "options": ["Estoy estudiando español por tres años.", "Llevo tres años estudiando español.", "Estoy estudiado español tres años."], "correct": 1, "explain": "<em>Llevar</em> + tiempo + gerundio, no <em>por</em> + progresivo."}, {"n": 13, "type": "trans", "prompt": "Dancing is my favorite hobby.", "options": ["Bailando es mi pasatiempo favorito.", "Bailar es mi pasatiempo favorito.", "Estoy bailando es mi pasatiempo favorito."], "correct": 1, "explain": "Un verbo como sujeto de la oración es infinitivo, nunca gerundio."}, {"n": 14, "type": "trans", "prompt": "She's sitting in the front row.", "options": ["Está sentando en la primera fila.", "Está sentada en la primera fila.", "Es sentada en la primera fila."], "correct": 1, "explain": "Postura física: <em>estar</em> + participio, no gerundio."}, {"n": 15, "type": "trans", "prompt": "My brother has a new car.", "options": ["Mi hermano está teniendo un carro nuevo.", "Mi hermano tiene un carro nuevo.", "Mi hermano es teniendo un carro nuevo."], "correct": 1, "explain": "<em>Tener</em> de posesión es un verbo de estado; resiste el progresivo."}, {"n": 16, "type": "trans", "prompt": "Before leaving, turn off the lights.", "options": ["Antes de saliendo, apaga las luces.", "Antes de salir, apaga las luces.", "Antes salir, apaga las luces."], "correct": 1, "explain": "Preposición + infinitivo, nunca preposición + gerundio."}, {"n": 17, "type": "trans", "prompt": "Are you still living in Ogden?", "options": ["¿Estás todavía viviendo en Ogden?", "¿Sigues viviendo en Ogden?", "¿Vives todavía en Ogden?"], "correct": 1, "explain": "<em>Seguir</em> + gerundio es el equivalente idiomático de “still” — más natural que <em>todavía</em> + progresivo."}, {"n": 18, "type": "trans", "prompt": "I'm coming! (to someone calling you from another room)", "options": ["¡Estoy viniendo!", "¡Ya voy!", "¡Vengo!"], "correct": 1, "explain": "El español se orienta hacia el oyente, no hacia el hablante — de ahí <em>ir</em> y no <em>venir</em>."}];
+  const answers = new Array(questions.length).fill(null);
+  let idx = 0;
+  const counterEl = document.getElementById('qCounter');
+  const progressEl = document.getElementById('qProgress');
+  const navGridEl = document.getElementById('qNavGrid');
+  const typeTagEl = document.getElementById('qTypeTag');
+  const promptEl = document.getElementById('qPrompt');
+  const optionsEl = document.getElementById('qOptions');
+  const feedbackEl = document.getElementById('qFeedback');
+  const scoreLiveEl = document.getElementById('qScoreLive');
+  const prevBtn = document.getElementById('qPrev');
+  const nextBtn = document.getElementById('qNext');
+  const resetBtn = document.getElementById('qReset');
+
+  questions.forEach((q, i) => {
+    const b = document.createElement('button');
+    b.className = 'nav-pill';
+    b.textContent = q.n;
+    b.addEventListener('click', () => { idx = i; render(); });
+    navGridEl.appendChild(b);
+  });
+  const navPills = navGridEl.querySelectorAll('.nav-pill');
+
+  function updateNavGrid() {
+    navPills.forEach((p, i) => {
+      p.classList.toggle('current', i === idx);
+      p.classList.remove('answered-correct', 'answered-incorrect');
+      if (answers[i] !== null) p.classList.add(answers[i] === questions[i].correct ? 'answered-correct' : 'answered-incorrect');
+    });
+  }
+  function updateScoreLive() {
+    const answeredCount = answers.filter(a => a !== null).length;
+    const correctCount = answers.filter((a, i) => a !== null && a === questions[i].correct).length;
+    scoreLiveEl.innerHTML = `${answeredCount} / ${questions.length} respondidas &middot; ${correctCount} correctas`;
+  }
+  function render() {
+    const q = questions[idx];
+    counterEl.textContent = `${idx + 1} / ${questions.length}`;
+    progressEl.style.width = `${((idx + 1) / questions.length) * 100}%`;
+    feedbackEl.classList.remove('show', 'correct', 'incorrect');
+    if (q.type === 'trans') {
+      typeTagEl.innerHTML = 'Traduce al español';
+      promptEl.innerHTML = `<span style="color:var(--ink-soft);font-style:normal;font-family:'Manrope',sans-serif;font-size:13px;display:block;margin-bottom:6px">Item ${q.n}</span>&ldquo;${q.prompt}&rdquo;`;
+    } else {
+      typeTagEl.textContent = 'Completa el espacio';
+      promptEl.innerHTML = `<span style="color:var(--ink-soft);font-style:normal;font-family:'Manrope',sans-serif;font-size:13px;display:block;margin-bottom:6px">Item ${q.n}</span>` + q.prompt.replace('___', '<span class="blank"></span>');
+    }
+    optionsEl.innerHTML = '';
+    optionsEl.className = 'quiz-options' + (q.options.length <= 2 ? ' two-up' : '');
+    const selected = answers[idx];
+    q.options.forEach((opt, i) => {
+      const b = document.createElement('button');
+      b.className = 'quiz-opt';
+      b.innerHTML = opt;
+      if (selected !== null) {
+        b.disabled = true;
+        if (i === q.correct) b.classList.add('correct');
+        else if (i === selected) b.classList.add('incorrect');
+      } else {
+        b.addEventListener('click', () => handleAnswer(i));
+      }
+      optionsEl.appendChild(b);
+    });
+    if (selected !== null) {
+      feedbackEl.classList.add('show', selected === q.correct ? 'correct' : 'incorrect');
+      feedbackEl.innerHTML = (selected === q.correct ? `&#10003; ${q.explain}` : `La respuesta es <strong>${q.options[q.correct]}</strong>. ${q.explain}`);
+    }
+    prevBtn.disabled = idx === 0;
+    nextBtn.disabled = idx === questions.length - 1;
+    updateNavGrid();
+    updateScoreLive();
+  }
+  function handleAnswer(i) { answers[idx] = i; render(); }
+  prevBtn.addEventListener('click', () => { if (idx > 0) { idx--; render(); } });
+  nextBtn.addEventListener('click', () => { if (idx < questions.length - 1) { idx++; render(); } });
+  resetBtn.addEventListener('click', () => { answers.fill(null); idx = 0; render(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft' && idx > 0) { idx--; render(); }
+    else if (e.key === 'ArrowRight' && idx < questions.length - 1) { idx++; render(); }
+  });
+  render();
+</script>
+</body>
+</html>
