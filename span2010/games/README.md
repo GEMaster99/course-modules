@@ -2,6 +2,12 @@
 
 A single-scene Spanish 2010 adventure for approximately novice-high to intermediate-low learners. Fictional Hotel Brisa, Mexico. Designed for 5–10 minutes of exploratory reading, typed replies, hints, and reflection; actual timing depends on the learner. Prepared for a Weber State University classroom; this is not an official university product.
 
+## Published course version
+
+Play: https://gemaster99.github.io/course-modules/span2010/games/
+
+The Spanish 2010 course page includes a Games card. Source files are in `GEMaster99/course-modules`, folder `span2010/games`. To update the existing course deployment, replace only the game files in that folder; leave the course root and module pages in place.
+
 ## Play locally
 
 Unzip the package and open `index.html` in a modern browser. Keep all five game files together: index.html, style.css, dialogue.js, matcher.js, app.js. No install, build, API key, student account, or server is required. If clipboard access is unavailable for a local file, the ending includes a text download.
@@ -44,4 +50,4 @@ Answers stay in browser memory unless the learner opts into “Guardar progreso 
 
 ## Verification
 
-77 automated assertions passed against the answer matcher and game flow using a small simulated DOM: all answer banks and repair/distractor entries, conservative typo boundaries, negation, unknown-answer/hint fallback, exploration and pickup gates, complete successful journey, transcript content, optional local save, and restart. Syntax was checked with Node.js. These tests do not substitute for rendered-browser or assistive-technology testing. See `VERIFICATION.md` for final browser-check status.
+77 automated assertions passed against the answer matcher and game flow using a small simulated DOM: all answer banks and repair/distractor entries, conservative typo boundaries, negation, unknown-answer/hint fallback, exploration and pickup gates, complete successful journey, transcript content, optional local save, and restart. Syntax was checked with Node.js. The published game was also played to completion in a browser, including hints, distractors, repairs, transcript copying, saved-progress reload, and restart. Desktop and 390px mobile layouts were inspected. See `VERIFICATION.md` for details.
