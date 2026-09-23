@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Módulo 3 · Juego de calentamiento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,700;1,9..144,400&family=JetBrains+Mono:wght@400;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F4EEE2; --bg-elevated:#FBF6EB; --ink:#1F1A14; --ink-soft:#4F443A; --ink-faint:#8A7E70;
+  --wsu:#492365; --wsu-pale:#E6DCEE; --accent:#B84A1F; --line-soft:#D8CFBC;
+  --correct:#2D6A4F; --correct-pale:#D6EADF; --warn:#B84A1F;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16120F; --bg-elevated:#1F1A16; --ink:#F0E8D8; --ink-soft:#B5AB9A; --ink-faint:#7A7163;
+    --wsu:#B292C9; --wsu-pale:#2C2236; --accent:#E07856; --line-soft:#3A312A;
+    --correct:#6BB48E; --correct-pale:#1D3328; --warn:#E07856;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16120F; --bg-elevated:#1F1A16; --ink:#F0E8D8; --ink-soft:#B5AB9A; --ink-faint:#7A7163;
+  --wsu:#B292C9; --wsu-pale:#2C2236; --accent:#E07856; --line-soft:#3A312A;
+  --correct:#6BB48E; --correct-pale:#1D3328; --warn:#E07856;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.5;overflow-x:hidden}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid var(--wsu);outline-offset:3px}
+.screen{display:none;min-height:100%;flex-direction:column}
+.screen.on{display:flex}
+
+/* ---------- Home ---------- */
+#home{max-width:1100px;margin:0 auto;padding:clamp(24px,5vh,56px) clamp(18px,4vw,48px)}
+.brandrow{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;color:var(--ink-soft);font-size:14px}
+.mark{width:42px;height:42px;border-radius:50%;background:var(--wsu);color:#FBF6EB;display:grid;place-items:center;font-family:'Fraunces',Georgia,serif;font-weight:700}
+:root[data-theme="dark"] .mark{color:#16120F}
+.brand strong{color:var(--ink);font-weight:600}
+.iconbtn{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--ink);background:var(--bg-elevated);display:grid;place-items:center}
+.iconbtn svg{width:19px;height:19px}
+.title{margin:clamp(28px,6vh,64px) 0 clamp(24px,4vh,40px)}
+.title h1{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:clamp(44px,7.5vw,92px);line-height:.95;letter-spacing:-.02em}
+.title p{margin-top:14px;font-size:clamp(17px,1.6vw,21px);color:var(--ink-soft);max-width:60ch}
+.clap{display:inline-block;width:.8em;height:.8em;vertical-align:-.02em;margin-left:.1em}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.tile{text-align:left;background:var(--bg-elevated);border:1.5px solid var(--line-soft);border-radius:14px;padding:22px 20px 20px;display:flex;flex-direction:column;gap:6px;transition:border-color .15s,transform .15s}
+.tile:hover{border-color:var(--wsu);transform:translateY(-2px)}
+.tile .tn{font-family:'Fraunces',Georgia,serif;font-size:26px;font-weight:500;line-height:1.1}
+.tile .ts{color:var(--ink-soft);font-size:15px}
+.tile .tc{margin-top:auto;padding-top:14px;color:var(--ink-faint);font-size:14px}
+.tile.super{grid-column:1/-1;background:var(--wsu);border-color:var(--wsu);color:#FBF6EB;flex-direction:row;align-items:center;justify-content:space-between;padding:26px 28px}
+:root[data-theme="dark"] .tile.super{color:#16120F}
+.tile.super .ts,.tile.super .tc{color:inherit;opacity:.85}
+.tile.super .tn{font-size:clamp(30px,3.4vw,40px)}
+.tile.super .tc{padding:0;margin:0}
+
+/* ---------- Game ---------- */
+#game{height:100%}
+.bar{display:flex;align-items:center;gap:14px;padding:16px clamp(16px,3vw,36px);border-bottom:1px solid var(--line-soft)}
+.bar .sec{font-family:'Fraunces',Georgia,serif;font-size:clamp(20px,2vw,26px);font-weight:500}
+.bar .count{color:var(--ink-faint);font-variant-numeric:tabular-nums;font-size:16px}
+.bar .spacer{flex:1}
+.pill{border:1.5px solid var(--ink);background:var(--bg-elevated);border-radius:999px;padding:8px 16px;font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px}
+.pill:hover{background:var(--wsu-pale)}
+.pill svg{width:16px;height:16px}
+.progress{height:4px;background:var(--line-soft)}
+.progress i{display:block;height:100%;background:var(--wsu);width:0;transition:width .25s}
+
+.stage{flex:1;display:grid;grid-template-columns:1fr auto;gap:clamp(20px,4vw,56px);align-items:center;padding:clamp(20px,4vh,48px) clamp(18px,5vw,72px);max-width:1400px;width:100%;margin:0 auto}
+.qwrap{min-width:0}
+.tag{display:none;margin-bottom:14px;font-size:15px;font-weight:600;color:var(--wsu);border:1.5px solid var(--wsu);border-radius:999px;padding:3px 12px;width:fit-content}
+.tag.on{display:block}
+.q{font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(30px,4.2vw,58px);line-height:1.15;letter-spacing:-.01em;max-width:24ch}
+.q.long{font-size:clamp(26px,3.4vw,46px);max-width:30ch}
+.q em{font-style:italic}
+.blank{display:inline-block;min-width:3.2em;border-bottom:3px solid var(--ink);margin:0 .08em;text-align:center;line-height:1.05}
+.blank.filled{border-color:var(--correct);color:var(--correct);font-style:italic;min-width:0;padding:0 .12em}
+.hint{font-family:'Manrope',sans-serif;font-size:.5em;color:var(--ink-faint);font-weight:500;letter-spacing:0}
+.opts{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:clamp(22px,4vh,40px);max-width:1000px}
+.opts li{display:flex;align-items:center;gap:14px;background:var(--bg-elevated);border:1.5px solid var(--line-soft);border-radius:12px;padding:14px 18px;font-size:clamp(19px,1.9vw,26px);transition:opacity .25s,border-color .25s,background .25s}
+.opts li b{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--wsu-pale);color:var(--wsu);font-size:17px}
+.opts.revealed li{opacity:.35}
+.opts.revealed li.right{opacity:1;border-color:var(--correct);background:var(--correct-pale)}
+.opts.revealed li.right b{background:var(--correct);color:var(--bg-elevated)}
+.model{margin-top:clamp(22px,4vh,40px);border-left:4px solid var(--correct);padding:6px 0 6px 20px;font-size:clamp(20px,2.2vw,30px);color:var(--correct);display:none;max-width:40ch}
+.model small{display:block;font-size:15px;color:var(--ink-faint);margin-bottom:4px;font-weight:600}
+.model.on{display:block}
+
+.timer{position:relative;width:clamp(120px,15vw,200px);aspect-ratio:1;border:none;background:none;padding:0;border-radius:50%}
+.timer svg{width:100%;height:100%;transform:rotate(-90deg)}
+.timer .track{fill:none;stroke:var(--line-soft);stroke-width:9}
+.timer .ring{fill:none;stroke:var(--wsu);stroke-width:9;stroke-linecap:round;transition:stroke .2s}
+.timer .num{position:absolute;inset:0;display:grid;place-items:center;font-family:'Fraunces',Georgia,serif;font-size:clamp(44px,5.5vw,76px);font-weight:500;font-variant-numeric:tabular-nums}
+.timer.low .ring{stroke:var(--warn)}
+.timer.low .num{color:var(--warn)}
+.timer.done .num{font-size:clamp(22px,2.4vw,32px);color:var(--warn)}
+.timer.stopped .ring{stroke:var(--correct)}
+.timer.stopped .num{color:var(--correct)}
+@keyframes pulse{50%{transform:scale(1.06)}}
+.timer.done{animation:pulse .5s ease 2}
+
+.foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px clamp(16px,3vw,36px);border-top:1px solid var(--line-soft)}
+.navhint{font-size:15px;color:var(--ink-faint)}
+.navbtns{display:flex;gap:10px}
+
+/* ---------- End ---------- */
+#end{align-items:center;justify-content:center;text-align:center;padding:40px 20px;gap:18px}
+#end h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:clamp(48px,8vw,104px);line-height:1;color:var(--wsu)}
+#end p{font-size:clamp(19px,2vw,24px);color:var(--ink-soft);max-width:36ch}
+#end .row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:10px}
+
+@media (max-width:860px){
+  .tiles{grid-template-columns:1fr 1fr}
+  .tile.super{flex-direction:column;align-items:flex-start;gap:6px}
+  .stage{grid-template-columns:1fr}
+  .timer{order:-1;justify-self:end;width:96px}
+  .opts{grid-template-columns:1fr}
+}
+@media (max-width:520px){ .tiles{grid-template-columns:1fr} .bar .count{display:none} }
+@media (prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} }
+</style>
+</head>
+<body>
+<main id="home" class="screen on">
+  <div class="brandrow">
+    <div class="brand"><div class="mark">W</div><div><strong>SPAN 2010</strong><br>Módulo 3</div></div>
+    <button class="iconbtn" id="themeBtn" aria-label="Toggle dark mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
+  <div class="title">
+    <h1>¡Luces, cámara, acción!</h1>
+    <p>Quince segundos por pregunta. Choose a round to start.</p>
+  </div>
+  <div class="tiles" id="tiles"></div>
+</main>
+
+<section id="game" class="screen" aria-live="polite">
+  <div class="bar">
+    <button class="pill" id="menuBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>Menu</button>
+    <span class="sec" id="secName"></span>
+    <span class="count" id="count"></span>
+    <span class="spacer"></span>
+    <button class="pill" id="shuffleBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>Shuffle</button>
+  </div>
+  <div class="progress"><i id="prog"></i></div>
+  <div class="stage">
+    <div class="qwrap">
+      <span class="tag" id="tag"></span>
+      <h2 class="q" id="q"></h2>
+      <ol class="opts" id="opts"></ol>
+      <div class="model" id="model"><small>Respuesta modelo</small><span id="modelText"></span></div>
+    </div>
+    <button class="timer" id="timer" aria-label="Restart timer" title="Restart timer">
+      <svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="54"/><circle class="ring" id="ring" cx="60" cy="60" r="54"/></svg>
+      <span class="num" id="num">15</span>
+    </button>
+  </div>
+  <div class="foot">
+    <span class="navhint">← → navigate · space = answer</span>
+    <div class="navbtns">
+      <button class="pill" id="prevBtn" aria-label="Previous">←</button>
+      <button class="pill" id="revealBtn">Show answer</button>
+      <button class="pill" id="nextBtn" aria-label="Next">→</button>
+    </div>
+  </div>
+</section>
+
+<section id="end" class="screen">
+  <h2>¡Buen trabajo!</h2>
+  <p id="endText">Terminaron la ronda. ¡Ahora están listos para la clase de hoy!</p>
+  <div class="row">
+    <button class="pill" id="againBtn">Shuffle and play again</button>
+    <button class="pill" id="endMenuBtn">Menu</button>
+  </div>
+</section>
+
+<script>
+const SECTIONS = {
+voc: { name: "Vocabulario", sub: "Pick the word that matches", items: [
+ {q:"Es un programa de televisión sobre los eventos del día.", o:["la telenovela","el noticiero","el documental","los dibujos animados"], a:1},
+ {q:"Instagram y TikTok son ejemplos de ellas.", o:["las redes sociales","las películas","las tabletas","los canales"], a:0},
+ {q:"Es la pantalla que tocas con el dedo.", o:["el televisor","el radio","la pantalla táctil","el libro electrónico"], a:2},
+ {q:"Escribir con el teclado de la computadora.", o:["pulsar","digitar","grabar","bloquear"], a:1},
+ {q:"Es una computadora pequeña y liviana que puedes llevar a todas partes.", o:["el portátil","el televisor","el radio","el canal"], a:0},
+ {q:"Es un aparato para leer novelas y cuentos en formato electrónico.", o:["el MP3","el televisor","el libro electrónico","el radio"], a:2},
+ {q:"Son lugares específicos en la red.", o:["los canales","los sitios web","los dibujos animados","las series"], a:1},
+ {q:"Chrome y Safari son ejemplos. Nos permiten buscar información en la red.", o:["los noticieros","los MP3","los cines","los navegadores"], a:3},
+ {q:"Es una serie dramática y romántica con muchos capítulos, muy popular en Latinoamérica.", o:["la telenovela","el noticiero","el programa de concursos","el documental"], a:0},
+ {q:"Son programas con personajes dibujados, muy populares con los niños.", o:["las telenovelas","los noticieros","los dibujos animados","los documentales"], a:2},
+ {q:"Es un programa que muestra la vida real de personas comunes frente a las cámaras.", o:["el documental","el programa de telerrealidad","el noticiero","la comedia"], a:1},
+ {q:"Es un programa donde las personas contestan preguntas para ganar dinero o premios.", o:["el programa de concursos","la telenovela","el drama","la clasificación"], a:0},
+ {q:"Es un programa con información real sobre la naturaleza, la historia o la ciencia.", o:["la comedia","los dibujos animados","la telenovela","el documental"], a:3},
+ {q:"Es el lugar donde vas a ver películas nuevas en una pantalla grande.", o:["el canal","el cine","la radio","la aplicación"], a:1},
+ {q:"Indica si una película es apropiada para niños (G, PG, R).", o:["la serie","la comedia","la clasificación","la tecnología digital"], a:2},
+ {q:"Una película con fantasmas y monstruos.", o:["una película de horror","una película romántica","una película de misterio","una comedia"], a:0},
+ {q:"Una película donde un detective busca al culpable.", o:["una película romántica","una película de misterio","un programa de concursos","una comedia"], a:1},
+ {q:"Es el aparato (<em>device</em>) que usas para ver programas en casa.", o:["la televisión","el canal","el televisor","la serie"], a:2},
+ {q:"Es el número o la estación que seleccionas para ver un programa.", o:["el canal","el cine","el portátil","el MP3"], a:0},
+ {q:"Es un programa cómico. ¡Te hace reír!", o:["el drama","el noticiero","el documental","la comedia"], a:3},
+ {q:"WhatsApp y Messenger son ejemplos de este tipo de comunicación.", o:["la clasificación","la mensajería instantánea","el cine","el radio"], a:1},
+ {q:"Es un aparato pequeño para escuchar música digital. Era muy popular antes de los móviles.", o:["el MP3","el televisor","el portátil","la tableta"], a:0},
+ {q:"Enviar mensajes de texto por el teléfono.", o:["pulsar","grabar","textear","digitar"], a:2},
+ {q:"Hacer clic en un botón o en la pantalla.", o:["pulsar","conectarse","disfrutar","bloquear"], a:0},
+ {q:"Usar el móvil para filmar un momento especial.", o:["grabar en audio","bloquear","conectarse","grabar un video"], a:3},
+ {q:"Entrar en internet o en una red wifi.", o:["desbloquear","conectarse","entretenerse","digitar"], a:1},
+ {q:"No permitir que una persona te escriba en las redes sociales.", o:["desbloquear","disfrutar","bloquear","entretenerse"], a:2},
+ {q:"¿Cómo se dice <em>to enjoy</em>?", o:["disfrutar","entretenerse","digitar","conectarse"], a:0},
+ {q:"Es un programa que descargas en tu móvil para hacer algo específico.", o:["el canal","el sitio web","la clasificación","la aplicación"], a:3},
+ {q:"Es más grande que un móvil y más pequeña que un portátil. Tiene pantalla táctil.", o:["el MP3","la tableta","el televisor","el radio"], a:1}
+]},
+gram: { name: "Gramática", sub: "Choose the correct form", items: [
+ {q:"Cuando yo ___ niña, no había móviles.", o:["fui","iba","era","eras"], a:2},
+ {q:"Mis amigos y yo ___ al cine todos los viernes.", o:["íbamos","fuimos","ibamos","veíamos"], a:0},
+ {q:"No tengo ___ aplicación nueva en mi móvil.", o:["alguna","ningún","ninguna","nada"], a:2},
+ {q:"Which sentence is correct?", o:["Nadie no chatea en clase.","No chatea nadie en clase.","No chatea alguien en clase.","Nadie chatea no en clase."], a:1},
+ {q:"Tú ___ (hablar) por teléfono todas las noches.", o:["hablábas","hablabas","hablabais","hablábamos"], a:1},
+ {q:"Ellos siempre ___ (comer) palomitas en el cine.", o:["comiban","comián","comían","comíamos"], a:2},
+ {q:"Nosotros ___ (mirar) dibujos animados los sábados.", o:["mirabamos","miraban","mirábanos","mirábamos"], a:3},
+ {q:"Antes ___ (haber) muchas tiendas de videos.", o:["había","habían","hay","habíamos"], a:0},
+ {q:"Mi abuelo ___ (ver) el noticiero todas las noches.", o:["vía","veía","veiba","veían"], a:1},
+ {q:"¿Adónde ___ (ir) tú los veranos cuando eras niño?", o:["iba","ías","ibamos","ibas"], a:3},
+ {q:"Which verbs are irregular in the imperfect?", o:["ser, estar, tener","ir, hacer, poder","ser, ir, ver","ver, decir, venir"], a:2},
+ {q:"In the imperfect, <em>-er</em> and <em>-ir</em> verbs have a written accent on…", o:["the <em>í</em> in every form","only the nosotros form","no forms","only the yo form"], a:0},
+ {q:"In <em>-ar</em> verbs, the only written accent in the imperfect is in the ___ form.", o:["yo","nosotros","tú","ellos"], a:1},
+ {q:"The imperfect describes…", o:["one completed action","future plans","habitual or ongoing past actions","commands"], a:2},
+ {q:"Which expression signals the imperfect?", o:["ayer a las tres","todos los días","anoche","el lunes pasado"], a:1},
+ {q:"De joven, usted ___ (ser) muy simpático.", o:["eras","éra","ería","era"], a:3},
+ {q:"Vosotros ___ (ver) muchas películas de miedo.", o:["veíais","vieis","veiais","veíamos"], a:0},
+ {q:"¿Tienes algún libro electrónico? No, no tengo ___.", o:["ningún","ninguno","ninguna","nada"], a:1},
+ {q:"¿Alguien tiene un MP3? No, ___ tiene un MP3.", o:["nada","alguien","nadie","ninguno"], a:2},
+ {q:"¿Quieres algo? No, no quiero ___.", o:["nada","nadie","nunca","ningún"], a:0},
+ {q:"Yo no escucho la radio y mi hermana ___.", o:["también","nunca","ni","tampoco"], a:3},
+ {q:"Yo uso las redes sociales y mi hermano ___.", o:["tampoco","también","nada","ni"], a:1},
+ {q:"No tengo ___ tableta ___ portátil.", o:["o … o","algún … algún","ni … ni","nunca … nunca"], a:2},
+ {q:"___ veía telenovelas. ¡No me gustaban!", o:["Nunca","Nadie","Nada","Ningún"], a:0},
+ {q:"Tengo ___ aplicaciones útiles en mi móvil.", o:["algunos","alguna","ningunas","algunas"], a:3},
+ {q:"¿Viste ___ película de horror el mes pasado?", o:["algún","alguna","alguno","algunos"], a:1},
+ {q:"No hay ___ canal interesante hoy.", o:["ninguno","ninguna","ningún","algún"], a:2},
+ {q:"Which sentence is correct?", o:["Veo no nada.","No veo algo.","Nada no veo.","No veo nada."], a:3},
+ {q:"Cuando mis padres ___ jóvenes, no había internet.", o:["eran","iban","veían","erais"], a:0},
+ {q:"The negative of <em>siempre</em> is…", o:["nada","nunca","nadie","tampoco"], a:1}
+]},
+short: { name: "Respuesta corta", sub: "Answer out loud in Spanish", items: [
+ {q:"¿Qué programas veías en la televisión cuando eras niño/a?", m:"Veía los dibujos animados todas las mañanas."},
+ {q:"¿Alguien en tu familia tiene un libro electrónico?", m:"Sí, mi mamá tiene uno. / No, nadie tiene uno."},
+ {q:"¿Con qué frecuencia ibas al cine a los quince años?", m:"Iba al cine a veces, casi todos los sábados."},
+ {q:"¿Qué red social usas más?", m:"Uso Instagram. / No uso ninguna."},
+ {q:"¿Cómo se llama tu serie favorita? ¿Qué tipo de serie es?", m:"Mi serie favorita es <em>The Office</em>. Es una comedia."},
+ {q:"¿Jugabas videojuegos cuando eras niño/a?", m:"Sí, jugaba videojuegos con mis hermanos. / No, nunca jugaba videojuegos."},
+ {q:"¿Tienes muchas aplicaciones en tu móvil? ¿Cuáles?", m:"Sí, tengo muchas. Uso Spotify y WhatsApp todos los días."},
+ {q:"¿Qué tipo de películas te gustan más?", m:"Me gustan las películas de misterio."},
+ {q:"¿Chateabas con tus amigos en la escuela secundaria?", m:"Sí, chateaba con ellos todas las noches."},
+ {q:"¿Cómo escuchabas música cuando eras niño/a?", m:"Escuchaba música en la radio del carro."},
+ {q:"¿Veías el noticiero con tu familia?", m:"Sí, a veces lo veía con mi papá. / No, nunca lo veía."},
+ {q:"¿Cómo eras cuando tenías diez años?", m:"Era tímido/a y muy curioso/a."},
+ {q:"¿Adónde ibas los fines de semana cuando eras niño/a?", m:"Iba al parque con mi familia."},
+ {q:"¿Tenías un portátil en la escuela secundaria?", m:"No, no tenía ningún portátil. Usaba las computadoras de la biblioteca."},
+ {q:"¿Hay algo que no puedes hacer sin tu móvil?", m:"Sí, no puedo llegar a clase sin el mapa. / No, no hay nada."},
+ {q:"¿Grabas videos con tu móvil? ¿De qué?", m:"Sí, grabo videos de mis amigos y de los conciertos."},
+ {q:"¿Qué hacías después de las clases en la escuela secundaria?", m:"Hacía la tarea y veía la televisión."},
+ {q:"¿Estudiabas con alguien en la escuela secundaria?", m:"Sí, estudiaba con mi mejor amigo/a. / No, no estudiaba con nadie."},
+ {q:"¿Tomabas alguna clase interesante en la escuela secundaria?", m:"Sí, tomaba una clase de arte. / No, no tomaba ninguna."},
+ {q:"¿Jugabas algún deporte?", m:"Sí, jugaba al fútbol. / No, no jugaba ninguno."},
+ {q:"¿Veías algo en la televisión los sábados por la mañana?", m:"Sí, veía los dibujos animados. / No, no veía nada."},
+ {q:"¿Prefieres leer en un libro electrónico o en papel?", m:"Prefiero leer en papel."},
+ {q:"¿Te gustan los programas de telerrealidad? ¿Por qué?", m:"No, no me gustan porque no son muy realistas."},
+ {q:"¿Cuántas horas al día usas pantallas?", m:"Uso pantallas unas cinco horas al día."},
+ {q:"¿Tus padres tenían reglas sobre la tecnología cuando eras niño/a?", m:"Sí, no podía usar el móvil durante la cena."},
+ {q:"¿Qué aplicación nueva quieres para tu móvil?", m:"Quiero una aplicación para practicar español con amigos."},
+ {q:"¿Tus abuelos usan las redes sociales?", m:"Sí, mi abuela usa Facebook. / No, no las usan nunca."},
+ {q:"¿Quién era tu personaje favorito de los dibujos animados?", m:"Mi personaje favorito era Bob Esponja."},
+ {q:"¿Bloqueas a personas en las redes sociales? ¿Por qué?", m:"Sí, bloqueo a las personas que no conozco."},
+ {q:"¿Había internet en tu casa cuando eras niño/a?", m:"Sí, había internet. / No, no había internet."}
+]},
+fill: { name: "Completa la oración", sub: "Say the missing word", items: [
+ {q:"Mis padres ___ (escuchar) música en su Walkman.", a:["escuchaban"]},
+ {q:"Yo ___ (ver) telenovelas con mi abuela todas las tardes.", a:["veía"]},
+ {q:"¿Tienes algo en los bolsillos? No, no tengo ___.", a:["nada"]},
+ {q:"Mi hermano no juega videojuegos, y yo ___.", a:["tampoco"]},
+ {q:"Antes, la gente ___ (alquilar) películas en la tienda de videos.", a:["alquilaba"]},
+ {q:"Cuando no ___ (haber) móviles, las personas usaban los MP3.", a:["había"]},
+ {q:"Un MP3 ___ (ser) un aparato para escuchar música digital.", a:["era"]},
+ {q:"Normalmente, las personas ___ (usar) los iPods de Apple.", a:["usaban"]},
+ {q:"Mi mamá y sus hermanos ___ (jugar) videojuegos en el Atari.", a:["jugaban"]},
+ {q:"Nosotros ___ (ir) a la biblioteca para usar las computadoras.", a:["íbamos"]},
+ {q:"Tú ___ (chatear) por internet mientras yo estudiaba.", a:["chateabas"]},
+ {q:"Cuando mi mamá ___ (estar) aburrida, escuchaba música.", a:["estaba"]},
+ {q:"A ella le ___ (encantar) las películas románticas.", a:["encantaban"]},
+ {q:"¿Alguien tiene un portátil? No, ___ tiene un portátil.", a:["nadie"]},
+ {q:"No uso ___ la computadora ___ la tableta.", a:["ni","ni"]},
+ {q:"Tengo algunos libros en mi Kindle, pero mi hermano no tiene ___.", a:["ninguno"]},
+ {q:"Mi abuelo ___ (ser) muy bueno con la tecnología.", a:["era"]},
+ {q:"Ustedes ___ (mirar) el noticiero todas las noches.", a:["miraban"]},
+ {q:"En la escuela secundaria, yo ___ (digitar) muy rápido.", a:["digitaba"]},
+ {q:"Mis amigos y yo ___ (ver) dibujos animados los sábados.", a:["veíamos"]},
+ {q:"Con frecuencia, mi mamá ___ (resfriarse) durante las vacaciones.", a:["se resfriaba"]},
+ {q:"No entiendo cómo usar la computadora ___ la tableta.", a:["ni"]},
+ {q:"No puede ser un correo. A mí ___ me escribe.", a:["nadie"]},
+ {q:"¿Tienes ___ más específico que no entiendes?", a:["algo"]},
+ {q:"Estoy contenta porque ___ estudiante llegó tarde hoy.", a:["ningún"]},
+ {q:"Ah, mira, necesitas eliminar ___ correos.", a:["algunos"]},
+ {q:"¿Quieres ver ___ una comedia ___ un drama?", a:["o","o"]},
+ {q:"Cuando yo ___ (tener) quince años, ___ (ir) al cine todos los sábados.", a:["tenía","iba"]},
+ {q:"Nosotros nunca ___ (grabar) videos con el teléfono.", a:["grabábamos"]},
+ {q:"En la casa de mis abuelos no ___ (haber) internet.", a:["había"]}
+]}
+};
+(function(){
+  const LIMIT = 15;
+  const CIRC = 2 * Math.PI * 54;
+  const LETTERS = ["A","B","C","D"];
+  const $ = id => document.getElementById(id);
+
+  // theme
+  const root = document.documentElement;
+  try { const t = localStorage.getItem("span2010-theme"); if (t) root.setAttribute("data-theme", t); } catch(e){}
+  $("themeBtn").addEventListener("click", () => {
+    const cur = root.getAttribute("data-theme") ||
+      (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    const next = cur === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("span2010-theme", next); } catch(e){}
+  });
+
+  // tiles
+  const ORDER = ["voc","gram","short","fill"];
+  const tiles = $("tiles");
+  ORDER.forEach(k => {
+    const s = SECTIONS[k];
+    const b = document.createElement("button");
+    b.className = "tile";
+    b.innerHTML = `<span class="tn">${s.name}</span><span class="ts">${s.sub}</span><span class="tc">${s.items.length} preguntas</span>`;
+    b.addEventListener("click", () => start(k));
+    tiles.appendChild(b);
+  });
+  const total = ORDER.reduce((n,k) => n + SECTIONS[k].items.length, 0);
+  const sup = document.createElement("button");
+  sup.className = "tile super";
+  sup.innerHTML = `<div><span class="tn">Súper mezcla</span><br><span class="ts">A random question from every round</span></div><span class="tc">${total} preguntas</span>`;
+  sup.addEventListener("click", () => start("mix"));
+  tiles.appendChild(sup);
+
+  // state
+  let mode = null, deck = [], idx = 0, revealed = false;
+  let t0 = 0, raf = null, running = false;
+
+  function shuffle(a){
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+    return a;
+  }
+  function buildDeck(k){
+    if (k === "mix") {
+      const all = [];
+      ORDER.forEach(s => SECTIONS[s].items.forEach((_, i) => all.push({k:s, i})));
+      return shuffle(all);
+    }
+    return SECTIONS[k].items.map((_, i) => ({k, i}));
+  }
+  function show(id){
+    document.querySelectorAll(".screen").forEach(s => s.classList.toggle("on", s.id === id));
+  }
+  function start(k, doShuffle){
+    mode = k;
+    deck = buildDeck(k);
+    if (doShuffle && k !== "mix") shuffle(deck);
+    idx = 0;
+    $("secName").textContent = k === "mix" ? "Súper mezcla" : SECTIONS[k].name;
+    show("game");
+    render();
+  }
+
+  function withHints(text, useHints){
+    let h = text;
+    if (useHints) h = h.replace(/\(([^)]*)\)/g, '<span class="hint">($1)</span>');
+    return h;
+  }
+  function blanksHTML(text, fills){
+    let n = 0;
+    return text.replace(/___/g, () => {
+      const f = fills ? fills[n] : null; n++;
+      return f ? `<span class="blank filled">${f}</span>` : `<span class="blank">&nbsp;</span>`;
+    });
+  }
+  function fillsFor(item, k){
+    const blanks = (item.q.match(/___/g) || []).length;
+    if (!blanks) return null;
+    if (k === "fill") return item.a;
+    if (k === "gram") {
+      const parts = item.o[item.a].split(" … ");
+      return parts.length === blanks ? parts : null;
+    }
+    return null;
+  }
+
+  function render(){
+    const ref = deck[idx], k = ref.k, item = SECTIONS[k].items[ref.i];
+    revealed = false;
+    $("count").textContent = `${idx + 1} / ${deck.length}`;
+    $("prog").style.width = ((idx + 1) / deck.length * 100) + "%";
+    const tag = $("tag");
+    tag.textContent = SECTIONS[k].name;
+    tag.classList.toggle("on", mode === "mix");
+
+    const q = $("q");
+    q.innerHTML = blanksHTML(withHints(item.q, k === "gram" || k === "fill"), null);
+    q.classList.toggle("long", item.q.replace(/<[^>]+>/g, "").length > 70);
+
+    const opts = $("opts");
+    opts.className = "opts";
+    opts.innerHTML = "";
+    if (item.o) {
+      opts.style.display = "";
+      item.o.forEach((o, i) => {
+        const li = document.createElement("li");
+        if (i === item.a) li.className = "right";
+        li.innerHTML = `<b>${LETTERS[i]}</b><span>${o}</span>`;
+        opts.appendChild(li);
+      });
+    } else {
+      opts.style.display = "none";
+    }
+    $("model").classList.remove("on");
+    $("modelText").innerHTML = item.m || "";
+    $("revealBtn").textContent = "Show answer";
+    startTimer();
+  }
+
+  function reveal(){
+    if (revealed) return;
+    revealed = true;
+    const ref = deck[idx], k = ref.k, item = SECTIONS[k].items[ref.i];
+    if (item.o) $("opts").classList.add("revealed");
+    if (item.m) $("model").classList.add("on");
+    const f = fillsFor(item, k);
+    if (f) $("q").innerHTML = blanksHTML(withHints(item.q, true), f);
+    $("revealBtn").textContent = "Answer shown";
+    stopTimer(true);
+  }
+
+  function next(){
+    if (idx < deck.length - 1) { idx++; render(); }
+    else { stopTimer(false); show("end"); }
+  }
+  function prev(){ if (idx > 0) { idx--; render(); } }
+
+  // timer
+  const ring = $("ring"), num = $("num"), timer = $("timer");
+  ring.style.strokeDasharray = CIRC;
+  function paint(remaining){
+    ring.style.strokeDashoffset = CIRC * (1 - remaining / LIMIT);
+  }
+  function tick(){
+    const el = (performance.now() - t0) / 1000;
+    const rem = Math.max(0, LIMIT - el);
+    paint(rem);
+    num.textContent = Math.ceil(rem);
+    timer.classList.toggle("low", rem <= 5 && rem > 0);
+    if (rem <= 0) {
+      running = false;
+      timer.classList.remove("low");
+      timer.classList.add("done");
+      num.textContent = "¡Tiempo!";
+      return;
+    }
+    raf = requestAnimationFrame(tick);
+  }
+  function startTimer(){
+    cancelAnimationFrame(raf);
+    timer.classList.remove("low","done","stopped");
+    t0 = performance.now();
+    running = true;
+    paint(LIMIT);
+    num.textContent = LIMIT;
+    raf = requestAnimationFrame(tick);
+  }
+  function stopTimer(markStopped){
+    cancelAnimationFrame(raf);
+    running = false;
+    if (markStopped && !timer.classList.contains("done")) {
+      timer.classList.remove("low");
+      timer.classList.add("stopped");
+    }
+  }
+
+  // controls
+  $("menuBtn").addEventListener("click", () => { stopTimer(false); show("home"); });
+  $("endMenuBtn").addEventListener("click", () => show("home"));
+  $("shuffleBtn").addEventListener("click", () => { shuffle(deck); idx = 0; render(); });
+  $("againBtn").addEventListener("click", () => start(mode, true));
+  $("nextBtn").addEventListener("click", next);
+  $("prevBtn").addEventListener("click", prev);
+  $("revealBtn").addEventListener("click", reveal);
+  timer.addEventListener("click", () => { if (!revealed) startTimer(); });
+
+  document.addEventListener("keydown", e => {
+    const inGame = $("game").classList.contains("on");
+    if (!inGame) return;
+    if (document.activeElement && document.activeElement.tagName === "BUTTON") document.activeElement.blur();
+    if (e.key === "ArrowRight") { e.preventDefault(); next(); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); prev(); }
+    else if (e.key === " " || e.code === "Space") { e.preventDefault(); reveal(); }
+    else if (e.key === "Escape") { stopTimer(false); show("home"); }
+  });
+})();
+</script>
+</body>
+</html>
