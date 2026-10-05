@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 4 — Cuando te gusta tu trabajo, todos los días son vacaciones · SPAN 2010</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400;9..144,500;9..144,700;9..144,900&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F4EEE2; --bg-elevated: #FBF6EB;
+    --ink: #1F1A14; --ink-soft: #4F443A; --ink-faint: #8A7E70;
+    --accent: #B84A1F; --accent-soft: #EBC7B0; --accent-pale: #F5DDC9;
+    --secondary: #2A4D5E; --wsu: #492365;
+    --line: #1F1A14; --line-soft: #D8CFBC;
+    --correct: #2D6A4F; --incorrect: #B84A1F;
+    --shadow-paper: 0 1px 0 #D8CFBC, 0 8px 24px -12px rgba(31,26,20,0.15);
+    --shadow-lift: 0 2px 0 #1F1A14, 0 10px 30px -8px rgba(31,26,20,0.25);
+  }
+  [data-theme="dark"] {
+    --bg: #16120F; --bg-elevated: #1F1A16;
+    --ink: #F0E8D8; --ink-soft: #B5AB9A; --ink-faint: #7A7163;
+    --accent: #E07856; --accent-soft: #6B3525; --accent-pale: #3D2017;
+    --secondary: #6BA2B5; --wsu: #B292C9;
+    --line: #F0E8D8; --line-soft: #3A312A;
+    --correct: #6BB48E; --incorrect: #E07856;
+    --shadow-paper: 0 1px 0 #3A312A, 0 8px 24px -12px rgba(0,0,0,0.4);
+    --shadow-lift: 0 2px 0 #F0E8D8, 0 10px 30px -8px rgba(0,0,0,0.5);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--ink); font-family: 'Manrope', system-ui, sans-serif; font-size: 16px; line-height: 1.6; min-height: 100vh; transition: background-color 0.3s ease, color 0.3s ease; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.4; background-image: radial-gradient(circle at 20% 30%, var(--line-soft) 0.5px, transparent 0.5px), radial-gradient(circle at 80% 70%, var(--line-soft) 0.5px, transparent 0.5px); background-size: 40px 40px, 60px 60px; }
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 clamp(16px,4vw,48px); position: relative; z-index: 1; }
+  header { padding: 32px 0 24px; border-bottom: 1px solid var(--line-soft); }
+  .header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand-mark { width: 44px; height: 44px; border-radius: 50%; background: var(--wsu); color: #FBF6EB; display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-weight: 900; font-size: 18px; font-variation-settings: "SOFT" 50; flex-shrink: 0; }
+  .brand-text { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-soft); line-height: 1.4; }
+  .brand-text strong { color: var(--ink); font-weight: 500; }
+  .theme-toggle { background: var(--bg-elevated); border: 1.5px solid var(--line); color: var(--ink); width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease, background 0.2s ease; flex-shrink: 0; }
+  .theme-toggle:hover { transform: rotate(15deg) scale(1.05); background: var(--accent-pale); }
+  .theme-toggle svg { width: 20px; height: 20px; }
+  .theme-toggle .sun { display: none; } .theme-toggle .moon { display: block; }
+  [data-theme="dark"] .theme-toggle .sun { display: block; } [data-theme="dark"] .theme-toggle .moon { display: none; }
+  .title-block { padding: 36px 0 28px; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+  .eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--line-soft); max-width: 120px; }
+  h1.module-title { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 144, "SOFT" 30; font-size: clamp(40px,7vw,84px); line-height: 0.95; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 18px; }
+  h1.module-title em { font-style: italic; font-weight: 400; color: var(--accent); font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; }
+  .module-subtitle { font-size: 17px; color: var(--ink-soft); max-width: 640px; line-height: 1.5; }
+  .tabs { display: flex; margin: 32px 0 8px; border-bottom: 2px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn { background: none; border: none; color: var(--ink-soft); font-family: 'Fraunces', serif; font-weight: 500; font-size: 19px; font-variation-settings: "opsz" 24, "SOFT" 20; padding: 14px 24px; cursor: pointer; position: relative; transition: color 0.2s ease; white-space: nowrap; display: flex; align-items: center; gap: 10px; }
+  .tab-btn .tab-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); font-weight: 400; }
+  .tab-btn:hover { color: var(--ink); } .tab-btn.active { color: var(--ink); }
+  .tab-btn.active .tab-num { color: var(--accent); }
+  .tab-btn.active::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 4px; background: var(--accent); }
+  main { padding: 40px 0 80px; }
+  .panel { display: none; animation: fadeIn 0.4s ease; } .panel.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+  .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px dashed var(--line-soft); }
+  .section-head h2 { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 72, "SOFT" 40; font-size: clamp(28px,4vw,40px); letter-spacing: -0.01em; line-height: 1.1; }
+  .section-head .marker { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
+  .pill-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .pill { background: var(--bg-elevated); border: 1.5px solid var(--line-soft); color: var(--ink-soft); padding: 8px 18px; border-radius: 24px; font-family: 'Manrope', sans-serif; font-weight: 500; font-size: 14px; cursor: pointer; transition: all 0.2s ease; }
+  .pill:hover { border-color: var(--line); color: var(--ink); } .pill.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .sub-panel { display: none; } .sub-panel.active { display: block; animation: fadeIn 0.3s ease; }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px,1fr)); gap: 14px; }
+  .flashcard { aspect-ratio: 4/3; perspective: 1000px; cursor: pointer; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); transform-style: preserve-3d; }
+  .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+  .card-face { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; border: 1.5px solid var(--line); box-shadow: var(--shadow-paper); }
+  .card-front { background: var(--bg-elevated); }
+  .card-back { background: var(--ink); color: var(--bg); transform: rotateY(180deg); border-color: var(--ink); }
+  .card-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-faint); }
+  .card-back .card-label { opacity: 0.7; }
+  .card-word { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 72, "SOFT" 50; font-size: 22px; line-height: 1.05; letter-spacing: -0.01em; }
+  .card-word em { font-style: italic; color: var(--accent); font-variation-settings: "opsz" 72, "SOFT" 100, "WONK" 1; }
+  .card-back .card-word em { color: var(--accent-soft); }
+  .card-hint { font-size: 11px; color: var(--ink-faint); font-style: italic; }
+  /* SPAN 2010 flashcard additions: English front, Spanish back with example, flip-all toolbar */
+  .flash-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+  .flash-count { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); }
+  .flip-all-btn { background: var(--ink); color: var(--bg); border: 1.5px solid var(--ink); border-radius: 10px; padding: 9px 18px; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 13px; cursor: pointer; transition: transform 0.15s ease; }
+  .flip-all-btn:hover { transform: translate(-1px,-1px); box-shadow: 0 2px 0 var(--accent); }
+  .flashcard:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 14px; }
+  .card-back .card-word { font-size: 20px; }
+  .card-ex { font-family: 'Fraunces', serif; font-style: italic; font-size: 13px; line-height: 1.3; color: var(--accent-soft); }
+  .card-back .card-hint { color: var(--accent-soft); }
+  .expr-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(240px,1fr)); gap: 12px; }
+  .expr-card { background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px; padding: 14px 18px; transition: transform 0.15s ease; }
+  .expr-card:hover { transform: translate(-1px,-1px); box-shadow: var(--shadow-lift); }
+  .expr-es { font-family: 'Fraunces', serif; font-weight: 500; font-style: italic; font-size: 18px; color: var(--ink); margin-bottom: 4px; }
+  .expr-en { color: var(--ink-soft); font-size: 13px; }
+  .grammar-block { background: var(--bg-elevated); border: 1.5px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 28px; box-shadow: var(--shadow-paper); }
+  .grammar-block h3 { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 48, "SOFT" 30; font-size: 26px; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .grammar-block .lede { color: var(--ink-soft); font-size: 15px; margin-bottom: 20px; max-width: 640px; }
+  .pronoun-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .pronoun-row { display: grid; grid-template-columns: 170px 1fr; gap: 12px; padding: 10px 14px; border-radius: 8px; background: var(--bg); border: 1px solid var(--line-soft); align-items: center; }
+  .pronoun-row strong { font-family: 'Fraunces', serif; font-weight: 500; font-style: italic; color: var(--accent); font-size: 16px; }
+  .pronoun-row .gloss { color: var(--ink-soft); font-size: 13px; }
+  .conj-table { background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
+  .conj-table table { width: 100%; border-collapse: collapse; }
+  .conj-table th { background: var(--ink); color: var(--bg); text-align: left; padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+  .conj-table td { padding: 13px 16px; border-top: 1px solid var(--line-soft); font-size: 16px; vertical-align: middle; }
+  .conj-table td:first-child { color: var(--ink-soft); font-style: italic; width: 30%; font-family: 'Fraunces', serif; }
+  .conj-table td:nth-child(2) { font-family: 'Fraunces', serif; font-weight: 500; font-size: 18px; }
+  .stem-change { color: var(--accent); font-weight: 700; }
+  .conj-table td:last-child { color: var(--ink-faint); font-size: 13px; font-style: italic; }
+  .conj-split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .conj-split-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); margin-bottom: 8px; }
+  .prep-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap: 10px; margin-bottom: 20px; }
+  .prep-card { background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px; padding: 12px 16px; display: flex; flex-direction: column; gap: 4px; }
+  .prep-es { font-family: 'Fraunces', serif; font-style: italic; font-weight: 600; font-size: 18px; color: var(--accent); }
+  .prep-en { font-size: 13px; color: var(--ink-soft); }
+  .prep-ex { font-family: 'Fraunces', serif; font-style: italic; font-size: 13px; color: var(--ink-faint); border-top: 1px dashed var(--line-soft); padding-top: 6px; margin-top: 4px; }
+  .weather-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .weather-card { background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px; padding: 14px 18px; }
+  .weather-es { font-family: 'Fraunces', serif; font-weight: 500; font-style: italic; font-size: 18px; color: var(--ink); margin-bottom: 4px; }
+  .weather-en { color: var(--ink-soft); font-size: 13px; }
+  .weather-verb { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary); margin-bottom: 6px; }
+  .num-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 10px; margin-bottom: 20px; }
+  .num-row { background: var(--bg); border: 1px solid var(--line-soft); border-radius: 8px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; }
+  .num-digit { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--ink-faint); }
+  .num-word { font-family: 'Fraunces', serif; font-style: italic; font-size: 17px; color: var(--accent); }
+  .culture-block { background: var(--bg-elevated); border: 1.5px solid var(--secondary); border-radius: 14px; padding: 24px; margin-bottom: 28px; position: relative; }
+  .culture-tag { position: absolute; top: -10px; left: 20px; background: var(--secondary); color: #FBF6EB; padding: 3px 10px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .culture-block h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 22px; margin-bottom: 10px; margin-top: 4px; }
+  .culture-block p { color: var(--ink-soft); font-size: 14px; line-height: 1.6; }
+  .culture-block p + p { margin-top: 10px; }
+  .tip-block { background: var(--accent-pale); border: 1.5px solid var(--accent); border-radius: 10px; padding: 16px 20px; margin-top: 20px; font-size: 14px; color: var(--ink-soft); }
+  .tip-block strong { color: var(--ink); }
+  .practice-block { background: var(--accent-pale); border: 1.5px solid var(--accent); border-radius: 14px; padding: 24px; margin-top: 24px; }
+  .practice-q { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px dashed var(--line-soft); }
+  .practice-q:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .practice-prompt { font-size: 16px; margin-bottom: 12px; font-family: 'Fraunces', serif; font-style: italic; }
+  .practice-prompt .blank { display: inline-block; min-width: 100px; border-bottom: 2px solid var(--accent); margin: 0 4px; }
+  .practice-options { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt-btn { background: var(--bg-elevated); border: 1.5px solid var(--line); color: var(--ink); padding: 8px 16px; border-radius: 8px; font-family: 'Fraunces', serif; font-style: italic; font-size: 15px; cursor: pointer; transition: all 0.15s ease; }
+  .opt-btn:hover { background: var(--ink); color: var(--bg); }
+  .opt-btn.correct { background: var(--correct); color: #FBF6EB; border-color: var(--correct); }
+  .opt-btn.incorrect { background: var(--incorrect); color: #FBF6EB; border-color: var(--incorrect); opacity: 0.7; }
+  .opt-btn:disabled { cursor: default; }
+  .opt-btn:disabled:hover { background: var(--bg-elevated); color: var(--ink); }
+  .opt-btn.correct:disabled, .opt-btn.correct:disabled:hover { background: var(--correct); color: #FBF6EB; }
+  .opt-btn.incorrect:disabled, .opt-btn.incorrect:disabled:hover { background: var(--incorrect); color: #FBF6EB; }
+  .listen-intro { background: var(--bg-elevated); border-left: 3px solid var(--secondary); padding: 18px 22px; border-radius: 4px; margin-bottom: 28px; font-size: 14px; color: var(--ink-soft); }
+  .listen-intro strong { color: var(--ink); }
+  .listen-exercise { background: var(--bg-elevated); border: 1.5px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 24px; box-shadow: var(--shadow-paper); }
+  .listen-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+  .listen-head h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 22px; font-variation-settings: "opsz" 36, "SOFT" 40; }
+  .listen-counter { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-faint); background: var(--bg); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line-soft); white-space: nowrap; }
+  .play-btn { background: var(--accent); color: #FBF6EB; border: 1.5px solid var(--accent); border-radius: 12px; padding: 14px 24px; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 15px; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: transform 0.15s ease, background 0.15s ease; margin-bottom: 18px; }
+  .play-btn:hover { transform: translate(-1px,-1px); box-shadow: 0 2px 0 var(--ink); }
+  .play-btn:active { transform: translate(1px,1px); box-shadow: none; }
+  .play-btn.speaking { background: var(--secondary); border-color: var(--secondary); }
+  .play-btn svg { width: 16px; height: 16px; }
+  .listen-options { display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: 10px; margin-bottom: 16px; }
+  .listen-options.cols-2 { grid-template-columns: repeat(2,1fr); max-width: 500px; }
+  .listen-opt { background: var(--bg); border: 1.5px solid var(--line); color: var(--ink); padding: 14px 16px; border-radius: 10px; font-family: 'Fraunces', serif; font-style: italic; font-size: 15px; cursor: pointer; transition: all 0.15s ease; text-align: center; }
+  .listen-opt:hover { background: var(--ink); color: var(--bg); transform: translate(-1px,-1px); }
+  .listen-opt.correct { background: var(--correct); color: #FBF6EB; border-color: var(--correct); }
+  .listen-opt.incorrect { background: var(--incorrect); color: #FBF6EB; border-color: var(--incorrect); opacity: 0.6; }
+  .listen-opt:disabled { cursor: default; }
+  .listen-opt:disabled:hover { transform: none; }
+  .listen-opt:disabled:hover:not(.correct):not(.incorrect) { background: var(--bg); color: var(--ink); }
+  .feedback { font-family: 'Fraunces', serif; font-style: italic; font-size: 16px; padding: 14px 18px; border-radius: 8px; margin-top: 12px; display: none; }
+  .feedback.show { display: block; animation: fadeIn 0.3s ease; }
+  .feedback.correct { background: rgba(45,106,79,0.1); color: var(--correct); border-left: 3px solid var(--correct); }
+  .feedback.incorrect { background: var(--accent-pale); color: var(--accent); border-left: 3px solid var(--accent); }
+  .feedback strong { font-weight: 700; font-style: normal; }
+  .next-btn { background: var(--ink); color: var(--bg); border: 1.5px solid var(--ink); border-radius: 10px; padding: 12px 22px; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; margin-top: 12px; transition: transform 0.15s ease; }
+  .next-btn:hover { transform: translate(-1px,-1px); box-shadow: 0 2px 0 var(--accent); }
+  .next-btn:disabled { opacity: 0.4; cursor: default; }
+  .progress-bar { height: 4px; background: var(--line-soft); border-radius: 2px; overflow: hidden; margin-bottom: 20px; }
+  .progress-fill { height: 100%; background: var(--accent); transition: width 0.4s ease; width: 0%; }
+  .done-message { text-align: center; padding: 32px 20px; background: var(--accent-pale); border-radius: 12px; border: 1.5px solid var(--accent); display: none; }
+  .done-message.show { display: block; animation: fadeIn 0.4s ease; }
+  .done-message h4 { font-family: 'Fraunces', serif; font-style: italic; font-size: 28px; color: var(--accent); margin-bottom: 8px; }
+  .done-message p { color: var(--ink-soft); margin-bottom: 16px; }
+  .done-message .score { font-family: 'Fraunces', serif; font-weight: 700; font-size: 22px; color: var(--ink); margin-bottom: 16px; }
+  .voice-notice { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); margin-top: 16px; font-style: italic; }
+  footer { border-top: 1px solid var(--line-soft); padding: 24px 0; color: var(--ink-faint); font-size: 13px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.08em; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  @media (max-width: 720px) {
+    .pronoun-grid { grid-template-columns: 1fr; }
+    .pronoun-row { grid-template-columns: 130px 1fr; }
+    .conj-split { grid-template-columns: 1fr; }
+    .grammar-block { padding: 20px; }
+    .listen-exercise { padding: 20px; }
+    .tab-btn { padding: 12px 14px; font-size: 17px; }
+    .tab-btn .tab-num { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="header-row">
+    <div class="brand">
+      <div class="brand-mark">W</div>
+      <div class="brand-text"><strong>SPAN 2010</strong> · Third Semester Spanish<br>Weber State University</div>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+  </div>
+  <div class="title-block">
+    <div class="eyebrow">Módulo 4 · Module Four</div>
+    <h1 class="module-title">Cuando te gusta tu <em>trabajo</em>, todos los días son vacaciones</h1>
+    <p class="module-subtitle">Review professions, compare people and jobs, and describe the best—or the least appealing—option. Then practice hearing the differences.</p>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab-btn active" data-tab="vocab" role="tab"><span class="tab-num">01</span> Vocabulario</button>
+  <button class="tab-btn" data-tab="grammar" role="tab"><span class="tab-num">02</span> Gramática</button>
+  <button class="tab-btn" data-tab="listen" role="tab"><span class="tab-num">03</span> Audición</button>
+</nav>
+
+<main>
+<section class="panel active" id="panel-vocab"><div class="pill-nav"><button class="pill active" data-sub="prof1">Profesiones 1</button><button class="pill" data-sub="prof2">Profesiones 2</button><button class="pill" data-sub="prof3">Profesiones 3</button></div><div class="sub-panel active" id="sub-prof1"><div class="section-head"><h2>Las profesiones · 1</h2><span class="marker">Set 1 of 3</span></div><p style="color:var(--ink-soft);margin-bottom:20px;max-width:680px">The first 11 professions from the vocabulary deck. Say the Spanish term before flipping; the back includes an example in context.</p><div class="card-grid" id="prof1Grid"></div><div class="tip-block"><strong>Article note:</strong> <em>Ama</em> is feminine but begins with a stressed <em>a</em>, so use <em>el ama de casa</em> in the singular and <em>las amas de casa</em> in the plural. Adjectives remain feminine: <em>el ama de casa está ocupada</em>. This means “homemaker,” rather than a paid house cleaner.</div></div><div class="sub-panel" id="sub-prof2"><div class="section-head"><h2>Las profesiones · 2</h2><span class="marker">Set 2 of 3</span></div><p style="color:var(--ink-soft);margin-bottom:20px;max-width:680px">The next 11 professions, in the source order. Look for nouns whose endings change and nouns that keep the same form.</p><div class="card-grid" id="prof2Grid"></div><div class="tip-block"><strong>Gender patterns:</strong> Many job nouns change <em>-o</em> to <em>-a</em>: <em>médico/médica</em>. Others keep the same noun and change the article: <em>el/la periodista</em>, <em>el/la modelo</em>. After <em>ser</em>, an unmodified profession normally has no article: <em>Soy periodista</em>.</div></div><div class="sub-panel" id="sub-prof3"><div class="section-head"><h2>Las profesiones · 3</h2><span class="marker">Set 3 of 3</span></div><p style="color:var(--ink-soft);margin-bottom:20px;max-width:680px">The final seven professions. Use the examples to connect each job with its actions and responsibilities.</p><div class="card-grid" id="prof3Grid"></div></div></section>
+<section class="panel" id="panel-grammar"><div class="pill-nav"><button class="pill active" data-sub="comparaciones">Las comparaciones</button><button class="pill" data-sub="superlativos">El superlativo</button><button class="pill" data-sub="culture">Cultura</button><button class="pill" data-sub="practice">Práctica</button></div><div class="sub-panel active" id="sub-comparaciones"><div class="grammar-block"><h3>Las comparaciones de igualdad</h3><p class="lede">Use an equality comparison when two people, things, or actions share a quality or quantity. English uses “as…as”; Spanish chooses <em>tan</em> or <em>tanto</em> according to what comes next.</p><div class="conj-table"><table><tr><th>Comparamos…</th><th>Estructura</th><th>Ejemplo</th></tr><tr><td>una cualidad</td><td>tan + adjetivo + como</td><td>Un enfermero es tan importante como un médico.</td></tr><tr><td>una manera de actuar</td><td>tan + adverbio + como</td><td>Gina actúa tan bien como América.</td></tr><tr><td>una cantidad</td><td>tanto/a/os/as + sustantivo + como</td><td>El músico tiene tantos instrumentos como el cantante.</td></tr><tr><td>una acción</td><td>verbo + tanto como</td><td>Yo corro tanto como un futbolista.</td></tr></table></div><p><em>Tan</em> never changes form. An adjective still agrees with the person or thing it describes: <em>Las diseñadoras son tan creativas como las pintoras.</em> An adverb such as <em>bien</em> does not change.</p><div class="conj-table"><table><tr><th>Forma</th><th>Sustantivo</th><th>Ejemplo</th></tr><tr><td>tanto</td><td>masculino singular</td><td>Tiene tanto trabajo como yo.</td></tr><tr><td>tanta</td><td>femenino singular</td><td>Tiene tanta paciencia como el psicólogo.</td></tr><tr><td>tantos</td><td>masculino plural</td><td>Tiene tantos instrumentos como el cantante.</td></tr><tr><td>tantas</td><td>femenino plural</td><td>Trabaja tantas horas como yo.</td></tr></table></div><div class="tip-block"><strong>Choose by the next word:</strong> Use <em>tan</em> before a quality (<em>tan creativo</em>), but <em>tanto/a/os/as</em> before a noun (<em>tantas horas</em>). With a verb alone, use the unchanged <em>tanto</em>: <em>Cuando eran niñas, Venus practicaba tenis tanto como Serena.</em></div></div><div class="grammar-block"><h3>Las comparaciones de desigualdad</h3><p class="lede">Use <em>más…que</em> for “more…than” and <em>menos…que</em> for “less/fewer…than.” The placement depends on whether you compare a quality, a quantity, or an action.</p><div class="conj-table"><table><tr><th>Comparamos…</th><th>Estructura</th><th>Ejemplo</th></tr><tr><td>un adjetivo</td><td>más/menos + adjetivo + que</td><td>La modelo es más alta que su hermana.</td></tr><tr><td>un adverbio</td><td>más/menos + adverbio + que</td><td>Yo ahorro dinero más lentamente que mi hermana.</td></tr><tr><td>un sustantivo</td><td>más/menos + sustantivo + que</td><td>El secretario contesta más correos que el pintor.</td></tr><tr><td>un verbo</td><td>verbo + más/menos que</td><td>Ella camina más que yo.</td></tr></table></div><p><em>Más</em> and <em>menos</em> do not change for gender or number. The adjective still agrees: <em>Estos trabajos son menos rutinarios que aquellos.</em> To compare actions, place <em>más</em> or <em>menos</em> after the verb: <em>La secretaria cobra menos que la abogada.</em></p><div class="tip-block"><strong>Keep the connectors distinct:</strong> Equality ends in <em>como</em>; inequality ends in <em>que</em>. Compare <em>tiene tantos instrumentos como yo</em> with <em>tiene más instrumentos que yo</em>. Comparative <em>que</em> has no accent; <em>más</em> does.</div></div><div class="grammar-block"><h3>Comparaciones irregulares y cantidades</h3><p class="lede">Some comparisons use a special word instead of <em>más</em> plus the usual adjective or adverb. A numerical threshold also uses a different connector.</p><div class="conj-table"><table><tr><th>Forma básica</th><th>Comparativo</th><th>Ejemplo</th></tr><tr><td>bueno / bien</td><td>mejor (better)</td><td>Esta oferta es mejor que la otra.</td></tr><tr><td>malo / mal</td><td>peor (worse)</td><td>Esa peluquera corta el pelo peor que mi mamá.</td></tr><tr><td>viejo / grande (edad)</td><td>mayor (older)</td><td>Venus nació antes que Serena; es mayor que ella.</td></tr><tr><td>joven / pequeño (edad)</td><td>menor (younger)</td><td>Mi hermano es menor que yo.</td></tr></table></div><p><em>Mejor, peor, mayor</em>, and <em>menor</em> do not change for gender, but they take a plural ending when used as adjectives: <em>Las ofertas son mejores</em>. As adverbs, <em>mejor</em> and <em>peor</em> remain unchanged: <em>Ellas cantan mejor que yo.</em> For physical size, use <em>más grande</em> or <em>más pequeño</em>: <em>Este taller es más grande que aquel.</em></p><div class="conj-table"><table><tr><th>Referencia</th><th>Estructura</th><th>Ejemplo</th></tr><tr><td>otra persona o cosa</td><td>más/menos…que</td><td>Estudiabas menos horas que yo.</td></tr><tr><td>un límite numérico</td><td>más/menos de + número</td><td>Tengo menos de diez dólares.</td></tr></table></div><div class="tip-block"><strong>Avoid doubling the comparison:</strong> Use <em>mejor que</em>, not <em>más mejor que</em>; use <em>peor que</em>, not <em>más peor que</em>. For an amount above or below a number, use <em>de</em>: <em>La jefa trabaja más de cuarenta horas por semana.</em></div></div></div><div class="sub-panel" id="sub-superlativos"><div class="grammar-block"><h3>El superlativo: dentro de un grupo</h3><p class="lede">A comparative compares one item with another. A relative superlative identifies the item with the most—or least—of a quality within a group: “the most,” “the least,” or an English “-est” form.</p><div class="conj-table"><table><tr><th>Estructura</th><th>Ejemplo</th><th>Significado</th></tr><tr><td>el/la/los/las + sustantivo + más/menos + adjetivo + de…</td><td>Es la profesión más interesante de todas.</td><td>the most interesting profession</td></tr><tr><td>el/la/los/las + más/menos + adjetivo + de…</td><td>Ana es la más creativa del equipo.</td><td>the most creative person on the team</td></tr><tr><td>artículo y adjetivo en plural</td><td>Son los programas menos interesantes de todos.</td><td>the least interesting programs</td></tr></table></div><p>The article and adjective agree with the noun: <em>el trabajo más fácil</em>, <em>la profesión más fácil</em>, <em>los trabajos más fáciles</em>, <em>las profesiones más fáciles</em>. Use <em>de</em> to name the comparison group. When <em>de</em> meets masculine singular <em>el</em>, they combine: <em>del equipo</em>.</p><div class="tip-block"><strong>Include the article:</strong> Use <em>Es la más creativa del equipo</em>. Without <em>la</em>, you lose the superlative pattern. The noun may be omitted when the context makes it clear, but keep the article.</div></div><div class="grammar-block"><h3>Los superlativos irregulares</h3><p class="lede">The irregular comparison words keep their special forms. Add the definite article to identify the best, worst, oldest, or youngest member of a group.</p><div class="conj-table"><table><tr><th>Forma básica</th><th>Superlativo</th><th>Ejemplo</th></tr><tr><td>bueno</td><td>el/la mejor · los/las mejores</td><td>Los cocineros tienen el mejor trabajo.</td></tr><tr><td>malo</td><td>el/la peor · los/las peores</td><td>Es la peor película de todas.</td></tr><tr><td>grande / viejo (edad)</td><td>el/la mayor · los/las mayores</td><td>La jefa es la mayor del equipo.</td></tr><tr><td>pequeño / joven (edad)</td><td>el/la menor · los/las menores</td><td>Mi hermano es el menor de la familia.</td></tr></table></div><p>These forms change for number, but not for gender: <em>el mejor trabajo</em>, <em>la mejor profesión</em>, <em>los mejores trabajos</em>, <em>las mejores profesiones</em>. To express physical size, use the regular construction: <em>Es el taller más grande de la ciudad.</em></p><div class="tip-block"><strong>One superlative marker is enough:</strong> Use <em>la mejor aplicación</em>, not <em>la más mejor aplicación</em>; use <em>el peor artista</em>, not <em>el más peor artista</em>.</div></div><div class="grammar-block"><h3>Comparativo o superlativo</h3><p class="lede">The same adjective can appear in both structures. Identify whether the sentence compares two items or selects one within a whole group.</p><div class="conj-table"><table><tr><th>Uso</th><th>Ejemplo</th><th>Significado</th></tr><tr><td>comparativo</td><td>Este restaurante es más barato que aquel.</td><td>cheaper than that restaurant</td></tr><tr><td>superlativo</td><td>Este es el restaurante más barato de la ciudad.</td><td>the cheapest restaurant in the city</td></tr><tr><td>comparativo irregular</td><td>Este trabajo es mejor que el otro.</td><td>better than the other job</td></tr><tr><td>superlativo irregular</td><td>Este es el mejor trabajo de todos.</td><td>the best job of all</td></tr></table></div><div class="tip-block"><strong>Look for the complete pattern:</strong> A comparison commonly has <em>que</em>; a superlative has an article plus the comparison word and often a group introduced by <em>de</em>. The group may be understood: <em>Esta es la mejor aplicación</em> still means “the best app.”</div></div></div><div class="sub-panel" id="sub-culture"><div class="section-head"><h2>Aprender con el mundo</h2><span class="marker">COIL</span></div><div class="culture-block"><span class="culture-tag">Cultura</span><h3>La colaboración internacional en línea</h3><p>COIL conecta a estudiantes de distintos países para colaborar en proyectos y aprender sobre otras culturas. La tecnología permite practicar idiomas con personas de otros lugares sin viajar.</p><p>En un proyecto, dos maestras de octavo grado conectaron sus clases de Popayán, Colombia, y West Palm Beach, Florida. Los estudiantes compartieron información sobre sus casas, sus estilos de vida y los desastres naturales de sus comunidades. También hablaron de sus preferencias y practicaron inglés y español.</p><p>Los grupos tenían recursos diferentes. La clase de Florida tenía once estudiantes y diez horas semanales de lengua; la de Popayán tenía treinta estudiantes y tres horas. En Florida había computadoras personales; en Popayán, seis computadoras en el laboratorio. Estos datos describen esas dos escuelas, no todos los colegios de cada país.</p><p>Los horarios también eran diferentes. Mientras esperaban respuestas, los estudiantes reflexionaban y preparaban el lenguaje necesario para comunicarse.</p></div><div class="tip-block"><strong>Connect culture and grammar:</strong> Compare the two schools using the details above. Begin with <em>La clase de Popayán tenía más… que…</em> or <em>La clase de Florida tenía menos… que…</em>. Then discuss how teachers could support collaboration when access and schedules differ.</div></div><div class="sub-panel" id="sub-practice"><div class="section-head"><h2>Práctica rápida</h2><span class="marker">Quick check</span></div><p style="color:var(--ink-soft);margin-bottom:20px;max-width:640px">Choose the expression that completes each sentence. Eight questions check equality, inequality, numerical thresholds, and superlatives. Read the explanation after each answer.</p><div class="practice-block" id="practiceBlock"></div></div></section>
+<section class="panel" id="panel-listen"><div class="listen-intro"><strong>How this works:</strong> Click Play to hear a sentence, then choose the answer that fits. First identify a profession from a situation; next interpret comparisons; finally distinguish comparisons from superlatives. Each exercise has six questions. You can replay the sentence before answering and start over after finishing.</div><div class="pill-nav"><button class="pill active" data-sub="ear-oficios">Adivina la profesión</button><button class="pill" data-sub="ear-comparar">Escucha la comparación</button><button class="pill" data-sub="ear-superlativo">Comparativo o superlativo</button></div><div class="sub-panel active" id="sub-ear-oficios"><div class="listen-exercise" id="oficiosExercise"><div class="listen-head"><h3>Ejercicio 1 · Adivina la profesión</h3><span class="listen-counter" id="oficiosCounter">1 / 6</span></div><p style="color:var(--ink-soft);font-size:14px;margin-bottom:18px">Listen to the situation and choose the profession that fits.</p><div class="progress-bar"><div class="progress-fill" id="oficiosProgress"></div></div><button class="play-btn" id="oficiosPlay"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Play</button><div class="listen-options" id="oficiosOptions"></div><div class="feedback" id="oficiosFeedback" aria-live="polite"></div><button class="next-btn" id="oficiosNext" disabled>Next →</button><div class="done-message" id="oficiosDone"><h4>Exercise complete!</h4><div class="score" id="oficiosScore"></div><p>You have completed the professions exercise.</p><button class="next-btn" id="oficiosReset">Start over</button></div></div></div><div class="sub-panel" id="sub-ear-comparar"><div class="listen-exercise" id="compararExercise"><div class="listen-head"><h3>Ejercicio 2 · Escucha la comparación</h3><span class="listen-counter" id="compararCounter">1 / 6</span></div><p style="color:var(--ink-soft);font-size:14px;margin-bottom:18px">Listen to the entire comparison and choose the matching English meaning.</p><div class="progress-bar"><div class="progress-fill" id="compararProgress"></div></div><button class="play-btn" id="compararPlay"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Play</button><div class="listen-options cols-2" id="compararOptions"></div><div class="feedback" id="compararFeedback" aria-live="polite"></div><button class="next-btn" id="compararNext" disabled>Next →</button><div class="done-message" id="compararDone"><h4>Exercise complete!</h4><div class="score" id="compararScore"></div><p>You have completed the comparisons exercise.</p><button class="next-btn" id="compararReset">Start over</button></div></div></div><div class="sub-panel" id="sub-ear-superlativo"><div class="listen-exercise" id="superlativoExercise"><div class="listen-head"><h3>Ejercicio 3 · Comparativo o superlativo</h3><span class="listen-counter" id="superlativoCounter">1 / 6</span></div><p style="color:var(--ink-soft);font-size:14px;margin-bottom:18px">Listen and choose the meaning. Notice the article, comparison word, and reference group.</p><div class="progress-bar"><div class="progress-fill" id="superlativoProgress"></div></div><button class="play-btn" id="superlativoPlay"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Play</button><div class="listen-options cols-2" id="superlativoOptions"></div><div class="feedback" id="superlativoFeedback" aria-live="polite"></div><button class="next-btn" id="superlativoNext" disabled>Next →</button><div class="done-message" id="superlativoDone"><h4>Exercise complete!</h4><div class="score" id="superlativoScore"></div><p>You have completed the superlatives exercise.</p><button class="next-btn" id="superlativoReset">Start over</button></div></div></div><p class="voice-notice">If you do not hear anything, check your volume and Spanish text-to-speech voices, then try Chrome, Edge, or Safari.</p></section>
+</main>
+<footer>
+  <div>SPAN 2010 · Módulo 4</div>
+  <div>Paul Rama, PhD · paulrama@weber.edu</div>
+</footer>
+</div>
+<script>
+const themeToggle = document.getElementById('themeToggle');
+const savedTheme = (() => { try { return localStorage.getItem('span2010-theme'); } catch { return null; } })();
+if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+themeToggle.addEventListener('click', () => {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  isDark ? document.documentElement.removeAttribute('data-theme') : document.documentElement.setAttribute('data-theme','dark');
+  try { localStorage.setItem('span2010-theme', isDark ? 'light' : 'dark'); } catch {}
+});
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === `panel-${btn.dataset.tab}`));
+    window.speechSynthesis && window.speechSynthesis.cancel();
+  });
+});
+document.querySelectorAll('.panel').forEach(panel => {
+  panel.querySelectorAll('.pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      panel.querySelectorAll('.pill').forEach(p => p.classList.toggle('active', p === pill));
+      panel.querySelectorAll('.sub-panel').forEach(sp => sp.classList.toggle('active', sp.id === `sub-${pill.dataset.sub}`));
+      window.speechSynthesis && window.speechSynthesis.cancel();
+    });
+  });
+});
+function buildFlashcards(containerId, items) {
+  const grid = document.getElementById(containerId);
+  items.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'flashcard';
+    card.tabIndex = 0;
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', `${item.en} — click to see the Spanish`);
+    card.innerHTML = `<div class="flashcard-inner">
+      <div class="card-face card-front">
+        <div class="card-label">English</div>
+        <div class="card-word">${item.en}</div>
+        <div class="card-hint">${item.hint || 'click to flip'}</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="card-label">Español</div>
+        <div class="card-word"><em>${item.es}</em></div>
+        <div class="card-ex">${item.ex}</div>
+      </div>
+    </div>`;
+    const flip = () => { card.classList.toggle('flipped'); syncLabel(); };
+    card.addEventListener('click', flip);
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); }
+    });
+    grid.appendChild(card);
+  });
+
+  const toolbar = document.createElement('div');
+  toolbar.className = 'flash-toolbar';
+  toolbar.innerHTML = `<span class="flash-count">${items.length} cards · click a card to flip it</span>
+    <button class="flip-all-btn" type="button"></button>`;
+  grid.parentNode.insertBefore(toolbar, grid);
+  const btn = toolbar.querySelector('.flip-all-btn');
+  const cards = () => [...grid.querySelectorAll('.flashcard')];
+  function syncLabel() {
+    const allSpanish = cards().every(c => c.classList.contains('flipped'));
+    btn.textContent = allSpanish ? 'Flip all to English' : 'Flip all to Spanish';
+    btn.setAttribute('aria-pressed', allSpanish);
+  }
+  btn.addEventListener('click', () => {
+    const allSpanish = cards().every(c => c.classList.contains('flipped'));
+    cards().forEach(c => c.classList.toggle('flipped', !allSpanish));
+    syncLabel();
+  });
+  syncLabel();
+}
+const vocabProf1 = [
+  {
+    "en": "lawyer",
+    "es": "el abogado / la abogada",
+    "ex": "La abogada tiene tanta paciencia como el médico."
+  },
+  {
+    "en": "actor / actress",
+    "es": "el actor / la actriz",
+    "ex": "La actriz es tan talentosa como el actor."
+  },
+  {
+    "en": "homemaker",
+    "es": "el ama de casa",
+    "ex": "El ama de casa trabaja tanto como yo.",
+    "hint": "feminine noun; singular article el"
+  },
+  {
+    "en": "flight attendant",
+    "es": "el asistente de vuelo / la asistente de vuelo",
+    "ex": "La asistente de vuelo viaja más que yo."
+  },
+  {
+    "en": "firefighter",
+    "es": "el bombero / la bombera",
+    "ex": "La bombera es tan valiente como su compañero."
+  },
+  {
+    "en": "singer",
+    "es": "el cantante / la cantante",
+    "ex": "Mi hermana es la mejor cantante del grupo."
+  },
+  {
+    "en": "scientist",
+    "es": "el científico / la científica",
+    "ex": "La científica tiene más libros que yo."
+  },
+  {
+    "en": "cook / chef",
+    "es": "el cocinero / la cocinera",
+    "ex": "La cocinera prepara el mejor plato del restaurante."
+  },
+  {
+    "en": "athlete",
+    "es": "el deportista / la deportista",
+    "ex": "La deportista corre más rápido que yo."
+  },
+  {
+    "en": "designer",
+    "es": "el diseñador / la diseñadora",
+    "ex": "El diseñador es tan creativo como la pintora."
+  },
+  {
+    "en": "nurse",
+    "es": "el enfermero / la enfermera",
+    "ex": "El enfermero es tan importante como el médico."
+  }
+];
+buildFlashcards("prof1Grid", vocabProf1);
+const vocabProf2 = [
+  {
+    "en": "writer",
+    "es": "el escritor / la escritora",
+    "ex": "La escritora tiene tantos libros como el maestro."
+  },
+  {
+    "en": "farmer",
+    "es": "el granjero / la granjera",
+    "ex": "Mis abuelos eran granjeros y trabajaban juntos."
+  },
+  {
+    "en": "engineer",
+    "es": "el ingeniero / la ingeniera",
+    "ex": "La ingeniera diseña puentes más largos que estos."
+  },
+  {
+    "en": "boss",
+    "es": "el jefe / la jefa",
+    "ex": "La jefa es la mayor del equipo."
+  },
+  {
+    "en": "teacher",
+    "es": "el maestro / la maestra",
+    "ex": "La maestra tiene tanta paciencia como la psicóloga."
+  },
+  {
+    "en": "mechanic",
+    "es": "el mecánico / la mecánica",
+    "ex": "La mecánica repara mi coche mejor que yo."
+  },
+  {
+    "en": "doctor",
+    "es": "el médico / la médica",
+    "ex": "La médica trabaja tantas horas como el enfermero."
+  },
+  {
+    "en": "waiter / waitress",
+    "es": "el mesero / la mesera",
+    "ex": "El mesero trabaja en el restaurante más pequeño."
+  },
+  {
+    "en": "model",
+    "es": "el modelo / la modelo",
+    "ex": "La modelo es más alta que su hermana."
+  },
+  {
+    "en": "musician",
+    "es": "el músico / la música",
+    "ex": "El músico tiene tantos instrumentos como el cantante."
+  },
+  {
+    "en": "journalist / reporter",
+    "es": "el periodista / la periodista",
+    "ex": "La periodista escribe más artículos que yo."
+  }
+];
+buildFlashcards("prof2Grid", vocabProf2);
+const vocabProf3 = [
+  {
+    "en": "pilot",
+    "es": "el piloto / la piloto",
+    "ex": "La piloto viaja tanto como su compañero."
+  },
+  {
+    "en": "painter",
+    "es": "el pintor / la pintora",
+    "ex": "La pintora es tan creativa como el diseñador."
+  },
+  {
+    "en": "hairdresser",
+    "es": "el peluquero / la peluquera",
+    "ex": "La peluquera me corta el pelo muy bien."
+  },
+  {
+    "en": "psychologist",
+    "es": "el psicólogo / la psicóloga",
+    "ex": "La psicóloga tiene tanta paciencia como el maestro."
+  },
+  {
+    "en": "secretary",
+    "es": "el secretario / la secretaria",
+    "ex": "La secretaria contesta más correos que el pintor."
+  },
+  {
+    "en": "social worker",
+    "es": "el trabajador social / la trabajadora social",
+    "ex": "La trabajadora social ayuda a muchas personas."
+  },
+  {
+    "en": "veterinarian",
+    "es": "el veterinario / la veterinaria",
+    "ex": "La veterinaria cuida a mi perro enfermo."
+  }
+];
+buildFlashcards("prof3Grid", vocabProf3);
+const practiceQuestions = [
+  {
+    "prompt": "Un enfermero es ___ importante como un médico.",
+    "options": [
+      "tanto",
+      "más",
+      "tan",
+      "tantos"
+    ],
+    "correct": 2,
+    "explain": "A quality such as <em>importante</em> takes <em>tan + adjective + como</em>: “as important as.” <em>Tanto</em> goes with a quantity or action."
+  },
+  {
+    "prompt": "El músico tiene ___ instrumentos como el cantante.",
+    "options": [
+      "tantos",
+      "tanta",
+      "tan",
+      "tanto"
+    ],
+    "correct": 0,
+    "explain": "<em>Instrumentos</em> is masculine plural, so <em>tanto</em> becomes <em>tantos</em>. The equality pattern ends in <em>como</em>."
+  },
+  {
+    "prompt": "Cuando eran niñas, Venus practicaba tenis ___ Serena. (=)",
+    "options": [
+      "tan como",
+      "más que",
+      "tantas como",
+      "tanto como"
+    ],
+    "correct": 3,
+    "explain": "Here the comparison concerns the action <em>practicaba</em>, with no quantity noun after the blank. Use the unchanged <em>tanto como</em>: “as much as.”"
+  },
+  {
+    "prompt": "No puedo comprarlo: tengo menos ___ diez dólares.",
+    "options": [
+      "que",
+      "de",
+      "como",
+      "a"
+    ],
+    "correct": 1,
+    "explain": "Ten dollars is a numerical threshold. Use <em>menos de + number</em>. Use <em>que</em> when comparing with another person or thing."
+  },
+  {
+    "prompt": "En estas ofertas, el puesto de abogado paga muy bien y el de peluquero paga bien. El primero paga ___ el segundo.",
+    "options": [
+      "más bien que",
+      "tan buena como",
+      "mejor que",
+      "mejor de"
+    ],
+    "correct": 2,
+    "explain": "The comparison describes how well each offer pays. The comparative of the adverb <em>bien</em> is <em>mejor</em>, followed by <em>que</em>."
+  },
+  {
+    "prompt": "En mi opinión, esta es ___ película de todas. (mala)",
+    "options": [
+      "la más mala que",
+      "la peor",
+      "el peor",
+      "la más peor"
+    ],
+    "correct": 1,
+    "explain": "The irregular superlative of <em>malo</em> is <em>el/la peor</em>. Feminine <em>película</em> needs <em>la</em>; the group is introduced by <em>de</em>."
+  },
+  {
+    "prompt": "Estos programas de telerrealidad son ___ de todos. (− interesantes)",
+    "options": [
+      "los menos interesantes",
+      "menos interesantes que",
+      "el menos interesante",
+      "los menos interesante"
+    ],
+    "correct": 0,
+    "explain": "Use <em>los + menos + plural adjective + de</em> to select the least interesting programs in the group. <em>Programas</em> requires <em>los</em> and <em>interesantes</em>."
+  },
+  {
+    "prompt": "En este equipo, Ana tiene 55 años, Luis 40 y Eva 28. Ana es ___ del equipo.",
+    "options": [
+      "más mayor",
+      "la más grande",
+      "mayor que",
+      "la mayor"
+    ],
+    "correct": 3,
+    "explain": "Ana is the oldest member of the group: <em>la mayor del equipo</em>. Keep the feminine article and use the irregular age form without <em>más</em>."
+  }
+];
+// practiceQuestions = [{ prompt, options, correct, explain }, ...] — 8 items
+const practiceBlock = document.getElementById('practiceBlock');
+practiceBlock.innerHTML = practiceQuestions.map((q, qi) => `
+  <div class="practice-q">
+    <div class="practice-prompt">${q.prompt.replace('___','<span class="blank"></span>')}</div>
+    <div class="practice-options">${q.options.map((o,oi) => `<button class="opt-btn" data-q="${qi}" data-o="${oi}">${o}</button>`).join('')}</div>
+    <div class="feedback" id="practice-fb-${qi}"></div>
+  </div>`).join('');
+practiceBlock.addEventListener('click', e => {
+  if (!e.target.classList.contains('opt-btn')) return;
+  const qi = +e.target.dataset.q, oi = +e.target.dataset.o;
+  const q = practiceQuestions[qi];
+  const allBtns = practiceBlock.querySelectorAll(`.opt-btn[data-q="${qi}"]`);
+  allBtns.forEach(b => b.disabled = true);
+  allBtns[q.correct].classList.add('correct');
+  if (oi !== q.correct) e.target.classList.add('incorrect');
+  const fb = document.getElementById(`practice-fb-${qi}`);
+  fb.className = oi === q.correct ? 'feedback correct show' : 'feedback incorrect show';
+  fb.innerHTML = oi === q.correct ? `✓ ${q.explain}` : `The answer is <strong>${q.options[q.correct]}</strong>. ${q.explain}`;
+});
+let spanishVoice = null;
+function pickSpanishVoice() {
+  const voices = window.speechSynthesis.getVoices();
+  for (const lang of ['es-MX','es-US','es-419','es-CO','es-AR','es-ES','es']) {
+    const v = voices.find(v => v.lang === lang || v.lang.toLowerCase().startsWith(lang.toLowerCase()));
+    if (v) return v;
+  }
+  return voices.find(v => v.lang.toLowerCase().startsWith('es')) || null;
+}
+if ('speechSynthesis' in window) {
+  spanishVoice = pickSpanishVoice();
+  window.speechSynthesis.onvoiceschanged = () => { spanishVoice = pickSpanishVoice(); };
+}
+function speak(text, btn) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'es-MX'; u.rate = 0.88; u.pitch = 1;
+  if (spanishVoice) u.voice = spanishVoice;
+  if (btn) { btn.classList.add('speaking'); u.onend = u.onerror = () => btn.classList.remove('speaking'); }
+  window.speechSynthesis.speak(u);
+}
+function buildExercise(config) {
+  let idx = 0, score = 0, answered = false;
+  const playBtn    = document.getElementById(config.playId);
+  const optionsEl  = document.getElementById(config.optionsId);
+  const feedbackEl = document.getElementById(config.feedbackId);
+  const nextBtn    = document.getElementById(config.nextId);
+  const counterEl  = document.getElementById(config.counterId);
+  const progressEl = document.getElementById(config.progressId);
+  const doneEl     = document.getElementById(config.doneId);
+  const scoreEl    = document.getElementById(config.scoreId);
+  const resetBtn   = document.getElementById(config.resetId);
+  const root       = playBtn.closest('.listen-exercise');
+  function render() {
+    const q = config.questions[idx];
+    counterEl.textContent = `${idx + 1} / ${config.questions.length}`;
+    progressEl.style.width = `${(idx / config.questions.length) * 100}%`;
+    feedbackEl.classList.remove('show','correct','incorrect');
+    nextBtn.disabled = true; answered = false;
+    optionsEl.innerHTML = '';
+    q.options.forEach((opt, i) => {
+      const b = document.createElement('button');
+      b.className = 'listen-opt'; b.textContent = opt;
+      b.addEventListener('click', () => handleAnswer(i, b));
+      optionsEl.appendChild(b);
+    });
+
+  }
+  function handleAnswer(selected, btn) {
+    if (answered) return;
+    answered = true;
+    const q = config.questions[idx];
+    const allBtns = optionsEl.querySelectorAll('.listen-opt');
+    allBtns.forEach(b => b.disabled = true);
+    const ci = config.getCorrectIndex(q);
+    allBtns[ci].classList.add('correct');
+    if (selected === ci) { score++; btn.classList.add('correct'); feedbackEl.className = 'feedback correct show'; feedbackEl.innerHTML = `✓ Correct! ${q.hint||''}`; }
+    else { btn.classList.add('incorrect'); feedbackEl.className = 'feedback incorrect show'; feedbackEl.innerHTML = `The answer is <strong>${q.options[ci]}</strong>. ${q.hint||''}`; }
+    nextBtn.disabled = false;
+  }
+  playBtn.addEventListener('click', () => speak(config.getAudio(config.questions[idx]), playBtn));
+  nextBtn.addEventListener('click', () => { idx++; idx >= config.questions.length ? finish() : render(); });
+  function finish() {
+    window.speechSynthesis && window.speechSynthesis.cancel();
+    playBtn.classList.remove('speaking');
+    progressEl.style.width = '100%';
+    root.querySelectorAll('.listen-head,.progress-bar,.play-btn,.listen-options,.feedback,.next-btn:not(#' + config.resetId + ')').forEach(el => el.style.display='none');
+    doneEl.classList.add('show');
+    scoreEl.textContent = `${score} / ${config.questions.length}`;
+  }
+  resetBtn.addEventListener('click', () => {
+    idx = 0; score = 0; answered = false;
+    doneEl.classList.remove('show');
+    root.querySelectorAll('.listen-head,.progress-bar,.play-btn,.listen-options,.feedback,.next-btn:not(#' + config.resetId + ')').forEach(el => el.style.display='');
+    feedbackEl.style.display=''; nextBtn.style.display='';
+    render();
+  });
+  render();
+}
+const oficiosQuestions = [
+  {
+    "audio": "Tu hermano tiene un restaurante y necesita a alguien que prepare la comida.",
+    "options": [
+      "el periodista",
+      "el cocinero",
+      "el piloto",
+      "el abogado"
+    ],
+    "correct": 1,
+    "hint": "<em>Prepare la comida</em> identifies the person who cooks: <em>el cocinero</em>."
+  },
+  {
+    "audio": "Tu vecina organiza un desfile de modas y necesita a alguien que presente la ropa.",
+    "options": [
+      "la mecánica",
+      "la veterinaria",
+      "la científica",
+      "la modelo"
+    ],
+    "correct": 3,
+    "hint": "At a <em>desfile de modas</em>, a model presents the clothing. The clue is <em>presente la ropa</em>."
+  },
+  {
+    "audio": "Tu amigo quiere un mural en su edificio y busca a alguien que lo pinte.",
+    "options": [
+      "el pintor",
+      "el mesero",
+      "el enfermero",
+      "el secretario"
+    ],
+    "correct": 0,
+    "hint": "A <em>mural</em> is painted by <em>el pintor</em>. Listen for <em>lo pinte</em>."
+  },
+  {
+    "audio": "Tu coche está descompuesto y necesitas a alguien que lo repare.",
+    "options": [
+      "la cantante",
+      "la escritora",
+      "la mecánica",
+      "la maestra"
+    ],
+    "correct": 2,
+    "hint": "A broken car (<em>coche descompuesto</em>) needs a mechanic: <em>la mecánica</em>."
+  },
+  {
+    "audio": "Quieres consultar a alguien sobre un caso legal.",
+    "options": [
+      "el granjero",
+      "el abogado",
+      "el deportista",
+      "el músico"
+    ],
+    "correct": 1,
+    "hint": "The clue <em>caso legal</em> points to a lawyer: <em>el abogado</em>."
+  },
+  {
+    "audio": "Tu perro está enfermo y necesita atención médica para animales.",
+    "options": [
+      "la psicóloga",
+      "la peluquera",
+      "la diseñadora",
+      "la veterinaria"
+    ],
+    "correct": 3,
+    "hint": "Medical care <em>para animales</em> is the work of <em>la veterinaria</em>, rather than a doctor for people."
+  }
+];
+buildExercise({questions: oficiosQuestions, playId:'oficiosPlay', optionsId:'oficiosOptions', feedbackId:'oficiosFeedback', nextId:'oficiosNext', counterId:'oficiosCounter', progressId:'oficiosProgress', doneId:'oficiosDone', scoreId:'oficiosScore', resetId:'oficiosReset', getAudio:q=>q.audio, getCorrectIndex:q=>q.correct});
+const compararQuestions = [
+  {
+    "audio": "El trabajador social tiene tanta paciencia como el psicólogo.",
+    "options": [
+      "The social worker has more patience.",
+      "The psychologist has more patience.",
+      "They have the same amount of patience.",
+      "Neither has any patience."
+    ],
+    "correct": 2,
+    "hint": "<em>Tanta paciencia como</em> expresses equality in the amount of patience; <em>tanta</em> agrees with feminine <em>paciencia</em>."
+  },
+  {
+    "audio": "El secretario contesta más correos que el pintor.",
+    "options": [
+      "The secretary answers more emails.",
+      "The painter answers more emails.",
+      "They answer the same number of emails.",
+      "The secretary answers fewer emails."
+    ],
+    "correct": 0,
+    "hint": "<em>Más correos que</em> means more emails than. The secretary is the subject and answers the greater number."
+  },
+  {
+    "audio": "Cuando eran niñas, Venus practicaba tenis tanto como Serena.",
+    "options": [
+      "Venus practiced less than Serena.",
+      "Venus practiced more than Serena.",
+      "Neither practiced tennis.",
+      "Venus practiced as much as Serena."
+    ],
+    "correct": 3,
+    "hint": "After <em>practicaba tenis</em>, <em>tanto como</em> compares the action and expresses equal amounts of practice."
+  },
+  {
+    "audio": "La secretaria cobra menos que la abogada.",
+    "options": [
+      "The secretary charges more.",
+      "The secretary charges less.",
+      "The lawyer charges less.",
+      "They charge the same amount."
+    ],
+    "correct": 1,
+    "hint": "<em>Cobra menos que</em> means charges less than. The secretary charges less than the lawyer."
+  },
+  {
+    "audio": "Tengo menos de diez dólares.",
+    "options": [
+      "I have exactly ten dollars.",
+      "I have more than ten dollars.",
+      "I have less than ten dollars.",
+      "I have as much money as you."
+    ],
+    "correct": 2,
+    "hint": "<em>Menos de diez</em> means below the numerical threshold of ten, so the amount is less than ten dollars."
+  },
+  {
+    "audio": "Esta peluquera me corta el pelo mejor que la otra.",
+    "options": [
+      "This hairdresser cuts my hair better.",
+      "The other hairdresser cuts my hair better.",
+      "Both hairdressers cut equally well.",
+      "This hairdresser cuts my hair worse."
+    ],
+    "correct": 0,
+    "hint": "<em>Mejor que</em> is the irregular comparison of <em>bien</em>: better than. It describes how this hairdresser cuts hair."
+  }
+];
+buildExercise({questions: compararQuestions, playId:'compararPlay', optionsId:'compararOptions', feedbackId:'compararFeedback', nextId:'compararNext', counterId:'compararCounter', progressId:'compararProgress', doneId:'compararDone', scoreId:'compararScore', resetId:'compararReset', getAudio:q=>q.audio, getCorrectIndex:q=>q.correct});
+const superlativoQuestions = [
+  {
+    "audio": "Los cocineros tienen el mejor trabajo de todos.",
+    "options": [
+      "The cooks have a better job than I do.",
+      "The cooks have the worst job.",
+      "The cooks have the least interesting job.",
+      "The cooks have the best job of all."
+    ],
+    "correct": 3,
+    "hint": "<em>El mejor trabajo de todos</em> selects the best job within the whole group: a superlative, rather than a comparison with one other job."
+  },
+  {
+    "audio": "Este restaurante es más barato que aquel.",
+    "options": [
+      "This is the cheapest restaurant in town.",
+      "This restaurant is cheaper than that one.",
+      "That restaurant is cheaper than this one.",
+      "The two restaurants are equally cheap."
+    ],
+    "correct": 1,
+    "hint": "<em>Más barato que aquel</em> compares two restaurants. There is no superlative article or whole-group ranking."
+  },
+  {
+    "audio": "Es la peor película de todas.",
+    "options": [
+      "It is worse than the other movie.",
+      "It is the best movie of all.",
+      "It is the worst movie of all.",
+      "It is the least expensive movie."
+    ],
+    "correct": 2,
+    "hint": "<em>La peor…de todas</em> is the irregular superlative of <em>malo</em>, with feminine <em>la</em> for <em>película</em>."
+  },
+  {
+    "audio": "Estos programas son los menos interesantes de todos.",
+    "options": [
+      "These are the least interesting programs of all.",
+      "These are the most interesting programs of all.",
+      "These programs are as interesting as the others.",
+      "These programs are better than the others."
+    ],
+    "correct": 0,
+    "hint": "<em>Los menos interesantes de todos</em> selects the lowest level of interest within the group. The article and adjective are plural."
+  },
+  {
+    "audio": "La jefa es la mayor del equipo.",
+    "options": [
+      "The boss is taller than the team.",
+      "The boss is the youngest on the team.",
+      "The boss is older than her sister.",
+      "The boss is the oldest on the team."
+    ],
+    "correct": 3,
+    "hint": "<em>La mayor del equipo</em> identifies the oldest member of the team. Here <em>mayor</em> refers to age."
+  },
+  {
+    "audio": "Ana es la más creativa del equipo.",
+    "options": [
+      "Ana is as creative as her colleague.",
+      "Ana is the most creative on the team.",
+      "Ana is less creative than her colleague.",
+      "Ana is the youngest on the team."
+    ],
+    "correct": 1,
+    "hint": "<em>La más creativa del equipo</em> identifies the person with the most creativity in the group. Feminine <em>la</em> and <em>creativa</em> agree with Ana."
+  }
+];
+buildExercise({questions: superlativoQuestions, playId:'superlativoPlay', optionsId:'superlativoOptions', feedbackId:'superlativoFeedback', nextId:'superlativoNext', counterId:'superlativoCounter', progressId:'superlativoProgress', doneId:'superlativoDone', scoreId:'superlativoScore', resetId:'superlativoReset', getAudio:q=>q.audio, getCorrectIndex:q=>q.correct});
+document.querySelectorAll('.tab-btn,.pill').forEach(b=>b.addEventListener('click',()=>document.querySelectorAll('.play-btn.speaking').forEach(p=>p.classList.remove('speaking'))));
+
+</script>
+</body>
+</html>
