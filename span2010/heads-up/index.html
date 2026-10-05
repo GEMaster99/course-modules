@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>¿Quién es? — Pretérito vs. Imperfecto</title>
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --panel:#f1f3f8;
+      --text:#171923;
+      --muted:#666d7a;
+      --border:#d9dde7;
+      --accent:#4b2e83;
+      --accent-2:#6d50a8;
+      --shadow:0 14px 35px rgba(0,0,0,.08);
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family:Inter, Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    .app{
+      max-width:1280px;
+      margin:0 auto;
+      padding:24px;
+    }
+
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:16px;
+      flex-wrap:wrap;
+      margin-bottom:20px;
+    }
+
+    .eyebrow{
+      color:var(--muted);
+      font-size:.92rem;
+      margin-bottom:4px;
+    }
+
+    h1{
+      font-size:clamp(1.4rem,2.6vw,2.2rem);
+      margin:0;
+    }
+
+    .controls{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    button{
+      border:1px solid var(--border);
+      background:#fff;
+      color:var(--text);
+      padding:12px 16px;
+      border-radius:10px;
+      font-size:1rem;
+      cursor:pointer;
+    }
+
+    button.primary{
+      background:var(--accent);
+      color:#fff;
+      border-color:var(--accent);
+    }
+
+    button:hover,
+    button:focus-visible{
+      border-color:var(--accent);
+      outline:3px solid rgba(75,46,131,.16);
+      outline-offset:2px;
+    }
+
+    .slide{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      padding:clamp(22px,4vw,44px);
+    }
+
+    .slide-meta{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      border:1px solid var(--border);
+      padding:7px 12px;
+      border-radius:999px;
+      color:var(--muted);
+      font-size:.92rem;
+      background:#fff;
+    }
+
+    .hero{
+      text-align:center;
+      padding:42px 10px 38px;
+    }
+
+    .hero-label{
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-size:.82rem;
+      color:var(--muted);
+      margin-bottom:10px;
+    }
+
+    #characterName{
+      font-size:clamp(3rem,8vw,6.5rem);
+      line-height:1;
+      font-weight:800;
+      overflow-wrap:anywhere;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .panel{
+      background:var(--panel);
+      border-radius:14px;
+      padding:18px;
+      min-width:0;
+    }
+
+    .panel h2{
+      margin:0 0 4px;
+      font-size:1.05rem;
+    }
+
+    .panel p{
+      margin:0 0 12px;
+      color:var(--muted);
+      font-size:.9rem;
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:9px;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      position:relative;
+      border:1px solid var(--border);
+      background:#fff;
+      border-radius:8px;
+      padding:8px 10px;
+      font-size:.96rem;
+      cursor:help;
+      user-select:none;
+    }
+
+    .chip:focus-visible{
+      outline:3px solid rgba(75,46,131,.18);
+      outline-offset:2px;
+      border-color:var(--accent);
+    }
+
+    .tooltip{
+      visibility:hidden;
+      opacity:0;
+      pointer-events:none;
+      position:absolute;
+      left:50%;
+      bottom:calc(100% + 9px);
+      transform:translateX(-50%) translateY(4px);
+      background:#171923;
+      color:#fff;
+      padding:7px 9px;
+      border-radius:7px;
+      white-space:nowrap;
+      font-size:.82rem;
+      z-index:20;
+      transition:opacity .15s ease, transform .15s ease;
+      box-shadow:0 6px 16px rgba(0,0,0,.18);
+    }
+
+    .tooltip::after{
+      content:"";
+      position:absolute;
+      top:100%;
+      left:50%;
+      transform:translateX(-50%);
+      border:6px solid transparent;
+      border-top-color:#171923;
+    }
+
+    .chip:hover .tooltip,
+    .chip:focus .tooltip{
+      visibility:visible;
+      opacity:1;
+      transform:translateX(-50%) translateY(0);
+    }
+
+    .prompt-box{
+      margin-top:18px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:16px 18px;
+    }
+
+    .prompt-box h2{
+      margin:0 0 10px;
+      font-size:1rem;
+    }
+
+    .prompts{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:8px 18px;
+      font-size:.98rem;
+    }
+
+    .nav{
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+
+    .hint{
+      margin-top:12px;
+      text-align:center;
+      color:var(--muted);
+      font-size:.86rem;
+    }
+
+    @media (max-width:900px){
+      .grid{grid-template-columns:1fr}
+      .prompts{grid-template-columns:1fr}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      .tooltip{transition:none}
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="topbar">
+      <div>
+        <div class="eyebrow">Juego oral • 50 universos diferentes</div>
+        <h1>Una persona da la espalda. La clase describe al personaje.</h1>
+      </div>
+      <div class="controls">
+        <button id="shuffleBtn">Mezclar</button>
+        <button id="resetBtn">Reiniciar</button>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="slide-meta">
+        <span id="counter" class="pill">1 de 50</span>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span id="universe" class="pill">Marvel</span>
+          <span class="pill">No digas el nombre</span>
+        </div>
+      </div>
+
+      <div class="hero">
+        <div class="hero-label">¿Quién es?</div>
+        <div id="characterName" aria-live="polite">Spider-Man</div>
+      </div>
+
+      <div class="grid">
+        <article class="panel">
+          <h2>IMPERFECTO</h2>
+          <p>Hábitos, descripción, contexto</p>
+          <div id="impVerbs" class="chips"></div>
+        </article>
+
+        <article class="panel">
+          <h2>PRETÉRITO</h2>
+          <p>Acciones completas, eventos</p>
+          <div id="pretVerbs" class="chips"></div>
+        </article>
+
+        <article class="panel">
+          <h2>VOCABULARIO ÚTIL</h2>
+          <p>Pasa el cursor para ver la traducción al inglés.</p>
+          <div id="vocab" class="chips"></div>
+        </article>
+      </div>
+
+      <div class="prompt-box">
+        <h2>Ideas para hablar</h2>
+        <div class="prompts">
+          <div>• ¿Cómo era?</div>
+          <div>• ¿Qué hacía normalmente?</div>
+          <div>• ¿Qué podía hacer?</div>
+          <div>• ¿Qué hizo una vez?</div>
+          <div>• ¿Qué le pasó?</div>
+          <div>• ¿Con quién se enfrentó?</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="nav">
+      <button id="prevBtn">← Anterior</button>
+      <button id="toggleBtn">Ocultar nombre</button>
+      <button id="nextBtn" class="primary">Siguiente →</button>
+    </div>
+
+    <div class="hint">Teclas: ← / → para cambiar personaje • Espacio para ocultar/mostrar el nombre</div>
+  </main>
+
+  <script>
+    const cards = [
+      {
+        name:'Spider-Man', universe:'Marvel',
+        imp:['ser','tener','vivir','proteger','estudiar','trabajar','poder','llevar'],
+        pret:['luchar','salvar','descubrir','perder','conocer','vencer'],
+        vocab:[
+          ['superhéroe','superhero'],['telaraña','web / spiderweb'],['máscara','mask'],
+          ['ciudad','city'],['villano','villain'],['poderes','powers'],
+          ['secreto','secret'],['edificio','building']
+        ]
+      },
+      {
+        name:'Batman', universe:'DC',
+        imp:['ser','tener','vivir','investigar','proteger','conducir','trabajar','usar'],
+        pret:['capturar','luchar','salvar','descubrir','perseguir','derrotar'],
+        vocab:[
+          ['murciélago','bat'],['capa','cape'],['cueva','cave'],['millonario','millionaire'],
+          ['detective','detective'],['Gotham','Gotham'],['villano','villain'],['noche','night']
+        ]
+      },
+      {
+        name:'Shrek', universe:'Shrek',
+        imp:['ser','vivir','querer','estar','molestar','preferir','tener','evitar'],
+        pret:['viajar','rescatar','conocer','luchar','casarse','salvar'],
+        vocab:[
+          ['ogro','ogre'],['pantano','swamp'],['burro','donkey'],['princesa','princess'],
+          ['castillo','castle'],['dragón','dragon'],['verde','green'],['solitario','lonely / solitary']
+        ]
+      },
+      {
+        name:'Wednesday Addams', universe:'The Addams Family',
+        imp:['ser','estudiar','vestir','investigar','gustar','observar','hablar','pensar'],
+        pret:['descubrir','investigar','resolver','enfrentar','escapar','salvar'],
+        vocab:[
+          ['seria','serious'],['misterio','mystery'],['academia','academy'],['negro','black'],
+          ['monstruo','monster'],['familia','family'],['secreto','secret'],['inteligente','intelligent']
+        ]
+      },
+      {
+        name:'Darth Vader', universe:'Star Wars',
+        imp:['ser','llevar','usar','respirar','mandar','servir','buscar','tener'],
+        pret:['luchar','traicionar','enfrentar','salvar','derrotar','revelar'],
+        vocab:[
+          ['casco','helmet'],['espada láser','lightsaber'],['Fuerza','Force'],['Imperio','Empire'],
+          ['galaxia','galaxy'],['hijo','son'],['Jedi','Jedi'],['villano','villain']
+        ]
+      },
+      {
+        name:'Harry Potter', universe:'Harry Potter',
+        imp:['ser','estudiar','vivir','usar','aprender','jugar','tener','volar'],
+        pret:['descubrir','luchar','derrotar','encontrar','escapar','salvar'],
+        vocab:[
+          ['mago','wizard'],['varita','wand'],['escuela','school'],['hechizo','spell'],
+          ['escoba','broom'],['cicatriz','scar'],['amigos','friends'],['castillo','castle']
+        ]
+      },
+      {
+        name:'Katniss Everdeen', universe:'The Hunger Games',
+        imp:['vivir','cazar','proteger','usar','ser','ayudar','tener','practicar'],
+        pret:['participar','ganar','luchar','sobrevivir','salvar','desafiar'],
+        vocab:[
+          ['arco','bow'],['flecha','arrow'],['distrito','district'],['arena','arena'],
+          ['rebelión','rebellion'],['hermana','sister'],['competencia','competition'],['supervivencia','survival']
+        ]
+      },
+      {
+        name:'SpongeBob SquarePants', universe:'SpongeBob SquarePants',
+        imp:['vivir','trabajar','cocinar','reír','jugar','visitar','ser','querer'],
+        pret:['viajar','ayudar','perder','encontrar','competir','salvar'],
+        vocab:[
+          ['esponja','sponge'],['mar','sea'],['restaurante','restaurant'],['hamburguesa','burger'],
+          ['piña','pineapple'],['amigo','friend'],['vecino','neighbor'],['medusa','jellyfish']
+        ]
+      },
+      {
+        name:'Rick Sanchez', universe:'Rick and Morty',
+        imp:['ser','inventar','beber','viajar','experimentar','usar','crear','pensar'],
+        pret:['abrir','visitar','destruir','crear','escapar','enfrentar'],
+        vocab:[
+          ['científico','scientist'],['portal','portal'],['universo','universe'],['laboratorio','laboratory'],
+          ['invento','invention'],['nave','spaceship'],['dimensión','dimension'],['nieto','grandson']
+        ]
+      },
+      {
+        name:'Elsa', universe:'Frozen',
+        imp:['ser','tener','ocultar','vivir','querer','sentir','usar','temer'],
+        pret:['congelar','escapar','salvar','descubrir','volver','crear'],
+        vocab:[
+          ['hielo','ice'],['reina','queen'],['castillo','castle'],['hermana','sister'],
+          ['poder','power'],['nieve','snow'],['reino','kingdom'],['magia','magic']
+        ]
+      },
+      {
+        name:'Moana', universe:'Moana',
+        imp:['vivir','navegar','ayudar','querer','explorar','escuchar','ser','aprender'],
+        pret:['viajar','cruzar','encontrar','devolver','salvar','enfrentar'],
+        vocab:[
+          ['isla','island'],['océano','ocean'],['barco','boat'],['semidiós','demigod'],
+          ['corazón','heart'],['pueblo','village / people'],['aventura','adventure'],['mar','sea']
+        ]
+      },
+      {
+        name:'Mario', universe:'Super Mario',
+        imp:['saltar','correr','buscar','usar','viajar','tener','ayudar','entrar'],
+        pret:['rescatar','vencer','encontrar','cruzar','llegar','derrotar'],
+        vocab:[
+          ['fontanero','plumber'],['bigote','mustache'],['reino','kingdom'],['princesa','princess'],
+          ['tubería','pipe'],['hongo','mushroom'],['castillo','castle'],['tortuga','turtle']
+        ]
+      },
+      {
+        name:'Sonic the Hedgehog', universe:'Sonic',
+        imp:['correr','ser','recoger','viajar','ayudar','usar','tener','competir'],
+        pret:['vencer','escapar','salvar','enfrentar','detener','rescatar'],
+        vocab:[
+          ['erizo','hedgehog'],['rápido','fast'],['anillos','rings'],['robot','robot'],
+          ['enemigo','enemy'],['velocidad','speed'],['azul','blue'],['científico','scientist']
+        ]
+      },
+      {
+        name:'Pikachu', universe:'Pokémon',
+        imp:['ser','seguir','viajar','luchar','usar','ayudar','tener','acompañar'],
+        pret:['ganar','perder','vencer','proteger','encontrar','salvar'],
+        vocab:[
+          ['eléctrico','electric'],['amarillo','yellow'],['entrenador','trainer'],['batalla','battle'],
+          ['ataque','attack'],['cola','tail'],['criatura','creature'],['equipo','team']
+        ]
+      },
+      {
+        name:'Link', universe:'The Legend of Zelda',
+        imp:['ser','llevar','usar','viajar','proteger','buscar','tener','explorar'],
+        pret:['salvar','derrotar','encontrar','abrir','luchar','rescatar'],
+        vocab:[
+          ['espada','sword'],['escudo','shield'],['reino','kingdom'],['princesa','princess'],
+          ['héroe','hero'],['mazmorra','dungeon'],['monstruo','monster'],['aventura','adventure']
+        ]
+      },
+{"name": "Gru", "universe": "Despicable Me", "imp": ["inventar", "planear", "mandar", "cuidar", "querer", "usar"], "pret": ["robar", "adoptar", "cambiar", "ayudar", "rescatar", "devolver"], "vocab": [["villano", "villain"], ["hijas", "daughters"], ["luna", "moon"], ["invento", "invention"], ["laboratorio", "laboratory"], ["ayudantes", "helpers"], ["calvo", "bald"], ["bufanda", "scarf"]]},
+{"name": "Eleven", "universe": "Stranger Things", "imp": ["tener", "vivir", "ocultar", "buscar", "querer", "usar"], "pret": ["escapar", "conocer", "cerrar", "salvar", "luchar", "encontrar"], "vocab": [["poderes", "powers"], ["laboratorio", "laboratory"], ["amigos", "friends"], ["monstruo", "monster"], ["mente", "mind"], ["portal", "portal"], ["experimento", "experiment"], ["nariz", "nose"]]},
+{"name": "Barbie", "universe": "Barbie", "imp": ["vivir", "llevar", "bailar", "sonreír", "creer", "soñar"], "pret": ["viajar", "conocer", "descubrir", "elegir", "cambiar", "comprender"], "vocab": [["muñeca", "doll"], ["rosa", "pink"], ["vestido", "dress"], ["playa", "beach"], ["mundo", "world"], ["humana", "human"], ["zapatos", "shoes"], ["amistad", "friendship"]]},
+{"name": "Homer Simpson", "universe": "The Simpsons", "imp": ["trabajar", "comer", "dormir", "ver", "vivir", "tener"], "pret": ["olvidar", "perder", "comprar", "viajar", "ayudar", "aprender"], "vocab": [["padre", "father"], ["rosquilla", "doughnut"], ["familia", "family"], ["cerveza", "beer"], ["sofá", "couch"], ["central nuclear", "nuclear power plant"], ["vecino", "neighbor"], ["perezoso", "lazy"]]},
+{"name": "Peter Griffin", "universe": "Family Guy", "imp": ["vivir", "trabajar", "beber", "hablar", "bromear", "tener"], "pret": ["caer", "pelear", "perder", "ganar", "viajar", "romper"], "vocab": [["padre", "father"], ["familia", "family"], ["gafas", "glasses"], ["camisa", "shirt"], ["perro", "dog"], ["vecino", "neighbor"], ["broma", "joke"], ["torpe", "clumsy"]]},
+{"name": "Lightning McQueen", "universe": "Cars", "imp": ["correr", "competir", "querer", "entrenar", "ser", "viajar"], "pret": ["ganar", "perder", "conocer", "aprender", "ayudar", "llegar"], "vocab": [["coche de carreras", "race car"], ["ruedas", "wheels"], ["pista", "racetrack"], ["velocidad", "speed"], ["trofeo", "trophy"], ["rojo", "red"], ["amistad", "friendship"], ["pueblo", "town"]]},
+{"name": "Woody", "universe": "Toy Story", "imp": ["ser", "cuidar", "mandar", "llevar", "querer", "vivir"], "pret": ["conocer", "escapar", "rescatar", "aceptar", "volver", "despedirse"], "vocab": [["juguete", "toy"], ["vaquero", "cowboy"], ["sombrero", "hat"], ["botas", "boots"], ["dueño", "owner"], ["amigo", "friend"], ["celos", "jealousy"], ["placa", "badge"]]},
+{"name": "Steve", "universe": "Minecraft", "imp": ["construir", "explorar", "usar", "buscar", "cavar", "recoger"], "pret": ["encontrar", "crear", "sobrevivir", "derrotar", "entrar", "construir"], "vocab": [["bloque", "block"], ["pico", "pickaxe"], ["cueva", "cave"], ["diamante", "diamond"], ["espada", "sword"], ["aldea", "village"], ["herramienta", "tool"], ["refugio", "shelter"]]},
+{"name": "Aang", "universe": "Avatar: The Last Airbender", "imp": ["viajar", "aprender", "controlar", "ayudar", "evitar", "ser"], "pret": ["despertar", "conocer", "dominar", "derrotar", "salvar", "elegir"], "vocab": [["aire", "air"], ["agua", "water"], ["tierra", "earth"], ["fuego", "fire"], ["flecha", "arrow"], ["monje", "monk"], ["equilibrio", "balance"], ["espíritu", "spirit"]]},
+{"name": "Naruto Uzumaki", "universe": "Naruto", "imp": ["entrenar", "soñar", "comer", "querer", "luchar", "vivir"], "pret": ["aprender", "proteger", "vencer", "conocer", "prometer", "convertirse"], "vocab": [["ninja", "ninja"], ["aldea", "village"], ["zorro", "fox"], ["sueño", "dream"], ["líder", "leader"], ["amigos", "friends"], ["fideos", "noodles"], ["clon", "clone"]]},
+{"name": "Goku", "universe": "Dragon Ball", "imp": ["entrenar", "comer", "luchar", "volar", "proteger", "buscar"], "pret": ["ganar", "perder", "transformarse", "salvar", "volver", "vencer"], "vocab": [["guerrero", "warrior"], ["energía", "energy"], ["cabello", "hair"], ["planeta", "planet"], ["dragón", "dragon"], ["batalla", "battle"], ["fuerza", "strength"], ["familia", "family"]]},
+{"name": "Monkey D. Luffy", "universe": "One Piece", "imp": ["navegar", "comer", "soñar", "buscar", "ayudar", "querer"], "pret": ["reunir", "derrotar", "rescatar", "escapar", "comer", "conocer"], "vocab": [["pirata", "pirate"], ["sombrero de paja", "straw hat"], ["barco", "ship"], ["tesoro", "treasure"], ["tripulación", "crew"], ["goma", "rubber"], ["mar", "sea"], ["isla", "island"]]},
+{"name": "Sailor Moon", "universe": "Sailor Moon", "imp": ["estudiar", "dormir", "comer", "proteger", "llevar", "ser"], "pret": ["transformarse", "descubrir", "conocer", "salvar", "luchar", "vencer"], "vocab": [["luna", "moon"], ["gata", "cat"], ["magia", "magic"], ["uniforme", "uniform"], ["guerrera", "warrior"], ["amistad", "friendship"], ["princesa", "princess"], ["cabello", "hair"]]},
+{"name": "Tanjiro Kamado", "universe": "Demon Slayer", "imp": ["cuidar", "trabajar", "entrenar", "viajar", "proteger", "buscar"], "pret": ["perder", "aprender", "luchar", "salvar", "encontrar", "sobrevivir"], "vocab": [["demonio", "demon"], ["hermana", "sister"], ["espada", "sword"], ["familia", "family"], ["olfato", "sense of smell"], ["cicatriz", "scar"], ["montaña", "mountain"], ["bondadoso", "kind"]]},
+{"name": "Shinji Ikari", "universe": "Neon Genesis Evangelion", "imp": ["pilotar", "temer", "querer", "obedecer", "vivir", "sentir"], "pret": ["llegar", "conocer", "luchar", "decidir", "huir", "volver"], "vocab": [["piloto", "pilot"], ["máquina", "machine"], ["padre", "father"], ["miedo", "fear"], ["ciudad", "city"], ["soledad", "loneliness"], ["batalla", "battle"], ["adolescente", "teenager"]]},
+{"name": "Saitama", "universe": "One-Punch Man", "imp": ["entrenar", "luchar", "vivir", "buscar", "ser", "llevar"], "pret": ["vencer", "salvar", "conocer", "entrar", "ayudar", "derrotar"], "vocab": [["héroe", "hero"], ["puñetazo", "punch"], ["calvo", "bald"], ["capa", "cape"], ["guantes", "gloves"], ["fuerza", "strength"], ["monstruo", "monster"], ["aburrido", "bored"]]},
+{"name": "Jinx", "universe": "Arcane / League of Legends", "imp": ["inventar", "construir", "recordar", "temer", "usar", "querer"], "pret": ["perder", "crear", "atacar", "escapar", "cambiar", "encontrar"], "vocab": [["hermana", "sister"], ["invento", "invention"], ["explosión", "explosion"], ["trenzas", "braids"], ["azul", "blue"], ["ciudad", "city"], ["arma", "weapon"], ["conflicto", "conflict"]]},
+{"name": "Ellie", "universe": "The Last of Us", "imp": ["viajar", "aprender", "sobrevivir", "temer", "tocar", "buscar"], "pret": ["conocer", "perder", "escapar", "luchar", "descubrir", "elegir"], "vocab": [["guitarra", "guitar"], ["infección", "infection"], ["inmunidad", "immunity"], ["viaje", "journey"], ["cicatriz", "scar"], ["mochila", "backpack"], ["peligro", "danger"], ["superviviente", "survivor"]]},
+{"name": "Lara Croft", "universe": "Tomb Raider", "imp": ["explorar", "buscar", "estudiar", "viajar", "escalar", "usar"], "pret": ["descubrir", "encontrar", "escapar", "sobrevivir", "resolver", "saltar"], "vocab": [["arqueóloga", "archaeologist"], ["tumba", "tomb"], ["ruinas", "ruins"], ["tesoro", "treasure"], ["arco", "bow"], ["isla", "island"], ["acertijo", "puzzle"], ["aventura", "adventure"]]},
+{"name": "Master Chief", "universe": "Halo", "imp": ["luchar", "proteger", "usar", "obedecer", "viajar", "llevar"], "pret": ["salvar", "destruir", "descubrir", "escapar", "vencer", "detener"], "vocab": [["soldado", "soldier"], ["armadura", "armor"], ["casco", "helmet"], ["espacio", "space"], ["alienígena", "alien"], ["nave", "spaceship"], ["inteligencia artificial", "artificial intelligence"], ["misión", "mission"]]},
+{"name": "Kratos", "universe": "God of War", "imp": ["luchar", "viajar", "enseñar", "proteger", "llevar", "recordar"], "pret": ["vencer", "perder", "viajar", "conocer", "salvar", "aprender"], "vocab": [["dios", "god"], ["hacha", "axe"], ["hijo", "son"], ["barba", "beard"], ["cenizas", "ashes"], ["montaña", "mountain"], ["ira", "anger"], ["mitología", "mythology"]]},
+{"name": "Geralt of Rivia", "universe": "The Witcher", "imp": ["cazar", "viajar", "usar", "proteger", "buscar", "cobrar"], "pret": ["vencer", "encontrar", "salvar", "elegir", "luchar", "escapar"], "vocab": [["brujo", "witcher"], ["monstruo", "monster"], ["espada", "sword"], ["caballo", "horse"], ["cabello blanco", "white hair"], ["recompensa", "reward"], ["poción", "potion"], ["destino", "destiny"]]},
+{"name": "Frodo Baggins", "universe": "The Lord of the Rings", "imp": ["vivir", "llevar", "viajar", "temer", "confiar", "querer"], "pret": ["salir", "recibir", "cruzar", "resistir", "llegar", "volver"], "vocab": [["anillo", "ring"], ["montaña", "mountain"], ["viaje", "journey"], ["amigo", "friend"], ["carga", "burden"], ["pequeño", "small"], ["cueva", "cave"], ["peligro", "danger"]]},
+{"name": "Jack Sparrow", "universe": "Pirates of the Caribbean", "imp": ["navegar", "buscar", "beber", "engañar", "huir", "usar"], "pret": ["robar", "escapar", "perder", "recuperar", "luchar", "negociar"], "vocab": [["pirata", "pirate"], ["brújula", "compass"], ["barco", "ship"], ["tesoro", "treasure"], ["capitán", "captain"], ["isla", "island"], ["maldición", "curse"], ["sombrero", "hat"]]},
+{"name": "Sherlock Holmes", "universe": "Sherlock Holmes", "imp": ["investigar", "observar", "pensar", "vivir", "tocar", "usar"], "pret": ["resolver", "descubrir", "deducir", "encontrar", "seguir", "capturar"], "vocab": [["detective", "detective"], ["pista", "clue"], ["crimen", "crime"], ["misterio", "mystery"], ["lupa", "magnifying glass"], ["violín", "violin"], ["compañero", "companion"], ["sospechoso", "suspect"]]},
+{"name": "Scooby-Doo", "universe": "Scooby-Doo", "imp": ["comer", "temer", "viajar", "huir", "acompañar", "buscar"], "pret": ["descubrir", "escapar", "encontrar", "ayudar", "resolver", "desenmascarar"], "vocab": [["perro", "dog"], ["fantasma", "ghost"], ["misterio", "mystery"], ["furgoneta", "van"], ["bocadillo", "snack"], ["miedo", "fear"], ["máscara", "mask"], ["pista", "clue"]]},
+{"name": "Bugs Bunny", "universe": "Looney Tunes", "imp": ["comer", "bromear", "engañar", "correr", "hablar", "vivir"], "pret": ["escapar", "engañar", "ganar", "disfrazarse", "sorprender", "vencer"], "vocab": [["conejo", "rabbit"], ["zanahoria", "carrot"], ["orejas", "ears"], ["cazador", "hunter"], ["madriguera", "burrow"], ["broma", "joke"], ["astuto", "clever"], ["disfraz", "costume"]]},
+{"name": "Hello Kitty", "universe": "Hello Kitty", "imp": ["ayudar", "jugar", "llevar", "vivir", "estudiar", "cocinar"], "pret": ["visitar", "preparar", "conocer", "ayudar", "celebrar", "compartir"], "vocab": [["lazo", "bow"], ["blanco", "white"], ["amiga", "friend"], ["hermana gemela", "twin sister"], ["familia", "family"], ["pastel", "cake"], ["escuela", "school"], ["amable", "friendly"]]},
+{"name": "Stitch", "universe": "Lilo & Stitch", "imp": ["romper", "huir", "aprender", "querer", "imitar", "ser"], "pret": ["escapar", "conocer", "destruir", "cambiar", "salvar", "encontrar"], "vocab": [["alienígena", "alien"], ["azul", "blue"], ["familia", "family"], ["isla", "island"], ["orejas", "ears"], ["experimento", "experiment"], ["pequeño", "small"], ["abrazo", "hug"]]},
+{"name": "Po", "universe": "Kung Fu Panda", "imp": ["comer", "soñar", "trabajar", "entrenar", "admirar", "ser"], "pret": ["aprender", "vencer", "descubrir", "proteger", "cambiar", "aceptar"], "vocab": [["panda", "panda"], ["guerrero", "warrior"], ["fideos", "noodles"], ["maestro", "teacher"], ["entrenamiento", "training"], ["valle", "valley"], ["torpe", "clumsy"], ["destino", "destiny"]]},
+{"name": "Hiccup", "universe": "How to Train Your Dragon", "imp": ["inventar", "observar", "querer", "aprender", "vivir", "volar"], "pret": ["encontrar", "ayudar", "entrenar", "salvar", "cambiar", "descubrir"], "vocab": [["dragón", "dragon"], ["aldea", "village"], ["isla", "island"], ["vuelo", "flight"], ["amistad", "friendship"], ["prótesis", "prosthesis"], ["vikingo", "Viking"], ["inventor", "inventor"]]},
+{"name": "Simba", "universe": "The Lion King", "imp": ["jugar", "explorar", "querer", "vivir", "aprender", "crecer"], "pret": ["perder", "huir", "conocer", "volver", "luchar", "recuperar"], "vocab": [["león", "lion"], ["rey", "king"], ["padre", "father"], ["tío", "uncle"], ["reino", "kingdom"], ["melena", "mane"], ["cachorro", "cub"], ["responsabilidad", "responsibility"]]},
+{"name": "Mulan", "universe": "Mulan", "imp": ["vivir", "querer", "entrenar", "ocultar", "proteger", "aprender"], "pret": ["salir", "disfrazarse", "luchar", "salvar", "derrotar", "volver"], "vocab": [["soldado", "soldier"], ["familia", "family"], ["honor", "honor"], ["espada", "sword"], ["ejército", "army"], ["padre", "father"], ["valiente", "brave"], ["disfraz", "disguise"]]},
+{"name": "Miguel Rivera", "universe": "Coco", "imp": ["tocar", "cantar", "soñar", "admirar", "querer", "escuchar"], "pret": ["viajar", "conocer", "descubrir", "recordar", "volver", "cantar"], "vocab": [["guitarra", "guitar"], ["música", "music"], ["familia", "family"], ["recuerdo", "memory"], ["antepasados", "ancestors"], ["ofrenda", "offering"], ["bisabuela", "great-grandmother"], ["puente", "bridge"]]},
+{"name": "WALL-E", "universe": "WALL-E", "imp": ["recoger", "limpiar", "guardar", "mirar", "trabajar", "vivir"], "pret": ["conocer", "seguir", "viajar", "encontrar", "salvar", "volver"], "vocab": [["robot", "robot"], ["basura", "trash"], ["planta", "plant"], ["Tierra", "Earth"], ["nave", "spaceship"], ["soledad", "loneliness"], ["ruedas", "wheels"], ["amor", "love"]]}
+    ];
+
+    let order = [...cards];
+    let index = 0;
+    let hidden = false;
+
+    const characterName = document.getElementById('characterName');
+    const universe = document.getElementById('universe');
+    const counter = document.getElementById('counter');
+    const impVerbs = document.getElementById('impVerbs');
+    const pretVerbs = document.getElementById('pretVerbs');
+    const vocab = document.getElementById('vocab');
+    const toggleBtn = document.getElementById('toggleBtn');
+
+    function plainChip(text){
+      const el = document.createElement('span');
+      el.className = 'chip';
+      el.textContent = text;
+      return el;
+    }
+
+    function vocabChip(spanish, english){
+      const el = document.createElement('span');
+      el.className = 'chip';
+      el.tabIndex = 0;
+      el.setAttribute('aria-label', `${spanish}: ${english}`);
+      el.textContent = spanish;
+
+      const tip = document.createElement('span');
+      tip.className = 'tooltip';
+      tip.textContent = english;
+      el.appendChild(tip);
+      return el;
+    }
+
+    function render(){
+      const c = order[index];
+      characterName.textContent = hidden ? '???' : c.name;
+      universe.textContent = c.universe;
+      counter.textContent = `${index + 1} de ${order.length}`;
+      toggleBtn.textContent = hidden ? 'Mostrar nombre' : 'Ocultar nombre';
+
+      impVerbs.innerHTML = '';
+      pretVerbs.innerHTML = '';
+      vocab.innerHTML = '';
+
+      c.imp.forEach(v => impVerbs.appendChild(plainChip(v)));
+      c.pret.forEach(v => pretVerbs.appendChild(plainChip(v)));
+      c.vocab.forEach(([es,en]) => vocab.appendChild(vocabChip(es,en)));
+    }
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      index = (index + 1) % order.length;
+      hidden = false;
+      render();
+    });
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      index = (index - 1 + order.length) % order.length;
+      hidden = false;
+      render();
+    });
+
+    document.getElementById('toggleBtn').addEventListener('click', () => {
+      hidden = !hidden;
+      render();
+    });
+
+    document.getElementById('shuffleBtn').addEventListener('click', () => {
+      for(let i = order.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [order[i], order[j]] = [order[j], order[i]];
+      }
+      index = 0;
+      hidden = false;
+      render();
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      order = [...cards];
+      index = 0;
+      hidden = false;
+      render();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if(['INPUT','TEXTAREA','SELECT','BUTTON'].includes(document.activeElement.tagName)) return;
+
+      if(e.key === 'ArrowRight'){
+        index = (index + 1) % order.length;
+        hidden = false;
+        render();
+      } else if(e.key === 'ArrowLeft'){
+        index = (index - 1 + order.length) % order.length;
+        hidden = false;
+        render();
+      } else if(e.code === 'Space'){
+        e.preventDefault();
+        hidden = !hidden;
+        render();
+      }
+    });
+
+    render();
+  </script>
+</body>
+</html>
