@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rhetorical Analysis Term Review | ENGL 1010 International</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Newsreader:opsz,wght@6..72,500;6..72,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#201B27; --ink2:#4F4858; --line:#DCD7E3; --wash:#F4F2F7; --paper:#FFFFFF;
+  --purple:#582C83; --teal:#0B6E6E; --blue:#2C6E9E; --green:#2E7D4F; --amber:#C9971C;
+  --accent:#582C83;
+  --serif:"Newsreader", Georgia, "Times New Roman", serif;
+  --sans:"Atkinson Hyperlegible", "Segoe UI", Arial, sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--wash);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55}
+a{color:var(--purple)}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.wrap{max-width:1200px;margin:0 auto;padding:28px 20px 60px}
+header.top{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:flex-end;justify-content:space-between;margin-bottom:22px}
+header.top h1{font-family:var(--serif);font-weight:700;font-size:clamp(28px,4vw,40px);line-height:1.1;margin:0 0 6px;color:var(--purple)}
+header.top p{margin:0;max-width:62ch;color:var(--ink2)}
+.tools{display:flex;flex-wrap:wrap;gap:8px}
+.btn{border:1.5px solid var(--line);background:var(--paper);color:var(--ink);padding:8px 14px;border-radius:8px}
+.btn:hover{border-color:var(--purple)}
+.btn.primary{background:var(--purple);border-color:var(--purple);color:#fff}
+.btn[aria-pressed="true"]{background:#EEE6F6;border-color:var(--purple);color:var(--purple);font-weight:700}
+.layout{display:grid;grid-template-columns:260px 1fr;gap:24px;align-items:start}
+nav.rail{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 10px;position:sticky;top:calc(14px + env(safe-area-inset-top,0px))}
+.progress{padding:0 8px 12px;border-bottom:1px solid var(--line);margin-bottom:8px;font-size:15px;color:var(--ink2)}
+.bar{height:8px;background:var(--wash);border-radius:4px;margin-top:6px;overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:var(--green);transition:width .3s}
+.grp{margin:10px 0 4px;padding:0 8px;font-size:14px;font-weight:700}
+.rail ul{list-style:none;margin:0;padding:0}
+.rail li button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:none;padding:6px 8px;border-radius:6px;color:var(--ink)}
+.rail li button:hover{background:var(--wash)}
+.rail li button.on{background:#EEE6F6;font-weight:700}
+.dot{width:12px;height:12px;border-radius:50%;border:2px solid #B8B0C4;flex:none}
+.dot.got{background:var(--green);border-color:var(--green)}
+.dot.almost{background:var(--amber);border-color:var(--amber)}
+.dot.not{background:#fff;border-color:#B23A3A}
+.dot.typed{border-color:var(--ink2);background:linear-gradient(90deg,var(--ink2) 50%,#fff 50%)}
+.legend{font-size:13px;color:var(--ink2);padding:10px 8px 0;border-top:1px solid var(--line);margin-top:10px;display:grid;gap:4px}
+.legend span{display:flex;align-items:center;gap:8px}
+main.card{background:var(--paper);border:1px solid var(--line);border-top:6px solid var(--accent);border-radius:12px;padding:26px clamp(18px,4vw,40px) 30px}
+.meta{display:flex;justify-content:space-between;gap:12px;font-size:15px;color:var(--ink2);margin-bottom:8px}
+.meta .g{color:var(--accent);font-weight:700}
+.termrow{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;margin-bottom:18px}
+.term{font-family:var(--serif);font-size:clamp(34px,5.5vw,54px);font-weight:700;line-height:1.05;margin:0;color:var(--ink)}
+.pos{font-style:italic;color:var(--ink2)}
+.say{font-size:15px;color:var(--ink2)}
+.hidden-term{font-family:var(--serif);font-size:clamp(30px,5vw,46px);color:#B8B0C4;margin:0}
+.artifact{position:relative;border:1.5px solid var(--ink);border-radius:14px;padding:18px 20px 16px;background:#FCFBFD;margin:4px 0 6px;box-shadow:6px 6px 0 var(--accent)}
+.artifact .src{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--ink2);margin-bottom:8px}
+.artifact .src i{width:26px;height:26px;border-radius:50%;background:var(--accent);flex:none;opacity:.85}
+.artifact .body{font-family:var(--serif);font-size:20px;line-height:1.5;margin:0}
+.cueq{margin:18px 0 22px;font-weight:700;max-width:70ch}
+.your h2,.model h2{font-family:var(--serif);font-size:24px;margin:0 0 10px}
+label{display:block;font-weight:700;margin:14px 0 4px}
+.frame{font-size:15px;color:var(--ink2);margin:0 0 6px}
+textarea{width:100%;min-height:84px;font:inherit;font-size:16px;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);resize:vertical}
+textarea:focus{border-color:var(--purple);outline:none;box-shadow:0 0 0 3px #E2D5F0}
+.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px}
+.hint{font-size:14px;color:var(--ink2)}
+.model{margin-top:26px;padding-top:22px;border-top:2px dashed var(--line)}
+.model[hidden]{display:none}
+.box{border-left:5px solid var(--purple);background:#F7F3FB;padding:12px 16px;border-radius:0 8px 8px 0;margin:0 0 12px}
+.box h3{margin:0 0 4px;font-size:16px}
+.box p{margin:0}
+.box.ex{border-color:var(--teal);background:#EEF6F6}
+.box.watch{border-color:var(--amber);background:#FBF5E6}
+.box.lang{border-color:var(--green);background:#EEF6F1}
+.box.book{border-color:var(--blue);background:#EEF4F9}
+.box.book a{color:var(--blue)}
+.rate{margin-top:18px;padding:14px 16px;background:var(--wash);border-radius:10px}
+.rate p{margin:0 0 8px;font-weight:700}
+.rate .btn[aria-pressed="true"].r-got{background:#E3F2E8;border-color:var(--green);color:var(--green)}
+.rate .btn[aria-pressed="true"].r-almost{background:#FBF2DC;border-color:var(--amber);color:#7A5A08}
+.rate .btn[aria-pressed="true"].r-not{background:#F8E6E6;border-color:#B23A3A;color:#8A2A2A}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:24px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:8px;font-size:15px;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.show{opacity:1}
+.mobile-pick{display:none}
+@media (max-width:860px){
+  .layout{grid-template-columns:1fr}
+  nav.rail{display:none}
+  .mobile-pick{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+  .mobile-pick select{font:inherit;padding:8px;border-radius:8px;border:1.5px solid var(--line);flex:1;min-width:200px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{nav.rail,.tools,.nav,.actions,.rate,.mobile-pick{display:none!important}.model[hidden]{display:block!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div>
+    <h1>Rhetorical Analysis: Term Review</h1>
+    <p>Each card shows a real-world example. Read it, then write the definition in your own words and give your own example before you compare with the model. Your answers save in this browser.</p>
+  </div>
+  <div class="tools">
+    <button class="btn" id="testBtn" aria-pressed="false" title="Hide the term so you name it from the example">Name it from the example</button>
+    <button class="btn" id="shuffleBtn">Shuffle order</button>
+    <button class="btn primary" id="copyBtn">Copy my answers</button>
+    <button class="btn" id="resetBtn">Start over</button>
+  </div>
+</header>
+<div class="mobile-pick"><select id="pick" aria-label="Choose a term"></select><span class="hint" id="progM"></span></div>
+<div class="layout">
+  <nav class="rail" aria-label="Terms">
+    <div class="progress"><span id="progText">0 of 17 marked "I've got it"</span><div class="bar"><span id="progBar"></span></div></div>
+    <div id="railList"></div>
+    <div class="legend">
+      <span><i class="dot"></i>Not started</span>
+      <span><i class="dot typed"></i>Answer written</span>
+      <span><i class="dot got"></i>I've got it</span>
+      <span><i class="dot almost"></i>Almost</span>
+      <span><i class="dot not"></i>Not yet</span>
+    </div>
+  </nav>
+  <main class="card" id="card" aria-live="polite"></main>
+</div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const GROUPS = {
+  start: {name: "Basic terms", color: "#6B4A1A"},
+  sit:   {name: "Rhetorical situation", color: "#582C83"},
+  kind:  {name: "Kinds of purpose", color: "#2C6E9E"},
+  app:   {name: "Appeals", color: "#0B6E6E"},
+  tool:  {name: "Analysis tools", color: "#9A6F0E"}
+};
+const CH = {
+  rhet: ["Ch. 10, Rhetoric: Not a dirty word", "https://uen.pressbooks.pub/writingelevated/chapter/rhetoric/"],
+  sit:  ["Ch. 11, The Rhetorical Situation", "https://uen.pressbooks.pub/writingelevated/chapter/rhetorical-situation/"],
+  app:  ["Ch. 12, Rhetorical appeals", "https://uen.pressbooks.pub/writingelevated/chapter/rhetorical-appeals/"],
+  thes: ["Thesis chapter", "https://uen.pressbooks.pub/writingelevated/chapter/thesis/"]
+};
+const TERMS = [
+ {id:"rhetoric", g:"start", term:"rhetoric", pos:"noun", say:"RET-or-ik",
+  cueSrc:"Instagram reel, skincare influencer, 0:38",
+  cue:"She films in a plain bathroom, no makeup, morning light. First line: \"This is not sponsored, I just actually use it.\" She holds the bottle close to the camera and says the price out loud.",
+  cueQ:"Every choice here, from the bathroom to \"not sponsored,\" is made to move you. What is the name for that whole skill?",
+  def:"The art of effective, persuasive communication: the choices a speaker makes about words, images, sound, and structure to move a specific audience.",
+  model:"A campus email about a new phone policy opens with a story about one student, uses \"we\" instead of \"you,\" and ends with a clear deadline. Each of those is a rhetorical choice.",
+  watch:"In the news, \"rhetoric\" often means empty or dishonest talk (\"That's just rhetoric\"). In our class it is neutral. All communication has rhetoric, including your own essay.",
+  lang:"Noun: rhetoric. Adjective: rhetorical (a rhetorical choice, a rhetorical situation). Do not say \"a rhetoric\" for one choice; say \"a rhetorical choice\" or \"a move.\"",
+  ch:"rhet"},
+ {id:"artifact", g:"start", term:"artifact", pos:"noun", say:"AR-ti-fakt",
+  cueSrc:"Student topic post",
+  cue:"\"For my Rhetorical Analysis, I am analyzing a 45-second TikTok ad from Duolingo that was posted in March.\"",
+  cueQ:"What do we call the TikTok in this sentence: the specific thing being analyzed?",
+  def:"The specific text, image, video, post, or object you are analyzing. It is the object of study, not your own essay.",
+  model:"My artifact is the \"About us\" page on BeReal's website, as it appeared in September 2026.",
+  watch:"Students sometimes write \"my artifact\" when they mean their own essay or thesis. The artifact is always the thing you are studying, never the paper you are writing about it.",
+  lang:"Countable noun: an artifact, two artifacts. Common phrases: analyze the artifact, the artifact's audience. In British English you may see the spelling \"artefact.\"",
+  ch:"sit"},
+ {id:"situation", g:"sit", term:"rhetorical situation", pos:"noun phrase", say:"ri-TOR-i-kul sit-choo-AY-shun",
+  cueSrc:"University Instagram post, August",
+  cue:"A week before classes start, the university posts a photo of smiling students on the quad: \"New Wildcats, your people are here. Find your club at Week of Welcome.\" The post is aimed at first-year students who feel nervous, and it has to be short enough for a caption.",
+  cueQ:"The nervous timing, the first-year readers, the caption length, the university as speaker, the goal of getting students to show up. What is the name for all of these together?",
+  def:"The full context that shapes a text. In our course it has five parts: exigence, audience, constraints, speaker, and purpose.",
+  model:"A city's anti-vaping video on YouTube: the exigence is rising vaping among teens, the audience is 14 to 18 year olds, the constraint is a 15-second unskippable ad slot, the speaker is the health department, and the purpose is to get teens to see vaping as uncool.",
+  watch:"The rhetorical situation is context for your essay, not the body of it. Aim for one efficient paragraph. The analysis of how the text works comes after.",
+  lang:"Use \"in this rhetorical situation\" or \"the rhetorical situation of the ad.\" The five parts are often listed together, so practice the plural forms: exigences, audiences, constraints, speakers, purposes.",
+  ch:"sit"},
+ {id:"exigence", g:"sit", term:"exigence", pos:"noun", say:"EK-si-jens",
+  cueSrc:"Messaging app ad, the week after a data leak",
+  cue:"Two days after a big social media company's data leak is in the news, a rival messaging app runs ads everywhere: \"Your chats are yours. Not ours. Not anyone's.\"",
+  cueQ:"The data leak is the urgent problem that made this ad appear right now. What is that called?",
+  def:"The urgent problem or need that calls a text into existence; an imperfection marked by urgency. It can be real, or it can be constructed by the speaker.",
+  model:"A teacher posts a reminder video about plagiarism the week after several students turned in copied work. The copied work is the exigence.",
+  watch:"Ask whether the exigence is real or constructed. Ads often create urgency (\"Only 3 left!\") that did not exist before the ad. Say which kind you see and give evidence.",
+  lang:"Usually used in the singular: the exigence of the post, the exigence for the campaign. The related adjective \"exigent\" means urgent, but it is rare. Do not confuse it with \"existence.\"",
+  ch:"sit"},
+ {id:"audience", g:"sit", term:"audience", pos:"noun", say:"AW-dee-ens",
+  cueSrc:"Facebook ad for a phone plan",
+  cue:"\"Remember paying for every text message? We don't charge you for that anymore. Simple plans. Real people on the phone. No apps to figure out.\"",
+  cueQ:"\"Remember paying for texts\" and \"no apps to figure out\" show who this is written for. What is the term for that group?",
+  def:"The specific people a text is addressed to. A strong analysis never says \"everyone\"; it points to textual choices (vocabulary, references, what is explained or assumed) that reveal who is being addressed.",
+  model:"A Twitch stream sponsor read that uses gaming slang, assumes viewers know what a \"drop\" is, and offers a code for in-game currency is aimed at young gamers who already watch streams.",
+  watch:"\"The audience is people who use social media\" is too broad to analyze. Narrow it with evidence: age, values, what they already know, what they fear or want.",
+  lang:"\"Audience\" is a collective noun: the audience is (not are) in most academic writing. Useful verbs: the ad targets, addresses, appeals to, assumes its audience...",
+  ch:"sit"},
+ {id:"constraints", g:"sit", term:"constraints", pos:"noun", say:"kun-STRAYNTS",
+  cueSrc:"Bank TikTok, 0:59",
+  cue:"A bank makes a TikTok about saving money. It must stay under 60 seconds, it legally cannot promise anyone a specific return, and it has to work with the sound off because many people scroll muted.",
+  cueQ:"The time limit, the legal rule, and the sound-off problem all limit what the bank can do. What are these called?",
+  def:"Anything that limits what a speaker can do or say in a situation: genre expectations, platform limits (characters, runtime), legal or institutional rules, and what the speaker cannot say in that setting.",
+  model:"A university president's apology email has constraints: lawyers review it, it cannot admit legal fault, and it has to be readable by students, parents, and reporters at the same time.",
+  watch:"Constraints are not only weaknesses. Good analysis often shows how a speaker turns a constraint into a strength, like using captions so a muted video still lands.",
+  lang:"Usually plural when you list several: the constraints of the platform. Do not confuse with \"restraint\" (self-control). Verb form: the format constrains the speaker.",
+  ch:"sit"},
+ {id:"speaker", g:"sit", term:"speaker", pos:"noun", say:"SPEE-ker",
+  cueSrc:"YouTube video description",
+  cue:"\"As an ER nurse who works night shifts, I see what happens at 3 a.m. when people mix energy drinks and no sleep. Here is what I want you to know.\"",
+  cueQ:"Who is talking here, and what identity does she build inside the text with \"As an ER nurse\"? What is this element called?",
+  def:"Who is communicating, and the identity they construct inside the text. Look for moments where the speaker positions themselves: credentials, a uniform, a personal story, \"As a mother of three...\"",
+  model:"In a Nike ad, the speaker is the company, but it constructs its identity through an athlete's voice-over, so the message sounds like advice from a champion instead of a sales pitch.",
+  watch:"The speaker is not always the person on screen. A brand, an organization, or an anonymous account can be the speaker. Ask who is really behind the message.",
+  lang:"For written texts you can also say \"writer\" or \"author\"; for videos, \"creator.\" Keep one term consistent in your essay. A useful phrase: the speaker positions herself as...",
+  ch:"sit"},
+ {id:"purpose", g:"sit", term:"purpose", pos:"noun", say:"PUR-pus",
+  cueSrc:"Phone pop-up from a screen-time app",
+  cue:"\"You've been scrolling for 2 hours today. Your goal was 45 minutes. Take a 10-minute walk?\" [Start walk] [Ignore]",
+  cueQ:"This pop-up wants a specific audience to do a specific thing. What is the term for that goal?",
+  def:"What the text is trying to get a specific audience to do, think, or feel. Use the frame: The purpose of ___ is to ___ [audience] to ___. A purpose is audience- and action-oriented.",
+  model:"The purpose of the pop-up is to interrupt users who set a goal and push them to put the phone down for a short break.",
+  watch:"Do not confuse purpose with meaning. Meaning is what the text says (\"Too much scrolling is bad\"). Purpose is what it wants the audience to do (\"get the user to stop and walk\"). End body paragraphs on purpose.",
+  lang:"Common verbs in purpose sentences: persuade, convince, encourage, urge, push, reassure. Pattern: to persuade [someone] to [verb]. Not \"to persuade that...\"",
+  ch:"sit"},
+ {id:"forensic", g:"kind", term:"forensic", pos:"adjective", say:"fuh-REN-zik",
+  cueSrc:"Creator's apology video",
+  cue:"A YouTuber posts \"What really happened\" with screenshots and a timeline, arguing that he did not know the sponsor was a scam when he promoted it last year.",
+  cueQ:"This video argues about what happened in the past and who is responsible. What kind of purpose is that?",
+  def:"Rhetoric about the past: what happened, who is to blame, what was just or unjust. Think courtroom: accusation and defense.",
+  model:"A news thread that walks through deleted posts to prove a company knew about a product defect before the recall is forensic.",
+  watch:"In everyday English, \"forensic\" means crime-lab science (forensic evidence). In rhetoric, it means any argument about past actions and blame, no lab needed.",
+  lang:"Adjective: forensic rhetoric, a forensic argument. The three kinds are often listed together: forensic (past), epideictic (present), deliberative (future).",
+  ch:"sit"},
+ {id:"epideictic", g:"kind", term:"epideictic", pos:"adjective", say:"ep-i-DIKE-tik",
+  cueSrc:"University post on Graduation Day",
+  cue:"\"Today we celebrate 4,200 graduates: first-generation students, parents who studied at night, and international students who made Ogden home. You are what Weber State stands for.\"",
+  cueQ:"This post praises people and celebrates shared values in the present moment. What kind of purpose is that?",
+  def:"Rhetoric of the present: praise or blame, celebration or criticism, that reinforces shared values. Speeches at graduations, funerals, and award shows are classic examples.",
+  model:"A viral post calling out a celebrity for ignoring fans' safety at a concert is epideictic: it blames someone in order to state a value the audience shares.",
+  watch:"Epideictic texts can look like they have no argument because they \"just\" praise. But praise always argues for values: what we should admire and who belongs.",
+  lang:"Hard to pronounce: ep-i-DIKE-tik. It is only an adjective; there is no common noun form for students to use, so write \"epideictic rhetoric\" or \"an epideictic purpose.\"",
+  ch:"sit"},
+ {id:"deliberative", g:"kind", term:"deliberative", pos:"adjective", say:"di-LIB-er-uh-tiv",
+  cueSrc:"Op-ed headline and first line",
+  cue:"\"Utah Schools Should Ban Phones From Bell to Bell. Here is why the next school year has to start differently.\"",
+  cueQ:"This op-ed argues about what should be done in the future. What kind of purpose is that?",
+  def:"Rhetoric about the future: what should be done, what policy to choose, what action to take. Think city council meeting or a debate resolution.",
+  model:"Our debate resolution, \"Social media does more harm than good for people under 18,\" leads to deliberative arguments about what parents, schools, and platforms should do next.",
+  watch:"Most ads are deliberative because they want a future action: buy, download, sign up, vote. Many texts mix kinds, so name the primary one and justify it in one sentence.",
+  lang:"\"Deliberative\" (rhetoric about the future) is different from \"deliberate\" (on purpose). The verb \"deliberate\" (di-LIB-er-ate) means to discuss carefully before deciding.",
+  ch:"sit"},
+ {id:"logos", g:"app", term:"logos", pos:"noun", say:"LOH-gohs",
+  cueSrc:"Ad for a language-learning app",
+  cue:"\"Users who practice 15 minutes a day for 6 weeks score 30% higher on our placement test. That is less time than one episode of your favorite show.\"",
+  cueQ:"This ad persuades with numbers and a comparison that is supposed to make sense. What appeal is that?",
+  def:"An appeal to logic and reason: statistics, facts, evidence, cause-and-effect reasoning, comparisons, and clear structure.",
+  model:"A post showing a chart of teen sleep hours dropping in the same years smartphone ownership rose uses logos, even if the cause-and-effect claim is not fully proven.",
+  watch:"Numbers are not automatically logical. Ask where the data comes from and whether the reasoning connects. Logos pushed too far becomes a fallacy.",
+  lang:"Adjective: logical. Write \"a logical appeal\" or \"an appeal to logic/logos.\" The verb is make: the ad makes an appeal to logos (not does or gives).",
+  ch:"app"},
+ {id:"pathos", g:"app", term:"pathos", pos:"noun", say:"PAY-thohs",
+  cueSrc:"Public-service video, 0:30",
+  cue:"Slow piano music. A teenage girl sits alone at a lunch table, looking at her phone while other students laugh nearby. Text on screen: \"She has 2,000 followers.\"",
+  cueQ:"The music, the loneliness, and the ironic follower count are designed to make you feel something. What appeal is that?",
+  def:"An appeal to emotion: choices that make the audience feel fear, hope, sadness, pride, anger, belonging, or guilt, often through images, music, stories, and vivid words.",
+  model:"A dog shelter's Instagram post shows one dog's face with the caption \"Still waiting. Day 214.\" It uses pathos to make viewers feel sympathy and urgency.",
+  watch:"Saying \"the ad uses pathos\" is not analysis yet. Name the emotion, show the exact choice that creates it, and explain what the emotion pushes the audience to do.",
+  lang:"False friend: \"pathetic\" in English is an insult (weak, sad in a bad way). Write \"an emotional appeal\" or \"an appeal to pathos,\" never \"a pathetic appeal.\"",
+  ch:"app"},
+ {id:"ethos", g:"app", term:"ethos", pos:"noun", say:"EE-thohs",
+  cueSrc:"Toothpaste ad",
+  cue:"A woman in a white coat stands in a clinic. \"I'm Dr. Lee, a dentist for 20 years. This is the toothpaste I recommend to my own family.\"",
+  cueQ:"The white coat, the title, and the 20 years are meant to make you trust the speaker. What appeal is that?",
+  def:"An appeal to credibility and character: choices that make the audience trust the speaker, such as expertise, experience, shared values, fairness, or a respected brand or institution.",
+  model:"A study tip video where the creator shows her own transcript and says \"I failed this class once before I figured this out\" builds ethos through experience and openness.",
+  watch:"Ethos is not only expertise. Seeming relatable, fair, or \"one of us\" also builds credibility. Ethos can also be borrowed, like a celebrity endorsement.",
+  lang:"Adjective forms are tricky: \"ethical\" usually means morally right, not \"related to ethos.\" Safer: \"an appeal to credibility\" or \"builds ethos.\" Related noun: credibility.",
+  ch:"app"},
+ {id:"fallacy", g:"app", term:"fallacy", pos:"noun", say:"FAL-uh-see",
+  cueSrc:"Comment under a news post",
+  cue:"\"My grandpa never used a seatbelt and lived to 95, so seatbelt laws are pointless.\"",
+  cueQ:"One person's story is used to prove a rule for everyone. What do we call this kind of flaw in reasoning?",
+  def:"A flaw in reasoning: an appeal pushed to an unsupportable extreme, such as a hasty generalization, a false choice, a slippery slope, or an attack on the person instead of the argument.",
+  model:"\"If schools ban phones in class, next they'll ban laptops, then books, and students will learn nothing\" is a slippery slope fallacy.",
+  watch:"Not every weak argument is a fallacy. In your evaluation, name the specific move where the text overreaches and explain why it would or would not work on its intended audience.",
+  lang:"Plural: fallacies. Adjective: fallacious (formal). Common phrases: commit a fallacy, rely on a fallacy, the argument slides into fallacy.",
+  ch:"app"},
+ {id:"efficacy", g:"tool", term:"efficacy", pos:"noun", say:"EF-i-kuh-see",
+  cueSrc:"Student essay sentence",
+  cue:"\"The campaign's efficacy depends on whether teenagers believe the speaker. With parents it works; with teens, the lecturing tone probably backfires.\"",
+  cueQ:"The writer is judging how well the text achieves its purpose. What noun names that quality?",
+  def:"The degree to which something achieves its intended effect. In a rhetorical analysis, judging efficacy is the evaluation: does the text work on its intended audience?",
+  model:"The efficacy of the sponsored post is limited because the creator's audience already distrusts ads, and the hashtag #ad appears in the first line.",
+  watch:"Efficacy is judged for the intended audience, not for you. A text you dislike can still be very effective with the people it targets.",
+  lang:"Word forms: efficacy (noun), efficacious (formal adjective), effective (common adjective), effectively (adverb). Example: The ad's efficacy depended on... / The ad is effective because...",
+  ch:"rhet"},
+ {id:"thesis", g:"tool", term:"three-story thesis", pos:"noun phrase", say:"THEE-sis",
+  cueSrc:"Model thesis from the assignment sheet",
+  cue:"\"The ad uses images of isolated teenagers and slow piano music. These choices build an emotional appeal that positions the viewer as a concerned parent rather than a teenager, which lets the campaign argue for parental control software without ever making an argument young people could answer.\"",
+  cueQ:"This thesis moves from fact, to analysis, to \"so what.\" What model is this?",
+  def:"A thesis built in three levels: first story (fact: what the text does), second story (analysis: what the choices accomplish), third story (so what: why it matters, at what cost or benefit).",
+  model:"First: The BeReal ad shows unfiltered, messy photos. Second: This builds ethos by contrasting itself with polished Instagram. Third: But it sells \"authenticity\" as a product, which turns being real into another kind of performance.",
+  watch:"\"This ad uses pathos\" is only a first story. The third story is where the grade lives: what do the appeals do together, and at what cost or benefit?",
+  lang:"Linking phrases that move between stories: These choices..., This creates..., which allows..., As a result..., ultimately.... Avoid starting the thesis with \"In this essay I will.\"",
+  ch:"thes"}
+];
+
+(function(){var rank={start:0,sit:1,kind:2,app:3,tool:4};var o=TERMS.map(function(t,i){return [rank[t.g],i,t];});o.sort(function(a,b){return a[0]-b[0]||a[1]-b[1];});TERMS.length=0;o.forEach(function(x){TERMS.push(x[2]);});})();
+
+</script>
+<script>
+(function(){
+  var KEY = "engl1010-rhet-review-v1";
+  var state = {order: TERMS.map(function(t){return t.id;}), i: 0, test: false, ans: {}};
+  try { var s = JSON.parse(localStorage.getItem(KEY) || "null"); if (s && s.order && s.order.length === TERMS.length) state = s; } catch(e) {}
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {} }
+  var byId = {}; TERMS.forEach(function(t){ byId[t.id] = t; });
+  function a(id){ if (!state.ans[id]) state.ans[id] = {def:"", ex:"", guess:"", rate:"", shown:false}; return state.ans[id]; }
+  function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+  function status(id){ var x = state.ans[id]; if (!x) return ""; if (x.rate) return x.rate; if (x.def || x.ex) return "typed"; return ""; }
+  var card = document.getElementById("card");
+
+  function renderRail(){
+    var html = "";
+    Object.keys(GROUPS).forEach(function(g){
+      var items = state.order.filter(function(id){ return byId[id].g === g; });
+      if (!items.length) return;
+      html += '<div class="grp" style="color:' + GROUPS[g].color + '">' + GROUPS[g].name + '</div><ul>';
+      items.forEach(function(id){
+        var idx = state.order.indexOf(id);
+        var label = state.test && !a(id).shown ? "Term " + (idx + 1) : byId[id].term;
+        html += '<li><button data-i="' + idx + '"' + (idx === state.i ? ' class="on" aria-current="true"' : '') + '><i class="dot ' + status(id) + '"></i>' + esc(label) + '</button></li>';
+      });
+      html += '</ul>';
+    });
+    document.getElementById("railList").innerHTML = html;
+    var pick = document.getElementById("pick");
+    pick.innerHTML = state.order.map(function(id, k){
+      var t = byId[id]; var label = state.test && !a(id).shown ? "Term " + (k + 1) : t.term;
+      var mark = {got:" (got it)", almost:" (almost)", not:" (not yet)", typed:" (written)"}[status(id)] || "";
+      return '<option value="' + k + '"' + (k === state.i ? " selected" : "") + '>' + (k + 1) + '. ' + esc(label) + mark + '</option>';
+    }).join("");
+    var got = TERMS.filter(function(t){ return status(t.id) === "got"; }).length;
+    var txt = got + " of " + TERMS.length + " marked \"I've got it\"";
+    document.getElementById("progText").textContent = txt;
+    document.getElementById("progM").textContent = txt;
+    document.getElementById("progBar").style.width = (got / TERMS.length * 100) + "%";
+  }
+
+  function render(focus){
+    var id = state.order[state.i], t = byId[id], x = a(id), G = GROUPS[t.g];
+    card.style.setProperty("--accent", G.color);
+    var hideTerm = state.test && !x.shown;
+    var ch = CH[t.ch];
+    var h = '';
+    h += '<div class="meta"><span class="g">' + G.name + '</span><span>Card ' + (state.i + 1) + ' of ' + TERMS.length + '</span></div>';
+    if (hideTerm) {
+      h += '<div class="termrow"><p class="hidden-term">Which term is this?</p></div>';
+    } else {
+      h += '<div class="termrow"><h2 class="term">' + esc(t.term) + '</h2><span class="pos">' + t.pos + '</span><span class="say">Say it: ' + t.say + '</span></div>';
+    }
+    h += '<figure class="artifact" style="margin-left:0;margin-right:6px"><div class="src"><i aria-hidden="true"></i>' + esc(t.cueSrc) + '</div><blockquote class="body" style="margin:0">' + esc(t.cue) + '</blockquote></figure>';
+    h += '<p class="cueq">' + esc(t.cueQ) + '</p>';
+    h += '<section class="your"><h2>Your turn</h2>';
+    if (hideTerm) {
+      h += '<label for="f-guess">1. Name the term</label><input id="f-guess" style="width:100%;font:inherit;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px" value="' + esc(x.guess) + '" autocomplete="off">';
+    }
+    h += '<label for="f-def">' + (hideTerm ? '2. ' : '1. ') + 'Define it in your own words</label><p class="frame">Try: "' + (hideTerm ? 'This term' : cap(t.term)) + ' is / means ... In other words, ..."</p><textarea id="f-def">' + esc(x.def) + '</textarea>';
+    h += '<label for="f-ex">' + (hideTerm ? '3. ' : '2. ') + 'Give your own example</label><p class="frame">Use a text you have seen yourself, in any language. Try: "In [text], the ' + (hideTerm ? '...' : esc(t.term)) + ' is ... because ..."</p><textarea id="f-ex">' + esc(x.ex) + '</textarea>';
+    h += '<div class="actions"><button class="btn primary" id="showBtn">' + (x.shown ? 'Hide the model' : 'Compare with the model') + '</button><span class="hint" id="showHint"></span></div></section>';
+    h += '<section class="model"' + (x.shown ? '' : ' hidden') + '><h2>Model answer</h2>';
+    if (state.test) h += '<div class="box"><h3>The term</h3><p><strong>' + esc(t.term) + '</strong> (' + t.pos + ', say it: ' + t.say + ')' + (x.guess ? '. You wrote: "' + esc(x.guess) + '"' : '') + '</p></div>';
+    h += '<div class="box"><h3>Definition</h3><p>' + esc(t.def) + '</p></div>';
+    h += '<div class="box ex"><h3>Another example</h3><p>' + esc(t.model) + '</p></div>';
+    h += '<div class="box watch"><h3>Watch out</h3><p>' + esc(t.watch) + '</p></div>';
+    h += '<div class="box lang"><h3>Language note</h3><p>' + esc(t.lang) + '</p></div>';
+    h += '<div class="box book"><h3>From the textbook</h3><p>Read more in <em>Writing Elevated</em>, <a href="' + ch[1] + '" target="_blank" rel="noopener">' + esc(ch[0]) + '</a>.</p></div>';
+    h += '<div class="rate"><p>How well do you know this term now?</p><div class="tools">';
+    [["got","I've got it"],["almost","Almost"],["not","Not yet"]].forEach(function(r){
+      h += '<button class="btn r-' + r[0] + '" data-rate="' + r[0] + '" aria-pressed="' + (x.rate === r[0]) + '">' + r[1] + '</button>';
+    });
+    h += '</div></div></section>';
+    h += '<div class="nav"><button class="btn" id="prevBtn"' + (state.i === 0 ? ' disabled' : '') + '>Previous card</button><button class="btn" id="nextBtn">' + (state.i === TERMS.length - 1 ? 'Back to first card' : 'Next card') + '</button></div>';
+    card.innerHTML = h;
+    bind(id);
+    renderRail();
+    save();
+    if (focus) { card.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start"}); }
+  }
+  function cap(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  function bind(id){
+    var x = a(id);
+    ["def","ex","guess"].forEach(function(k){
+      var el = document.getElementById("f-" + k); if (!el) return;
+      el.addEventListener("input", function(){ x[k] = el.value; save(); renderRail(); });
+    });
+    document.getElementById("showBtn").addEventListener("click", function(){
+      if (!x.shown && !x.def.trim() && !x.ex.trim()) {
+        document.getElementById("showHint").textContent = "Write at least a definition or an example first. Click again if you really want to skip.";
+        if (!this.dataset.warned) { this.dataset.warned = "1"; return; }
+      }
+      x.shown = !x.shown; render(false);
+      if (x.shown) { var m = card.querySelector(".model"); if (m) m.scrollIntoView({behavior:"smooth", block:"start"}); }
+    });
+    card.querySelectorAll("[data-rate]").forEach(function(b){
+      b.addEventListener("click", function(){ x.rate = x.rate === b.dataset.rate ? "" : b.dataset.rate; render(false); });
+    });
+    document.getElementById("prevBtn").addEventListener("click", function(){ if (state.i > 0) { state.i--; render(true); } });
+    document.getElementById("nextBtn").addEventListener("click", function(){ state.i = (state.i + 1) % TERMS.length; render(true); });
+  }
+
+  document.getElementById("railList").addEventListener("click", function(e){
+    var b = e.target.closest("button[data-i]"); if (!b) return; state.i = +b.dataset.i; render(true);
+  });
+  document.getElementById("pick").addEventListener("change", function(e){ state.i = +e.target.value; render(true); });
+  var testBtn = document.getElementById("testBtn");
+  testBtn.setAttribute("aria-pressed", state.test);
+  testBtn.addEventListener("click", function(){
+    state.test = !state.test; testBtn.setAttribute("aria-pressed", state.test);
+    if (state.test) TERMS.forEach(function(t){ var x = a(t.id); if (!x.rate) x.shown = false; });
+    render(false); toast(state.test ? "Terms hidden. Name each one from the example." : "Terms showing again.");
+  });
+  document.getElementById("shuffleBtn").addEventListener("click", function(){
+    var o = state.order.slice();
+    for (var k = o.length - 1; k > 0; k--) { var j = Math.floor(Math.random() * (k + 1)); var tmp = o[k]; o[k] = o[j]; o[j] = tmp; }
+    state.order = o; state.i = 0; render(true); toast("Cards shuffled. Your answers are kept.");
+  });
+  document.getElementById("resetBtn").addEventListener("click", function(){
+    if (!confirm("Clear all your answers and ratings on this device?")) return;
+    state = {order: TERMS.map(function(t){return t.id;}), i: 0, test: false, ans: {}};
+    testBtn.setAttribute("aria-pressed", "false"); render(true); toast("Cleared. Starting over.");
+  });
+  document.getElementById("copyBtn").addEventListener("click", function(){
+    var out = ["Rhetorical Analysis Term Review", ""];
+    TERMS.forEach(function(t){
+      var x = state.ans[t.id] || {};
+      var r = {got:"I've got it", almost:"Almost", not:"Not yet"}[x.rate] || "Not rated";
+      out.push(t.term.toUpperCase() + "  (" + r + ")");
+      out.push("My definition: " + ((x.def || "").trim() || "[blank]"));
+      out.push("My example: " + ((x.ex || "").trim() || "[blank]"));
+      out.push("");
+    });
+    var text = out.join("\n");
+    function done(){ toast("Copied. Paste it into your Google Doc."); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function(){ fallback(text); });
+    } else { fallback(text); }
+    function fallback(t){ var ta = document.createElement("textarea"); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); done(); } catch(e) { toast("Copy failed. Select and copy manually."); } ta.remove(); }
+  });
+  var tt;
+  function toast(m){ var el = document.getElementById("toast"); el.textContent = m; el.classList.add("show"); clearTimeout(tt); tt = setTimeout(function(){ el.classList.remove("show"); }, 2400); }
+  render(false);
+})();
+</script>
+</body>
+</html>
