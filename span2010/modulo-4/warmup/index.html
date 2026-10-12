@@ -30,18 +30,38 @@ const slides=[
 const audioPeople=[{"name": "Luisa", "text": "Hola, soy Luisa. Trabajo en una clínica. Mis pacientes tienen patas, pelo y, a veces, una cola. Examino a los animales y ayudo a sus dueños. ¿A qué me dedico?", "answer": "Luisa es veterinaria.", "question": "¿Qué dos pistas escuchaste? ¿Te gustaría trabajar con animales?"}, {"name": "Jorge", "text": "Hola, soy Jorge. Trabajo en una escuela. Preparo clases, explico ideas y respondo a muchas preguntas. Mis estudiantes aprenden conmigo todos los días. ¿A qué me dedico?", "answer": "Jorge es maestro.", "question": "¿Qué hace Jorge? ¿Qué cualidad necesita una persona que hace este trabajo?"}, {"name": "Álvaro", "text": "Hola, soy Álvaro. Cuando una persona llama por una emergencia, salgo con mi equipo. Llevo un casco y ropa especial. Apago incendios y ayudo a las personas que están en peligro. ¿A qué me dedico?", "answer": "Álvaro es bombero.", "question": "¿Qué palabras te ayudaron? ¿Es más peligroso que el trabajo de maestro?"}, {"name": "Dalia", "text": "Hola, soy Dalia. Trabajo en un restaurante. Antes de abrir, corto verduras y preparo los ingredientes. Después preparo platos para los clientes. Me gusta inventar recetas nuevas. ¿A qué me dedico?", "answer": "Dalia es cocinera.", "question": "¿Qué tareas escuchaste? ¿Es tan creativo como el trabajo de diseñador?"}];
 const listeningSlides=audioPeople.map((p,i)=>({section:'Adivina por la voz',title:`¿A qué se dedica <em>${p.name}?</em>`,audio:p.text,person:i,body:'<p class="lead">Escucha. Adivina la profesión. Explica qué pista te ayudó.</p><div class="listen-box"><span class="listening-symbol" aria-hidden="true">🎧</span><p class="hint">Primero, solo la voz. Puedes escuchar más de una vez.</p><div class="voice-controls"><label for="voiceChoice">Voz en español</label><select id="voiceChoice" aria-label="Voz en español"></select><button class="quiet" id="previewVoice">Probar voz</button></div><button class="quiet" id="replay">▶ Escuchar otra vez</button><button class="quiet" id="stopAudio">■ Detener</button><span id="audioStatus" class="hint" role="status"></span><div class="skip-audio"><button class="quiet" id="skipOne">Saltar esta actividad →</button><button class="quiet" id="skipAll">Continuar sin audio →</button></div></div>',steps:['<span class="label">Tu hipótesis</span>Creo que es… porque escuché…',`<span class="label">La profesión</span><strong>${p.answer}</strong>`, `<span class="label">Escucha y comprueba</span>${p.text}`+talk(p.question)]}));
 slides.splice(1,1,...listeningSlides);
-const synth=window.speechSynthesis;
-let voices=[],activeAudio=null,voiceChoices={};
+let synth=null;try{synth=window.speechSynthesis}catch{}
+let voices=[],activeAudio=null,voiceChoices={},speechTimer=null,startWatchdog=null,voiceWaitTimer=null,playRequest=0;
 try{voiceChoices=JSON.parse(localStorage.getItem('m4-warmup-voices-v1'))||{}}catch{}
 const preferredNames=[['Luisa','Paulina','Monica','Mónica','Dalia','Elena'],['Jorge','Alonso','Juan','Diego'],['Alvaro','Álvaro','Andres','Andrés','Carlos'],['Dalia','Elvira','Salome','Salomé','Monica','Mónica']];
 function key(v){return v.voiceURI||v.name+'|'+v.lang}
 function chosenVoice(person){const saved=voices.find(v=>key(v)===voiceChoices[person]);if(saved)return saved;const remote=voices.filter(v=>!v.localService),pool=remote.length?remote:voices;return pool.find(v=>preferredNames[person].some(n=>v.name.toLowerCase().includes(n.toLowerCase())))||pool[0]}
 function status(message){const el=document.getElementById('audioStatus');if(el)el.textContent=message}
-function stopAudio(){activeAudio=null;if(synth)synth.cancel()}
-function playText(text){stopAudio();if(!synth){status('Este navegador no ofrece lectura de voz. Puedes saltar esta actividad.');return}const s=slides[index],voice=chosenVoice(s.person);if(!voice){status('Esperando las voces de Chrome. Prueba otra vez o continúa sin audio.');loadVoices();return}const utterance=new SpeechSynthesisUtterance(text);utterance.voice=voice;utterance.lang=voice.lang;utterance.rate=0.9;activeAudio=utterance;utterance.onstart=()=>{if(activeAudio===utterance)status('Escuchando…')};utterance.onend=()=>{if(activeAudio===utterance){activeAudio=null;status('Puedes escuchar otra vez o avanzar.')}};utterance.onerror=e=>{if(activeAudio===utterance){activeAudio=null;status(e.error==='canceled'||e.error==='interrupted'?'Audio detenido.':'No se pudo reproducir. Prueba otra voz o continúa sin audio.')}};synth.speak(utterance)}
+function stopAudio(){playRequest++;clearTimeout(speechTimer);clearTimeout(startWatchdog);clearTimeout(voiceWaitTimer);activeAudio=null;if(synth){try{synth.cancel()}catch{}}}
+function playText(text){
+ stopAudio();const request=playRequest,person=slides[index].person;
+ if(!synth||typeof window.SpeechSynthesisUtterance!=='function'){status('La lectura de voz no está disponible aquí. Abre esta página en Google Chrome o continúa sin audio.');return}
+ status('Preparando la voz…');const began=Date.now();
+ function startWhenReady(){
+  if(request!==playRequest)return;
+  loadVoices();const voice=chosenVoice(person);
+  if(!voice){if(Date.now()-began<4000){status('Cargando las voces de Chrome…');voiceWaitTimer=setTimeout(startWhenReady,250)}else status('No se cargaron voces en español. Abre la página en Google Chrome, prueba otra vez o continúa sin audio.');return}
+  let utterance;try{utterance=new SpeechSynthesisUtterance(text);utterance.voice=voice;utterance.lang=voice.lang;utterance.rate=0.9;utterance.volume=1}catch{status('No se pudo configurar esta voz. Selecciona otra y pulsa «Probar voz».');return}
+  activeAudio=utterance;let started=false;
+  utterance.onstart=()=>{if(activeAudio===utterance){started=true;clearTimeout(startWatchdog);status('Reproduciendo · '+voice.name)}};
+  utterance.onend=()=>{if(activeAudio===utterance){clearTimeout(startWatchdog);activeAudio=null;status('Audio terminado. Puedes repetirlo o avanzar.')}};
+  utterance.onerror=e=>{if(activeAudio===utterance){clearTimeout(startWatchdog);activeAudio=null;status('Esta voz no pudo reproducirse ('+(e.error||'error')+'). Selecciona otra voz y pulsa «Probar voz», o continúa sin audio.')}};
+  // Allow Chrome to finish cancelling its previous speech before starting another.
+  speechTimer=setTimeout(()=>{
+   if(request!==playRequest)return;
+   try{synth.resume();synth.speak(utterance);status('Iniciando · '+voice.name);if(!started&&activeAudio===utterance)startWatchdog=setTimeout(()=>{if(request===playRequest&&activeAudio===utterance&&!started){stopAudio();status('La voz no empezó. Prueba otra voz. Si estás en el navegador de Codex, abre este enlace en Google Chrome. También puedes continuar sin audio.')}},6000)}catch{stopAudio();status('El navegador no pudo iniciar el audio. Abre la página en Google Chrome o continúa sin audio.')}
+  },150);
+ }
+ startWhenReady();
+}
 function playClue(){if(slides[index].audio)playText(slides[index].audio)}
 function loadVoices(){voices=synth?synth.getVoices().filter(v=>/^es(?:-|_)/i.test(v.lang)).sort((a,b)=>Number(a.localService)-Number(b.localService)||a.name.localeCompare(b.name)):[];const select=document.getElementById('voiceChoice');if(!select)return;select.replaceChildren();if(!voices.length){select.add(new Option('Sin voces en español disponibles',''));select.disabled=true;status('Esperando voces en español. Puedes continuar sin audio.');return}select.disabled=false;voices.forEach(v=>select.add(new Option(v.name+' · '+v.lang+(v.localService?' · local':' · en línea'),key(v))));const selected=chosenVoice(slides[index].person);select.value=key(selected);if(!activeAudio)status(voices.some(v=>!v.localService)?'Las voces en línea necesitan conexión a internet.':'Chrome ofrece voces locales en este equipo. Prueba la voz antes de escuchar.');select.onchange=()=>{stopAudio();voiceChoices[slides[index].person]=select.value;try{localStorage.setItem('m4-warmup-voices-v1',JSON.stringify(voiceChoices))}catch{}status('Voz elegida. Pulsa «Probar voz» o escucha la pista.')}}
-if(synth)synth.addEventListener('voiceschanged',loadVoices);
+if(synth){if(typeof synth.addEventListener==='function')synth.addEventListener('voiceschanged',loadVoices);else synth.onvoiceschanged=loadVoices;loadVoices()}
 function skipAudio(all){stopAudio();index=all?5:Math.min(index+1,slides.length-1);step=0;render();window.scrollTo(0,0)}
 let index=0,step=0;
 const stage=document.getElementById('stage'),jump=document.getElementById('jump');
