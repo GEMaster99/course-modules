@@ -195,6 +195,14 @@
 audio{width:min(100%,580px)}details{margin:16px 0}summary{cursor:pointer;font-weight:600}select{padding:6px;background:var(--bg-elevated);color:var(--ink);border:1px solid var(--line-soft)}.conj-table{overflow-x:auto}.listen-work[hidden]{display:none} @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 .flashcard{aspect-ratio:auto;height:215px}.card-face{gap:10px}.card-word{overflow-wrap:anywhere}.card-ex{font-size:14px}.card-back .card-label{color:inherit}.card-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}.conj-table table{min-width:560px}.conj-table td:first-child{width:auto}.grammar-block li{margin:8px 0 8px 22px}button:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid var(--secondary);outline-offset:4px}.story{font-family:'Fraunces',serif;font-size:20px!important;line-height:1.8}.story .scene{background:var(--accent-pale);border-bottom:2px solid var(--accent)}.story .event{border-bottom:3px solid var(--secondary)}.culture-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}.culture-grid article{padding:20px;border:1px solid var(--line-soft);border-radius:10px;background:var(--bg)}.culture-grid h3{font-size:23px}.lesson-note{margin:18px 0;color:var(--ink-soft);font-size:14px}.tools{display:flex;gap:10px}.listen-prompt{margin:16px 0;font-size:20px}.listen-work[hidden]{display:none}.feedback{min-height:30px}.practice-q h3{font:inherit}.practice-options button{font-family:'Manrope',sans-serif;font-style:normal} @media(max-width:500px){.module-title{font-size:44px!important}.conj-table td{padding:10px}.section-head{flex-wrap:wrap}.card-grid{grid-template-columns:1fr 1fr;gap:10px}.flashcard{height:240px}.card-face{padding:14px}.card-word,.card-back .card-word{font-size:19px}.card-ex{font-size:13px}.brand-text{font-size:9px}.grammar-block{padding:18px}} @media(max-width:350px){.card-grid{grid-template-columns:1fr}} 
+
+  .header-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .fs-toggle { background: var(--bg-elevated); border: 1.5px solid var(--line); color: var(--ink); width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease, background 0.2s ease; flex-shrink: 0; }
+  .fs-toggle:hover { transform: scale(1.05); background: var(--accent-pale); }
+  .fs-toggle svg { width: 20px; height: 20px; }
+  .fs-toggle .fs-exit { display: none; }
+  .fs-toggle.is-full .fs-enter { display: none; } .fs-toggle.is-full .fs-exit { display: block; }
+  .fs-toggle[hidden] { display: none; }
 </style></head><body>
 <div class="container">
 <header>
@@ -203,10 +211,16 @@ audio{width:min(100%,580px)}details{margin:16px 0}summary{cursor:pointer;font-we
       <div class="brand-mark">W</div>
       <div class="brand-text"><strong>SPAN 2010</strong> · Third Semester Spanish<br>Weber State University</div>
     </div>
+    <div class="header-actions">
+    <button class="fs-toggle" id="fsToggle" type="button" aria-label="Enter fullscreen" title="Fullscreen">
+        <svg class="fs-enter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"/></svg>
+        <svg class="fs-exit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h5V3M21 8h-5V3M3 16h5v5M21 16h-5v5"/></svg>
+      </button>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
       <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
     </button>
+    </div>
   </div>
   <div class="title-block">
     <div class="eyebrow">Módulo 6 · Module Six</div>
@@ -345,4 +359,28 @@ exercises.forEach(buildExercise);
 const tabs=[...document.querySelectorAll('.tab-btn')];
 function syncTabs(){tabs.forEach(b=>{const active=b.classList.contains('active');b.setAttribute('aria-selected',active);b.setAttribute('aria-controls','panel-'+b.dataset.tab);b.tabIndex=active?0:-1;document.getElementById('panel-'+b.dataset.tab).setAttribute('role','tabpanel');});}
 tabs.forEach((b,i)=>{b.addEventListener('click',syncTabs);b.addEventListener('keydown',e=>{let n;if(e.key==='ArrowRight')n=(i+1)%tabs.length;else if(e.key==='ArrowLeft')n=(i+tabs.length-1)%tabs.length;else if(e.key==='Home')n=0;else if(e.key==='End')n=tabs.length-1;else return;e.preventDefault();tabs[n].click();tabs[n].focus();});});syncTabs();
-</script></body></html>
+</script><script>
+(function () {
+  var btn = document.getElementById('fsToggle');
+  if (!btn) return;
+  var root = document.documentElement;
+  var canFull = !!(root.requestFullscreen || root.webkitRequestFullscreen);
+  if (!canFull) { btn.hidden = true; return; }
+  function isFull() { return !!(document.fullscreenElement || document.webkitFullscreenElement); }
+  function sync() {
+    var on = isFull();
+    btn.classList.toggle('is-full', on);
+    btn.setAttribute('aria-label', on ? 'Exit fullscreen' : 'Enter fullscreen');
+    btn.title = on ? 'Exit fullscreen' : 'Fullscreen';
+  }
+  btn.addEventListener('click', function () {
+    try {
+      if (isFull()) { (document.exitFullscreen || document.webkitExitFullscreen).call(document); }
+      else { (root.requestFullscreen || root.webkitRequestFullscreen).call(root); }
+    } catch (e) {}
+  });
+  document.addEventListener('fullscreenchange', sync);
+  document.addEventListener('webkitfullscreenchange', sync);
+})();
+</script>
+</body></html>

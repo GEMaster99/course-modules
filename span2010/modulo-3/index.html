@@ -154,6 +154,14 @@
     .tab-btn .tab-num { display: none; }
     .conj-table td:first-child { width: 34%; }
   }
+
+  .header-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .fs-toggle { background: var(--bg-elevated); border: 1.5px solid var(--line); color: var(--ink); width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease, background 0.2s ease; flex-shrink: 0; }
+  .fs-toggle:hover { transform: scale(1.05); background: var(--accent-pale); }
+  .fs-toggle svg { width: 20px; height: 20px; }
+  .fs-toggle .fs-exit { display: none; }
+  .fs-toggle.is-full .fs-enter { display: none; } .fs-toggle.is-full .fs-exit { display: block; }
+  .fs-toggle[hidden] { display: none; }
 </style>
 </head>
 <body>
@@ -164,10 +172,16 @@
       <div class="brand-mark">W</div>
       <div class="brand-text"><strong>SPAN 2010</strong> · Third Semester Spanish<br>Weber State University</div>
     </div>
+    <div class="header-actions">
+    <button class="fs-toggle" id="fsToggle" type="button" aria-label="Enter fullscreen" title="Fullscreen">
+        <svg class="fs-enter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"/></svg>
+        <svg class="fs-exit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h5V3M21 8h-5V3M3 16h5v5M21 16h-5v5"/></svg>
+      </button>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
       <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
     </button>
+    </div>
   </div>
   <div class="title-block">
     <div class="eyebrow">Módulo 3 · Module Three</div>
@@ -620,6 +634,30 @@ buildExercise({
   doneId:'indefDone', scoreId:'indefScore', resetId:'indefReset',
   getAudio: q => q.audio, getCorrectIndex: q => q.correct
 });
+</script>
+<script>
+(function () {
+  var btn = document.getElementById('fsToggle');
+  if (!btn) return;
+  var root = document.documentElement;
+  var canFull = !!(root.requestFullscreen || root.webkitRequestFullscreen);
+  if (!canFull) { btn.hidden = true; return; }
+  function isFull() { return !!(document.fullscreenElement || document.webkitFullscreenElement); }
+  function sync() {
+    var on = isFull();
+    btn.classList.toggle('is-full', on);
+    btn.setAttribute('aria-label', on ? 'Exit fullscreen' : 'Enter fullscreen');
+    btn.title = on ? 'Exit fullscreen' : 'Fullscreen';
+  }
+  btn.addEventListener('click', function () {
+    try {
+      if (isFull()) { (document.exitFullscreen || document.webkitExitFullscreen).call(document); }
+      else { (root.requestFullscreen || root.webkitRequestFullscreen).call(root); }
+    } catch (e) {}
+  });
+  document.addEventListener('fullscreenchange', sync);
+  document.addEventListener('webkitfullscreenchange', sync);
+})();
 </script>
 </body>
 </html>
