@@ -41,6 +41,7 @@
     message.textContent = 'Open the direct activity link provided by your instructor in Canvas.';
     return;
   }
+  button.dataset.fullscreenAvailable = String(Boolean(document.fullscreenEnabled || document.webkitFullscreenEnabled));
   const isFullscreen = () => Boolean(document.fullscreenElement || document.webkitFullscreenElement);
   function sync() {
     const active = isFullscreen();
@@ -61,7 +62,8 @@
         await enter.call(document.documentElement);
       }
       sync();
-    } catch {
+    } catch (error) {
+      button.dataset.fullscreenError = error.name + ': ' + error.message;
       message.textContent = 'Fullscreen is unavailable in this browser or embed. Use the open-in-new-tab button above.';
     }
   });
