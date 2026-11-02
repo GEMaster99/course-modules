@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 7 — Si cuidamos la tierra, la tierra nos cuidará · SPAN 2010</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400;9..144,500;9..144,700;9..144,900&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><style>  :root {
+    --bg: #F4EEE2; --bg-elevated: #FBF6EB;
+    --ink: #1F1A14; --ink-soft: #4F443A; --ink-faint: #8A7E70;
+    --accent: #B84A1F; --accent-soft: #EBC7B0; --accent-pale: #F5DDC9;
+    --secondary: #2A4D5E; --wsu: #492365;
+    --line: #1F1A14; --line-soft: #D8CFBC;
+    --correct: #2D6A4F; --incorrect: #B84A1F;
+    --shadow-paper: 0 1px 0 #D8CFBC, 0 8px 24px -12px rgba(31,26,20,0.15);
+    --shadow-lift: 0 2px 0 #1F1A14, 0 10px 30px -8px rgba(31,26,20,0.25);
+  }
+  [data-theme="dark"] {
+    --bg: #16120F; --bg-elevated: #1F1A16;
+    --ink: #F0E8D8; --ink-soft: #B5AB9A; --ink-faint: #7A7163;
+    --accent: #E07856; --accent-soft: #6B3525; --accent-pale: #3D2017;
+    --secondary: #6BA2B5; --wsu: #B292C9;
+    --line: #F0E8D8; --line-soft: #3A312A;
+    --correct: #6BB48E; --incorrect: #E07856;
+    --shadow-paper: 0 1px 0 #3A312A, 0 8px 24px -12px rgba(0,0,0,0.4);
+    --shadow-lift: 0 2px 0 #F0E8D8, 0 10px 30px -8px rgba(0,0,0,0.5);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--ink); font-family: 'Manrope', system-ui, sans-serif; font-size: 16px; line-height: 1.6; min-height: 100vh; transition: background-color 0.3s ease, color 0.3s ease; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.4; background-image: radial-gradient(circle at 20% 30%, var(--line-soft) 0.5px, transparent 0.5px), radial-gradient(circle at 80% 70%, var(--line-soft) 0.5px, transparent 0.5px); background-size: 40px 40px, 60px 60px; }
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 clamp(16px,4vw,48px); position: relative; z-index: 1; }
+  header { padding: 32px 0 24px; border-bottom: 1px solid var(--line-soft); }
+  .header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand-mark { width: 44px; height: 44px; border-radius: 50%; background: var(--wsu); color: #FBF6EB; display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-weight: 900; font-size: 18px; font-variation-settings: "SOFT" 50; flex-shrink: 0; }
+  .brand-text { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-soft); line-height: 1.4; }
+  .brand-text strong { color: var(--ink); font-weight: 500; }
+  .theme-toggle { background: var(--bg-elevated); border: 1.5px solid var(--line); color: var(--ink); width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease, background 0.2s ease; flex-shrink: 0; }
+  .theme-toggle:hover { transform: rotate(15deg) scale(1.05); background: var(--accent-pale); }
+  .theme-toggle svg { width: 20px; height: 20px; }
+  .theme-toggle .sun { display: none; } .theme-toggle .moon { display: block; }
+  [data-theme="dark"] .theme-toggle .sun { display: block; } [data-theme="dark"] .theme-toggle .moon { display: none; }
+  .title-block { padding: 36px 0 28px; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+  .eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--line-soft); max-width: 120px; }
+  h1.module-title { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 144, "SOFT" 30; font-size: clamp(40px,7vw,84px); line-height: 0.95; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 18px; }
+  h1.module-title em { font-style: italic; font-weight: 400; color: var(--accent); font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; }
+  .module-subtitle { font-size: 17px; color: var(--ink-soft); max-width: 640px; line-height: 1.5; }
+  .tabs { display: flex; margin: 32px 0 8px; border-bottom: 2px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn { background: none; border: none; color: var(--ink-soft); font-family: 'Fraunces', serif; font-weight: 500; font-size: 19px; font-variation-settings: "opsz" 24, "SOFT" 20; padding: 14px 24px; cursor: pointer; position: relative; transition: color 0.2s ease; white-space: nowrap; display: flex; align-items: center; gap: 10px; }
+  .tab-btn .tab-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); font-weight: 400; }
+  .tab-btn:hover { color: var(--ink); } .tab-btn.active { color: var(--ink); }
+  .tab-btn.active .tab-num { color: var(--accent); }
+  .tab-btn.active::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 4px; background: var(--accent); }
+  main { padding: 40px 0 80px; }
+  .panel { display: none; animation: fadeIn 0.4s ease; } .panel.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+  .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px dashed var(--line-soft); }
+  .section-head h2 { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 72, "SOFT" 40; font-size: clamp(28px,4vw,40px); letter-spacing: -0.01em; line-height: 1.1; }
+  .section-head .marker { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
+  .pill-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .pill { background: var(--bg-elevated); border: 1.5px solid var(--line-soft); color: var(--ink-soft); padding: 8px 18px; border-radius: 24px; font-family: 'Manrope', sans-serif; font-weight: 500; font-size: 14px; cursor: pointer; transition: all 0.2s ease; }
+  .pill:hover { border-color: var(--line); color: var(--ink); } .pill.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .sub-panel { display: none; } .sub-panel.active { display: block; animation: fadeIn 0.3s ease; }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px,1fr)); gap: 14px; }
+  .flashcard { aspect-ratio: 4/3; perspective: 1000px; cursor: pointer; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); transform-style: preserve-3d; }
+  .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+  .card-face { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; border: 1.5px solid var(--line); box-shadow: var(--shadow-paper); }
+  .card-front { background: var(--bg-elevated); }
+  .card-back { background: var(--ink); color: var(--bg); transform: rotateY(180deg); border-color: var(--ink); }
+  .card-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-faint); }
+  .card-back .card-label { opacity: 0.7; }
+  .card-word { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 72, "SOFT" 50; font-size: 22px; line-height: 1.05; letter-spacing: -0.01em; }
+  .card-word em { font-style: italic; color: var(--accent); font-variation-settings: "opsz" 72, "SOFT" 100, "WONK" 1; }
+  .card-back .card-word em { color: var(--accent-soft); }
+  .card-hint { font-size: 11px; color: var(--ink-faint); font-style: italic; }
+  /* SPAN 2010 flashcard additions: English front, Spanish back with example, flip-all toolbar */
+  .flash-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+  .flash-count { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); }
+  .flip-all-btn { background: var(--ink); color: var(--bg); border: 1.5px solid var(--ink); border-radius: 10px; padding: 9px 18px; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 13px; cursor: pointer; transition: transform 0.15s ease; }
+  .flip-all-btn:hover { transform: translate(-1px,-1px); box-shadow: 0 2px 0 var(--accent); }
+  .flashcard:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 14px; }
+  .card-back .card-word { font-size: 20px; }
+  .card-ex { font-family: 'Fraunces', serif; font-style: italic; font-size: 13px; line-height: 1.3; color: var(--accent-soft); }
+  .card-back .card-hint { color: var(--accent-soft); }
+  .expr-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(240px,1fr)); gap: 12px; }
+  .expr-card { background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px; padding: 14px 18px; transition: transform 0.15s ease; }
+  .expr-card:hover { transform: translate(-1px,-1px); box-shadow: var(--shadow-lift); }
+  .expr-es { font-family: 'Fraunces', serif; font-weight: 500; font-style: italic; font-size: 18px; color: var(--ink); margin-bottom: 4px; }
+  .expr-en { color: var(--ink-soft); font-size: 13px; }
+  .grammar-block { background: var(--bg-elevated); border: 1.5px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 28px; box-shadow: var(--shadow-paper); }
+  .grammar-block h3 { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 48, "SOFT" 30; font-size: 26px; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .grammar-block .lede { color: var(--ink-soft); font-size: 15px; margin-bottom: 20px; max-width: 640px; }
+  .pronoun-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .pronoun-row { display: grid; grid-template-columns: 170px 1fr; gap: 12px; padding: 10px 14px; border-radius: 8px; background: var(--bg); border: 1px solid var(--line-soft); align-items: center; }
+  .pronoun-row strong { font-family: 'Fraunces', serif; font-weight: 500; font-style: italic; color: var(--accent); font-size: 16px; }
+  .pronoun-row .gloss { color: var(--ink-soft); font-size: 13px; }
+  .conj-table { background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
+  .conj-table table { width: 100%; border-collapse: collapse; }
+  .conj-table th { background: var(--ink); color: var(--bg); text-align: left; padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+  .conj-table td { padding: 13px 16px; border-top: 1px solid var(--line-soft); font-size: 16px; vertical-align: middle; }
+  .conj-table td:first-child { color: var(--ink-soft); font-style: italic; width: 30%; font-family: 'Fraunces', serif; }
+  .conj-table td:nth-child(2) { font-family: 'Fraunces', serif; font-weight: 500; font-size: 18px; }
+  .stem-change { color: var(--accent); font-weight: 700; }
+  .conj-table td:last-child { color: var(--ink-faint); font-size: 13px; font-style: italic; }
+  .conj-split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .conj-split-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); margin-bottom: 8px; }
+  .prep-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap: 10px; margin-bottom: 20px; }
+  .prep-card { background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px; padding: 12px 16px; display: flex; flex-direction: column; gap: 4px; }
+  .prep-es { font-family: 'Fraunces', serif; font-style: italic; font-weight: 600; font-size: 18px; color: var(--accent); }
+  .prep-en { font-size: 13px; color: var(--ink-soft); }
+  .prep-ex { font-family: 'Fraunces', serif; font-style: italic; font-size: 13px; color: var(--ink-faint); border-top: 1px dashed var(--line-soft); padding-top: 6px; margin-top: 4px; }
+  .weather-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .weather-card { background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px; padding: 14px 18px; }
+  .weather-es { font-family: 'Fraunces', serif; font-weight: 500; font-style: italic; font-size: 18px; color: var(--ink); margin-bottom: 4px; }
+  .weather-en { color: var(--ink-soft); font-size: 13px; }
+  .weather-verb { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary); margin-bottom: 6px; }
+  .num-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 10px; margin-bottom: 20px; }
+  .num-row { background: var(--bg); border: 1px solid var(--line-soft); border-radius: 8px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; }
+  .num-digit { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--ink-faint); }
+  .num-word { font-family: 'Fraunces', serif; font-style: italic; font-size: 17px; color: var(--accent); }
+  .culture-block { background: var(--bg-elevated); border: 1.5px solid var(--secondary); border-radius: 14px; padding: 24px; margin-bottom: 28px; position: relative; }
+  .culture-tag { position: absolute; top: -10px; left: 20px; background: var(--secondary); color: #FBF6EB; padding: 3px 10px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .culture-block h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 22px; margin-bottom: 10px; margin-top: 4px; }
+  .culture-block p { color: var(--ink-soft); font-size: 14px; line-height: 1.6; }
+  .culture-block p + p { margin-top: 10px; }
+  .tip-block { background: var(--accent-pale); border: 1.5px solid var(--accent); border-radius: 10px; padding: 16px 20px; margin-top: 20px; font-size: 14px; color: var(--ink-soft); }
+  .tip-block strong { color: var(--ink); }
+  .practice-block { background: var(--accent-pale); border: 1.5px solid var(--accent); border-radius: 14px; padding: 24px; margin-top: 24px; }
+  .practice-q { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px dashed var(--line-soft); }
+  .practice-q:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .practice-prompt { font-size: 16px; margin-bottom: 12px; font-family: 'Fraunces', serif; font-style: italic; }
+  .practice-prompt .blank { display: inline-block; min-width: 100px; border-bottom: 2px solid var(--accent); margin: 0 4px; }
+  .practice-options { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt-btn { background: var(--bg-elevated); border: 1.5px solid var(--line); color: var(--ink); padding: 8px 16px; border-radius: 8px; font-family: 'Fraunces', serif; font-style: italic; font-size: 15px; cursor: pointer; transition: all 0.15s ease; }
+  .opt-btn:hover { background: var(--ink); color: var(--bg); }
+  .opt-btn.correct { background: var(--correct); color: #FBF6EB; border-color: var(--correct); }
+  .opt-btn.incorrect { background: var(--incorrect); color: #FBF6EB; border-color: var(--incorrect); opacity: 0.7; }
+  .opt-btn:disabled { cursor: default; }
+  .opt-btn:disabled:hover { background: var(--bg-elevated); color: var(--ink); }
+  .opt-btn.correct:disabled, .opt-btn.correct:disabled:hover { background: var(--correct); color: #FBF6EB; }
+  .opt-btn.incorrect:disabled, .opt-btn.incorrect:disabled:hover { background: var(--incorrect); color: #FBF6EB; }
+  .listen-intro { background: var(--bg-elevated); border-left: 3px solid var(--secondary); padding: 18px 22px; border-radius: 4px; margin-bottom: 28px; font-size: 14px; color: var(--ink-soft); }
+  .listen-intro strong { color: var(--ink); }
+  .listen-exercise { background: var(--bg-elevated); border: 1.5px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 24px; box-shadow: var(--shadow-paper); }
+  .listen-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+  .listen-head h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 22px; font-variation-settings: "opsz" 36, "SOFT" 40; }
+  .listen-counter { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-faint); background: var(--bg); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line-soft); white-space: nowrap; }
+  .play-btn { background: var(--accent); color: #FBF6EB; border: 1.5px solid var(--accent); border-radius: 12px; padding: 14px 24px; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 15px; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: transform 0.15s ease, background 0.15s ease; margin-bottom: 18px; }
+  .play-btn:hover { transform: translate(-1px,-1px); box-shadow: 0 2px 0 var(--ink); }
+  .play-btn:active { transform: translate(1px,1px); box-shadow: none; }
+  .play-btn.speaking { background: var(--secondary); border-color: var(--secondary); }
+  .play-btn svg { width: 16px; height: 16px; }
+  .listen-options { display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: 10px; margin-bottom: 16px; }
+  .listen-options.cols-2 { grid-template-columns: repeat(2,1fr); max-width: 500px; }
+  .listen-opt { background: var(--bg); border: 1.5px solid var(--line); color: var(--ink); padding: 14px 16px; border-radius: 10px; font-family: 'Fraunces', serif; font-style: italic; font-size: 15px; cursor: pointer; transition: all 0.15s ease; text-align: center; }
+  .listen-opt:hover { background: var(--ink); color: var(--bg); transform: translate(-1px,-1px); }
+  .listen-opt.correct { background: var(--correct); color: #FBF6EB; border-color: var(--correct); }
+  .listen-opt.incorrect { background: var(--incorrect); color: #FBF6EB; border-color: var(--incorrect); opacity: 0.6; }
+  .listen-opt:disabled { cursor: default; }
+  .listen-opt:disabled:hover { transform: none; }
+  .listen-opt:disabled:hover:not(.correct):not(.incorrect) { background: var(--bg); color: var(--ink); }
+  .feedback { font-family: 'Fraunces', serif; font-style: italic; font-size: 16px; padding: 14px 18px; border-radius: 8px; margin-top: 12px; display: none; }
+  .feedback.show { display: block; animation: fadeIn 0.3s ease; }
+  .feedback.correct { background: rgba(45,106,79,0.1); color: var(--correct); border-left: 3px solid var(--correct); }
+  .feedback.incorrect { background: var(--accent-pale); color: var(--accent); border-left: 3px solid var(--accent); }
+  .feedback strong { font-weight: 700; font-style: normal; }
+  .next-btn { background: var(--ink); color: var(--bg); border: 1.5px solid var(--ink); border-radius: 10px; padding: 12px 22px; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; margin-top: 12px; transition: transform 0.15s ease; }
+  .next-btn:hover { transform: translate(-1px,-1px); box-shadow: 0 2px 0 var(--accent); }
+  .next-btn:disabled { opacity: 0.4; cursor: default; }
+  .progress-bar { height: 4px; background: var(--line-soft); border-radius: 2px; overflow: hidden; margin-bottom: 20px; }
+  .progress-fill { height: 100%; background: var(--accent); transition: width 0.4s ease; width: 0%; }
+  .done-message { text-align: center; padding: 32px 20px; background: var(--accent-pale); border-radius: 12px; border: 1.5px solid var(--accent); display: none; }
+  .done-message.show { display: block; animation: fadeIn 0.4s ease; }
+  .done-message h4 { font-family: 'Fraunces', serif; font-style: italic; font-size: 28px; color: var(--accent); margin-bottom: 8px; }
+  .done-message p { color: var(--ink-soft); margin-bottom: 16px; }
+  .done-message .score { font-family: 'Fraunces', serif; font-weight: 700; font-size: 22px; color: var(--ink); margin-bottom: 16px; }
+  .voice-notice { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); margin-top: 16px; font-style: italic; }
+  footer { border-top: 1px solid var(--line-soft); padding: 24px 0; color: var(--ink-faint); font-size: 13px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.08em; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  @media (max-width: 720px) {
+    .pronoun-grid { grid-template-columns: 1fr; }
+    .pronoun-row { grid-template-columns: 130px 1fr; }
+    .conj-split { grid-template-columns: 1fr; }
+    .grammar-block { padding: 20px; }
+    .listen-exercise { padding: 20px; }
+    .tab-btn { padding: 12px 14px; font-size: 17px; }
+    .tab-btn .tab-num { display: none; }
+  }
+
+ .tip{padding:18px;margin:20px 0;background:var(--accent-pale);border-left:3px solid var(--accent);border-radius:4px}
+ .grammar-block p,.culture-block p{margin:16px 0}.grammar-block h4,.culture-block h4{margin-top:24px;font-size:20px;font-family:Fraunces,Georgia,serif}
+ .table-scroll{overflow-x:auto;margin:20px 0}table{width:100%;border-collapse:collapse}th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line-soft)}th{color:var(--accent);font-size:13px}
+ .controls{display:flex;gap:10px}.intro{margin-bottom:24px;color:var(--ink-soft)}.flashcard{min-height:230px;height:auto}.flashcard-inner{min-height:230px}.card-word{font-size:clamp(18px,2.5vw,25px);overflow-wrap:anywhere}.card-ex{font-size:14px}.card-face{padding:18px}
+ :focus-visible{outline:3px solid var(--secondary);outline-offset:4px}.expanded .container{max-width:100%;min-height:100vh}.expanded .title-block{padding-top:20px}
+ @media(max-width:500px){.header-row{gap:10px}.brand-text{font-size:9px}.brand-mark{width:36px;height:36px}.controls{gap:6px}.theme-toggle{width:38px;height:38px}.card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.flashcard,.flashcard-inner{min-height:270px}.card-face{padding:12px}.card-word{font-size:19px}.card-ex{font-size:13px}.listen-options{grid-template-columns:1fr}.flash-toolbar{align-items:flex-start;gap:8px}.flash-count{font-size:10px}.flip-all-btn{font-size:11px}h1.module-title{font-size:42px}}
+ @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+ </style></head><body><div class="container"><header><div class="header-row"><div class="brand"><div class="brand-mark">W</div><div class="brand-text"><strong>SPAN 2010</strong> · Third Semester Spanish<br>Weber State University</div></div><div class="controls"><button class="theme-toggle" id="themeToggle" title="Toggle dark mode" aria-label="Toggle dark mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg></button><button class="theme-toggle" id="fullscreenToggle" aria-label="Enter fullscreen" title="Enter fullscreen" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg></button></div></div><div class="title-block"><div class="eyebrow">Módulo 7 · Module Seven</div><h1 class="module-title">Si cuidamos la tierra, la tierra nos <em>cuidará</em></h1><p class="module-subtitle">Explore the natural world, describe what you have done, and predict what comes next.</p></div></header><nav class="tabs" role="tablist" aria-label="Module sections"><button class="tab-btn active" data-tab="vocab" role="tab" aria-controls="panel-vocab"><span class="tab-num">01</span>Vocabulario</button><button class="tab-btn " data-tab="grammar" role="tab" aria-controls="panel-grammar"><span class="tab-num">02</span>Gramática</button><button class="tab-btn " data-tab="listen" role="tab" aria-controls="panel-listen"><span class="tab-num">03</span>Audición</button></nav><main><section class="panel active" id="panel-vocab" role="tabpanel"><p class="intro">Recall the Spanish before you flip each card. The back shows the term in context. Use Flip all to review the complete set.</p><div class="pill-nav"><button class="pill active" data-sub="vocab0">La geografía</button><button class="pill " data-sub="vocab1">Los problemas ambientales</button><button class="pill " data-sub="vocab2">Las acciones</button></div><div class="sub-panel active" id="sub-vocab0"><div class="section-head"><h2>La geografía</h2></div><div class="card-grid" id="cards0"></div></div><div class="sub-panel " id="sub-vocab1"><div class="section-head"><h2>Los problemas ambientales</h2></div><div class="card-grid" id="cards1"></div></div><div class="sub-panel " id="sub-vocab2"><div class="section-head"><h2>Las acciones</h2></div><div class="card-grid" id="cards2"></div></div></section><section class="panel" id="panel-grammar" role="tabpanel"><div class="pill-nav"><button class="pill active" data-sub="perfecto">El presente perfecto</button><button class="pill " data-sub="futuro">El futuro simple</button><button class="pill" data-sub="practice">Práctica</button></div><div class="sub-panel active" id="sub-perfecto"><div class="grammar-block"><h3>Lo que hemos hecho</h3><p>The present perfect connects a completed action or experience with the present: <em>Hemos limpiado el río</em> (we have cleaned the river). The result matters now. Use it to discuss experiences, changes, or actions within a time period connected to now; regional preferences vary.</p><div class="tip">Present tense of <em>haber</em> + past participle. Only <em>haber</em> changes with the subject.</div><div class="table-scroll"><table><thead><tr><th scope="col">Sujeto</th><th scope="col">Haber</th><th scope="col">Ejemplo</th></tr></thead><tbody><tr><td>yo</td><td>he</td><td>he reciclado</td></tr><tr><td>tú</td><td>has</td><td>has reciclado</td></tr><tr><td>él / ella / usted</td><td>ha</td><td>ha reciclado</td></tr><tr><td>nosotros/as</td><td>hemos</td><td>hemos reciclado</td></tr><tr><td>vosotros/as</td><td>habéis</td><td>habéis reciclado</td></tr><tr><td>ellos / ellas / ustedes</td><td>han</td><td>han reciclado</td></tr></tbody></table></div><h4>El participio</h4><p>Remove <em>-ar</em> and add <em>-ado</em>: <em>sembrar → sembrado</em>. Remove <em>-er/-ir</em> and add <em>-ido</em>: <em>comer → comido; vivir → vivido</em>.</p><div class="table-scroll"><table><thead><tr><th scope="col">Infinitivo</th><th scope="col">Participio</th></tr></thead><tbody><tr><td>abrir</td><td>abierto</td></tr><tr><td>cubrir</td><td>cubierto</td></tr><tr><td>decir</td><td>dicho</td></tr><tr><td>escribir</td><td>escrito</td></tr><tr><td>hacer</td><td>hecho</td></tr><tr><td>morir</td><td>muerto</td></tr><tr><td>poner</td><td>puesto</td></tr><tr><td>resolver</td><td>resuelto</td></tr><tr><td>romper</td><td>roto</td></tr><tr><td>ver</td><td>visto</td></tr><tr><td>volver</td><td>vuelto</td></tr><tr><td>ir</td><td>ido (regular)</td></tr></tbody></table></div><h4>El orden de las palabras</h4><p><em>No hemos contaminado el lago. Nos hemos propuesto reciclar. ¿Has visto la catarata?</em> Put <em>no</em> and object/reflexive pronouns before <em>haber</em>. Keep the auxiliary and participle together.</p><div class="tip"><strong>Watch out:</strong> <em>Hemos protegido</em>, never <em>hemos protegidos</em>. With <em>haber</em>, the participle does not agree with gender or number. Use <em>he</em>, not <em>soy</em> or <em>tengo</em>, as the auxiliary.</div><h4>¿Qué has hecho este año?</h4><p>Ask a partner about three outdoor experiences. Follow up with a detail question: <em>¿Has acampado en el bosque? ¿Dónde acampaste?</em> A specific completed past event can use the preterite.</p></div></div><div class="sub-panel " id="sub-futuro"><div class="grammar-block"><h3>Lo que haremos</h3><p>The simple future expresses what will happen. Keep the entire infinitive and add the same endings for <em>-ar, -er</em>, and <em>-ir</em> verbs.</p><div class="table-scroll"><table><thead><tr><th scope="col">Sujeto</th><th scope="col">Terminación</th><th scope="col">Reciclar / proteger</th></tr></thead><tbody><tr><td>yo</td><td>é</td><td>reciclaré / protegeré</td></tr><tr><td>tú</td><td>ás</td><td>reciclarás / protegerás</td></tr><tr><td>él / ella / usted</td><td>á</td><td>reciclará / protegerá</td></tr><tr><td>nosotros/as</td><td>emos</td><td>reciclaremos / protegeremos</td></tr><tr><td>vosotros/as</td><td>éis</td><td>reciclaréis / protegeréis</td></tr><tr><td>ellos / ellas / ustedes</td><td>án</td><td>reciclarán / protegerán</td></tr></tbody></table></div><h4>Raíces irregulares</h4><p>poner → pondr- · tener → tendr- · salir → saldr- · haber → habr- · caber → cabr- · querer → querr- · decir → dir- · hacer → har-. Also <em>poder → podr-; saber → sabr-; venir → vendr-</em>. Add the ordinary future endings: <em>tendremos, dirán, haré, podremos</em>.</p><h4>Dos maneras de hablar del futuro</h4><p><em>Vamos a sembrar árboles</em> means “we are going to plant trees”; <em>sembraremos árboles</em> means “we will plant trees.” The forms often overlap. <em>Ir a + infinitive</em> commonly presents a plan or a future event connected to the present.</p><h4>La probabilidad en el presente</h4><p><em>¿Quién será? Será la profesora.</em> Here the future expresses a guess about now: “Who could it be? It is probably the professor.” Context distinguishes a prediction from a present-time guess.</p><div class="tip"><strong>Watch out:</strong> Keep the infinitive: <em>reciclaré</em>, not <em>reciclé</em> (I recycled). For impersonal <em>haber</em>, use singular <em>habrá</em>: <em>Habrá más árboles</em>. In a realistic <em>si</em> clause, use present + future: <em>Si cuidamos la tierra, la tierra nos cuidará.</em></div><h4>La comunidad del futuro</h4><p>With a partner, make three predictions and one promise. Ask <em>¿Qué cambiará? ¿Qué haremos nosotros? ¿Cómo protegeremos el agua?</em> Explain the reason for each idea.</p></div></div><div class="sub-panel" id="sub-practice"><div class="section-head"><h2>Práctica rápida</h2></div><p class="intro">Choose the best answer for each context. Read the explanation and try another choice whenever you need to.</p><div id="practiceBlock" class="practice-block"></div></div></section><section class="panel" id="panel-listen" role="tabpanel"><div class="listen-intro"><strong>How this works:</strong> Choose an exercise, press the play icon, and select the best interpretation. Each exercise has six questions. Read the explanation before continuing. You can repeat the audio or start over.</div><div class="pill-nav"><button class="pill active" data-sub="ear-paisaje">El paisaje</button><button class="pill " data-sub="ear-experiencias">Lo que hemos hecho</button><button class="pill " data-sub="ear-porvenir">El porvenir</button></div><div class="sub-panel active" id="sub-ear-paisaje"><div class="listen-exercise" id="ex-paisaje"><div class="listen-head"><h3>Ejercicio 1 · El paisaje</h3><span class="listen-counter" id="paisajeCounter">1 / 6</span></div><p class="intro">Listen to each description and identify the place.</p><div class="progress-bar"><div class="progress-fill" id="paisajeProgress"></div></div><button class="play-btn" id="paisajePlay" aria-label="Play Spanish audio" title="Play Spanish audio"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button><div class="listen-options" id="paisajeOptions"></div><div class="feedback" id="paisajeFeedback" aria-live="polite"></div><button class="next-btn" id="paisajeNext" disabled>Next →</button><div class="done-message" id="paisajeDone"><h4>Exercise complete</h4><div class="score" id="paisajeScore"></div><p>Review the explanations and listen again to build confidence.</p><button class="next-btn" id="paisajeReset">Start over</button></div></div></div><div class="sub-panel " id="sub-ear-experiencias"><div class="listen-exercise" id="ex-experiencias"><div class="listen-head"><h3>Ejercicio 2 · Lo que hemos hecho</h3><span class="listen-counter" id="experienciasCounter">1 / 6</span></div><p class="intro">Listen and choose what has happened.</p><div class="progress-bar"><div class="progress-fill" id="experienciasProgress"></div></div><button class="play-btn" id="experienciasPlay" aria-label="Play Spanish audio" title="Play Spanish audio"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button><div class="listen-options" id="experienciasOptions"></div><div class="feedback" id="experienciasFeedback" aria-live="polite"></div><button class="next-btn" id="experienciasNext" disabled>Next →</button><div class="done-message" id="experienciasDone"><h4>Exercise complete</h4><div class="score" id="experienciasScore"></div><p>Review the explanations and listen again to build confidence.</p><button class="next-btn" id="experienciasReset">Start over</button></div></div></div><div class="sub-panel " id="sub-ear-porvenir"><div class="listen-exercise" id="ex-porvenir"><div class="listen-head"><h3>Ejercicio 3 · El porvenir</h3><span class="listen-counter" id="porvenirCounter">1 / 6</span></div><p class="intro">Listen and identify the prediction or present-time guess.</p><div class="progress-bar"><div class="progress-fill" id="porvenirProgress"></div></div><button class="play-btn" id="porvenirPlay" aria-label="Play Spanish audio" title="Play Spanish audio"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button><div class="listen-options" id="porvenirOptions"></div><div class="feedback" id="porvenirFeedback" aria-live="polite"></div><button class="next-btn" id="porvenirNext" disabled>Next →</button><div class="done-message" id="porvenirDone"><h4>Exercise complete</h4><div class="score" id="porvenirScore"></div><p>Review the explanations and listen again to build confidence.</p><button class="next-btn" id="porvenirReset">Start over</button></div></div></div><p class="voice-notice">Audio uses your browser’s Spanish voice. If it is unavailable, install a Spanish system voice or try another browser. No responses or scores are sent or stored.</p></section></main><footer><div>SPAN 2010 · Módulo 7</div><div>Dr. Rama</div></footer></div><script>const practiceQuestions=[{"prompt": "Mis amigos y yo ___ a una manifestación.", "options": ["hemos ido", "ha ido", "han ido", "hemos ir"], "correct": 0, "explain": "Mis amigos y yo is nosotros: hemos + ido."}, {"prompt": "Tú ___ la promesa de reciclar.", "options": ["has rompido", "has roto", "ha roto", "has romper"], "correct": 1, "explain": "Romper has the irregular participle roto; tú takes has."}, {"prompt": "El gobierno ha ___ nuevas leyes.", "options": ["escribido", "escribió", "escrito", "escribiendo"], "correct": 2, "explain": "Escribir has the irregular participle escrito."}, {"prompt": "Nosotras no ___ el río.", "options": ["hemos contaminadas", "han contaminado", "somos contaminado", "hemos contaminado"], "correct": 3, "explain": "Nosotras takes hemos. The participle stays contaminado."}, {"prompt": "Mañana nosotros ___ árboles.", "options": ["sembraremos", "sembramos ayer", "sembraramos", "sembrarán"], "correct": 0, "explain": "Keep sembrar and add -emos for nosotros in the future."}, {"prompt": "Las generaciones futuras ___ nuevas soluciones.", "options": ["tendrá", "tendrán", "tenerán", "tendrían"], "correct": 1, "explain": "Tener uses tendr- plus -án for the plural subject."}, {"prompt": "En el futuro ___ más transporte público.", "options": ["habrán", "haberá", "habrá", "habría"], "correct": 2, "explain": "Impersonal haber remains singular: habrá."}, {"prompt": "Suena el timbre ahora. ¿Quién ___?", "options": ["fue", "sería ayer", "ha sido mañana", "será"], "correct": 3, "explain": "Será can express a guess about the present: who could it be?"}];
+const themeToggle = document.getElementById('themeToggle');
+const savedTheme = (() => { try { return localStorage.getItem('span2010-theme'); } catch { return null; } })();
+if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+themeToggle.addEventListener('click', () => {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  isDark ? document.documentElement.removeAttribute('data-theme') : document.documentElement.setAttribute('data-theme','dark');
+  try { localStorage.setItem('span2010-theme', isDark ? 'light' : 'dark'); } catch {}
+});
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === `panel-${btn.dataset.tab}`));
+    window.speechSynthesis && window.speechSynthesis.cancel();
+  });
+});
+document.querySelectorAll('.panel').forEach(panel => {
+  panel.querySelectorAll('.pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      panel.querySelectorAll('.pill').forEach(p => p.classList.toggle('active', p === pill));
+      panel.querySelectorAll('.sub-panel').forEach(sp => sp.classList.toggle('active', sp.id === `sub-${pill.dataset.sub}`));
+      window.speechSynthesis && window.speechSynthesis.cancel();
+    });
+  });
+});
+
+function buildFlashcards(containerId, items) {
+  const grid = document.getElementById(containerId);
+  items.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'flashcard';
+    card.tabIndex = 0;
+    card.setAttribute('role', 'button'); card.setAttribute('aria-pressed','false');
+    card.setAttribute('aria-label', `${item.en} — click to see the Spanish`);
+    card.innerHTML = `<div class="flashcard-inner">
+      <div class="card-face card-front">
+        <div class="card-label">English</div>
+        <div class="card-word">${item.en}</div>
+        <div class="card-hint">${item.hint || 'click to flip'}</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="card-label">Español</div>
+        <div class="card-word"><em>${item.es}</em></div>
+        <div class="card-ex">${item.ex}</div>
+      </div>
+    </div>`;
+    const flip = () => { card.classList.toggle('flipped'); syncLabel(); };
+    card.addEventListener('click', flip);
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); }
+    });
+    grid.appendChild(card);
+  });
+
+  const toolbar = document.createElement('div');
+  toolbar.className = 'flash-toolbar';
+  toolbar.innerHTML = `<span class="flash-count">${items.length} cards · click a card to flip it</span>
+    <button class="flip-all-btn" type="button"></button>`;
+  grid.parentNode.insertBefore(toolbar, grid);
+  const btn = toolbar.querySelector('.flip-all-btn');
+  const cards = () => [...grid.querySelectorAll('.flashcard')];
+  function syncLabel() {
+    cards().forEach(c => { const s=c.classList.contains('flipped'); c.setAttribute('aria-pressed',String(s)); c.setAttribute('aria-label',s ? c.querySelector('.card-back').textContent+' — click to see English' : c.querySelector('.card-front').textContent+' — click to see Spanish'); });
+    const allSpanish = cards().every(c => c.classList.contains('flipped'));
+    btn.textContent = allSpanish ? 'Flip all to English' : 'Flip all to Spanish';
+    btn.setAttribute('aria-pressed', allSpanish);
+  }
+  btn.addEventListener('click', () => {
+    const allSpanish = cards().every(c => c.classList.contains('flipped'));
+    cards().forEach(c => c.classList.toggle('flipped', !allSpanish));
+    syncLabel();
+  });
+  syncLabel();
+}
+
+// practiceQuestions = [{ prompt, options, correct, explain }, ...] — 8 items
+const practiceBlock = document.getElementById('practiceBlock');
+practiceBlock.innerHTML = practiceQuestions.map((q, qi) => `
+  <div class="practice-q">
+    <div class="practice-prompt">${q.prompt.replace('___','<span class="blank"></span>')}</div>
+    <div class="practice-options">${q.options.map((o,oi) => `<button class="opt-btn" data-q="${qi}" data-o="${oi}">${o}</button>`).join('')}</div>
+    <div class="feedback" id="practice-fb-${qi}"></div>
+  </div>`).join('');
+practiceBlock.addEventListener('click', e => {
+  if (!e.target.classList.contains('opt-btn')) return;
+  const qi = +e.target.dataset.q, oi = +e.target.dataset.o;
+  const q = practiceQuestions[qi];
+  const allBtns = practiceBlock.querySelectorAll(`.opt-btn[data-q="${qi}"]`);
+  allBtns.forEach(b => { b.classList.remove('correct','incorrect'); });
+  allBtns[q.correct].classList.add('correct');
+  if (oi !== q.correct) e.target.classList.add('incorrect');
+  const fb = document.getElementById(`practice-fb-${qi}`);
+  fb.className = oi === q.correct ? 'feedback correct show' : 'feedback incorrect show';
+  fb.innerHTML = oi === q.correct ? `✓ ${q.explain}` : `The answer is <strong>${q.options[q.correct]}</strong>. ${q.explain}`;
+});
+
+let spanishVoice = null;
+function pickSpanishVoice() {
+  const voices = window.speechSynthesis.getVoices();
+  for (const lang of ['es-MX','es-US','es-419','es-CO','es-AR','es-ES','es']) {
+    const v = voices.find(v => v.lang === lang || v.lang.toLowerCase().startsWith(lang.toLowerCase()));
+    if (v) return v;
+  }
+  return voices.find(v => v.lang.toLowerCase().startsWith('es')) || null;
+}
+if ('speechSynthesis' in window) {
+  spanishVoice = pickSpanishVoice();
+  window.speechSynthesis.onvoiceschanged = () => { spanishVoice = pickSpanishVoice(); };
+}
+function speak(text, btn) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'es-MX'; u.rate = 0.88; u.pitch = 1;
+  if (spanishVoice) u.voice = spanishVoice;
+  if (btn) { btn.classList.add('speaking'); u.onend = u.onerror = () => btn.classList.remove('speaking'); }
+  window.speechSynthesis.speak(u);
+}
+
+function buildExercise(config) {
+  let idx = 0, score = 0, answered = false;
+  const playBtn    = document.getElementById(config.playId);
+  const optionsEl  = document.getElementById(config.optionsId);
+  const feedbackEl = document.getElementById(config.feedbackId);
+  const nextBtn    = document.getElementById(config.nextId);
+  const counterEl  = document.getElementById(config.counterId);
+  const progressEl = document.getElementById(config.progressId);
+  const doneEl     = document.getElementById(config.doneId);
+  const scoreEl    = document.getElementById(config.scoreId);
+  const resetBtn   = document.getElementById(config.resetId);
+  const root       = playBtn.closest('.listen-exercise');
+  function render() {
+    feedbackEl.style.display='';
+    const q = config.questions[idx];
+    counterEl.textContent = `${idx + 1} / ${config.questions.length}`;
+    progressEl.style.width = `${(idx / config.questions.length) * 100}%`;
+    feedbackEl.classList.remove('show','correct','incorrect');
+    nextBtn.disabled = true; answered = false;
+    optionsEl.innerHTML = '';
+    q.options.forEach((opt, i) => {
+      const b = document.createElement('button');
+      b.className = 'listen-opt'; b.textContent = opt;
+      b.addEventListener('click', () => handleAnswer(i, b));
+      optionsEl.appendChild(b);
+    });
+
+  }
+  function handleAnswer(selected, btn) {
+    if (answered) return;
+    answered = true;
+    const q = config.questions[idx];
+    const allBtns = optionsEl.querySelectorAll('.listen-opt');
+    allBtns.forEach(b => b.disabled = true);
+    const ci = config.getCorrectIndex(q);
+    allBtns[ci].classList.add('correct');
+    if (selected === ci) { score++; btn.classList.add('correct'); feedbackEl.className = 'feedback correct show'; feedbackEl.innerHTML = `Correct! ${q.hint||''}`; }
+    else { btn.classList.add('incorrect'); feedbackEl.className = 'feedback incorrect show'; feedbackEl.innerHTML = `The answer is <strong>${q.options[ci]}</strong>. ${q.hint||''}`; }
+    nextBtn.disabled = false;
+  }
+  playBtn.addEventListener('click', () => { if (idx < config.questions.length) speak(config.getAudio(config.questions[idx]), playBtn); });
+  nextBtn.addEventListener('click', () => { idx++; idx >= config.questions.length ? finish() : render(); });
+  function finish() {
+    progressEl.style.width = '100%';
+    root.querySelectorAll('.listen-head,.progress-bar,.play-btn,.listen-options,.feedback').forEach(el => el.style.display='none'); nextBtn.style.display='none';
+    doneEl.classList.add('show');
+    scoreEl.textContent = `${score} / ${config.questions.length}`;
+  }
+  resetBtn.addEventListener('click', () => {
+    idx = 0; score = 0; answered = false;
+    doneEl.classList.remove('show');
+    root.querySelectorAll('.listen-head,.progress-bar,.play-btn,.listen-options,.feedback,.next-btn').forEach(el => el.style.display='');
+    feedbackEl.style.display=''; nextBtn.style.display='';
+    render();
+  });
+  render();
+}
+
+
+const fs=document.getElementById('fullscreenToggle');
+function syncFullscreen(){const active=!!(document.fullscreenElement||document.webkitFullscreenElement)||document.body.classList.contains('expanded'); fs.setAttribute('aria-pressed',String(active));fs.setAttribute('aria-label',active?'Exit fullscreen':'Enter fullscreen');fs.title=active?'Exit fullscreen':'Enter fullscreen';}
+fs.addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if(document.webkitFullscreenElement)document.webkitExitFullscreen();else if(document.body.classList.contains('expanded'))document.body.classList.remove('expanded');else if(document.fullscreenEnabled&&document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();else if(document.documentElement.webkitRequestFullscreen)document.documentElement.webkitRequestFullscreen();else document.body.classList.add('expanded');}catch{document.body.classList.toggle('expanded');}syncFullscreen();});
+document.addEventListener('fullscreenchange',syncFullscreen);document.addEventListener('webkitfullscreenchange',syncFullscreen);document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.body.classList.remove('expanded');syncFullscreen();}});
+document.querySelectorAll('.tab-btn').forEach(b=>{b.setAttribute('aria-selected',String(b.classList.contains('active')));b.addEventListener('click',()=>document.querySelectorAll('.tab-btn').forEach(t=>t.setAttribute('aria-selected',String(t===b))));});
+
+buildFlashcards("cards0",[{"en": "bay", "es": "la bahía", "ex": "Hemos protegido la bahía."}, {"en": "canyon", "es": "el cañón", "ex": "Exploraremos el cañón mañana."}, {"en": "desert", "es": "el desierto", "ex": "He caminado por el desierto."}, {"en": "forest", "es": "el bosque", "ex": "Protegeremos el bosque."}, {"en": "jungle", "es": "la selva", "ex": "Hemos visitado la selva."}, {"en": "glacier", "es": "el glaciar", "ex": "El glaciar ha cambiado mucho."}, {"en": "hill", "es": "la colina", "ex": "Subiremos la colina."}, {"en": "island", "es": "la isla", "ex": "He vivido en una isla."}, {"en": "lake", "es": "el lago", "ex": "Limpiaremos el lago."}, {"en": "mountain", "es": "la montaña", "ex": "Hemos subido la montaña."}, {"en": "mountain range", "es": "la cordillera", "ex": "Veremos la cordillera desde aquí."}, {"en": "ocean", "es": "el océano", "ex": "Protegeremos el océano."}, {"en": "peninsula", "es": "la península", "ex": "Hemos recorrido la península."}, {"en": "plain / flatland", "es": "la llanura / el llano", "ex": "Caminaremos por la llanura."}, {"en": "river", "es": "el río", "ex": "Hemos limpiado el río."}, {"en": "sea", "es": "el mar", "ex": "El mar estará tranquilo mañana."}, {"en": "valley", "es": "el valle", "ex": "Visitaremos el valle."}, {"en": "volcano", "es": "el volcán", "ex": "He visto un volcán."}, {"en": "waterfall", "es": "la catarata", "ex": "Veremos la catarata mañana."}, {"en": "North Pole / South Pole", "es": "el Polo Norte / el Polo Sur", "ex": "Hemos estudiado los dos polos."}, {"en": "Equator", "es": "la línea del ecuador", "ex": "Cruzaremos la línea del ecuador."}, {"en": "rain / rainfall", "es": "la lluvia", "ex": "La lluvia ha cambiado nuestros planes."}, {"en": "nature", "es": "la naturaleza", "ex": "Siempre protegeremos la naturaleza."}]);
+buildFlashcards("cards1",[{"en": "drought", "es": "la sequía", "ex": "La sequía ha dañado los cultivos."}, {"en": "deforestation", "es": "la deforestación", "ex": "Reduciremos la deforestación."}, {"en": "forest fires", "es": "los incendios forestales", "ex": "Los incendios forestales han destruido árboles."}, {"en": "landslides", "es": "los derrumbes", "ex": "Los derrumbes han bloqueado la carretera."}, {"en": "hurricanes", "es": "los huracanes", "ex": "Los huracanes han causado daños."}, {"en": "cold snaps / heat waves", "es": "las oleadas de frío / de calor", "ex": "Las oleadas de calor serán peligrosas."}, {"en": "global warming", "es": "el calentamiento global", "ex": "Hemos estudiado el calentamiento global."}, {"en": "illegal plantings", "es": "las plantaciones ilegales", "ex": "Han descubierto plantaciones ilegales."}, {"en": "aerial spraying of pesticides", "es": "el riego aéreo de pesticidas", "ex": "Han limitado el riego aéreo de pesticidas."}]);
+buildFlashcards("cards2",[{"en": "to recycle", "es": "reciclar", "ex": "Reciclaremos las botellas."}, {"en": "to pollute", "es": "contaminar", "ex": "No contaminaremos el río."}, {"en": "to deforest", "es": "deforestar", "ex": "Han dejado de deforestar esta zona."}, {"en": "to protect", "es": "proteger", "ex": "Protegeremos el bosque."}, {"en": "to plant / sow", "es": "sembrar", "ex": "Hemos sembrado árboles."}, {"en": "to destroy", "es": "destruir", "ex": "El fuego ha destruido varias casas."}, {"en": "to damage / harm", "es": "dañar", "ex": "No dañaremos la naturaleza."}, {"en": "to exploit", "es": "explotar", "ex": "Han explotado los recursos del bosque."}]);
+buildExercise({"questions": [{"audio": "Es una extensión de agua rodeada de tierra.", "options": ["el lago", "el volcán", "la colina"], "correct": 0, "hint": "A lake is water surrounded by land."}, {"audio": "Es una gran elevación del terreno.", "options": ["la bahía", "la montaña", "la lluvia"], "correct": 1, "hint": "Montaña names a mountain."}, {"audio": "Es una caída de agua desde cierta altura.", "options": ["la sequía", "la isla", "la catarata"], "correct": 2, "hint": "Catarata means waterfall."}, {"audio": "Es una tierra rodeada de agua.", "options": ["la isla", "la llanura", "el río"], "correct": 0, "hint": "Isla means island."}, {"audio": "Es una zona con muchos árboles.", "options": ["el glaciar", "el bosque", "la península"], "correct": 1, "hint": "Bosque names a forest."}, {"audio": "Es un período largo sin suficiente lluvia.", "options": ["el huracán", "la cordillera", "la sequía"], "correct": 2, "hint": "Sequía is a drought, a prolonged lack of rain."}], "playId": "paisajePlay", "optionsId": "paisajeOptions", "feedbackId": "paisajeFeedback", "nextId": "paisajeNext", "counterId": "paisajeCounter", "progressId": "paisajeProgress", "doneId": "paisajeDone", "scoreId": "paisajeScore", "resetId": "paisajeReset",getAudio:q=>q.audio,getCorrectIndex:q=>q.correct});
+buildExercise({"questions": [{"audio": "Hemos reciclado todas las botellas.", "options": ["We will recycle.", "We have recycled.", "We would recycle."], "correct": 1, "hint": "Hemos + reciclado expresses a completed action connected to now."}, {"audio": "El gobierno ha escrito nuevas leyes.", "options": ["It has written laws.", "It will write laws.", "It used to write laws."], "correct": 0, "hint": "Ha escrito is present perfect; escrito is irregular."}, {"audio": "Todavía no he visto el glaciar.", "options": ["I saw it yesterday.", "I will never see it.", "I have not seen it yet."], "correct": 2, "hint": "No he visto plus todavía means I have not seen it yet."}, {"audio": "Mis vecinos han protegido el bosque.", "options": ["They would protect it.", "They have protected it.", "They will protect it."], "correct": 1, "hint": "Han protegido uses present haber plus participle."}, {"audio": "Nos hemos propuesto ahorrar agua.", "options": ["We have resolved to save water.", "We had no water.", "We will waste water."], "correct": 0, "hint": "Nos goes before hemos; propuesto is the participle of proponerse."}, {"audio": "¿Has hecho algo para reducir la contaminación?", "options": ["Did you pollute yesterday?", "Will you pollute tomorrow?", "Have you done anything to reduce pollution?"], "correct": 2, "hint": "Has hecho asks about an action or experience relevant now."}], "playId": "experienciasPlay", "optionsId": "experienciasOptions", "feedbackId": "experienciasFeedback", "nextId": "experienciasNext", "counterId": "experienciasCounter", "progressId": "experienciasProgress", "doneId": "experienciasDone", "scoreId": "experienciasScore", "resetId": "experienciasReset",getAudio:q=>q.audio,getCorrectIndex:q=>q.correct});
+buildExercise({"questions": [{"audio": "Mañana protegeremos la bahía.", "options": ["We have protected it.", "We would protect it.", "We will protect it tomorrow."], "correct": 2, "hint": "Protegeremos is nosotros future."}, {"audio": "Habrá más árboles en el barrio.", "options": ["There will be more trees.", "There were more trees.", "There would be fewer trees."], "correct": 0, "hint": "Habrá means there will be; it stays singular."}, {"audio": "Los estudiantes tendrán botellas reutilizables.", "options": ["They have bottles.", "They will have bottles.", "They would have bottles."], "correct": 1, "hint": "Tendrán uses the irregular future stem tendr-."}, {"audio": "No sé quién llama. Será mi vecino.", "options": ["It was certainly my neighbor.", "It will be next year.", "It is probably my neighbor."], "correct": 2, "hint": "Será expresses a present guess after no sé quién llama."}, {"audio": "Si reciclamos, produciremos menos basura.", "options": ["If we recycle, we will produce less trash.", "If we recycled yesterday, we slept.", "We have produced more trash."], "correct": 0, "hint": "Present reciclamos in the si clause pairs with future produciremos."}, {"audio": "¿Qué harás para proteger el río?", "options": ["What have you done?", "What will you do?", "What did you use to do?"], "correct": 1, "hint": "Harás is the tú future of hacer."}], "playId": "porvenirPlay", "optionsId": "porvenirOptions", "feedbackId": "porvenirFeedback", "nextId": "porvenirNext", "counterId": "porvenirCounter", "progressId": "porvenirProgress", "doneId": "porvenirDone", "scoreId": "porvenirScore", "resetId": "porvenirReset",getAudio:q=>q.audio,getCorrectIndex:q=>q.correct});
+window.addEventListener("pagehide",()=>window.speechSynthesis?.cancel());</script></body></html>
