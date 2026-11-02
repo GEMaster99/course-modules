@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<title>Class activity</title>
+<style>
+:root{font:14px/1.4 system-ui,sans-serif;color-scheme:light dark;--surface:#fff;--ink:#492365;--line:#e6dfec}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:var(--surface);color:var(--ink)}body{display:grid;grid-template-rows:auto minmax(0,1fr);overflow:hidden}.toolbar{display:flex;align-items:center;gap:8px;min-height:45px;padding:4px 10px;border-bottom:1px solid var(--line)}.title{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px}button,.external{display:grid;place-items:center;width:35px;height:35px;border:1px solid var(--line);border-radius:7px;background:var(--surface);color:var(--ink);cursor:pointer;text-decoration:none;flex-shrink:0}button:hover,.external:hover{background:color-mix(in srgb,var(--ink) 8%,var(--surface))}button:focus-visible,a:focus-visible{outline:3px solid #a97cc8;outline-offset:2px}svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.shrink{display:none}[aria-pressed=true] .expand{display:none}[aria-pressed=true] .shrink{display:block}iframe{display:block;border:0;background:#fff;width:100%;height:100%}.message{position:fixed;bottom:15px;left:15px;right:15px;padding:13px 16px;border:1px solid var(--line);border-radius:9px;background:var(--surface);box-shadow:0 4px 20px #0003;color:var(--ink);z-index:5}.message:empty{display:none}[hidden]{display:none!important}@media(prefers-color-scheme:dark){:root{--surface:#201b26;--ink:#e1c3f7;--line:#4a3e55}}
+</style>
+</head>
+<body>
+<header class="toolbar"><span class="title" id="activity-title">Class activity</span><a id="open" class="external" target="_blank" rel="noopener noreferrer" title="Open activity in a new tab" aria-label="Open activity in a new tab" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7M21 3 10 14M10 3H3v18h18v-7"/></svg></a><button id="fullscreen" type="button" title="Enter fullscreen" aria-label="Enter fullscreen" aria-pressed="false" hidden><svg class="expand" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg><svg class="shrink" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h5V3m8 0v5h5M8 21v-5H3m18 0h-5v5"/></svg></button></header>
+<iframe id="activity" title="Class activity" allow="fullscreen" allowfullscreen referrerpolicy="no-referrer" hidden></iframe>
+<div id="message" class="message" role="status" aria-live="polite"></div>
+<script>
+(() => {
+  const button = document.getElementById('fullscreen');
+  const frame = document.getElementById('activity');
+  const message = document.getElementById('message');
+  const params = new URLSearchParams(location.search);
+  try {
+    const supplied = params.get('activity');
+    if (!supplied) throw new Error('missing');
+    const target = new URL(supplied, 'https://gemaster99.github.io/course-modules/');
+    const decoded = decodeURIComponent(target.pathname);
+    const blocked = ['/course-modules/','/course-modules/index.html','/course-modules/span1010/','/course-modules/span1010/index.html','/course-modules/span2010/','/course-modules/span2010/index.html','/course-modules/span3000/','/course-modules/span3000/index.html','/course-modules/span3000/references/','/course-modules/span3000/references/index.html','/course-modules/span3000/videos/','/course-modules/span3000/videos/index.html','/course-modules/span3000/lesson plans/','/course-modules/span3000/lesson plans/index.html','/course-modules/wlc2040-engl1010/','/course-modules/wlc2040-engl1010/index.html'];
+    if (target.origin !== 'https://gemaster99.github.io' || target.username || target.password || !decoded.startsWith('/course-modules/') || decoded.includes('\\') || decoded.includes('/../') || /\/embed\.html\/?$/i.test(decoded) || blocked.includes(decoded) || !(/\.html$/i.test(decoded) || decoded.endsWith('/'))) throw new Error('invalid');
+    const title = (params.get('title') || 'Class activity').slice(0,200);
+    document.title = title;
+    document.getElementById('activity-title').textContent = title;
+    frame.title = title;
+    frame.src = target.href;
+    frame.hidden = false;
+    const open = document.getElementById('open');
+    open.href = target.href;
+    open.hidden = false;
+    button.hidden = false;
+  } catch {
+    message.textContent = 'Open the direct activity link provided by your instructor in Canvas.';
+    return;
+  }
+  const isFullscreen = () => Boolean(document.fullscreenElement || document.webkitFullscreenElement);
+  function sync() {
+    const active = isFullscreen();
+    button.setAttribute('aria-pressed', String(active));
+    button.setAttribute('aria-label', active ? 'Exit fullscreen' : 'Enter fullscreen');
+    button.title = active ? 'Exit fullscreen (Esc)' : 'Enter fullscreen';
+  }
+  button.addEventListener('click', async () => {
+    message.textContent = '';
+    try {
+      if (isFullscreen()) {
+        const exit = document.exitFullscreen || document.webkitExitFullscreen;
+        if (!exit) throw new Error('unsupported');
+        await exit.call(document);
+      } else {
+        const enter = document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen;
+        if (!enter) throw new Error('unsupported');
+        await enter.call(document.documentElement);
+      }
+      sync();
+    } catch {
+      message.textContent = 'Fullscreen is unavailable in this browser or embed. Use the open-in-new-tab button above.';
+    }
+  });
+  document.addEventListener('fullscreenchange', sync);
+  document.addEventListener('webkitfullscreenchange', sync);
+})();
+</script>
+</body>
+</html>
