@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 8 — Sin tierra ni olivares, ¿qué sería de las ciudades? · SPAN 2010</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400;9..144,500;9..144,700;9..144,900&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><style>  :root {
+    --bg: #F4EEE2; --bg-elevated: #FBF6EB;
+    --ink: #1F1A14; --ink-soft: #4F443A; --ink-faint: #8A7E70;
+    --accent: #B84A1F; --accent-soft: #EBC7B0; --accent-pale: #F5DDC9;
+    --secondary: #2A4D5E; --wsu: #492365;
+    --line: #1F1A14; --line-soft: #D8CFBC;
+    --correct: #2D6A4F; --incorrect: #B84A1F;
+    --shadow-paper: 0 1px 0 #D8CFBC, 0 8px 24px -12px rgba(31,26,20,0.15);
+    --shadow-lift: 0 2px 0 #1F1A14, 0 10px 30px -8px rgba(31,26,20,0.25);
+  }
+  [data-theme="dark"] {
+    --bg: #16120F; --bg-elevated: #1F1A16;
+    --ink: #F0E8D8; --ink-soft: #B5AB9A; --ink-faint: #7A7163;
+    --accent: #E07856; --accent-soft: #6B3525; --accent-pale: #3D2017;
+    --secondary: #6BA2B5; --wsu: #B292C9;
+    --line: #F0E8D8; --line-soft: #3A312A;
+    --correct: #6BB48E; --incorrect: #E07856;
+    --shadow-paper: 0 1px 0 #3A312A, 0 8px 24px -12px rgba(0,0,0,0.4);
+    --shadow-lift: 0 2px 0 #F0E8D8, 0 10px 30px -8px rgba(0,0,0,0.5);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--ink); font-family: 'Manrope', system-ui, sans-serif; font-size: 16px; line-height: 1.6; min-height: 100vh; transition: background-color 0.3s ease, color 0.3s ease; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.4; background-image: radial-gradient(circle at 20% 30%, var(--line-soft) 0.5px, transparent 0.5px), radial-gradient(circle at 80% 70%, var(--line-soft) 0.5px, transparent 0.5px); background-size: 40px 40px, 60px 60px; }
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 clamp(16px,4vw,48px); position: relative; z-index: 1; }
+  header { padding: 32px 0 24px; border-bottom: 1px solid var(--line-soft); }
+  .header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand-mark { width: 44px; height: 44px; border-radius: 50%; background: var(--wsu); color: #FBF6EB; display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-weight: 900; font-size: 18px; font-variation-settings: "SOFT" 50; flex-shrink: 0; }
+  .brand-text { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-soft); line-height: 1.4; }
+  .brand-text strong { color: var(--ink); font-weight: 500; }
+  .theme-toggle { background: var(--bg-elevated); border: 1.5px solid var(--line); color: var(--ink); width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease, background 0.2s ease; flex-shrink: 0; }
+  .theme-toggle:hover { transform: rotate(15deg) scale(1.05); background: var(--accent-pale); }
+  .theme-toggle svg { width: 20px; height: 20px; }
+  .theme-toggle .sun { display: none; } .theme-toggle .moon { display: block; }
+  [data-theme="dark"] .theme-toggle .sun { display: block; } [data-theme="dark"] .theme-toggle .moon { display: none; }
+  .title-block { padding: 36px 0 28px; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+  .eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--line-soft); max-width: 120px; }
+  h1.module-title { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 144, "SOFT" 30; font-size: clamp(40px,7vw,84px); line-height: 0.95; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 18px; }
+  h1.module-title em { font-style: italic; font-weight: 400; color: var(--accent); font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; }
+  .module-subtitle { font-size: 17px; color: var(--ink-soft); max-width: 640px; line-height: 1.5; }
+  .tabs { display: flex; margin: 32px 0 8px; border-bottom: 2px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn { background: none; border: none; color: var(--ink-soft); font-family: 'Fraunces', serif; font-weight: 500; font-size: 19px; font-variation-settings: "opsz" 24, "SOFT" 20; padding: 14px 24px; cursor: pointer; position: relative; transition: color 0.2s ease; white-space: nowrap; display: flex; align-items: center; gap: 10px; }
+  .tab-btn .tab-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); font-weight: 400; }
+  .tab-btn:hover { color: var(--ink); } .tab-btn.active { color: var(--ink); }
+  .tab-btn.active .tab-num { color: var(--accent); }
+  .tab-btn.active::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 4px; background: var(--accent); }
+  main { padding: 40px 0 80px; }
+  .panel { display: none; animation: fadeIn 0.4s ease; } .panel.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+  .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px dashed var(--line-soft); }
+  .section-head h2 { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 72, "SOFT" 40; font-size: clamp(28px,4vw,40px); letter-spacing: -0.01em; line-height: 1.1; }
+  .section-head .marker { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
+  .pill-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .pill { background: var(--bg-elevated); border: 1.5px solid var(--line-soft); color: var(--ink-soft); padding: 8px 18px; border-radius: 24px; font-family: 'Manrope', sans-serif; font-weight: 500; font-size: 14px; cursor: pointer; transition: all 0.2s ease; }
+  .pill:hover { border-color: var(--line); color: var(--ink); } .pill.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .sub-panel { display: none; } .sub-panel.active { display: block; animation: fadeIn 0.3s ease; }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px,1fr)); gap: 14px; }
+  .flashcard { aspect-ratio: 4/3; perspective: 1000px; cursor: pointer; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); transform-style: preserve-3d; }
+  .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+  .card-face { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; border: 1.5px solid var(--line); box-shadow: var(--shadow-paper); }
+  .card-front { background: var(--bg-elevated); }
+  .card-back { background: var(--ink); color: var(--bg); transform: rotateY(180deg); border-color: var(--ink); }
+  .card-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-faint); }
+  .card-back .card-label { opacity: 0.7; }
+  .card-word { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 72, "SOFT" 50; font-size: 22px; line-height: 1.05; letter-spacing: -0.01em; }
+  .card-word em { font-style: italic; color: var(--accent); font-variation-settings: "opsz" 72, "SOFT" 100, "WONK" 1; }
+  .card-back .card-word em { color: var(--accent-soft); }
+  .card-hint { font-size: 11px; color: var(--ink-faint); font-style: italic; }
+  /* SPAN 2010 flashcard additions: English front, Spanish back with example, flip-all toolbar */
+  .flash-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+  .flash-count { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); }
+  .flip-all-btn { background: var(--ink); color: var(--bg); border: 1.5px solid var(--ink); border-radius: 10px; padding: 9px 18px; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 13px; cursor: pointer; transition: transform 0.15s ease; }
+  .flip-all-btn:hover { transform: translate(-1px,-1px); box-shadow: 0 2px 0 var(--accent); }
+  .flashcard:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 14px; }
+  .card-back .card-word { font-size: 20px; }
+  .card-ex { font-family: 'Fraunces', serif; font-style: italic; font-size: 13px; line-height: 1.3; color: var(--accent-soft); }
+  .card-back .card-hint { color: var(--accent-soft); }
+  .expr-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(240px,1fr)); gap: 12px; }
+  .expr-card { background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px; padding: 14px 18px; transition: transform 0.15s ease; }
+  .expr-card:hover { transform: translate(-1px,-1px); box-shadow: var(--shadow-lift); }
+  .expr-es { font-family: 'Fraunces', serif; font-weight: 500; font-style: italic; font-size: 18px; color: var(--ink); margin-bottom: 4px; }
+  .expr-en { color: var(--ink-soft); font-size: 13px; }
+  .grammar-block { background: var(--bg-elevated); border: 1.5px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 28px; box-shadow: var(--shadow-paper); }
+  .grammar-block h3 { font-family: 'Fraunces', serif; font-weight: 500; font-variation-settings: "opsz" 48, "SOFT" 30; font-size: 26px; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .grammar-block .lede { color: var(--ink-soft); font-size: 15px; margin-bottom: 20px; max-width: 640px; }
+  .pronoun-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .pronoun-row { display: grid; grid-template-columns: 170px 1fr; gap: 12px; padding: 10px 14px; border-radius: 8px; background: var(--bg); border: 1px solid var(--line-soft); align-items: center; }
+  .pronoun-row strong { font-family: 'Fraunces', serif; font-weight: 500; font-style: italic; color: var(--accent); font-size: 16px; }
+  .pronoun-row .gloss { color: var(--ink-soft); font-size: 13px; }
+  .conj-table { background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
+  .conj-table table { width: 100%; border-collapse: collapse; }
+  .conj-table th { background: var(--ink); color: var(--bg); text-align: left; padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+  .conj-table td { padding: 13px 16px; border-top: 1px solid var(--line-soft); font-size: 16px; vertical-align: middle; }
+  .conj-table td:first-child { color: var(--ink-soft); font-style: italic; width: 30%; font-family: 'Fraunces', serif; }
+  .conj-table td:nth-child(2) { font-family: 'Fraunces', serif; font-weight: 500; font-size: 18px; }
+  .stem-change { color: var(--accent); font-weight: 700; }
+  .conj-table td:last-child { color: var(--ink-faint); font-size: 13px; font-style: italic; }
+  .conj-split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .conj-split-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); margin-bottom: 8px; }
+  .prep-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap: 10px; margin-bottom: 20px; }
+  .prep-card { background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px; padding: 12px 16px; display: flex; flex-direction: column; gap: 4px; }
+  .prep-es { font-family: 'Fraunces', serif; font-style: italic; font-weight: 600; font-size: 18px; color: var(--accent); }
+  .prep-en { font-size: 13px; color: var(--ink-soft); }
+  .prep-ex { font-family: 'Fraunces', serif; font-style: italic; font-size: 13px; color: var(--ink-faint); border-top: 1px dashed var(--line-soft); padding-top: 6px; margin-top: 4px; }
+  .weather-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .weather-card { background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px; padding: 14px 18px; }
+  .weather-es { font-family: 'Fraunces', serif; font-weight: 500; font-style: italic; font-size: 18px; color: var(--ink); margin-bottom: 4px; }
+  .weather-en { color: var(--ink-soft); font-size: 13px; }
+  .weather-verb { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary); margin-bottom: 6px; }
+  .num-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 10px; margin-bottom: 20px; }
+  .num-row { background: var(--bg); border: 1px solid var(--line-soft); border-radius: 8px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; }
+  .num-digit { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--ink-faint); }
+  .num-word { font-family: 'Fraunces', serif; font-style: italic; font-size: 17px; color: var(--accent); }
+  .culture-block { background: var(--bg-elevated); border: 1.5px solid var(--secondary); border-radius: 14px; padding: 24px; margin-bottom: 28px; position: relative; }
+  .culture-tag { position: absolute; top: -10px; left: 20px; background: var(--secondary); color: #FBF6EB; padding: 3px 10px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .culture-block h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 22px; margin-bottom: 10px; margin-top: 4px; }
+  .culture-block p { color: var(--ink-soft); font-size: 14px; line-height: 1.6; }
+  .culture-block p + p { margin-top: 10px; }
+  .tip-block { background: var(--accent-pale); border: 1.5px solid var(--accent); border-radius: 10px; padding: 16px 20px; margin-top: 20px; font-size: 14px; color: var(--ink-soft); }
+  .tip-block strong { color: var(--ink); }
+  .practice-block { background: var(--accent-pale); border: 1.5px solid var(--accent); border-radius: 14px; padding: 24px; margin-top: 24px; }
+  .practice-q { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px dashed var(--line-soft); }
+  .practice-q:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .practice-prompt { font-size: 16px; margin-bottom: 12px; font-family: 'Fraunces', serif; font-style: italic; }
+  .practice-prompt .blank { display: inline-block; min-width: 100px; border-bottom: 2px solid var(--accent); margin: 0 4px; }
+  .practice-options { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt-btn { background: var(--bg-elevated); border: 1.5px solid var(--line); color: var(--ink); padding: 8px 16px; border-radius: 8px; font-family: 'Fraunces', serif; font-style: italic; font-size: 15px; cursor: pointer; transition: all 0.15s ease; }
+  .opt-btn:hover { background: var(--ink); color: var(--bg); }
+  .opt-btn.correct { background: var(--correct); color: #FBF6EB; border-color: var(--correct); }
+  .opt-btn.incorrect { background: var(--incorrect); color: #FBF6EB; border-color: var(--incorrect); opacity: 0.7; }
+  .opt-btn:disabled { cursor: default; }
+  .opt-btn:disabled:hover { background: var(--bg-elevated); color: var(--ink); }
+  .opt-btn.correct:disabled, .opt-btn.correct:disabled:hover { background: var(--correct); color: #FBF6EB; }
+  .opt-btn.incorrect:disabled, .opt-btn.incorrect:disabled:hover { background: var(--incorrect); color: #FBF6EB; }
+  .listen-intro { background: var(--bg-elevated); border-left: 3px solid var(--secondary); padding: 18px 22px; border-radius: 4px; margin-bottom: 28px; font-size: 14px; color: var(--ink-soft); }
+  .listen-intro strong { color: var(--ink); }
+  .listen-exercise { background: var(--bg-elevated); border: 1.5px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 24px; box-shadow: var(--shadow-paper); }
+  .listen-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+  .listen-head h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 22px; font-variation-settings: "opsz" 36, "SOFT" 40; }
+  .listen-counter { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-faint); background: var(--bg); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line-soft); white-space: nowrap; }
+  .play-btn { background: var(--accent); color: #FBF6EB; border: 1.5px solid var(--accent); border-radius: 12px; padding: 14px 24px; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 15px; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: transform 0.15s ease, background 0.15s ease; margin-bottom: 18px; }
+  .play-btn:hover { transform: translate(-1px,-1px); box-shadow: 0 2px 0 var(--ink); }
+  .play-btn:active { transform: translate(1px,1px); box-shadow: none; }
+  .play-btn.speaking { background: var(--secondary); border-color: var(--secondary); }
+  .play-btn svg { width: 16px; height: 16px; }
+  .listen-options { display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: 10px; margin-bottom: 16px; }
+  .listen-options.cols-2 { grid-template-columns: repeat(2,1fr); max-width: 500px; }
+  .listen-opt { background: var(--bg); border: 1.5px solid var(--line); color: var(--ink); padding: 14px 16px; border-radius: 10px; font-family: 'Fraunces', serif; font-style: italic; font-size: 15px; cursor: pointer; transition: all 0.15s ease; text-align: center; }
+  .listen-opt:hover { background: var(--ink); color: var(--bg); transform: translate(-1px,-1px); }
+  .listen-opt.correct { background: var(--correct); color: #FBF6EB; border-color: var(--correct); }
+  .listen-opt.incorrect { background: var(--incorrect); color: #FBF6EB; border-color: var(--incorrect); opacity: 0.6; }
+  .listen-opt:disabled { cursor: default; }
+  .listen-opt:disabled:hover { transform: none; }
+  .listen-opt:disabled:hover:not(.correct):not(.incorrect) { background: var(--bg); color: var(--ink); }
+  .feedback { font-family: 'Fraunces', serif; font-style: italic; font-size: 16px; padding: 14px 18px; border-radius: 8px; margin-top: 12px; display: none; }
+  .feedback.show { display: block; animation: fadeIn 0.3s ease; }
+  .feedback.correct { background: rgba(45,106,79,0.1); color: var(--correct); border-left: 3px solid var(--correct); }
+  .feedback.incorrect { background: var(--accent-pale); color: var(--accent); border-left: 3px solid var(--accent); }
+  .feedback strong { font-weight: 700; font-style: normal; }
+  .next-btn { background: var(--ink); color: var(--bg); border: 1.5px solid var(--ink); border-radius: 10px; padding: 12px 22px; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; margin-top: 12px; transition: transform 0.15s ease; }
+  .next-btn:hover { transform: translate(-1px,-1px); box-shadow: 0 2px 0 var(--accent); }
+  .next-btn:disabled { opacity: 0.4; cursor: default; }
+  .progress-bar { height: 4px; background: var(--line-soft); border-radius: 2px; overflow: hidden; margin-bottom: 20px; }
+  .progress-fill { height: 100%; background: var(--accent); transition: width 0.4s ease; width: 0%; }
+  .done-message { text-align: center; padding: 32px 20px; background: var(--accent-pale); border-radius: 12px; border: 1.5px solid var(--accent); display: none; }
+  .done-message.show { display: block; animation: fadeIn 0.4s ease; }
+  .done-message h4 { font-family: 'Fraunces', serif; font-style: italic; font-size: 28px; color: var(--accent); margin-bottom: 8px; }
+  .done-message p { color: var(--ink-soft); margin-bottom: 16px; }
+  .done-message .score { font-family: 'Fraunces', serif; font-weight: 700; font-size: 22px; color: var(--ink); margin-bottom: 16px; }
+  .voice-notice { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); margin-top: 16px; font-style: italic; }
+  footer { border-top: 1px solid var(--line-soft); padding: 24px 0; color: var(--ink-faint); font-size: 13px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.08em; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  @media (max-width: 720px) {
+    .pronoun-grid { grid-template-columns: 1fr; }
+    .pronoun-row { grid-template-columns: 130px 1fr; }
+    .conj-split { grid-template-columns: 1fr; }
+    .grammar-block { padding: 20px; }
+    .listen-exercise { padding: 20px; }
+    .tab-btn { padding: 12px 14px; font-size: 17px; }
+    .tab-btn .tab-num { display: none; }
+  }
+
+ .tip{padding:18px;margin:20px 0;background:var(--accent-pale);border-left:3px solid var(--accent);border-radius:4px}
+ .grammar-block p,.culture-block p{margin:16px 0}.grammar-block h4,.culture-block h4{margin-top:24px;font-size:20px;font-family:Fraunces,Georgia,serif}
+ .table-scroll{overflow-x:auto;margin:20px 0}table{width:100%;border-collapse:collapse}th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line-soft)}th{color:var(--accent);font-size:13px}
+ .controls{display:flex;gap:10px}.intro{margin-bottom:24px;color:var(--ink-soft)}.flashcard{min-height:230px;height:auto}.flashcard-inner{min-height:230px}.card-word{font-size:clamp(18px,2.5vw,25px);overflow-wrap:anywhere}.card-ex{font-size:14px}.card-face{padding:18px}
+ :focus-visible{outline:3px solid var(--secondary);outline-offset:4px}.expanded .container{max-width:100%;min-height:100vh}.expanded .title-block{padding-top:20px}
+ @media(max-width:500px){.header-row{gap:10px}.brand-text{font-size:9px}.brand-mark{width:36px;height:36px}.controls{gap:6px}.theme-toggle{width:38px;height:38px}.card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.flashcard,.flashcard-inner{min-height:270px}.card-face{padding:12px}.card-word{font-size:19px}.card-ex{font-size:13px}.listen-options{grid-template-columns:1fr}.flash-toolbar{align-items:flex-start;gap:8px}.flash-count{font-size:10px}.flip-all-btn{font-size:11px}h1.module-title{font-size:42px}}
+ @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+ </style></head><body><div class="container"><header><div class="header-row"><div class="brand"><div class="brand-mark">W</div><div class="brand-text"><strong>SPAN 2010</strong> · Third Semester Spanish<br>Weber State University</div></div><div class="controls"><button class="theme-toggle" id="themeToggle" title="Toggle dark mode" aria-label="Toggle dark mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg></button><button class="theme-toggle" id="fullscreenToggle" aria-label="Enter fullscreen" title="Enter fullscreen" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg></button></div></div><div class="title-block"><div class="eyebrow">Módulo 8 · Module Eight</div><h1 class="module-title">Sin tierra ni olivares, ¿qué sería de las <em>ciudades</em>?</h1><p class="module-subtitle">Meet the animal world, imagine possible changes, and connect your ideas with relative clauses.</p></div></header><nav class="tabs" role="tablist" aria-label="Module sections"><button class="tab-btn active" data-tab="vocab" role="tab" aria-controls="panel-vocab"><span class="tab-num">01</span>Vocabulario</button><button class="tab-btn " data-tab="grammar" role="tab" aria-controls="panel-grammar"><span class="tab-num">02</span>Gramática</button><button class="tab-btn " data-tab="listen" role="tab" aria-controls="panel-listen"><span class="tab-num">03</span>Audición</button></nav><main><section class="panel active" id="panel-vocab" role="tabpanel"><p class="intro">Recall the Spanish before you flip each card. The back shows the term in context. Use Flip all to review the complete set.</p><div class="pill-nav"><button class="pill active" data-sub="vocab0">Las familias y la granja</button><button class="pill " data-sub="vocab1">La fauna y la conservación</button><button class="pill " data-sub="vocab2">Los animales del barrio</button></div><div class="sub-panel active" id="sub-vocab0"><div class="section-head"><h2>Las familias y la granja</h2></div><div class="card-grid" id="cards0"></div></div><div class="sub-panel " id="sub-vocab1"><div class="section-head"><h2>La fauna y la conservación</h2></div><div class="card-grid" id="cards1"></div></div><div class="sub-panel " id="sub-vocab2"><div class="section-head"><h2>Los animales del barrio</h2></div><div class="card-grid" id="cards2"></div></div></section><section class="panel" id="panel-grammar" role="tabpanel"><div class="pill-nav"><button class="pill active" data-sub="condicional">El condicional</button><button class="pill " data-sub="relativos">Los pronombres relativos</button><button class="pill " data-sub="culture">Cultura</button><button class="pill" data-sub="practice">Práctica</button></div><div class="sub-panel active" id="sub-condicional"><div class="grammar-block"><h3>Un mundo que imaginaríamos</h3><p>Use the conditional to express what someone <strong>would</strong> do in an imagined situation: <em>Con una varita mágica, yo limpiaría los océanos</em>. Keep the full infinitive and add the endings below. All three verb classes use the same endings.</p><div class="table-scroll"><table><thead><tr><th scope="col">Sujeto</th><th scope="col">Terminación</th><th scope="col">Proteger</th></tr></thead><tbody><tr><td>yo</td><td>ía</td><td>protegería</td></tr><tr><td>tú</td><td>ías</td><td>protegerías</td></tr><tr><td>él / ella / usted</td><td>ía</td><td>protegería</td></tr><tr><td>nosotros/as</td><td>íamos</td><td>protegeríamos</td></tr><tr><td>vosotros/as</td><td>íais</td><td>protegeríais</td></tr><tr><td>ellos / ellas / ustedes</td><td>ían</td><td>protegerían</td></tr></tbody></table></div><h4>Las mismas raíces que en el futuro</h4><p>poner → pondr- · tener → tendr- · salir → saldr- · haber → habr- · caber → cabr- · querer → querr- · decir → dir- · hacer → har-. Also <em>poder → podr-; saber → sabr-; venir → vendr-</em>. Use conditional endings: <em>pondría, tendríamos, saldrían, habría, cabría, querrías, diría, haríamos</em>.</p><h4>Una propuesta, un deseo, una petición</h4><p><em>Protegeríamos a las tortugas marinas. Me gustaría trabajar con animales. ¿Podrías ayudarme?</em> Use the conditional to propose an action, express a wish, or soften a request. For now, practice simple imagined situations: <em>Con más recursos, construiría un refugio</em>.</p><div class="tip"><strong>Watch out:</strong> The endings resemble the imperfect of <em>-er/-ir</em>, but the stem differs: <em>comía</em> = I used to eat; <em>comería</em> = I would eat in an imagined situation. Do not build hypothetical <em>si</em> clauses with the conditional; their full pattern requires another tense.</div><h4>Dos sentidos de “would”</h4><p><em>Cuando éramos pequeños, visitábamos la granja</em>: a repeated past habit (“we would visit”). <em>Con más tiempo, visitaríamos la granja</em>: an imagined action (“we would visit”). Use the meaning, not the English word alone.</p><h4>La probabilidad en el pasado</h4><p><em>¿Dónde estaba el oso? Estaría en el bosque.</em> Here <em>estaría</em> means “it was probably in the forest.” Compare present speculation <em>Estará en el bosque ahora</em>.</p><h4>Una varita mágica</h4><p>With a partner, propose three changes for animals and the environment. Use <em>Yo haría…; protegeríamos…; habría…</em>. Explain who would benefit.</p></div></div><div class="sub-panel " id="sub-relativos"><div class="grammar-block"><h3>Ideas que se conectan</h3><p>Relative words connect a noun with more information about it. They do not take written accents: <em>que, donde, quien, quienes</em>. Compare the question <em>¿Dónde viven?</em> with <em>El bosque donde viven es grande</em>.</p><div class="table-scroll"><table><thead><tr><th scope="col">Palabra</th><th scope="col">Uso</th><th scope="col">Ejemplo</th></tr></thead><tbody><tr><td>que</td><td>People, animals, things; subject or object</td><td>El animal que vimos era un venado.</td></tr><tr><td>donde</td><td>A place where something happens</td><td>La playa donde anidan las tortugas está limpia.</td></tr><tr><td>quien</td><td>One person; often after a preposition or in an added comment</td><td>Ana, quien cuida los animales, es veterinaria.</td></tr><tr><td>quienes</td><td>Multiple people; same contexts as quien</td><td>Los vecinos con quienes trabajo reciclan.</td></tr></tbody></table></div><h4>Que: la opción más general</h4><p><em>Conozco a una profesora que protege a los animales.</em> Use <em>que</em> in a defining clause that identifies which person or thing you mean. English sometimes omits “that”; Spanish keeps <em>que</em>: <em>El documental que vimos…</em></p><h4>Donde: un lugar, no cualquier referencia</h4><p><em>La reserva donde viven los monos…</em> = the reserve where the monkeys live. Compare <em>La reserva que visitamos…</em> = the reserve that we visited. A place noun alone does not automatically require <em>donde</em>; consider its role in the clause.</p><h4>Quien y quienes: personas</h4><p><em>La profesora con quien hablé…; los profesores a quienes conocí…</em> Keep the preposition needed by the verb. Match singular <em>quien</em> or plural <em>quienes</em> to the person or people. They also introduce comments set off by commas: <em>Mi hermana, quien vive aquí, es conservacionista</em>. In such comments, <em>que</em> can also be correct.</p><div class="tip"><strong>Watch out:</strong> Do not use <em>quien</em> for an animal or thing in these exercises. Use <em>que</em>. Do not add question accents to relative words. A defining subject clause normally uses <em>que</em>: <em>La persona que ayuda…</em>.</div><h4>¿Quién soy?</h4><p>Describe an animal without naming it: <em>Es un mamífero que vive en el océano</em>. Your partner guesses, then describes a place using <em>donde</em> and a person using <em>con quien</em>.</p></div></div><div class="sub-panel " id="sub-culture"><div class="culture-block"><h3>El ambiente y la comunidad</h3><p>En América Latina, la protección de la naturaleza está relacionada con la salud, el trabajo y el acceso a los recursos. Los problemas ambientales no afectan a todas las comunidades de la misma manera.</p><p>La contaminación del agua y del aire, la deforestación, los residuos y el comercio ilegal de animales pueden dañar los ecosistemas y la vida cotidiana. La agricultura y la extracción de recursos plantean preguntas sobre cómo equilibrar las necesidades económicas y la conservación.</p><p>Una propuesta ambiental también puede considerar quién participa en las decisiones y quién recibe los beneficios. Cuidar el agua, proteger los hábitats y mejorar el manejo de los residuos son temas para la colaboración comunitaria.</p><h4>Una propuesta para nuestra comunidad</h4><p>Talk with a partner. Name a problem, describe the people or places affected with a relative clause, and propose two actions using the conditional.</p><p><em>¿Qué problema elegirías? ¿A quiénes ayudaría tu propuesta? ¿Qué protegeríamos? ¿Qué harían los vecinos?</em></p></div></div><div class="sub-panel" id="sub-practice"><div class="section-head"><h2>Práctica rápida</h2></div><p class="intro">Choose the best answer for each context. Read the explanation and try another choice whenever you need to.</p><div id="practiceBlock" class="practice-block"></div></div></section><section class="panel" id="panel-listen" role="tabpanel"><div class="listen-intro"><strong>How this works:</strong> Choose an exercise, press the play icon, and select the best interpretation. Each exercise has six questions. Read the explanation before continuing. You can repeat the audio or start over.</div><div class="pill-nav"><button class="pill active" data-sub="ear-animales">¿Qué animal es?</button><button class="pill " data-sub="ear-propuestas">¿Qué harías?</button><button class="pill " data-sub="ear-conexiones">Las conexiones</button></div><div class="sub-panel active" id="sub-ear-animales"><div class="listen-exercise" id="ex-animales"><div class="listen-head"><h3>Ejercicio 1 · ¿Qué animal es?</h3><span class="listen-counter" id="animalesCounter">1 / 6</span></div><p class="intro">Listen to the clues and identify the animal.</p><div class="progress-bar"><div class="progress-fill" id="animalesProgress"></div></div><button class="play-btn" id="animalesPlay" aria-label="Play Spanish audio" title="Play Spanish audio"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button><div class="listen-options" id="animalesOptions"></div><div class="feedback" id="animalesFeedback" aria-live="polite"></div><button class="next-btn" id="animalesNext" disabled>Next →</button><div class="done-message" id="animalesDone"><h4>Exercise complete</h4><div class="score" id="animalesScore"></div><p>Review the explanations and listen again to build confidence.</p><button class="next-btn" id="animalesReset">Start over</button></div></div></div><div class="sub-panel " id="sub-ear-propuestas"><div class="listen-exercise" id="ex-propuestas"><div class="listen-head"><h3>Ejercicio 2 · ¿Qué harías?</h3><span class="listen-counter" id="propuestasCounter">1 / 6</span></div><p class="intro">Listen and identify the hypothetical action or past-time guess.</p><div class="progress-bar"><div class="progress-fill" id="propuestasProgress"></div></div><button class="play-btn" id="propuestasPlay" aria-label="Play Spanish audio" title="Play Spanish audio"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button><div class="listen-options" id="propuestasOptions"></div><div class="feedback" id="propuestasFeedback" aria-live="polite"></div><button class="next-btn" id="propuestasNext" disabled>Next →</button><div class="done-message" id="propuestasDone"><h4>Exercise complete</h4><div class="score" id="propuestasScore"></div><p>Review the explanations and listen again to build confidence.</p><button class="next-btn" id="propuestasReset">Start over</button></div></div></div><div class="sub-panel " id="sub-ear-conexiones"><div class="listen-exercise" id="ex-conexiones"><div class="listen-head"><h3>Ejercicio 3 · Las conexiones</h3><span class="listen-counter" id="conexionesCounter">1 / 6</span></div><p class="intro">Listen to the complete sentence and identify what the relative clause adds.</p><div class="progress-bar"><div class="progress-fill" id="conexionesProgress"></div></div><button class="play-btn" id="conexionesPlay" aria-label="Play Spanish audio" title="Play Spanish audio"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button><div class="listen-options" id="conexionesOptions"></div><div class="feedback" id="conexionesFeedback" aria-live="polite"></div><button class="next-btn" id="conexionesNext" disabled>Next →</button><div class="done-message" id="conexionesDone"><h4>Exercise complete</h4><div class="score" id="conexionesScore"></div><p>Review the explanations and listen again to build confidence.</p><button class="next-btn" id="conexionesReset">Start over</button></div></div></div><p class="voice-notice">Audio uses your browser’s Spanish voice. If it is unavailable, install a Spanish system voice or try another browser. No responses or scores are sent or stored.</p></section></main><footer><div>SPAN 2010 · Módulo 8</div><div>Dr. Rama</div></footer></div><script>const practiceQuestions=[{"prompt": "Con una varita mágica, yo ___ los océanos.", "options": ["limpiaría", "limpiaba", "limpiarán", "limpiaré"], "correct": 0, "explain": "An imagined action uses the conditional: limpiar + -ía."}, {"prompt": "Con más recursos, nosotros ___ un refugio.", "options": ["haceríamos", "haríamos", "harían", "hicimos"], "correct": 1, "explain": "Hacer uses har-; nosotros adds -íamos."}, {"prompt": "¿Qué superpoder ___ tú?", "options": ["querería", "querrán", "querrías", "querría"], "correct": 2, "explain": "Querer uses querr-; tú adds -ías."}, {"prompt": "De niños, siempre ___ la granja los domingos.", "options": ["visitaríamos", "visitaremos", "hemos visitar", "visitábamos"], "correct": 3, "explain": "Siempre and de niños describe a repeated past habit: imperfect."}, {"prompt": "Es un animal ___ vive en el océano.", "options": ["que", "quien", "donde", "qué"], "correct": 0, "explain": "Que connects an animal with the action it performs."}, {"prompt": "La playa ___ anidan las tortugas está protegida.", "options": ["quienes", "donde", "quién", "qué"], "correct": 1, "explain": "Donde means where: the beach is where they nest."}, {"prompt": "Los científicos con ___ trabajo protegen el bosque.", "options": ["quien", "que", "quienes", "quiénes"], "correct": 2, "explain": "Con quienes refers to multiple people after the preposition con."}, {"prompt": "La reserva ___ visitamos tiene muchos monos.", "options": ["donde", "quien", "qué", "que"], "correct": 3, "explain": "The reserve is the object of visitamos: the reserve that we visited. Use que."}];
+const themeToggle = document.getElementById('themeToggle');
+const savedTheme = (() => { try { return localStorage.getItem('span2010-theme'); } catch { return null; } })();
+if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+themeToggle.addEventListener('click', () => {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  isDark ? document.documentElement.removeAttribute('data-theme') : document.documentElement.setAttribute('data-theme','dark');
+  try { localStorage.setItem('span2010-theme', isDark ? 'light' : 'dark'); } catch {}
+});
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === `panel-${btn.dataset.tab}`));
+    window.speechSynthesis && window.speechSynthesis.cancel();
+  });
+});
+document.querySelectorAll('.panel').forEach(panel => {
+  panel.querySelectorAll('.pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      panel.querySelectorAll('.pill').forEach(p => p.classList.toggle('active', p === pill));
+      panel.querySelectorAll('.sub-panel').forEach(sp => sp.classList.toggle('active', sp.id === `sub-${pill.dataset.sub}`));
+      window.speechSynthesis && window.speechSynthesis.cancel();
+    });
+  });
+});
+
+function buildFlashcards(containerId, items) {
+  const grid = document.getElementById(containerId);
+  items.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'flashcard';
+    card.tabIndex = 0;
+    card.setAttribute('role', 'button'); card.setAttribute('aria-pressed','false');
+    card.setAttribute('aria-label', `${item.en} — click to see the Spanish`);
+    card.innerHTML = `<div class="flashcard-inner">
+      <div class="card-face card-front">
+        <div class="card-label">English</div>
+        <div class="card-word">${item.en}</div>
+        <div class="card-hint">${item.hint || 'click to flip'}</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="card-label">Español</div>
+        <div class="card-word"><em>${item.es}</em></div>
+        <div class="card-ex">${item.ex}</div>
+      </div>
+    </div>`;
+    const flip = () => { card.classList.toggle('flipped'); syncLabel(); };
+    card.addEventListener('click', flip);
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); }
+    });
+    grid.appendChild(card);
+  });
+
+  const toolbar = document.createElement('div');
+  toolbar.className = 'flash-toolbar';
+  toolbar.innerHTML = `<span class="flash-count">${items.length} cards · click a card to flip it</span>
+    <button class="flip-all-btn" type="button"></button>`;
+  grid.parentNode.insertBefore(toolbar, grid);
+  const btn = toolbar.querySelector('.flip-all-btn');
+  const cards = () => [...grid.querySelectorAll('.flashcard')];
+  function syncLabel() {
+    cards().forEach(c => { const s=c.classList.contains('flipped'); c.setAttribute('aria-pressed',String(s)); c.setAttribute('aria-label',s ? c.querySelector('.card-back').textContent+' — click to see English' : c.querySelector('.card-front').textContent+' — click to see Spanish'); });
+    const allSpanish = cards().every(c => c.classList.contains('flipped'));
+    btn.textContent = allSpanish ? 'Flip all to English' : 'Flip all to Spanish';
+    btn.setAttribute('aria-pressed', allSpanish);
+  }
+  btn.addEventListener('click', () => {
+    const allSpanish = cards().every(c => c.classList.contains('flipped'));
+    cards().forEach(c => c.classList.toggle('flipped', !allSpanish));
+    syncLabel();
+  });
+  syncLabel();
+}
+
+// practiceQuestions = [{ prompt, options, correct, explain }, ...] — 8 items
+const practiceBlock = document.getElementById('practiceBlock');
+practiceBlock.innerHTML = practiceQuestions.map((q, qi) => `
+  <div class="practice-q">
+    <div class="practice-prompt">${q.prompt.replace('___','<span class="blank"></span>')}</div>
+    <div class="practice-options">${q.options.map((o,oi) => `<button class="opt-btn" data-q="${qi}" data-o="${oi}">${o}</button>`).join('')}</div>
+    <div class="feedback" id="practice-fb-${qi}"></div>
+  </div>`).join('');
+practiceBlock.addEventListener('click', e => {
+  if (!e.target.classList.contains('opt-btn')) return;
+  const qi = +e.target.dataset.q, oi = +e.target.dataset.o;
+  const q = practiceQuestions[qi];
+  const allBtns = practiceBlock.querySelectorAll(`.opt-btn[data-q="${qi}"]`);
+  allBtns.forEach(b => { b.classList.remove('correct','incorrect'); });
+  allBtns[q.correct].classList.add('correct');
+  if (oi !== q.correct) e.target.classList.add('incorrect');
+  const fb = document.getElementById(`practice-fb-${qi}`);
+  fb.className = oi === q.correct ? 'feedback correct show' : 'feedback incorrect show';
+  fb.innerHTML = oi === q.correct ? `✓ ${q.explain}` : `The answer is <strong>${q.options[q.correct]}</strong>. ${q.explain}`;
+});
+
+let spanishVoice = null;
+function pickSpanishVoice() {
+  const voices = window.speechSynthesis.getVoices();
+  for (const lang of ['es-MX','es-US','es-419','es-CO','es-AR','es-ES','es']) {
+    const v = voices.find(v => v.lang === lang || v.lang.toLowerCase().startsWith(lang.toLowerCase()));
+    if (v) return v;
+  }
+  return voices.find(v => v.lang.toLowerCase().startsWith('es')) || null;
+}
+if ('speechSynthesis' in window) {
+  spanishVoice = pickSpanishVoice();
+  window.speechSynthesis.onvoiceschanged = () => { spanishVoice = pickSpanishVoice(); };
+}
+function speak(text, btn) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'es-MX'; u.rate = 0.88; u.pitch = 1;
+  if (spanishVoice) u.voice = spanishVoice;
+  if (btn) { btn.classList.add('speaking'); u.onend = u.onerror = () => btn.classList.remove('speaking'); }
+  window.speechSynthesis.speak(u);
+}
+
+function buildExercise(config) {
+  let idx = 0, score = 0, answered = false;
+  const playBtn    = document.getElementById(config.playId);
+  const optionsEl  = document.getElementById(config.optionsId);
+  const feedbackEl = document.getElementById(config.feedbackId);
+  const nextBtn    = document.getElementById(config.nextId);
+  const counterEl  = document.getElementById(config.counterId);
+  const progressEl = document.getElementById(config.progressId);
+  const doneEl     = document.getElementById(config.doneId);
+  const scoreEl    = document.getElementById(config.scoreId);
+  const resetBtn   = document.getElementById(config.resetId);
+  const root       = playBtn.closest('.listen-exercise');
+  function render() {
+    feedbackEl.style.display='';
+    const q = config.questions[idx];
+    counterEl.textContent = `${idx + 1} / ${config.questions.length}`;
+    progressEl.style.width = `${(idx / config.questions.length) * 100}%`;
+    feedbackEl.classList.remove('show','correct','incorrect');
+    nextBtn.disabled = true; answered = false;
+    optionsEl.innerHTML = '';
+    q.options.forEach((opt, i) => {
+      const b = document.createElement('button');
+      b.className = 'listen-opt'; b.textContent = opt;
+      b.addEventListener('click', () => handleAnswer(i, b));
+      optionsEl.appendChild(b);
+    });
+
+  }
+  function handleAnswer(selected, btn) {
+    if (answered) return;
+    answered = true;
+    const q = config.questions[idx];
+    const allBtns = optionsEl.querySelectorAll('.listen-opt');
+    allBtns.forEach(b => b.disabled = true);
+    const ci = config.getCorrectIndex(q);
+    allBtns[ci].classList.add('correct');
+    if (selected === ci) { score++; btn.classList.add('correct'); feedbackEl.className = 'feedback correct show'; feedbackEl.innerHTML = `Correct! ${q.hint||''}`; }
+    else { btn.classList.add('incorrect'); feedbackEl.className = 'feedback incorrect show'; feedbackEl.innerHTML = `The answer is <strong>${q.options[ci]}</strong>. ${q.hint||''}`; }
+    nextBtn.disabled = false;
+  }
+  playBtn.addEventListener('click', () => { if (idx < config.questions.length) speak(config.getAudio(config.questions[idx]), playBtn); });
+  nextBtn.addEventListener('click', () => { idx++; idx >= config.questions.length ? finish() : render(); });
+  function finish() {
+    progressEl.style.width = '100%';
+    root.querySelectorAll('.listen-head,.progress-bar,.play-btn,.listen-options,.feedback').forEach(el => el.style.display='none'); nextBtn.style.display='none';
+    doneEl.classList.add('show');
+    scoreEl.textContent = `${score} / ${config.questions.length}`;
+  }
+  resetBtn.addEventListener('click', () => {
+    idx = 0; score = 0; answered = false;
+    doneEl.classList.remove('show');
+    root.querySelectorAll('.listen-head,.progress-bar,.play-btn,.listen-options,.feedback,.next-btn').forEach(el => el.style.display='');
+    feedbackEl.style.display=''; nextBtn.style.display='';
+    render();
+  });
+  render();
+}
+
+
+const fs=document.getElementById('fullscreenToggle');
+function syncFullscreen(){const active=!!(document.fullscreenElement||document.webkitFullscreenElement)||document.body.classList.contains('expanded'); fs.setAttribute('aria-pressed',String(active));fs.setAttribute('aria-label',active?'Exit fullscreen':'Enter fullscreen');fs.title=active?'Exit fullscreen':'Enter fullscreen';}
+fs.addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if(document.webkitFullscreenElement)document.webkitExitFullscreen();else if(document.body.classList.contains('expanded'))document.body.classList.remove('expanded');else if(document.fullscreenEnabled&&document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();else if(document.documentElement.webkitRequestFullscreen)document.documentElement.webkitRequestFullscreen();else document.body.classList.add('expanded');}catch{document.body.classList.toggle('expanded');}syncFullscreen();});
+document.addEventListener('fullscreenchange',syncFullscreen);document.addEventListener('webkitfullscreenchange',syncFullscreen);document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.body.classList.remove('expanded');syncFullscreen();}});
+document.querySelectorAll('.tab-btn').forEach(b=>{b.setAttribute('aria-selected',String(b.classList.contains('active')));b.addEventListener('click',()=>document.querySelectorAll('.tab-btn').forEach(t=>t.setAttribute('aria-selected',String(t===b))));});
+
+buildFlashcards("cards0",[{"en": "insects", "es": "los insectos", "ex": "Las abejas son insectos que polinizan."}, {"en": "mammals", "es": "los mamíferos", "ex": "Protegeríamos a los mamíferos del bosque."}, {"en": "birds", "es": "los pájaros / las aves", "ex": "Observaríamos las aves del parque."}, {"en": "fish (plural)", "es": "los peces", "ex": "Los peces que vimos eran pequeños."}, {"en": "reptiles", "es": "los reptiles", "ex": "Estudiaríamos los reptiles de la isla."}, {"en": "amphibians", "es": "los anfibios", "ex": "Las ranas son anfibios que necesitan agua."}, {"en": "horse", "es": "el caballo", "ex": "Montaría el caballo de mi abuelo."}, {"en": "mare", "es": "la yegua", "ex": "La yegua que vimos era blanca."}, {"en": "goat", "es": "la cabra", "ex": "Cuidaría la cabra de mi vecina."}, {"en": "pig", "es": "el cerdo", "ex": "El cerdo que vimos estaba durmiendo."}, {"en": "hen / rooster", "es": "la gallina / el gallo", "ex": "La gallina que tenemos pone huevos."}, {"en": "sheep / ram", "es": "la oveja / el carnero", "ex": "La oveja que vimos era pequeña."}, {"en": "cow / bull", "es": "la vaca / el toro", "ex": "La vaca que vimos tenía un ternero."}, {"en": "puppy", "es": "el cachorro / la cachorra", "ex": "Adoptaría un cachorro."}, {"en": "young rabbit / bunny", "es": "el gazapo / la gazapa", "ex": "El gazapo que encontramos era pequeño."}, {"en": "piglet", "es": "el lechón / la lechona", "ex": "Cuidaría al lechón de la granja."}, {"en": "lamb", "es": "el cordero / la cordera", "ex": "El cordero que nació está sano."}, {"en": "young donkey", "es": "el pollino / la pollina", "ex": "El pollino que vimos seguía a su madre."}, {"en": "foal / filly", "es": "el potro / la potra", "ex": "El potro que nació corre mucho."}, {"en": "calf", "es": "el ternero / la ternera", "ex": "El ternero que vimos dormía."}, {"en": "kitten", "es": "el gatito / la gatita", "ex": "Adoptaría una gatita."}, {"en": "small dog / puppy", "es": "el perrito / la perrita", "ex": "Cuidaría al perrito de mi hermana."}, {"en": "female dog / female cat", "es": "la perra / la gata", "ex": "La gata que adoptamos es tranquila."}, {"en": "farm", "es": "la granja", "ex": "Visitaría la granja donde trabaja Ana."}]);
+buildFlashcards("cards1",[{"en": "bee", "es": "la abeja", "ex": "Protegería a las abejas que polinizan."}, {"en": "tuna", "es": "el atún", "ex": "El atún que vimos nadaba rápido."}, {"en": "whale", "es": "la ballena", "ex": "Observaría las ballenas desde un barco."}, {"en": "hummingbird", "es": "el colibrí", "ex": "El colibrí que vimos era verde."}, {"en": "elephant", "es": "el elefante", "ex": "Protegeríamos el hábitat de los elefantes."}, {"en": "gorilla", "es": "el gorila", "ex": "El gorila que vimos estaba comiendo."}, {"en": "lion", "es": "el león", "ex": "Observaría al león desde lejos."}, {"en": "nightingale", "es": "el ruiseñor", "ex": "Escucharía al ruiseñor que canta."}, {"en": "sea turtle", "es": "la tortuga marina", "ex": "Protegería la playa donde anidan las tortugas."}, {"en": "shark", "es": "el tiburón", "ex": "Estudiaría los tiburones del océano."}, {"en": "crab", "es": "el cangrejo", "ex": "El cangrejo que vimos era pequeño."}, {"en": "monkey", "es": "el mono", "ex": "El mono que vimos comía fruta."}, {"en": "snake", "es": "la serpiente", "ex": "La serpiente que vimos era larga."}, {"en": "crocodile", "es": "el cocodrilo", "ex": "No me acercaría al cocodrilo."}, {"en": "frog", "es": "la rana", "ex": "Cuidaría el lago donde viven las ranas."}, {"en": "toad", "es": "el sapo", "ex": "El sapo que vimos estaba quieto."}, {"en": "penguin", "es": "el pingüino", "ex": "Observaría a los pingüinos desde lejos."}, {"en": "bear", "es": "el oso", "ex": "Protegería el bosque donde vive el oso."}, {"en": "polar bear", "es": "el oso polar", "ex": "Protegeríamos el hábitat del oso polar."}, {"en": "to be endangered", "es": "estar en peligro de extinción", "ex": "Protegeríamos las especies en peligro de extinción."}, {"en": "wild", "es": "salvaje", "ex": "No tendría un animal salvaje en casa."}, {"en": "cage", "es": "la jaula", "ex": "Limpiaría la jaula del animal."}]);
+buildFlashcards("cards2",[{"en": "squirrel", "es": "la ardilla", "ex": "La ardilla que vimos subía un árbol."}, {"en": "spider", "es": "la araña", "ex": "La araña que vimos tenía ocho patas."}, {"en": "ant", "es": "la hormiga", "ex": "La hormiga que vimos llevaba comida."}, {"en": "lizard", "es": "la lagartija", "ex": "La lagartija que vimos estaba al sol."}, {"en": "pigeon / dove", "es": "la paloma", "ex": "La paloma que vimos era blanca."}, {"en": "rat", "es": "la rata", "ex": "La rata que vimos buscaba comida."}, {"en": "mouse", "es": "el ratón", "ex": "El ratón que vimos era pequeño."}, {"en": "raccoon", "es": "el mapache", "ex": "El mapache que vimos abrió la basura."}, {"en": "fly", "es": "la mosca", "ex": "La mosca que vimos entró en casa."}, {"en": "mosquito", "es": "el mosquito / el zancudo", "ex": "Usaría repelente contra los mosquitos."}, {"en": "deer", "es": "el venado", "ex": "Observaría al venado desde lejos."}, {"en": "to hunt", "es": "cazar", "ex": "No cazaría animales en esta reserva."}, {"en": "domesticated", "es": "domesticado/a", "ex": "Un animal domesticado necesitaría nuestros cuidados."}, {"en": "male / female", "es": "macho / hembra", "ex": "La serpiente que vimos era una hembra."}]);
+buildExercise({"questions": [{"audio": "Es un ave domesticada que pone huevos.", "options": ["la gallina", "la ballena", "la araña"], "correct": 0, "hint": "Gallina is a hen, a domesticated egg-laying bird."}, {"audio": "Es un mamífero enorme que vive en el océano.", "options": ["el tiburón", "la ballena", "el atún"], "correct": 1, "hint": "A whale is a marine mammal; sharks and tuna are fish."}, {"audio": "Es un insecto que poliniza las flores.", "options": ["el mapache", "la paloma", "la abeja"], "correct": 2, "hint": "Abeja means bee; bees pollinate flowers."}, {"audio": "Es un animal de ocho patas que hace telarañas.", "options": ["la araña", "la hormiga", "el mosquito"], "correct": 0, "hint": "Araña means spider; telarañas are webs."}, {"audio": "Es un ave pequeña que puede volar cerca de una flor.", "options": ["el oso", "el colibrí", "la rata"], "correct": 1, "hint": "Colibrí means hummingbird, a small bird that visits flowers."}, {"audio": "Es un reptil que anida en las playas.", "options": ["el cangrejo", "la rana", "la tortuga marina"], "correct": 2, "hint": "Sea turtles are reptiles that nest on beaches."}], "playId": "animalesPlay", "optionsId": "animalesOptions", "feedbackId": "animalesFeedback", "nextId": "animalesNext", "counterId": "animalesCounter", "progressId": "animalesProgress", "doneId": "animalesDone", "scoreId": "animalesScore", "resetId": "animalesReset",getAudio:q=>q.audio,getCorrectIndex:q=>q.correct});
+buildExercise({"questions": [{"audio": "Con más tiempo, cuidaría animales en un refugio.", "options": ["I used to work there.", "I would care for animals.", "I will care for animals."], "correct": 1, "hint": "Cuidaría describes an imagined action with more time."}, {"audio": "Con una varita mágica, limpiaríamos los océanos.", "options": ["We would clean the oceans.", "We have cleaned them.", "We used to clean them."], "correct": 0, "hint": "Limpiaríamos is nosotros conditional."}, {"audio": "¿Qué les dirías a los líderes de tu comunidad?", "options": ["What did you tell them?", "What will they tell you?", "What would you tell them?"], "correct": 2, "hint": "Dirías is the tú conditional of decir."}, {"audio": "Me gustaría proteger a las tortugas marinas.", "options": ["I have protected them.", "I would like to protect them.", "I used to protect them."], "correct": 1, "hint": "Me gustaría expresses a wish: I would like."}, {"audio": "No vimos al oso ayer. Estaría en el bosque.", "options": ["It was probably in the forest.", "It will be in the forest tomorrow.", "It has left the forest."], "correct": 0, "hint": "Estaría expresses a guess about a past situation."}, {"audio": "Cuando era niño, visitaba la granja todos los domingos.", "options": ["He imagines a future visit.", "He has never visited.", "He regularly visited as a child."], "correct": 2, "hint": "Visitaba describes a repeated past habit, even if English uses would."}], "playId": "propuestasPlay", "optionsId": "propuestasOptions", "feedbackId": "propuestasFeedback", "nextId": "propuestasNext", "counterId": "propuestasCounter", "progressId": "propuestasProgress", "doneId": "propuestasDone", "scoreId": "propuestasScore", "resetId": "propuestasReset",getAudio:q=>q.audio,getCorrectIndex:q=>q.correct});
+buildExercise({"questions": [{"audio": "Es la reserva donde viven los monos.", "options": ["Who protects the monkeys.", "What monkeys eat.", "Where the monkeys live."], "correct": 2, "hint": "Donde introduces the place where an action happens."}, {"audio": "La veterinaria con quien hablé cuida a los animales.", "options": ["The person I spoke with.", "The place I visited.", "The animal I adopted."], "correct": 0, "hint": "Con quien refers to the veterinarian, a person I spoke with."}, {"audio": "Los científicos con quienes trabajo estudian las ballenas.", "options": ["One animal I saw.", "The people I work with.", "The place I work."], "correct": 1, "hint": "Quienes is plural and refers to the scientists."}, {"audio": "El documental que vimos trata de la deforestación.", "options": ["Where we watched it.", "Who made it.", "Which documentary: the one we watched."], "correct": 2, "hint": "Que introduces information identifying the documentary."}, {"audio": "La playa que visitamos estaba limpia.", "options": ["The beach we visited.", "The people we visited.", "Where the turtle was born."], "correct": 0, "hint": "Que is the object of visitamos; the beach is what we visited."}, {"audio": "Mi hermana, quien vive en Quito, es conservacionista.", "options": ["Information about a place only.", "Extra information about my sister.", "A question about an animal."], "correct": 1, "hint": "Quien adds information about one person, set off by commas."}], "playId": "conexionesPlay", "optionsId": "conexionesOptions", "feedbackId": "conexionesFeedback", "nextId": "conexionesNext", "counterId": "conexionesCounter", "progressId": "conexionesProgress", "doneId": "conexionesDone", "scoreId": "conexionesScore", "resetId": "conexionesReset",getAudio:q=>q.audio,getCorrectIndex:q=>q.correct});
+window.addEventListener("pagehide",()=>window.speechSynthesis?.cancel());</script></body></html>
