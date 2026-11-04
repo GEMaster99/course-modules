@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¿Dónde jugarán los niños? | SPAN 3000</title>
+<style>
+:root{color-scheme:light;--bg:#f6f4ef;--card:#fff;--ink:#221b29;--muted:#615969;--line:#ddd5e1;--purple:#492365;--soft:#f2eaf7;--accent:#14614d}
+:root.dark{color-scheme:dark;--bg:#19151e;--card:#25202b;--ink:#f7f0fa;--muted:#d2c5d7;--line:#4d4254;--purple:#dbb7f3;--soft:#382647;--accent:#9de1c8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:clamp(17px,1.65vw,23px)/1.5 system-ui,sans-serif}button,a,summary{cursor:pointer}a{color:var(--purple)}button{font:inherit;color:var(--purple);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.35rem .75rem}button:hover,summary:hover{background:var(--soft)}button:disabled{opacity:.38;cursor:default}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1180px;margin:auto;padding:0 clamp(16px,4vw,48px)}header{background:var(--card);border-bottom:1px solid var(--line)}.bar,.brand,.tools,.nav,.steps{display:flex;align-items:center;gap:.55rem}.bar,.nav{justify-content:space-between}.bar{padding-block:.55rem}.brand{font-size:.72em;font-weight:750;letter-spacing:.08em;color:var(--purple)}.badge{background:#492365;color:white;border-radius:4px 4px 12px 12px;padding:.12em .43em;font:1.55em Georgia,serif}.icon{display:grid;place-items:center;min-width:40px;min-height:40px;padding:.4rem}.icon svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+main{padding-block:clamp(18px,3vw,34px)}.nav{margin-bottom:1rem}.steps{gap:.35rem}.steps button{min-width:40px}.steps [aria-current="step"]{background:var(--purple);color:var(--card);border-color:var(--purple)}.slide{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:clamp(18px,3.5vw,42px)}[hidden]{display:none!important}
+.kicker{margin:0;color:var(--accent);font-size:.69em;font-weight:800;letter-spacing:.12em;text-transform:uppercase}h1,h2,h3,p{margin:0 0 .65em}h1,h2{line-height:1.1;letter-spacing:-.035em;font-size:clamp(31px,4.4vw,56px);margin:.22em 0 .43em}h3{font-size:1em;color:var(--purple)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.listening{grid-template-columns:1.25fr 1fr}.panel,details{background:var(--soft);border-radius:12px;padding:.8rem 1rem}.panel p:last-child,details p:last-child{margin-bottom:0}.video iframe{width:100%;height:auto;aspect-ratio:16/9;border:0;border-radius:10px;background:#21152a;display:block}.small,footer{font-size:.73em;color:var(--muted)}.video p{margin-top:.4em}ol,ul{margin:.3em 0 .8em;padding-left:1.25em}li+li{margin-top:.38em}details{margin-top:.7rem}summary{font-weight:750;color:var(--purple)}details[open] summary{margin-bottom:.5rem}footer{display:flex;justify-content:space-between;gap:1rem;margin:.8rem 0}.ref{width:min(780px,calc(100% - 24px));max-height:90dvh;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:16px;padding:clamp(15px,3vw,28px)}.ref::backdrop{background:#170e24aa}.ref h2{font-size:1.65em}.ref .bar{align-items:start}.ref strong{color:var(--purple)}table{border-collapse:collapse;width:100%;font-size:.86em;margin:.45em 0 .8em}td,th{text-align:left;border-bottom:1px solid var(--line);padding:.28em .42em}output{display:block;margin-top:.55em;color:var(--accent);font-weight:650}.choice[aria-pressed="true"]{background:var(--purple);color:var(--card)}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.brand .name{display:none}.slide{border-radius:13px}}
+
+.lyrics-button{display:inline-flex;align-items:center;gap:.35rem}.lyrics-button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.lyrics-text{max-width:38em;line-height:1.75}.lyrics-text p{margin-bottom:1em}.gloss{display:inline-block;position:relative}.gloss button{font:inherit;line-height:inherit;padding:0;border:0;border-radius:0;background:transparent;text-decoration:underline dotted;text-underline-offset:.18em}.gloss .translation{display:none;position:absolute;z-index:1;inset-inline-start:0;bottom:100%;width:max-content;max-width:min(210px,70vw);padding:.32em .55em;background:var(--purple);color:var(--card);border-radius:6px;font-size:.75em;line-height:1.35;box-shadow:0 2px 8px #0003}.gloss:hover .translation,.gloss:focus-within .translation{display:block}.gloss:focus-within{z-index:2}
+</style>
+</head>
+<body>
+<header><div class="wrap bar"><div class="brand"><span class="badge" aria-hidden="true">W</span> SPAN 3000 <span class="name">· CONVERSACIÓN EN ESPAÑOL</span></div>
+<div class="tools">
+<button class="icon" id="grammar" title="Referencia del futuro" aria-label="Referencia del futuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v15M3 4h5a4 4 0 0 1 4 2 4 4 0 0 1 4-2h5v15h-5a4 4 0 0 0-4 2 4 4 0 0 0-4-2H3z"/></svg></button>
+<button class="icon" id="theme" title="Modo oscuro" aria-label="Modo oscuro" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.7 14.3A9 9 0 0 1 9.7 3.3a9 9 0 1 0 11 11Z"/></svg></button>
+<button class="icon" id="fullscreen" title="Pantalla completa" aria-label="Pantalla completa" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3H3v6m12-6h6v6M3 15v6h6m12-6v6h-6"/></svg></button>
+</div></div></header>
+<main class="wrap">
+<nav class="nav" aria-label="Etapas de la discusión">
+<button class="icon" id="prev" aria-label="Etapa anterior" title="Etapa anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
+<div class="steps">
+<button data-step="0" aria-label="1. Escucha y compara" aria-current="step">1</button><button data-step="1" aria-label="2. Pregunta o advertencia">2</button><button data-step="2" aria-label="3. Una decisión para el futuro">3</button><button data-step="3" aria-label="4. Responde al coro">4</button>
+</div>
+<button class="icon" id="next" aria-label="Etapa siguiente" title="Etapa siguiente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+</nav>
+<section class="slide"><p class="kicker">01 · Escucha y compara · 4 min</p><h1 tabindex="-1">¿Dónde jugarán los niños?</h1>
+<div class="grid listening"><div class="video"><iframe width="560" height="315" src="https://www.youtube.com/embed/_rFRVwOV-hs?si=uNRfMgdjRMdQHAwl" title="¿Dónde jugarán los niños? · Maná" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><p class="small"><a href="https://www.youtube.com/watch?v=_rFRVwOV-hs" target="_blank" rel="noopener">Abrir en YouTube ↗</a> · Maná</p><button class="lyrics-button" id="open-lyrics" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l12-2v13M9 18a3 2 0 1 1-3-2c2 0 3 1 3 2Zm12-2a3 2 0 1 1-3-2c2 0 3 1 3 2Z"/></svg>Ver letra</button></div>
+<div><p>Vuelvan a escuchar la primera estrofa y el primer coro. Pausen al terminar el coro.</p><ol><li>¿Cómo era el lugar donde jugaba el abuelo?</li><li>¿Qué imagen de destrucción aparece en la letra o en el video?</li><li>¿Por qué les llama la atención ese contraste?</li></ol><details><summary>Un ejemplo de contraste</summary><p>El abuelo recuerda un río limpio. Más adelante, el mar aparece contaminado.</p></details></div></div></section>
+<section class="slide" hidden><p class="kicker">02 · Interpreta el coro · 4 min</p><h2 tabindex="-1">¿Pregunta o advertencia?</h2>
+<div class="grid"><div class="panel"><h3>En el coro</h3><p>¿Dónde <strong>jugarán</strong> los niños?</p></div><div class="panel"><h3>En una conversación</h3><p>¿Dónde <strong>van a jugar</strong> los niños?</p></div></div>
+<ol><li>¿En qué situación harías esta pregunta para pedir información?</li><li>En la canción, ¿qué quiere que hagamos o pensemos quien canta?</li><li>¿Cómo cambian el tono la expresión <em>diablos</em>, la repetición y las imágenes de destrucción?</li></ol>
+<button class="open-reference">Ver referencia del futuro</button>
+<details><summary>¿Qué tienen en común las dos formas?</summary><p>Las dos pueden hablar del futuro. En el coro, el contexto hace que la pregunta suene a advertencia. En una conversación sobre los planes del día, cualquiera de las dos puede servir para pedir información.</p></details>
+</section>
+<section class="slide" hidden><p class="kicker">03 · En parejas · 12 min</p><h2 tabindex="-1">Una decisión para el futuro</h2>
+<p>Elijan un lugar real donde juegan niños. El municipio tiene presupuesto para <strong>una sola acción</strong>.</p>
+<div class="grid"><div class="panel"><h3>A · Vecino o vecina</h3><p>Cuenta cómo era el lugar. Explica qué problema ves hoy y qué pasará si nadie actúa.</p></div><div class="panel"><h3>B · Concejal o concejala</h3><p>Propón dos acciones posibles y pregunta a quién beneficiará cada una.</p></div></div>
+<p style="margin-top:.7em"><strong>Acuerden qué harán y dónde podrán jugar los niños.</strong></p>
+<details open><summary>Frases de apoyo</summary><ul><li>Antes, los niños <strong>jugaban</strong> en…</li><li>Si no hacemos nada, dentro de diez años <strong>tendrán que</strong>…</li><li><strong>Vamos a</strong>… Así, los niños <strong>podrán</strong>…</li></ul></details>
+</section>
+<section class="slide" hidden><p class="kicker">04 · Puesta en común · 5 min</p><h2 tabindex="-1">Respondan al coro</h2>
+<p>En dos frases, expliquen qué hará el municipio y dónde podrán jugar los niños gracias a esa decisión.</p>
+<div class="panel"><h3>Mientras escuchan, preparen una pregunta</h3><ul><li>¿Quién lo pagará?</li><li>¿Cuánto tiempo tomará?</li><li>¿Dónde jugarán mientras tanto?</li></ul></div>
+<details><summary>Ver un modelo</summary><p>Vamos a recuperar el terreno al lado de la escuela. Así, los niños podrán jugar cerca de casa.</p></details>
+</section>
+<footer><span>Weber State University · SPAN 3000</span><span>Dr. Rama · ← → para avanzar o volver</span></footer>
+</main>
+<dialog class="ref" id="reference" aria-labelledby="ref-title">
+<div class="bar"><h2 id="ref-title">El futuro, a mano</h2><form method="dialog"><button class="icon" aria-label="Cerrar referencia" title="Cerrar referencia">×</button></form></div>
+<p><strong>Futuro simple</strong> · Conserva el infinitivo y añade la terminación. En el coro, <strong>jugar + án = jugarán</strong> porque el sujeto es <em>los niños</em>.</p>
+<table aria-label="Terminaciones del futuro simple con jugar"><thead><tr><th>Persona</th><th>Terminación</th><th>Ejemplo</th></tr></thead><tbody>
+<tr><td>yo</td><td>‑é</td><td>jugaré</td></tr><tr><td>tú</td><td>‑ás</td><td>jugarás</td></tr><tr><td>él / ella / usted</td><td>‑á</td><td>jugará</td></tr><tr><td>nosotros</td><td>‑emos</td><td>jugaremos</td></tr><tr><td>vosotros</td><td>‑éis</td><td>jugaréis</td></tr><tr><td>ellos / ustedes</td><td>‑án</td><td>jugarán</td></tr>
+</tbody></table>
+<p><strong>Irregulares útiles</strong> · Cambia la raíz y usa las mismas terminaciones. <em>Tener → tendrán</em>, <em>poder → podrán</em>, <em>hacer → harán</em>.</p>
+<p><strong>Ir a + infinitivo</strong> · También expresa el futuro. Para anunciar el plan de tu pareja, usa <em>Vamos a recuperar el parque</em>. Para decir qué podrán hacer los niños, usa <em>Van a poder jugar allí</em> o <em>Podrán jugar allí</em>.</p>
+<details><summary>Prueba rápida</summary><p>Si no limpiamos el río, los niños ___ que jugar en otro lugar.</p>
+<button class="choice" aria-pressed="false" data-feedback="Usa tendrán. La oración habla de lo que pasará si el problema continúa.">tenían</button>
+<button class="choice" aria-pressed="false" data-feedback="Exacto. Tendrán es tendr- + -án y concuerda con los niños.">tendrán</button><output id="feedback" aria-live="polite"></output></details>
+</dialog>
+<dialog class="ref" id="lyrics" aria-labelledby="lyrics-title">
+<div class="bar"><h2 id="lyrics-title">Letra de la canción</h2><form method="dialog"><button class="icon" aria-label="Cerrar letra" title="Cerrar letra">×</button></form></div>
+<p class="small">Pasa el cursor sobre una expresión subrayada, selecciónala con Tab o tócala para ver su significado en inglés.</p>
+<div class="lyrics-text">
+<p><span class="gloss"><button type="button" aria-describedby="gloss-1">Cuenta el abuelo</button><span class="translation" role="tooltip" lang="en" id="gloss-1">Grandpa tells the story</span></span> que de niño él jugó<br>
+Entre árboles y <span class="gloss"><button type="button" aria-describedby="gloss-2">risas</button><span class="translation" role="tooltip" lang="en" id="gloss-2">laughter</span></span>, y <span class="gloss"><button type="button" aria-describedby="gloss-3">alcatraces</button><span class="translation" role="tooltip" lang="en" id="gloss-3">calla lilies (Mexican Spanish)</span></span> de color<br>
+Recuerda un río transparente y <span class="gloss"><button type="button" aria-describedby="gloss-4">sin olor</button><span class="translation" role="tooltip" lang="en" id="gloss-4">odorless</span></span><br>
+Donde <span class="gloss"><button type="button" aria-describedby="gloss-5">abundaban</button><span class="translation" role="tooltip" lang="en" id="gloss-5">were plentiful</span></span> peces, no <span class="gloss"><button type="button" aria-describedby="gloss-6">sufrían</button><span class="translation" role="tooltip" lang="en" id="gloss-6">were suffering</span></span> ni un dolor<br>
+<span class="gloss"><button type="button" aria-describedby="gloss-7">Cuenta el abuelo</button><span class="translation" role="tooltip" lang="en" id="gloss-7">Grandpa tells the story</span></span> de un cielo muy azul<br>
+En donde <span class="gloss"><button type="button" aria-describedby="gloss-8">voló papalotes</button><span class="translation" role="tooltip" lang="en" id="gloss-8">flew kites (papalote is Mexican Spanish)</span></span> que <span class="gloss"><button type="button" aria-describedby="gloss-9">él mismo</button><span class="translation" role="tooltip" lang="en" id="gloss-9">he himself</span></span> construyó<br>
+El tiempo pasó, y <span class="gloss"><button type="button" aria-describedby="gloss-10">nuestro viejo</button><span class="translation" role="tooltip" lang="en" id="gloss-10">our old man (an affectionate reference to Grandpa)</span></span> ya murió<br>
+Y hoy <span class="gloss"><button type="button" aria-describedby="gloss-11">me pregunté</button><span class="translation" role="tooltip" lang="en" id="gloss-11">I wondered</span></span>, después de tanta destrucción</p>
+<p>¿Dónde <span class="gloss"><button type="button" aria-describedby="gloss-12">diablos</button><span class="translation" role="tooltip" lang="en" id="gloss-12">the heck (adds force to the question)</span></span> jugarán<br>
+Los pobres niños?<br>
+¡Ay, ay, ay!<br>
+¿En dónde jugarán?<br>
+<span class="gloss"><button type="button" aria-describedby="gloss-13">Se está pudriendo</button><span class="translation" role="tooltip" lang="en" id="gloss-13">is rotting</span></span> el mundo<br>
+Ya no hay lugar<br>
+No hay lugar</p>
+<p>La tierra <span class="gloss"><button type="button" aria-describedby="gloss-14">está a punto de</button><span class="translation" role="tooltip" lang="en" id="gloss-14">is about to</span></span> <span class="gloss"><button type="button" aria-describedby="gloss-15">partirse en dos</button><span class="translation" role="tooltip" lang="en" id="gloss-15">split in two</span></span><br>
+El cielo ya <span class="gloss"><button type="button" aria-describedby="gloss-16">se ha roto</button><span class="translation" role="tooltip" lang="en" id="gloss-16">has broken</span></span>, ya <span class="gloss"><button type="button" aria-describedby="gloss-17">se ha roto</button><span class="translation" role="tooltip" lang="en" id="gloss-17">has broken</span></span> el <span class="gloss"><button type="button" aria-describedby="gloss-18">llanto gris</button><span class="translation" role="tooltip" lang="en" id="gloss-18">gray weeping (a poetic image)</span></span><br>
+<span class="gloss"><button type="button" aria-describedby="gloss-19">La mar</button><span class="translation" role="tooltip" lang="en" id="gloss-19">the sea (poetic form of el mar)</span></span> <span class="gloss"><button type="button" aria-describedby="gloss-20">vomita</button><span class="translation" role="tooltip" lang="en" id="gloss-20">spews (literally, vomits)</span></span> <span class="gloss"><button type="button" aria-describedby="gloss-21">ríos de aceite</button><span class="translation" role="tooltip" lang="en" id="gloss-21">streams of oil</span></span> <span class="gloss"><button type="button" aria-describedby="gloss-22">sin cesar</button><span class="translation" role="tooltip" lang="en" id="gloss-22">without stopping</span></span><br>
+Y hoy <span class="gloss"><button type="button" aria-describedby="gloss-23">me pregunté</button><span class="translation" role="tooltip" lang="en" id="gloss-23">I wondered</span></span>, después de tanta destrucción</p>
+<p>¿Dónde <span class="gloss"><button type="button" aria-describedby="gloss-24">diablos</button><span class="translation" role="tooltip" lang="en" id="gloss-24">the heck (adds force to the question)</span></span> jugarán<br>
+Los pobres niños?<br>
+¡Ay ay ay!<br>
+¿En dónde jugarán?<br>
+<span class="gloss"><button type="button" aria-describedby="gloss-25">Se está pudriendo</button><span class="translation" role="tooltip" lang="en" id="gloss-25">is rotting</span></span> el mundo<br>
+Ya no hay lugar</p>
+<p>¿Dónde <span class="gloss"><button type="button" aria-describedby="gloss-26">diablos</button><span class="translation" role="tooltip" lang="en" id="gloss-26">the heck (adds force to the question)</span></span> jugarán<br>
+Los pobres <span class="gloss"><button type="button" aria-describedby="gloss-27">nenes</button><span class="translation" role="tooltip" lang="en" id="gloss-27">little kids</span></span>?<br>
+¡Ay, ay, ay!<br>
+¿En dónde jugarán?<br>
+<span class="gloss"><button type="button" aria-describedby="gloss-28">Se está partiendo</button><span class="translation" role="tooltip" lang="en" id="gloss-28">is splitting apart</span></span> el mundo<br>
+Ya no hay lugar<br>
+Oh-oh, no</p>
+</div>
+</dialog>
+<script>
+const slides = [...document.querySelectorAll('.slide')];
+const steps = [...document.querySelectorAll('[data-step]')];
+const previous = document.querySelector('#prev');
+const next = document.querySelector('#next');
+const video = document.querySelector('iframe');
+const videoSource = video.getAttribute('src');
+const reference = document.querySelector('#reference');
+const lyricsDialog = document.querySelector('#lyrics');
+document.querySelector('#open-lyrics').addEventListener('click', () => lyricsDialog.showModal());
+lyricsDialog.querySelectorAll('.gloss button').forEach(button => {
+  const gloss = button.parentElement;
+  const tooltip = button.nextElementSibling;
+  function fitGloss() {
+    tooltip.style.transform = '';
+    const edge = Math.min(lyricsDialog.getBoundingClientRect().right - 8, window.innerWidth - 8);
+    const overflow = tooltip.getBoundingClientRect().right - edge;
+    if (overflow > 0) tooltip.style.transform = 'translateX(-' + overflow + 'px)';
+  }
+  gloss.addEventListener('mouseenter', fitGloss);
+  button.addEventListener('focus', fitGloss);
+  button.addEventListener('click', () => button.focus({preventScroll: true}));
+});
+let current = 0;
+function show(index, focusHeading = true) {
+  if (index < 0 || index >= slides.length) return;
+  current = index;
+  slides.forEach((slide, position) => {
+    slide.hidden = position !== index;
+    steps[position].removeAttribute('aria-current');
+  });
+  steps[index].setAttribute('aria-current', 'step');
+  previous.disabled = index === 0;
+  next.disabled = index === slides.length - 1;
+  if (index === 0 && !video.hasAttribute('src')) video.src = videoSource;
+  if (index !== 0 && video.hasAttribute('src')) video.removeAttribute('src');
+  if (focusHeading) slides[index].querySelector('h1,h2').focus();
+}
+steps.forEach(button => button.addEventListener('click', () => show(Number(button.dataset.step))));
+previous.addEventListener('click', () => show(current - 1));
+next.addEventListener('click', () => show(current + 1));
+document.addEventListener('keydown', event => {
+  if (reference.open || lyricsDialog.open || event.altKey || event.metaKey || event.ctrlKey || event.shiftKey) return;
+  if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+    event.preventDefault();
+    show(current + (event.key === 'ArrowRight' ? 1 : -1));
+  }
+});
+document.querySelectorAll('#grammar, .open-reference').forEach(button => {
+  button.addEventListener('click', () => reference.showModal());
+});
+const theme = document.querySelector('#theme');
+theme.addEventListener('click', () => {
+  const dark = document.documentElement.classList.toggle('dark');
+  theme.setAttribute('aria-pressed', String(dark));
+});
+const fullscreen = document.querySelector('#fullscreen');
+if (!document.fullscreenEnabled) fullscreen.hidden = true;
+fullscreen.addEventListener('click', async () => {
+  if (document.fullscreenElement) await document.exitFullscreen();
+  else await document.documentElement.requestFullscreen();
+});
+document.addEventListener('fullscreenchange', () => fullscreen.setAttribute('aria-pressed', String(Boolean(document.fullscreenElement))));
+const choices = [...document.querySelectorAll('.choice')];
+choices.forEach(choice => choice.addEventListener('click', () => {
+  choices.forEach(button => button.setAttribute('aria-pressed', String(button === choice)));
+  document.querySelector('#feedback').textContent = choice.dataset.feedback;
+}));
+show(0, false);
+</script>
+</body>
+</html>
