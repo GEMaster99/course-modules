@@ -45,6 +45,10 @@ button:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outli
 <p><strong>Ask a follow-up:</strong> <span id="follow-up" lang="es">¿Quién dejó la puerta abierta? ¿Qué hizo la cabra después?</span></p>
 <p><strong>Give your verdict:</strong> <span lang="es">Te creo porque ___. / No te creo porque ___.</span></p>
 </details>
+<details id="culture"><summary><strong>Culture connection</strong></summary>
+<p><strong id="culture-term" lang="es">el baile</strong></p>
+<p id="culture-note">Dancing can be part of a celebration. Compare this dance floor with dancing during el carnaval. The goat is the joke.</p>
+</details>
 <p id="status" role="status"></p>
 </main>
 <script>
@@ -141,6 +145,82 @@ const accusations = [
     "¿De quién era el cumpleaños? ¿Qué dijo al ver la foto?"
   ]
 ];
+const cultureConnections = [
+  [
+    "el baile",
+    "Dancing can be part of a celebration. Compare this dance floor with dancing during el carnaval. The goat is the joke."
+  ],
+  [
+    "la costumbre",
+    "A cake can be part of how a family marks a special occasion. What food does your family usually serve at a celebration?"
+  ],
+  [
+    "la boda",
+    "Clothing can signal that an occasion is special. A wedding outfit and a carnaval costume both reflect expectations that vary by event and community."
+  ],
+  [
+    "el regalo",
+    "Giving a wedding gift is one way to congratulate the couple. The joke is that the dog gets the gift intended for the bride."
+  ],
+  [
+    "la celebración",
+    "Party games can become a group tradition. Compare what guests usually do at a celebration with what happened on this particular occasion."
+  ],
+  [
+    "el brindis",
+    "A toast marks a shared moment at a celebration. Compare it with the midnight chimes in the module’s Año Nuevo story."
+  ],
+  [
+    "el regalo",
+    "Opening a gift can be part of a celebration. The pizza plays on the difference between what you expect in a gift box and what you find."
+  ],
+  [
+    "el baile",
+    "Dancing can be a shared part of a celebration, including at carnaval. Here the joke is the choice of dance partner."
+  ],
+  [
+    "la fiesta",
+    "Guests may bring something to share at a celebration. The frogs turn an ordinary contribution into a surprise."
+  ],
+  [
+    "la boda y el cumpleaños",
+    "Songs help mark different occasions. Singing «Feliz cumpleaños» at a wedding mixes up two celebrations."
+  ],
+  [
+    "los anillos",
+    "Exchanging rings is a custom in many wedding ceremonies. The shoe is the unexpected place where the rings turn up."
+  ],
+  [
+    "la fiesta",
+    "This card uses a party as the setting for an unexpected event. Like the module’s New Year story, it invites you to describe what people were doing before the surprise."
+  ],
+  [
+    "la cocina",
+    "The module treats cooking as part of family celebrations. Compare this drink mix-up with the food prepared for the family gathering in the Año Nuevo story."
+  ],
+  [
+    "las velas",
+    "Blowing out candles is a familiar birthday custom. In the module’s New Year story, candles serve a different purpose: lighting the room after the power goes out."
+  ],
+  [
+    "el discurso",
+    "A speech can mark an important moment at a ceremony or celebration. The alarm interrupts the occasion and gives you a reason to describe how people reacted."
+  ],
+  [
+    "la decoración",
+    "Decorations help mark a space as ready for a celebration. Here the balloons end up on a guest instead of in the room."
+  ],
+  [
+    "el regalo",
+    "Wrapping a gift keeps its contents a surprise. The barking gives away a clue before anyone opens it."
+  ],
+  [
+    "el cumpleaños",
+    "A decorated cake can honor the person celebrating a birthday. The cat photo makes you ask who the cake was meant to celebrate."
+  ]
+];
+const cultureTerm = document.querySelector('#culture-term');
+const cultureNote = document.querySelector('#culture-note');
 const excuse = document.querySelector('#excuse');
 const followUp = document.querySelector('#follow-up');
 let previous = accusations[0];
@@ -153,6 +233,9 @@ document.querySelector('#next').onclick = () => {
   prompt.textContent = question;
   excuse.textContent = sentenceStarters;
   followUp.textContent = followUpQuestions;
+  const [term, connection] = cultureConnections[accusations.indexOf(previous)];
+  cultureTerm.textContent = term;
+  cultureNote.textContent = connection;
 };
 const theme = document.querySelector('#theme');
 theme.onclick = () => theme.setAttribute('aria-pressed', document.documentElement.classList.toggle('dark'));
