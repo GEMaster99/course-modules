@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Noches de boda · SPAN 3000</title>
+<style>
+:root{color-scheme:light;--bg:#f9f4eb;--paper:#fffdfa;--ink:#251833;--muted:#665671;--accent:#542776;--line:#d9c8df;--soft:#eee3f2}
+:root.dark{color-scheme:dark;--bg:#1c1424;--paper:#282032;--ink:#fff5e9;--muted:#d6c4dd;--accent:#efcaf9;--line:#5f4a68;--soft:#3a2946}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:1.07rem/1.6 system-ui,sans-serif}header,main,footer{max-width:1050px;margin:auto;padding:1rem clamp(1rem,4vw,3rem)}header{border-bottom:1px solid var(--line)}.bar,.actions{display:flex;align-items:center;flex-wrap:wrap;gap:.6rem}.bar{justify-content:space-between}.kicker{letter-spacing:.13em;text-transform:uppercase;font-size:.76rem;font-weight:750;color:var(--muted)}h1,h2{font-family:Georgia,serif;line-height:1.12}h1{font-size:clamp(2.8rem,8vw,5rem);margin:.3em 0 .1em}h2{font-size:clamp(1.8rem,4vw,2.8rem);margin:.3em 0}p{max-width:73ch}button,a.action{font:inherit;color:var(--accent);background:var(--paper);border:1px solid var(--line);border-radius:.6rem;padding:.42rem .75rem;cursor:pointer;text-decoration:none}button:hover,a.action:hover,button[aria-current="step"],button[aria-pressed="true"]{background:var(--soft)}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}nav{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem}.card,details{background:var(--paper);border:1px solid var(--line);border-radius:1rem;padding:clamp(1rem,3vw,2rem)}details{padding:1rem;margin:.8rem 0}summary{cursor:pointer;color:var(--accent);font-weight:700}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:.8rem}.tile,fieldset,blockquote{border:1px solid var(--line);border-radius:.75rem;padding:.8rem 1rem;margin:.6rem 0;min-width:0}blockquote{background:var(--soft);font:1.2rem/1.5 Georgia,serif}fieldset label{display:block;margin:.35rem 0}legend{font-weight:700}.feedback{color:var(--accent);font-weight:650;margin:.5rem 0 0}.gloss{position:relative;border:0;border-radius:0;padding:0;background:transparent;text-decoration:underline dotted;text-underline-offset:.18em;line-height:inherit}.gloss:hover::after,.gloss:focus-visible::after{content:attr(data-gloss);position:absolute;bottom:100%;left:0;max-width:70vw;width:max-content;white-space:normal;text-align:left;background:var(--ink);color:var(--paper);padding:.25rem .5rem;border-radius:.35rem;z-index:2;font: .9rem/1.4 system-ui}.lyrics{line-height:1.85}.lyric-line{margin:0;max-width:none}.tap-gloss{color:var(--accent);background:var(--soft);border-radius:.3rem;padding:.1rem .35rem;font-size:.9em}.note,footer{color:var(--muted);font-size:.9rem}textarea{width:100%;font:inherit;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:.5rem;padding:.7rem}svg{width:1.15em;height:1.15em;vertical-align:-.15em;fill:none;stroke:currentColor;stroke-width:1.7}footer{display:flex;justify-content:space-between;gap:1rem}[hidden]{display:none!important}
+</style></head><body>
+<header><div class="bar"><span class="kicker">Weber State University · SPAN 3000</span><div class="actions">
+<button id="theme" type="button" title="Modo oscuro" aria-label="Modo oscuro" aria-pressed="false"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M21 13a9 9 0 0 1-10-10A9 9 0 1 0 21 13Z"/></svg></button>
+<button id="full" type="button" title="Pantalla completa" aria-label="Pantalla completa" aria-pressed="false"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 4H4v5m11-5h5v5M4 15v5h5m11-5v5h-5"/></svg></button>
+</div></div><h1>Noches de boda</h1><p>Joaquín Sabina con Chavela Vargas · De la charla entre cuates a los deseos en subjuntivo</p>
+<div class="actions"><a class="action" href="https://www.youtube.com/watch?v=BqRMDcwBt2A" target="_blank" rel="noopener">Escuchar en YouTube ↗</a><button id="lyricsButton" type="button" aria-controls="lyricsPanel" aria-expanded="false"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13M9 18c0 3-6 4-6 1s6-4 6-1Zm12-2c0 3-6 4-6 1s6-4 6-1Z"/></svg> Mostrar letra</button></div></header>
+<main>
+<section id="lyricsPanel" class="card" hidden aria-labelledby="lyricsTitle"><h2 id="lyricsTitle" tabindex="-1">Letra y recitado</h2><p class="note">Pasa el cursor, usa Tab o toca las expresiones subrayadas para ver su sentido en inglés. Se conserva la transcripción de clase. Algunas palabras del recitado pueden oírse de otra manera.</p><div id="lyrics" class="lyrics"></div></section>
+<nav aria-label="Etapas de la lección"></nav>
+<section class="card slide" data-label="Escucha"><span class="kicker">01 · Primera escucha</span><h2 tabindex="-1">De la charla a la canción</h2><p>Escucha primero con la letra cerrada. Levanta la mano cuando el recitado se convierta en canto. En la segunda escucha, abre la letra y localiza una expresión de cariño y un deseo.</p>
+<div class="grid"><div class="tile"><strong>Antes de escuchar</strong><p>¿Qué te hace pensar el título? ¿Esperas una historia, una celebración o una lista de deseos?</p></div><div class="tile"><strong>Después de escuchar</strong><p>¿Cómo cambia el tono cuando empieza el canto? Compara la forma en que Chavela habla de Joaquín con la forma en que la canción se dirige a un «tú».</p></div></div>
+<details><summary>Apoyo para conversar</summary><p>Al principio, me llamó la atención… / El tono cambia cuando… / La repetición de «que» me hace pensar en…</p></details></section>
+<section class="card slide" data-label="Recitado" hidden><span class="kicker">02 · Registro y relación</span><h2 tabindex="-1">Así hablan los cuates</h2><p>Abre la letra y busca las expresiones del recitado. Fíjate en lo que revelan sobre la relación entre Chavela y Joaquín.</p>
+<fieldset><legend>En «mi cuate», ¿cómo presenta Chavela a Joaquín?</legend><label><input type="radio" name="q1" value="yes"> Como un amigo cercano</label><label><input type="radio" name="q1" value="no"> Como una persona a la que acaba de conocer</label><button class="check" data-right="«Cuate» expresa cercanía. Escucha también el diminutivo «Joaquinito»." data-retry="Fíjate en el posesivo «mi» y en el tono cariñoso.">Comprobar</button><p class="feedback" aria-live="polite"></p></fieldset>
+<fieldset><legend>¿Qué aporta «re-» en «me caíste rebien»?</legend><label><input type="radio" name="q2" value="no"> Indica que volvieron a verse</label><label><input type="radio" name="q2" value="yes"> Intensifica «bien»</label><button class="check" data-right="«Rebien» equivale aquí a «muy bien». Habla de la impresión que le causó." data-retry="Prueba a sustituir «rebien» por «muy bien» y compara el sentido.">Comprobar</button><p class="feedback" aria-live="polite"></p></fieldset>
+<details><summary>Pregunta de conversación</summary><p>Chavela alterna «señor» con «mi amor» y «mi cuate». ¿Qué efecto tiene ese cambio? Reescribe «Nos hicimos retecuatachones y nos fuimos de parranda» para contárselo a alguien en un contexto más formal. ¿Qué se pierde al cambiar de registro?</p></details></section>
+<section class="card slide" data-label="Subjuntivo" hidden><span class="kicker">03 · Forma y sentido</span><h2 tabindex="-1">Que + presente de subjuntivo</h2><p>Una oración independiente que empieza con <strong>que + subjuntivo</strong> puede expresar un deseo. En inglés, según el contexto, suena como <em>May…</em> o <em>I hope…</em>. El hablante imagina cómo le gustaría que fueran las cosas.</p>
+<blockquote>Que todas las noches <strong>sean</strong> noches de bodas.</blockquote>
+<p><strong>Sean</strong> viene de <em>ser</em> y concuerda con <em>todas las noches</em>. Compara con «Todas las noches son noches de bodas», que presenta la idea como una afirmación.</p>
+<fieldset><legend>Que tus amigos ___ tiempo para celebrar contigo. (tener)</legend><label><input type="radio" name="q3" value="no"> tienen</label><label><input type="radio" name="q3" value="yes"> tengan</label><label><input type="radio" name="q3" value="no"> tengas</label><button class="check" data-right="«Tengan» expresa el deseo y concuerda con «tus amigos»." data-retry="Necesitas el subjuntivo y la tercera persona del plural.">Comprobar</button><p class="feedback" aria-live="polite"></p></fieldset>
+<details><summary>Encuentra tres formas más en la letra</summary><p>Busca un deseo con <em>venir</em>, el verbo que introduce la imagen de la guerra, y otro con <em>ponerse</em>. En «la guerra del puedo», observa que «puedo» funciona como etiqueta dentro de la metáfora. ¿Cuál es el verbo en subjuntivo de ese verso?</p><details><summary>Ver comprobación</summary><p><strong>venga</strong> (venir), <strong>gane</strong> (ganar, en el verso de «quiero» y «puedo»), <strong>se ponga</strong> (ponerse).</p></details></details></section>
+<section class="card slide" data-label="Imágenes" hidden><span class="kicker">04 · Interpretación</span><h2 tabindex="-1">¿Qué desea en realidad?</h2><p>Elige una imagen. Propón una interpretación y apóyala con una palabra del verso. Luego abre la lectura posible.</p>
+<details><summary>Que el equipaje no lastre tus alas</summary><p>El equipaje puede representar cargas del pasado. Las alas sugieren la libertad de moverse o cambiar. ¿Qué podría pesar tanto como para impedirte avanzar?</p></details>
+<details><summary>Que gane el quiero la guerra del puedo</summary><p>El deseo y la capacidad aparecen como rivales. Una lectura posible es que la canción desea que lo que queremos tenga más fuerza que los límites que percibimos. ¿Dónde ves esa tensión en la vida cotidiana?</p></details>
+<details><summary>Que no te den la razón los espejos</summary><p>Un espejo suele devolvernos nuestra propia imagen. El verso puede leerse como un deseo de que algo cuestione nuestras certezas. ¿Qué otra interpretación te permite la imagen?</p></details></section>
+<section class="card slide" data-label="Crea" hidden><span class="kicker">05 · Producción</span><h2 tabindex="-1">Una estrofa para alguien</h2><p>Piensa en alguien a quien quieras dedicarle una estrofa. Escribe tres deseos. Empieza dos versos con <strong>Que</strong> y uno con <strong>Que no</strong>. Usa al menos una imagen concreta.</p>
+<label for="draft"><strong>Tu estrofa</strong></label><textarea id="draft" rows="5" placeholder="Que…"></textarea><p id="saveStatus" class="note" aria-live="polite"></p>
+<details><summary>Modelo y revisión</summary><p>Que encuentres sombra en los días largos.<br>Que tus amigos te abran la puerta.<br>Que no se te apague la voz.</p><p>Subraya mentalmente los verbos. ¿Están en subjuntivo? ¿Concuerdan con sus sujetos? Lee la estrofa a otra persona y pregúntale qué imagen le llamó más la atención.</p></details></section>
+<div class="bar" style="margin-top:1rem"><button id="prev" type="button" aria-label="Etapa anterior">←</button><span id="progress" class="kicker" aria-live="polite"></span><button id="next" type="button" aria-label="Etapa siguiente">→</button></div>
+</main><footer><span>Weber State · SPAN 3000</span><span>Paul Rama, PhD</span></footer>
+<script id="transcript" type="text/plain">
+¡Ay Dios mío!
+Pa' que vine
+Si no es lo mismo venir que irse chillando
+Mire a Joaquín señor
+Ya se mexicanizó
+Pos que diz que no, pos que diz que si
+Usted lo viera en México
+Ahí anda tequileando con toda la bola de chamaconas
+Las trae de un ala pues
+Yo lo he visto, que se coman los gusanos estos ojitos
+Si señor, Joaquinito
+¿Me estás oyendo o crees que estoy hablando mal de ti mi amor?
+Si te quiero mucho mi cuate
+Desde el primer día en que nos vimos aquí, en los madriles ajua
+Me caíste rebien, me gustaste, por sincero
+Me dijiste que me fuera al carajo, muchacho ¿pues qué es eso?
+Estabas tratando conmigo, con tu cuatacha, La Vargas
+Ajúmala calentano. Y digo ya vino La Vargas
+Nos hicimos retecuatachones ja ja ja y nos fuimos de parranda
+Todas las noches de luna, serán pa Joaquín y pa mi pues
+
+Que todas las noches sean noches de bodas (que todas la noches señor)
+Que todas las lunas sean lunas de miel
+Ay Dios mío
+
+Que el maquillaje no apague tu risa
+Que el equipaje no lastre tus alas
+Que el calendario no venga con prisas
+Que el diccionario detenga las balas
+Que las persianas corrijan la aurora
+Que gane el quiero la guerra del puedo
+Que los que esperan no cuenten las horas
+Que los que matan se mueran de miedo
+
+Que el fin del mundo te pille bailando
+Que el escenario me tiña las canas
+Que nunca sepas ni cómo, ni cuándo
+Ni viento volando, ni ayer ni mañana
+Que el corazón no se pase de moda
+Que los otoños te doren la piel
+Que cada noche sea noche de bodas
+Que no se ponga la luna de miel
+Que todas las noches sean noches de boda
+Que todas las lunas sean lunas de miel
+
+Ay, reata, no te revientes que es el último jalón
+
+Que las verdades no tengan complejos
+Que las mentiras parezcan mentira
+Que no te den la razón los espejos
+Que te aproveche mirar lo que miras
+Que no se ocupe de ti el desamparo
+Que cada cena sea tu última cena
+Que ser valiente no salga tan caro
+Que ser cobarde no valga la pena
+
+Que no te compren por menos de nada
+Que no te vendan amor sin espinas
+Que no te duerman con cuentos de hadas
+Que no te cierren el bar de la esquina
+Que el corazón no se pase de moda
+Que los otoños te doren la piel
+Que cada noche sea noche de bodas
+Que no se ponga la luna de miel
+Que todas las noches sean noches de boda
+Que todas las lunas sean lunas de miel
+</script>
+<script>
+const byId = id => document.getElementById(id);
+const glosses = {
+  "Pa'":"short for para", "irse chillando":"leave crying or yelling",
+  "se mexicanizó":"picked up Mexican ways", "Pos que diz que":"well, supposedly (pos = pues)",
+  "pos que diz que":"well, supposedly", "tequileando":"drinking tequila",
+  "la bola de chamaconas":"the whole crowd of young women (playful)",
+  "Las trae de un ala":"he has them smitten", "que se coman los gusanos estos ojitos":"playful oath insisting she saw it herself",
+  "mi cuate":"my buddy", "los madriles":"Madrid (playful nickname)", "ajua":"an exclamation of excitement",
+  "Me caíste rebien":"I really liked you right away", "me fuera al carajo":"get lost (strong language)",
+  "cuatacha":"close female friend (playful)", "retecuatachones":"really close pals (playful and emphatic)",
+  "de parranda":"out partying", "lunas de miel":"honeymoons", "apague":"dim or put out",
+  "lastre tus alas":"weigh down your wings", "con prisas":"in a hurry", "detenga las balas":"stop the bullets",
+  "persianas":"blinds or shutters", "aurora":"dawn", "el quiero":"what I want (literally, the ‘I want’)",
+  "del puedo":"of what I can do (literally, of the ‘I can’)", "te pille bailando":"catch you dancing",
+  "me tiña las canas":"dye my gray hair", "se pase de moda":"go out of style", "te doren la piel":"give your skin a golden glow",
+  "se ponga la luna de miel":"the honeymoon sets, like the moon", "reata":"rope or lariat",
+  "no te revientes":"don't snap", "el último jalón":"the last tug or final push", "tengan complejos":"have insecurities",
+  "te den la razón":"agree with you or tell you you're right", "te aproveche":"benefit you",
+  "desamparo":"helplessness or abandonment", "no salga tan caro":"not come at such a high cost",
+  "no valga la pena":"not be worth it", "por menos de nada":"for practically nothing",
+  "sin espinas":"without thorns", "te duerman con cuentos de hadas":"lull you with fairy tales"
+};
+const escaped = Object.keys(glosses).sort((a,b)=>b.length-a.length).map(word=>word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+const pattern = new RegExp('(?<![\\p{L}])(' + escaped.join('|') + ')(?![\\p{L}])','gu');
+let openGloss;
+for (const line of byId('transcript').textContent.trim().split('\n')) {
+  if (!line.trim()) { byId('lyrics').append(document.createElement('br')); continue; }
+  const row = document.createElement('p');
+  row.className = 'lyric-line';
+  line.split(pattern).forEach((part,index)=>{
+    if (index % 2 === 0) { row.append(part); return; }
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'gloss';
+    button.textContent = part;
+    button.dataset.gloss = glosses[part];
+    const explanation = document.createElement('span');
+    explanation.className = 'tap-gloss';
+    explanation.hidden = true;
+    explanation.lang = 'en';
+    explanation.textContent = glosses[part];
+    button.setAttribute('aria-expanded','false');
+    button.onclick = () => {
+      const wasOpen = !explanation.hidden;
+      if (openGloss) {
+        openGloss.hidden = true;
+        openGloss.previousElementSibling.setAttribute('aria-expanded','false');
+      }
+      openGloss = wasOpen ? null : explanation;
+      explanation.hidden = wasOpen;
+      button.setAttribute('aria-expanded',String(!wasOpen));
+    };
+    row.append(button, explanation);
+  });
+  byId('lyrics').append(row);
+}
+const lyricsPanel = byId('lyricsPanel');
+byId('lyricsButton').onclick = event => {
+  lyricsPanel.hidden = !lyricsPanel.hidden;
+  event.currentTarget.setAttribute('aria-expanded',String(!lyricsPanel.hidden));
+  event.currentTarget.lastChild.textContent = lyricsPanel.hidden ? ' Mostrar letra' : ' Ocultar letra';
+  if (!lyricsPanel.hidden) byId('lyricsTitle').focus();
+};
+const slides = [...document.querySelectorAll('.slide')];
+const nav = document.querySelector('nav');
+const tabs = slides.map((slide,index)=>{
+  const button = document.createElement('button');
+  button.textContent = slide.dataset.label;
+  button.onclick = () => show(index);
+  nav.append(button);
+  return button;
+});
+let active = 0;
+function show(index, focus = true) {
+  if (index < 0 || index >= slides.length) return;
+  active = index;
+  slides.forEach((slide,i)=>{
+    slide.hidden = i !== index;
+    if (i === index) tabs[i].setAttribute('aria-current','step');
+    else tabs[i].removeAttribute('aria-current');
+  });
+  byId('prev').disabled = index === 0;
+  byId('next').disabled = index === slides.length - 1;
+  byId('progress').textContent = (index + 1) + ' / ' + slides.length;
+  if (focus) slides[index].querySelector('h2').focus();
+}
+byId('prev').onclick = () => show(active - 1);
+byId('next').onclick = () => show(active + 1);
+document.addEventListener('keydown',event=>{
+  if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || !lyricsPanel.hidden ||
+      event.target.closest('input, textarea, select, button, a, summary, [contenteditable]')) return;
+  if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+    event.preventDefault();
+    show(active + (event.key === 'ArrowRight' ? 1 : -1));
+  }
+});
+for (const button of document.querySelectorAll('.check')) {
+  const question = button.closest('fieldset');
+  const feedback = question.querySelector('.feedback');
+  question.addEventListener('change',()=>{ feedback.textContent = ''; });
+  button.onclick = () => {
+    const selected = question.querySelector('input:checked');
+    feedback.textContent = !selected ? 'Elige una opción.' : selected.value === 'yes' ? button.dataset.right : button.dataset.retry;
+  };
+}
+function setTheme(dark) {
+  document.documentElement.classList.toggle('dark',dark);
+  byId('theme').setAttribute('aria-pressed',String(dark));
+}
+try {
+  setTheme(localStorage.getItem('noches-boda-theme') === 'dark');
+  byId('draft').value = localStorage.getItem('noches-boda-draft') || '';
+  byId('saveStatus').textContent = 'El borrador se guarda en este navegador.';
+} catch {
+  byId('saveStatus').textContent = 'El navegador no permite guardar el borrador.';
+}
+byId('draft').addEventListener('input',()=>{
+  try { localStorage.setItem('noches-boda-draft',byId('draft').value); }
+  catch { byId('saveStatus').textContent = 'No se pudo guardar el borrador en este navegador.'; }
+});
+byId('theme').onclick = () => {
+  const dark = !document.documentElement.classList.contains('dark');
+  setTheme(dark);
+  try { localStorage.setItem('noches-boda-theme',dark ? 'dark' : 'light'); } catch {}
+};
+const full = byId('full');
+full.hidden = !document.fullscreenEnabled;
+full.onclick = async () => {
+  try {
+    if (document.fullscreenElement) await document.exitFullscreen();
+    else await document.documentElement.requestFullscreen();
+  } catch { full.hidden = true; }
+};
+document.addEventListener('fullscreenchange',()=>full.setAttribute('aria-pressed',String(Boolean(document.fullscreenElement))));
+show(0,false);
+</script></body></html>
