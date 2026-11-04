@@ -41,36 +41,118 @@ button:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outli
 <section class="card" aria-label="Accusation"><p id="prompt" lang="es" aria-live="polite">¿Por qué había una cabra en la pista de baile?</p></section>
 <div class="actions"><button id="next">New accusation</button><span lang="es">¿Te creo o no?</span></div>
 <details><summary>Spanish starters</summary>
-<p><strong>Make an excuse:</strong> <span lang="es">Yo estaba ___ cuando ___. / Tenía miedo porque ___.</span></p>
-<p><strong>Dig deeper:</strong> <span lang="es">¿Qué hacías allí? ¿Con quién estabas? ¿Y qué pasó después?</span></p>
+<p><strong>Make an excuse:</strong> <span id="excuse" lang="es">Yo estaba bailando cuando la cabra ___. La puerta estaba abierta porque ___.</span></p>
+<p><strong>Ask a follow-up:</strong> <span id="follow-up" lang="es">¿Quién dejó la puerta abierta? ¿Qué hizo la cabra después?</span></p>
 <p><strong>Give your verdict:</strong> <span lang="es">Te creo porque ___. / No te creo porque ___.</span></p>
-<p><strong>Example:</strong> <span lang="es">Yo estaba bailando cuando entró la cabra. Tenía hambre y se comió mi regalo.</span></p>
 </details>
 <p id="status" role="status"></p>
 </main>
 <script>
 const prompt = document.querySelector('#prompt');
 const accusations = [
-  prompt.textContent,
-  '¿Por qué escondiste el pastel debajo de tu cama?',
-  '¿Por qué llegaste a la boda en pijama?',
-  '¿Por qué le diste un regalo al perro y no a la novia?',
-  '¿Por qué todos llevaban tu foto en la frente?',
-  '¿Por qué apagaste las luces durante el brindis?',
-  '¿Por qué había una pizza dentro de tu regalo?',
-  '¿Por qué bailaste con una escoba toda la noche?',
-  '¿Por qué trajiste una caja llena de ranas a la fiesta?',
-  '¿Por qué cantaste «Feliz cumpleaños» en una boda?',
-  '¿Por qué tenías los anillos en un zapato?',
-  '¿Por qué había un pato en tu mochila durante la fiesta?'
+  [
+    "¿Por qué había una cabra en la pista de baile?",
+    "Yo estaba bailando cuando la cabra ___. La puerta estaba abierta porque ___.",
+    "¿Quién dejó la puerta abierta? ¿Qué hizo la cabra después?"
+  ],
+  [
+    "¿Por qué escondiste el pastel debajo de tu cama?",
+    "Iba a llevar el pastel a la mesa, pero vi que ___. Lo escondí porque ___.",
+    "¿De quién lo escondías? ¿Cómo lo encontraron?"
+  ],
+  [
+    "¿Por qué llegaste a la boda en pijama?",
+    "Pensaba que la boda era ___. Cuando llegué, todos ___.",
+    "¿Quién te dijo cómo vestirte? ¿Qué hiciste al ver a los invitados?"
+  ],
+  [
+    "¿Por qué le diste un regalo al perro y no a la novia?",
+    "El regalo era para ___. Mientras hablaba con la novia, el perro ___.",
+    "¿Qué había en el regalo? ¿Cómo reaccionó la novia?"
+  ],
+  [
+    "¿Por qué todos llevaban tu foto en la frente?",
+    "Estábamos jugando a ___ cuando alguien sacó mi foto. Me di cuenta cuando ___.",
+    "¿Quién empezó el juego? ¿Qué hiciste cuando viste tu foto?"
+  ],
+  [
+    "¿Por qué apagaste las luces durante el brindis?",
+    "Mientras todos levantaban sus copas, vi ___. Apagué las luces porque ___.",
+    "¿Qué viste antes de apagarlas? ¿Quién las encendió otra vez?"
+  ],
+  [
+    "¿Por qué había una pizza dentro de tu regalo?",
+    "La caja parecía ___. Cuando la abrí, encontré ___.",
+    "¿Quién te dio la caja? ¿Qué hiciste con la pizza?"
+  ],
+  [
+    "¿Por qué bailaste con una escoba toda la noche?",
+    "La escoba estaba al lado de ___. La agarré cuando ___.",
+    "¿Quién te vio bailar con la escoba? ¿Qué canción sonaba?"
+  ],
+  [
+    "¿Por qué trajiste una caja llena de ranas a la fiesta?",
+    "Creía que la caja tenía ___. Cuando la abrí, las ranas ___.",
+    "¿De dónde sacaste la caja? ¿Adónde saltaron las ranas?"
+  ],
+  [
+    "¿Por qué cantaste «Feliz cumpleaños» en una boda?",
+    "La música sonaba como ___. Empecé a cantar cuando ___.",
+    "¿Quién cantó contigo? ¿Qué dijeron los novios?"
+  ],
+  [
+    "¿Por qué tenías los anillos en un zapato?",
+    "Buscaba un lugar seguro para los anillos porque ___. Los puse en el zapato cuando ___.",
+    "¿De quién era el zapato? ¿Cómo recuperaste los anillos?"
+  ],
+  [
+    "¿Por qué había un pato en tu mochila durante la fiesta?",
+    "Mi mochila estaba abierta mientras yo ___. Oí un ruido y ___.",
+    "¿Cuándo te diste cuenta? ¿Qué hiciste con el pato?"
+  ],
+  [
+    "¿Por qué le pusiste sal al chocolate caliente?",
+    "Los dos frascos eran ___. Cuando probé el chocolate, ___.",
+    "¿Para quién preparabas el chocolate? ¿Quién lo probó primero?"
+  ],
+  [
+    "¿Por qué soplaste las velas antes de que llegara la abuela?",
+    "Las velas estaban al lado de ___. Las apagué porque ___.",
+    "¿Dónde estaba la abuela? ¿Qué le dijiste cuando llegó?"
+  ],
+  [
+    "¿Por qué sonó una alarma en medio de tu discurso?",
+    "Mientras hablaba, mi teléfono estaba en ___. La alarma sonó porque ___.",
+    "¿Para qué era la alarma? ¿Cómo terminaste el discurso?"
+  ],
+  [
+    "¿Por qué saliste de la fiesta con tres globos atados al pelo?",
+    "Estaba decorando el salón cuando ___. Salí porque ___.",
+    "¿Quién te ató los globos? ¿Qué pasó cuando saliste?"
+  ],
+  [
+    "¿Por qué tu regalo empezó a ladrar?",
+    "El regalo estaba debajo de ___. Cuando lo moví, ___.",
+    "¿Quién envolvió el regalo? ¿Qué encontraron al abrirlo?"
+  ],
+  [
+    "¿Por qué pusiste una foto de tu gato encima del pastel?",
+    "El pastel necesitaba ___. Elegí esa foto porque ___.",
+    "¿De quién era el cumpleaños? ¿Qué dijo al ver la foto?"
+  ]
 ];
-let previous = prompt.textContent;
+const excuse = document.querySelector('#excuse');
+const followUp = document.querySelector('#follow-up');
+let previous = accusations[0];
 let deck = [];
 document.querySelector('#next').onclick = () => {
   if (!deck.length) deck = accusations.filter(accusation => accusation !== previous);
   const index = Math.floor(Math.random() * deck.length);
   [previous] = deck.splice(index, 1);
-  prompt.textContent = previous;
+  const [question, sentenceStarters, followUpQuestions] = previous;
+  prompt.textContent = question;
+  excuse.textContent = sentenceStarters;
+  followUp.textContent = followUpQuestions;
 };
 const theme = document.querySelector('#theme');
 theme.onclick = () => theme.setAttribute('aria-pressed', document.documentElement.classList.toggle('dark'));
