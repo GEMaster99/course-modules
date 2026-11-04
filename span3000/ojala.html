@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Ojalá · SPAN 3000</title>
+<style>
+:root{color-scheme:light;--bg:#f9f4eb;--paper:#fffdfa;--ink:#251833;--muted:#665671;--accent:#542776;--line:#d9c8df;--soft:#eee3f2}
+:root.dark{color-scheme:dark;--bg:#1c1424;--paper:#282032;--ink:#fff5e9;--muted:#d6c4dd;--accent:#efcaf9;--line:#5f4a68;--soft:#3a2946}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:1.07rem/1.6 system-ui,sans-serif}header,main,footer{max-width:1050px;margin:auto;padding:1rem clamp(1rem,4vw,3rem)}header{border-bottom:1px solid var(--line)}.bar,.actions{display:flex;align-items:center;flex-wrap:wrap;gap:.6rem}.bar{justify-content:space-between}.kicker{letter-spacing:.13em;text-transform:uppercase;font-size:.76rem;font-weight:750;color:var(--muted)}h1,h2{font-family:Georgia,serif;line-height:1.12}h1{font-size:clamp(2.8rem,8vw,5rem);margin:.3em 0 .1em}h2{font-size:clamp(1.8rem,4vw,2.8rem);margin:.3em 0}p{max-width:73ch}button,a.action{font:inherit;color:var(--accent);background:var(--paper);border:1px solid var(--line);border-radius:.6rem;padding:.42rem .75rem;cursor:pointer;text-decoration:none}button:hover,a.action:hover,button[aria-current="step"],button[aria-pressed="true"]{background:var(--soft)}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}nav{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem}.card,details{background:var(--paper);border:1px solid var(--line);border-radius:1rem;padding:clamp(1rem,3vw,2rem)}details{padding:1rem;margin:.8rem 0}summary{cursor:pointer;color:var(--accent);font-weight:700}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:.8rem}.tile,fieldset,blockquote{border:1px solid var(--line);border-radius:.75rem;padding:.8rem 1rem;margin:.6rem 0;min-width:0}blockquote{background:var(--soft);font:1.2rem/1.5 Georgia,serif}fieldset label{display:block;margin:.35rem 0}legend{font-weight:700}.feedback{color:var(--accent);font-weight:650;margin:.5rem 0 0}.gloss{position:relative;border:0;border-radius:0;padding:0;background:transparent;text-decoration:underline dotted;text-underline-offset:.18em;line-height:inherit}.gloss:hover::after,.gloss:focus-visible::after{content:attr(data-gloss);position:absolute;bottom:100%;left:0;max-width:70vw;width:max-content;white-space:normal;text-align:left;background:var(--ink);color:var(--paper);padding:.25rem .5rem;border-radius:.35rem;z-index:2;font: .9rem/1.4 system-ui}.lyrics{line-height:1.85}.lyric-line{margin:0;max-width:none}.tap-gloss{color:var(--accent);background:var(--soft);border-radius:.3rem;padding:.1rem .35rem;font-size:.9em}.note,footer{color:var(--muted);font-size:.9rem}textarea{width:100%;font:inherit;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:.5rem;padding:.7rem}svg{width:1.15em;height:1.15em;vertical-align:-.15em;fill:none;stroke:currentColor;stroke-width:1.7}footer{display:flex;justify-content:space-between;gap:1rem}[hidden]{display:none!important}
+</style></head><body>
+<header><div class="bar"><span class="kicker">Weber State University · SPAN 3000</span><div class="actions">
+<button id="theme" type="button" title="Modo oscuro" aria-label="Modo oscuro" aria-pressed="false"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M21 13a9 9 0 0 1-10-10A9 9 0 1 0 21 13Z"/></svg></button>
+<button id="full" type="button" title="Pantalla completa" aria-label="Pantalla completa" aria-pressed="false"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 4H4v5m11-5h5v5M4 15v5h5m11-5v5h-5"/></svg></button>
+</div></div><h1>Ojalá</h1><p>Silvio Rodríguez · 1978 · El deseo de olvidar</p>
+<div class="actions"><a class="action" href="https://www.youtube.com/watch?v=zsg3Fdy7Kh0" target="_blank" rel="noopener">Escuchar en YouTube ↗</a><button id="lyricsButton" type="button" aria-controls="lyricsPanel" aria-expanded="false"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13M9 18c0 3-6 4-6 1s6-4 6-1Zm12-2c0 3-6 4-6 1s6-4 6-1Z"/></svg> Mostrar letra</button></div></header>
+<main>
+<section id="lyricsPanel" class="card" hidden aria-labelledby="lyricsTitle"><h2 id="lyricsTitle" tabindex="-1">Letra de «Ojalá»</h2><p class="note">Pasa el cursor, usa Tab o toca las expresiones subrayadas para ver su sentido en inglés.</p><div id="lyrics" class="lyrics"></div></section>
+<nav aria-label="Etapas de la lección"></nav>
+<section class="card slide" data-label="Escucha"><span class="kicker">01 · Primera escucha</span><h2 tabindex="-1">¿Qué quiere que cambie?</h2>
+<p>Escucha con la letra cerrada. Cada vez que oigas «ojalá», anota una palabra que reconozcas. En la segunda escucha, abre la letra y busca qué quiere que cambie la voz de la canción.</p>
+<div class="grid"><div class="tile"><strong>Primera estrofa</strong><p>Identifica dos elementos de la naturaleza. ¿Qué desea la voz que hagan o dejen de hacer?</p></div><div class="tile"><strong>Estribillo</strong><p>¿Te suena a esperanza, súplica o desesperación? Apoya tu lectura con una palabra o con algo que oigas en la interpretación.</p></div></div>
+<details><summary>Apoyo para conversar</summary><p>Al principio oí… / La voz desea que… / El tono me parece… porque…</p></details></section>
+<section class="card slide" data-label="Subjuntivo" hidden><span class="kicker">02 · Forma y sentido</span><h2 tabindex="-1">Ojalá (que) + subjuntivo</h2>
+<p><strong>Ojalá</strong> introduce un deseo. El <strong>que</strong> es opcional. En la canción, el presente de subjuntivo expresa lo que la voz quiere que ocurra.</p>
+<blockquote>Ojalá que la luna <strong>pueda</strong> salir sin ti.<br>Ojalá <strong>pase</strong> algo que te borre de pronto.</blockquote>
+<fieldset><legend>Ojalá la lluvia ___ de recordarme a ti. (dejar)</legend><label><input type="radio" name="q1" value="no"> deja</label><label><input type="radio" name="q1" value="yes"> deje</label><label><input type="radio" name="q1" value="no"> dejen</label><button class="check" data-right="«Deje» está en subjuntivo y concuerda con «la lluvia»." data-retry="Busca el presente de subjuntivo para un sujeto singular.">Comprobar</button><p class="feedback" aria-live="polite"></p></fieldset>
+<details><summary>Busca cuatro formas en la letra</summary><p>Encuentra las formas de <em>poder</em>, <em>dar</em>, <em>retener</em> e <em>irse</em> en los deseos que empiezan con «ojalá». Identifica el sujeto de cada una.</p><details><summary>Ver comprobación</summary><p><strong>pueda</strong> → la luna (también aparece con otro sujeto), <strong>dé</strong> → la aurora, <strong>retengan</strong> → las paredes, <strong>se vaya</strong> → el deseo.</p></details></details></section>
+<section class="card slide" data-label="Lectura" hidden><span class="kicker">03 · Lectura de cerca</span><h2 tabindex="-1">¿Quién olvida y qué se olvida?</h2>
+<p>En «tu nombre se le olvide a esa voz», <strong>tu nombre</strong> es el sujeto y <strong>le</strong> señala a quien lo olvida. En inglés, una traducción natural invierte la perspectiva: <em>I hope that voice forgets your name.</em></p>
+<fieldset><legend>Ojalá se le ___ tus palabras a esa voz. (olvidar)</legend><label><input type="radio" name="q2" value="no"> olvide</label><label><input type="radio" name="q2" value="yes"> olviden</label><label><input type="radio" name="q2" value="no"> olvidan</label><button class="check" data-right="«Olviden» concuerda con «tus palabras», el sujeto plural." data-retry="¿Qué se olvida? Haz que el verbo concuerde con ese sujeto y mantén el subjuntivo.">Comprobar</button><p class="feedback" aria-live="polite"></p></fieldset>
+<details><summary>Compara dos propósitos con «para»</summary><p>En «para que no las puedas convertir», el sujeto de <em>puedas</em> es «tú» y <em>las</em> remite a las hojas. En «para no verte tanto», el infinitivo <em>ver</em> se entiende desde la perspectiva de la voz que canta. ¿Quién realiza cada acción?</p></details></section>
+<section class="card slide" data-label="Imágenes" hidden><span class="kicker">04 · Interpretación</span><h2 tabindex="-1">Cuando el entorno guarda recuerdos</h2>
+<p>Elige una imagen. Explica qué sensación te produce y señala la palabra que más influye en tu lectura. Después, abre la interpretación posible.</p>
+<details><summary>Las hojas y el cristal</summary><p>El cristal puede sugerir belleza, dureza o fragilidad. Si el contacto transforma las hojas, hasta un detalle cotidiano adquiere la marca de esa persona. ¿Cuál de esas asociaciones te convence más?</p></details>
+<details><summary>Un disparo de nieve</summary><p>«Disparo» sugiere violencia o brusquedad. «Nieve» puede sugerir silencio, frío o algo que cubre las huellas. ¿Qué efecto tiene juntar esas dos imágenes?</p></details>
+<details><summary>Las paredes que retienen el ruido</summary><p>Las paredes parecen guardar la presencia de alguien a través del sonido. ¿Qué sonido podría hacer que un lugar te recuerde a una persona?</p></details>
+<details><summary>Puente con «Noches de boda»</summary><p>En «Noches de boda», la voz desea que perdure algo querido. En «Ojalá», la voz parece querer que algo se borre. Elige un deseo de cada canción. ¿Cómo cambia el efecto del subjuntivo según lo que se desea?</p></details></section>
+<section class="card slide" data-label="Crea" hidden><span class="kicker">05 · Producción</span><h2 tabindex="-1">Tres deseos para un lugar</h2>
+<p>Piensa en un lugar que te recuerde a alguien o a una etapa. Escribe tres versos con <strong>ojalá</strong>. Usa <strong>que</strong> en uno y omítelo en otro. Incluye un deseo negativo y una imagen concreta que se pueda ver, oír o tocar.</p>
+<label for="draft"><strong>Tu estrofa</strong></label><textarea id="draft" rows="5" placeholder="Ojalá…"></textarea><p id="saveStatus" class="note" aria-live="polite"></p>
+<details><summary>Modelo y revisión</summary><p>Ojalá que el patio recupere su voz.<br>Ojalá vuelvan las risas a la cocina.<br>Ojalá no se borren las marcas de la puerta.</p><p>Localiza los verbos y sus sujetos. ¿Concuerdan? ¿Qué imagen permite imaginar el lugar?</p></details></section>
+<div class="bar" style="margin-top:1rem"><button id="prev" type="button" aria-label="Etapa anterior">←</button><span id="progress" class="kicker" aria-live="polite"></span><button id="next" type="button" aria-label="Etapa siguiente">→</button></div>
+</main><footer><span>Weber State · SPAN 3000</span><span>Paul Rama, PhD</span></footer>
+<script id="transcript" type="text/plain">
+Ojalá que las hojas no te toquen el cuerpo cuando caigan
+Para que no las puedas convertir en cristal
+Ojalá que la lluvia deje de ser milagro que baja por tu cuerpo
+Ojalá que la luna pueda salir sin ti
+Ojalá que la tierra no te bese los pasos
+
+Ojalá se te acabe la mirada constante
+La palabra precisa, la sonrisa perfecta
+Ojalá pase algo que te borre de pronto
+Una luz cegadora, un disparo de nieve
+Ojalá por lo menos que me lleve la muerte
+Para no verte tanto, para no verte siempre
+En todos los segundos
+En todas las visiones
+Ojalá que no pueda tocarte ni en canciones
+
+Ojalá que la aurora no dé gritos que caigan en mi espalda
+Ojalá que tu nombre se le olvide a esa voz
+Ojalá las paredes no retengan tu ruido de camino cansado
+Ojalá que el deseo se vaya atrás de ti
+A tu viejo gobierno de difuntos y flores
+
+Ojalá se te acabe la mirada constante
+La palabra precisa, la sonrisa perfecta
+Ojalá pase algo que te borre de pronto
+Una luz cegadora, un disparo de nieve
+Ojalá por lo menos que me lleve la muerte
+Para no verte tanto, para no verte siempre
+En todos los segundos, en todas las visiones
+Ojalá que no pueda tocarte ni en canciones
+
+Ojalá pase algo que te borre de pronto
+Una luz cegadora, un disparo de nieve
+Ojalá por lo menos que me lleve la muerte
+Para no verte tanto, para no verte siempre
+En todos los segundos
+En todas las visiones
+Ojalá que no pueda tocarte ni en canciones
+</script>
+<script>
+const byId = id => document.getElementById(id);
+const glosses = {
+  "Ojalá": "I hope / if only",
+  "hojas": "leaves",
+  "cuando caigan": "when they fall",
+  "convertir en cristal": "turn into glass or crystal",
+  "deje de ser": "stop being",
+  "milagro": "miracle",
+  "te bese los pasos": "kiss your footsteps",
+  "se te acabe": "come to an end for you",
+  "mirada constante": "steady gaze",
+  "palabra precisa": "just the right word",
+  "te borre": "erase you",
+  "de pronto": "suddenly",
+  "luz cegadora": "blinding light",
+  "disparo de nieve": "shot of snow (a striking poetic image)",
+  "por lo menos": "at least",
+  "me lleve la muerte": "death takes me away",
+  "visiones": "visions or mental images",
+  "ni en canciones": "not even in songs",
+  "aurora": "dawn",
+  "dé gritos": "cry out",
+  "espalda": "back",
+  "se le olvide a esa voz": "that voice forgets it",
+  "retengan": "hold on to",
+  "ruido de camino cansado": "the sound of weary travel (one possible reading)",
+  "se vaya atrás de ti": "go after you / follow you",
+  "gobierno": "rule or government (open to interpretation)",
+  "difuntos": "the dead / departed people"
+};
+const escaped = Object.keys(glosses).sort((a,b)=>b.length-a.length).map(word=>word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+const pattern = new RegExp('(?<![\\p{L}])(' + escaped.join('|') + ')(?![\\p{L}])','gu');
+let openGloss;
+for (const line of byId('transcript').textContent.trim().split('\n')) {
+  if (!line.trim()) { byId('lyrics').append(document.createElement('br')); continue; }
+  const row = document.createElement('p');
+  row.className = 'lyric-line';
+  line.split(pattern).forEach((part,index)=>{
+    if (index % 2 === 0) { row.append(part); return; }
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'gloss';
+    button.textContent = part;
+    button.dataset.gloss = glosses[part];
+    const explanation = document.createElement('span');
+    explanation.className = 'tap-gloss';
+    explanation.hidden = true;
+    explanation.lang = 'en';
+    explanation.textContent = glosses[part];
+    button.setAttribute('aria-expanded','false');
+    button.onclick = () => {
+      const wasOpen = !explanation.hidden;
+      if (openGloss) {
+        openGloss.hidden = true;
+        openGloss.previousElementSibling.setAttribute('aria-expanded','false');
+      }
+      openGloss = wasOpen ? null : explanation;
+      explanation.hidden = wasOpen;
+      button.setAttribute('aria-expanded',String(!wasOpen));
+    };
+    row.append(button, explanation);
+  });
+  byId('lyrics').append(row);
+}
+const lyricsPanel = byId('lyricsPanel');
+byId('lyricsButton').onclick = event => {
+  lyricsPanel.hidden = !lyricsPanel.hidden;
+  event.currentTarget.setAttribute('aria-expanded',String(!lyricsPanel.hidden));
+  event.currentTarget.lastChild.textContent = lyricsPanel.hidden ? ' Mostrar letra' : ' Ocultar letra';
+  if (!lyricsPanel.hidden) byId('lyricsTitle').focus();
+};
+const slides = [...document.querySelectorAll('.slide')];
+const nav = document.querySelector('nav');
+const tabs = slides.map((slide,index)=>{
+  const button = document.createElement('button');
+  button.textContent = slide.dataset.label;
+  button.onclick = () => show(index);
+  nav.append(button);
+  return button;
+});
+let active = 0;
+function show(index, focus = true) {
+  if (index < 0 || index >= slides.length) return;
+  active = index;
+  slides.forEach((slide,i)=>{
+    slide.hidden = i !== index;
+    if (i === index) tabs[i].setAttribute('aria-current','step');
+    else tabs[i].removeAttribute('aria-current');
+  });
+  byId('prev').disabled = index === 0;
+  byId('next').disabled = index === slides.length - 1;
+  byId('progress').textContent = (index + 1) + ' / ' + slides.length;
+  if (focus) slides[index].querySelector('h2').focus();
+}
+byId('prev').onclick = () => show(active - 1);
+byId('next').onclick = () => show(active + 1);
+document.addEventListener('keydown',event=>{
+  if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || !lyricsPanel.hidden ||
+      event.target.closest('input, textarea, select, button, a, summary, [contenteditable]')) return;
+  if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+    event.preventDefault();
+    show(active + (event.key === 'ArrowRight' ? 1 : -1));
+  }
+});
+for (const button of document.querySelectorAll('.check')) {
+  const question = button.closest('fieldset');
+  const feedback = question.querySelector('.feedback');
+  question.addEventListener('change',()=>{ feedback.textContent = ''; });
+  button.onclick = () => {
+    const selected = question.querySelector('input:checked');
+    feedback.textContent = !selected ? 'Elige una opción.' : selected.value === 'yes' ? button.dataset.right : button.dataset.retry;
+  };
+}
+function setTheme(dark) {
+  document.documentElement.classList.toggle('dark',dark);
+  byId('theme').setAttribute('aria-pressed',String(dark));
+}
+try {
+  setTheme(localStorage.getItem('ojala-span3000-theme') === 'dark');
+  byId('draft').value = localStorage.getItem('ojala-span3000-draft') || '';
+  byId('saveStatus').textContent = 'El borrador se guarda en este navegador.';
+} catch {
+  byId('saveStatus').textContent = 'El navegador no permite guardar el borrador.';
+}
+byId('draft').addEventListener('input',()=>{
+  try { localStorage.setItem('ojala-span3000-draft',byId('draft').value); }
+  catch { byId('saveStatus').textContent = 'No se pudo guardar el borrador en este navegador.'; }
+});
+byId('theme').onclick = () => {
+  const dark = !document.documentElement.classList.contains('dark');
+  setTheme(dark);
+  try { localStorage.setItem('ojala-span3000-theme',dark ? 'dark' : 'light'); } catch {}
+};
+const full = byId('full');
+full.hidden = !document.fullscreenEnabled;
+full.onclick = async () => {
+  try {
+    if (document.fullscreenElement) await document.exitFullscreen();
+    else await document.documentElement.requestFullscreen();
+  } catch { full.hidden = true; }
+};
+document.addEventListener('fullscreenchange',()=>full.setAttribute('aria-pressed',String(Boolean(document.fullscreenElement))));
+show(0,false);
+</script></body></html>
