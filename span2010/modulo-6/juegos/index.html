@@ -25,10 +25,13 @@ button{border:1px solid var(--line);border-radius:8px;background:var(--paper);co
 button:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 #next{background:#492365;color:white;font-weight:700}
 #status:empty{display:none}
+
+/* Official WSU logo */
+.wsu-logo{display:block;line-height:0}.wsu-logo img{display:block;height:30px;width:auto;max-width:100%}.wsu-logo .wsu-rev{display:none}header small{flex-direction:column;align-items:flex-start;gap:6px}:root.dark .wsu-logo .wsu-color{display:none}:root.dark .wsu-logo .wsu-rev{display:block}
 </style>
 </head>
 <body><main>
-<header><small><svg class="shield" viewBox="0 0 28 32" aria-hidden="true" focusable="false"><path fill="#492365" d="M1 1h26v15c0 7-5 12-13 15C6 28 1 23 1 16z"/><text x="14" y="20" text-anchor="middle" fill="#fff" font-size="17" font-family="Georgia,serif" font-weight="700">W</text></svg>Dr. Rama</small><div>
+<header><small><span class="wsu-logo"><img class="wsu-color" src="https://gemaster99.github.io/course-modules/assets/wsu/wsu-horizontal.svg" alt="Weber State University" width="229" height="30"><img class="wsu-rev" src="https://gemaster99.github.io/course-modules/assets/wsu/wsu-horizontal-reversed.svg" alt="Weber State University" width="220" height="30"></span>Dr. Rama</small><div>
 <button id="theme" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false">◐</button>
 <button id="full" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
 </div></header>

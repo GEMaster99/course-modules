@@ -15,10 +15,13 @@ main{padding-block:clamp(18px,3vw,34px)}.nav{margin-bottom:1rem}.steps{gap:.35re
 
 .lyrics-button{display:inline-flex;align-items:center;gap:.35rem}.lyrics-button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .lyrics-text{max-width:38em;line-height:1.75}.lyrics-text p{margin-bottom:1em}.gloss{display:inline-block;position:relative}.gloss button{font:inherit;line-height:inherit;padding:0;border:0;border-radius:0;background:transparent;text-decoration:underline dotted;text-underline-offset:.18em}.gloss .translation{display:none;position:absolute;z-index:1;inset-inline-start:0;bottom:100%;width:max-content;max-width:min(210px,70vw);padding:.32em .55em;background:var(--purple);color:var(--card);border-radius:6px;font-size:.75em;line-height:1.35;box-shadow:0 2px 8px #0003}.gloss:hover .translation,.gloss:focus-within .translation{display:block}.gloss:focus-within{z-index:2}
+
+/* Official WSU logo */
+.wsu-logo{display:block;line-height:0}.wsu-logo img{display:block;height:30px;width:auto;max-width:100%}.wsu-logo .wsu-rev{display:none}header .brand{flex-direction:column;align-items:flex-start;gap:.3rem}:root.dark .wsu-logo .wsu-color{display:none}:root.dark .wsu-logo .wsu-rev{display:block}
 </style>
 </head>
 <body>
-<header><div class="wrap bar"><div class="brand"><span class="badge" aria-hidden="true">W</span> SPAN 3000 <span class="name">· CONVERSACIÓN EN ESPAÑOL</span></div>
+<header><div class="wrap bar"><div class="brand"><span class="wsu-logo"><img class="wsu-color" src="https://gemaster99.github.io/course-modules/assets/wsu/wsu-horizontal.svg" alt="Weber State University" width="229" height="30"><img class="wsu-rev" src="https://gemaster99.github.io/course-modules/assets/wsu/wsu-horizontal-reversed.svg" alt="Weber State University" width="220" height="30"></span><span>SPAN 3000 <span class="name">· CONVERSACIÓN EN ESPAÑOL</span></span></div>
 <div class="tools">
 <button class="icon" id="grammar" title="Referencia del futuro" aria-label="Referencia del futuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v15M3 4h5a4 4 0 0 1 4 2 4 4 0 0 1 4-2h5v15h-5a4 4 0 0 0-4 2 4 4 0 0 0-4-2H3z"/></svg></button>
 <button class="icon" id="theme" title="Modo oscuro" aria-label="Modo oscuro" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.7 14.3A9 9 0 0 1 9.7 3.3a9 9 0 1 0 11 11Z"/></svg></button>

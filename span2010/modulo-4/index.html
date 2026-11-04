@@ -200,6 +200,9 @@
   .fs-toggle .fs-exit { display: none; }
   .fs-toggle.is-full .fs-enter { display: none; } .fs-toggle.is-full .fs-exit { display: block; }
   .fs-toggle[hidden] { display: none; }
+
+/* Official WSU logo */
+.wsu-logo{display:block;line-height:0}.wsu-logo img{display:block;height:30px;width:auto;max-width:100%}.wsu-logo .wsu-rev{display:none}.brand{flex-direction:column;align-items:flex-start;gap:8px}[data-theme="dark"] .wsu-logo .wsu-color{display:none}[data-theme="dark"] .wsu-logo .wsu-rev{display:block}
 </style>
 </head>
 <body>
@@ -207,8 +210,8 @@
 <header>
   <div class="header-row">
     <div class="brand">
-      <div class="brand-mark">W</div>
-      <div class="brand-text"><strong>SPAN 2010</strong> · Third Semester Spanish<br>Weber State University</div>
+      <span class="wsu-logo"><img class="wsu-color" src="https://gemaster99.github.io/course-modules/assets/wsu/wsu-horizontal.svg" alt="Weber State University" width="229" height="30"><img class="wsu-rev" src="https://gemaster99.github.io/course-modules/assets/wsu/wsu-horizontal-reversed.svg" alt="Weber State University" width="220" height="30"></span>
+      <div class="brand-text"><strong>SPAN 2010</strong> · Third Semester Spanish</div>
     </div>
     <div class="header-actions">
     <button class="fs-toggle" id="fsToggle" type="button" aria-label="Enter fullscreen" title="Fullscreen">
