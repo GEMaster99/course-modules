@@ -45,10 +45,6 @@ button:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outli
 <p><strong>Ask a follow-up:</strong> <span id="follow-up" lang="es">¿Qué había en cada plato? ¿Qué hizo tu familia a medianoche?</span></p>
 <p><strong>Give your verdict:</strong> <span lang="es">Te creo porque ___. / No te creo porque ___.</span></p>
 </details>
-<details id="culture"><summary><strong>Culture connection</strong></summary>
-<p><strong id="culture-term" lang="es">Año Nuevo · la costumbre</strong></p>
-<p id="culture-note">In Spain and some other Spanish-speaking communities, people eat twelve grapes with the midnight chimes. The olives are the fictional mix-up.</p>
-</details>
 <p id="status" role="status"></p>
 </main>
 <script>
@@ -145,82 +141,6 @@ const accusations = [
     "¿Quién te avisó? ¿Pudiste arreglar el disfraz?"
   ]
 ];
-const cultureConnections = [
-  [
-    "Año Nuevo · la costumbre",
-    "In Spain and some other Spanish-speaking communities, people eat twelve grapes with the midnight chimes. The olives are the fictional mix-up."
-  ],
-  [
-    "el carnaval · disfrazarse · el desfile",
-    "Costumes and parades are part of many Carnival celebrations. Imagine how this costume might interact with a parade."
-  ],
-  [
-    "la ofrenda · recordar",
-    "An ofrenda can honor loved ones who have died. Photos can help families remember the people they are honoring."
-  ],
-  [
-    "el pueblo · festejar · conmemorar",
-    "The module connects Independence Day celebrations with collective memory. The exact event commemorated depends on the country."
-  ],
-  [
-    "la Janucá",
-    "Lighting candles is part of Hanukkah. In this story the flashlight is for finding the candles."
-  ],
-  [
-    "la Navidad · la costumbre",
-    "Families celebrate Christmas in different ways. This card asks you to invent one family's custom involving a gift or a meal."
-  ],
-  [
-    "la Noche de las Brujas · disfrazarse",
-    "The module uses Halloween as one occasion for costumes. Compare this costume with the ones your group associates with Carnival."
-  ],
-  [
-    "la Pascua",
-    "Egg hunts are a custom in some Easter celebrations. This family is imagined, including its unusual hiding place."
-  ],
-  [
-    "las artesanías · la feria",
-    "The module connects crafts with a fair. Tell how something from a food stall ended up being sold at a craft stall."
-  ],
-  [
-    "el Día de San Patricio · el desfile",
-    "Green is associated with many St. Patrick’s Day celebrations. The umbrella gives your group a reason to invent an explanation."
-  ],
-  [
-    "la cocina · heredar · el pueblo",
-    "A family recipe can be part of its cultural heritage. The unusual serving dish is the fictional twist."
-  ],
-  [
-    "el folclor · la herencia cultural",
-    "Stories and performances can pass on a community’s heritage. This card asks you to invent a performance mishap."
-  ],
-  [
-    "Año Nuevo · el hábito",
-    "The module’s story builds toward midnight. An early alarm lets you contrast the usual timing with one unusual night."
-  ],
-  [
-    "los antepasados · el legado",
-    "Photos and stories can keep family memories alive. Your explanation can connect the photo with a custom someone passed down."
-  ],
-  [
-    "las artesanías · la costumbre",
-    "A craft can be a skill learned from family or community members. Invent who taught you and why you shared it."
-  ],
-  [
-    "la Navidad · la Noche de las Brujas",
-    "This card mixes two named celebrations. Explain how the costume ended up at the wrong gathering."
-  ],
-  [
-    "el pueblo · el día feriado · conmemorar",
-    "Communities can gather on a holiday to remember a shared event. Your group can choose what this town was commemorating."
-  ],
-  [
-    "el carnaval · el desfile · disfrazarse",
-    "This card uses Carnival costumes to practice describing an ongoing feeling and the reaction that followed."
-  ]
-];
-const cultureTerm = document.querySelector('#culture-term');
-const cultureNote = document.querySelector('#culture-note');
 const excuse = document.querySelector('#excuse');
 const followUp = document.querySelector('#follow-up');
 let previous = accusations[0];
@@ -233,9 +153,6 @@ document.querySelector('#next').onclick = () => {
   prompt.textContent = question;
   excuse.textContent = sentenceStarters;
   followUp.textContent = followUpQuestions;
-  const [term, connection] = cultureConnections[accusations.indexOf(previous)];
-  cultureTerm.textContent = term;
-  cultureNote.textContent = connection;
 };
 const theme = document.querySelector('#theme');
 theme.onclick = () => theme.setAttribute('aria-pressed', document.documentElement.classList.toggle('dark'));
