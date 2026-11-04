@@ -38,16 +38,16 @@ button:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outli
 <li><strong>Ask follow-up questions in Spanish.</strong> Keep going until you decide whether you believe the story.</li>
 <li><strong>Switch speakers.</strong> Draw a new accusation.</li>
 </ol>
-<section class="card" aria-label="Accusation"><p id="prompt" lang="es" aria-live="polite">¿Por qué había una cabra en la pista de baile?</p></section>
+<section class="card" aria-label="Accusation"><p id="prompt" lang="es" aria-live="polite">¿Por qué cambiaste las doce uvas de Año Nuevo por doce aceitunas?</p></section>
 <div class="actions"><button id="next">New accusation</button><span lang="es">¿Te creo o no?</span></div>
 <details><summary>Spanish starters</summary>
-<p><strong>Make an excuse:</strong> <span id="excuse" lang="es">Yo estaba bailando cuando la cabra ___. La puerta estaba abierta porque ___.</span></p>
-<p><strong>Ask a follow-up:</strong> <span id="follow-up" lang="es">¿Quién dejó la puerta abierta? ¿Qué hizo la cabra después?</span></p>
+<p><strong>Make an excuse:</strong> <span id="excuse" lang="es">No sabía que ___. Lo supe cuando ___.</span></p>
+<p><strong>Ask a follow-up:</strong> <span id="follow-up" lang="es">¿Qué había en cada plato? ¿Qué hizo tu familia a medianoche?</span></p>
 <p><strong>Give your verdict:</strong> <span lang="es">Te creo porque ___. / No te creo porque ___.</span></p>
 </details>
 <details id="culture"><summary><strong>Culture connection</strong></summary>
-<p><strong id="culture-term" lang="es">el baile</strong></p>
-<p id="culture-note">Dancing can be part of a celebration. Compare this dance floor with dancing during el carnaval. The goat is the joke.</p>
+<p><strong id="culture-term" lang="es">Año Nuevo · la costumbre</strong></p>
+<p id="culture-note">In Spain and some other Spanish-speaking communities, people eat twelve grapes with the midnight chimes. The olives are the fictional mix-up.</p>
 </details>
 <p id="status" role="status"></p>
 </main>
@@ -55,168 +55,168 @@ button:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outli
 const prompt = document.querySelector('#prompt');
 const accusations = [
   [
-    "¿Por qué había una cabra en la pista de baile?",
-    "Yo estaba bailando cuando la cabra ___. La puerta estaba abierta porque ___.",
-    "¿Quién dejó la puerta abierta? ¿Qué hizo la cabra después?"
+    "¿Por qué cambiaste las doce uvas de Año Nuevo por doce aceitunas?",
+    "No sabía que ___. Lo supe cuando ___.",
+    "¿Qué había en cada plato? ¿Qué hizo tu familia a medianoche?"
   ],
   [
-    "¿Por qué escondiste el pastel debajo de tu cama?",
-    "Iba a llevar el pastel a la mesa, pero vi que ___. Lo escondí porque ___.",
-    "¿De quién lo escondías? ¿Cómo lo encontraron?"
+    "¿Por qué te disfrazaste de semáforo para el desfile de carnaval?",
+    "Todos se disfrazaban de ___, pero yo quería ___. Cuando empezó el desfile, ___.",
+    "¿Quién te ayudó con el disfraz? ¿Qué pasó cuando se puso la luz roja?"
   ],
   [
-    "¿Por qué llegaste a la boda en pijama?",
-    "Pensaba que la boda era ___. Cuando llegué, todos ___.",
-    "¿Quién te dijo cómo vestirte? ¿Qué hiciste al ver a los invitados?"
+    "¿Por qué pusiste una foto de tu gato en la ofrenda del Día de los Muertos?",
+    "La ofrenda era para recordar a ___. Confundí las fotos porque ___.",
+    "¿A quién querías recordar? ¿Cuándo te diste cuenta del error?"
   ],
   [
-    "¿Por qué le diste un regalo al perro y no a la novia?",
-    "El regalo era para ___. Mientras hablaba con la novia, el perro ___.",
-    "¿Qué había en el regalo? ¿Cómo reaccionó la novia?"
+    "¿Por qué llevaste la bandera al revés en el desfile del Día de la Independencia?",
+    "El pueblo festejaba ___. Yo estaba nervioso/a y ___.",
+    "¿Qué conmemoraba el desfile? ¿Quién te avisó?"
   ],
   [
-    "¿Por qué todos llevaban tu foto en la frente?",
-    "Estábamos jugando a ___ cuando alguien sacó mi foto. Me di cuenta cuando ___.",
-    "¿Quién empezó el juego? ¿Qué hiciste cuando viste tu foto?"
+    "¿Por qué usaste una linterna para buscar las velas de Janucá y la dejaste en la mesa?",
+    "No podía encontrar las velas porque ___. Al final pude encontrarlas cuando ___.",
+    "¿Dónde estaban las velas? ¿Qué pasó después?"
   ],
   [
-    "¿Por qué apagaste las luces durante el brindis?",
-    "Mientras todos levantaban sus copas, vi ___. Apagué las luces porque ___.",
-    "¿Qué viste antes de apagarlas? ¿Quién las encendió otra vez?"
+    "¿Por qué envolviste una olla vacía para Navidad?",
+    "En mi familia teníamos la costumbre de ___. Quise ayudar, pero ___.",
+    "¿Qué ibas a poner en la olla? ¿Quién abrió el regalo?"
   ],
   [
-    "¿Por qué había una pizza dentro de tu regalo?",
-    "La caja parecía ___. Cuando la abrí, encontré ___.",
-    "¿Quién te dio la caja? ¿Qué hiciste con la pizza?"
+    "¿Por qué te disfrazaste de nevera en la Noche de las Brujas?",
+    "Mis amigos se disfrazaban de ___. Yo me puse contento/a cuando ___.",
+    "¿Qué llevabas dentro del disfraz? ¿Cómo reaccionaron tus amigos?"
   ],
   [
-    "¿Por qué bailaste con una escoba toda la noche?",
-    "La escoba estaba al lado de ___. La agarré cuando ___.",
-    "¿Quién te vio bailar con la escoba? ¿Qué canción sonaba?"
+    "¿Por qué escondiste un huevo de Pascua en el zapato de tu tío?",
+    "Buscaba un buen lugar para el huevo cuando ___. Lo escondí allí porque ___.",
+    "¿Quién encontró el huevo? ¿Cómo se sintió tu tío?"
   ],
   [
-    "¿Por qué trajiste una caja llena de ranas a la fiesta?",
-    "Creía que la caja tenía ___. Cuando la abrí, las ranas ___.",
-    "¿De dónde sacaste la caja? ¿Adónde saltaron las ranas?"
+    "¿Por qué vendiste tu almuerzo en el puesto de artesanías de la feria?",
+    "Había artesanías en el puesto y yo ___. Pensaba que el cliente quería ___.",
+    "¿Qué artesanías vendías? ¿Qué compró el cliente al final?"
   ],
   [
-    "¿Por qué cantaste «Feliz cumpleaños» en una boda?",
-    "La música sonaba como ___. Empecé a cantar cuando ___.",
-    "¿Quién cantó contigo? ¿Qué dijeron los novios?"
+    "¿Por qué saliste con un paraguas verde en el desfile del Día de San Patricio?",
+    "Pensaba que ___. Cuando empezó el desfile, supe que ___.",
+    "¿Qué tiempo hacía? ¿Qué hiciste con el paraguas?"
   ],
   [
-    "¿Por qué tenías los anillos en un zapato?",
-    "Buscaba un lugar seguro para los anillos porque ___. Los puse en el zapato cuando ___.",
-    "¿De quién era el zapato? ¿Cómo recuperaste los anillos?"
+    "¿Por qué serviste la sopa de tu abuela en tazas de café durante la fiesta del pueblo?",
+    "Heredé la receta de ___. No pude encontrar platos porque ___.",
+    "¿Qué llevaba la sopa? ¿Qué dijeron los vecinos?"
   ],
   [
-    "¿Por qué había un pato en tu mochila durante la fiesta?",
-    "Mi mochila estaba abierta mientras yo ___. Oí un ruido y ___.",
-    "¿Cuándo te diste cuenta? ¿Qué hiciste con el pato?"
+    "¿Por qué llevaste una marioneta gigante al espectáculo de folclor?",
+    "Conocía el cuento, pero no conocía a ___. Esa noche conocí a ___ y ___.",
+    "¿De qué trataba el cuento? ¿Qué hizo la marioneta?"
   ],
   [
-    "¿Por qué le pusiste sal al chocolate caliente?",
-    "Los dos frascos eran ___. Cuando probé el chocolate, ___.",
-    "¿Para quién preparabas el chocolate? ¿Quién lo probó primero?"
+    "¿Por qué pusiste el despertador a las once en Año Nuevo?",
+    "Mi familia tenía el hábito de ___. Programé la alarma porque ___.",
+    "¿Qué hacían todos cuando sonó? ¿Cuándo se dieron cuenta de la hora?"
   ],
   [
-    "¿Por qué soplaste las velas antes de que llegara la abuela?",
-    "Las velas estaban al lado de ___. Las apagué porque ___.",
-    "¿Dónde estaba la abuela? ¿Qué le dijiste cuando llegó?"
+    "¿Por qué llevaste una foto de tus antepasados al desfile del pueblo?",
+    "Quería recordar a ___ porque ___. Cuando vieron la foto, ___.",
+    "¿Quién salía en la foto? ¿Qué costumbre heredaste de esa persona?"
   ],
   [
-    "¿Por qué sonó una alarma en medio de tu discurso?",
-    "Mientras hablaba, mi teléfono estaba en ___. La alarma sonó porque ___.",
-    "¿Para qué era la alarma? ¿Cómo terminaste el discurso?"
+    "¿Por qué hiciste un sombrero de papel para todos en la feria de artesanías?",
+    "En mi familia era costumbre ___. Ese día hice los sombreros porque ___.",
+    "¿Quién te enseñó a hacerlos? ¿Cómo reaccionó el pueblo?"
   ],
   [
-    "¿Por qué saliste de la fiesta con tres globos atados al pelo?",
-    "Estaba decorando el salón cuando ___. Salí porque ___.",
-    "¿Quién te ató los globos? ¿Qué pasó cuando saliste?"
+    "¿Por qué llegaste a la fiesta de Navidad con un disfraz de bruja?",
+    "No sabía que la fiesta era de Navidad. Lo supe cuando ___. Me puse ___ porque ___.",
+    "¿Para qué fiesta te preparabas? ¿Qué hiciste al llegar?"
   ],
   [
-    "¿Por qué tu regalo empezó a ladrar?",
-    "El regalo estaba debajo de ___. Cuando lo moví, ___.",
-    "¿Quién envolvió el regalo? ¿Qué encontraron al abrirlo?"
+    "¿Por qué se te escapó un globo justo cuando el pueblo empezó a conmemorar el día feriado?",
+    "Había mucha gente en la plaza. Mientras yo ___, el globo ___.",
+    "¿Qué conmemoraban? ¿Cómo reaccionó la gente?"
   ],
   [
-    "¿Por qué pusiste una foto de tu gato encima del pastel?",
-    "El pastel necesitaba ___. Elegí esa foto porque ___.",
-    "¿De quién era el cumpleaños? ¿Qué dijo al ver la foto?"
+    "¿Por qué te pusiste el disfraz de carnaval al revés?",
+    "Me sentía ___ antes del desfile. Cuando alguien me avisó, me puse ___.",
+    "¿Quién te avisó? ¿Pudiste arreglar el disfraz?"
   ]
 ];
 const cultureConnections = [
   [
-    "el baile",
-    "Dancing can be part of a celebration. Compare this dance floor with dancing during el carnaval. The goat is the joke."
+    "Año Nuevo · la costumbre",
+    "In Spain and some other Spanish-speaking communities, people eat twelve grapes with the midnight chimes. The olives are the fictional mix-up."
   ],
   [
-    "la costumbre",
-    "A cake can be part of how a family marks a special occasion. What food does your family usually serve at a celebration?"
+    "el carnaval · disfrazarse · el desfile",
+    "Costumes and parades are part of many Carnival celebrations. Imagine how this costume might interact with a parade."
   ],
   [
-    "la boda",
-    "Clothing can signal that an occasion is special. A wedding outfit and a carnaval costume both reflect expectations that vary by event and community."
+    "la ofrenda · recordar",
+    "An ofrenda can honor loved ones who have died. Photos can help families remember the people they are honoring."
   ],
   [
-    "el regalo",
-    "Giving a wedding gift is one way to congratulate the couple. The joke is that the dog gets the gift intended for the bride."
+    "el pueblo · festejar · conmemorar",
+    "The module connects Independence Day celebrations with collective memory. The exact event commemorated depends on the country."
   ],
   [
-    "la celebración",
-    "Party games can become a group tradition. Compare what guests usually do at a celebration with what happened on this particular occasion."
+    "la Janucá",
+    "Lighting candles is part of Hanukkah. In this story the flashlight is for finding the candles."
   ],
   [
-    "el brindis",
-    "A toast marks a shared moment at a celebration. Compare it with the midnight chimes in the module’s Año Nuevo story."
+    "la Navidad · la costumbre",
+    "Families celebrate Christmas in different ways. This card asks you to invent one family's custom involving a gift or a meal."
   ],
   [
-    "el regalo",
-    "Opening a gift can be part of a celebration. The pizza plays on the difference between what you expect in a gift box and what you find."
+    "la Noche de las Brujas · disfrazarse",
+    "The module uses Halloween as one occasion for costumes. Compare this costume with the ones your group associates with Carnival."
   ],
   [
-    "el baile",
-    "Dancing can be a shared part of a celebration, including at carnaval. Here the joke is the choice of dance partner."
+    "la Pascua",
+    "Egg hunts are a custom in some Easter celebrations. This family is imagined, including its unusual hiding place."
   ],
   [
-    "la fiesta",
-    "Guests may bring something to share at a celebration. The frogs turn an ordinary contribution into a surprise."
+    "las artesanías · la feria",
+    "The module connects crafts with a fair. Tell how something from a food stall ended up being sold at a craft stall."
   ],
   [
-    "la boda y el cumpleaños",
-    "Songs help mark different occasions. Singing «Feliz cumpleaños» at a wedding mixes up two celebrations."
+    "el Día de San Patricio · el desfile",
+    "Green is associated with many St. Patrick’s Day celebrations. The umbrella gives your group a reason to invent an explanation."
   ],
   [
-    "los anillos",
-    "Exchanging rings is a custom in many wedding ceremonies. The shoe is the unexpected place where the rings turn up."
+    "la cocina · heredar · el pueblo",
+    "A family recipe can be part of its cultural heritage. The unusual serving dish is the fictional twist."
   ],
   [
-    "la fiesta",
-    "This card uses a party as the setting for an unexpected event. Like the module’s New Year story, it invites you to describe what people were doing before the surprise."
+    "el folclor · la herencia cultural",
+    "Stories and performances can pass on a community’s heritage. This card asks you to invent a performance mishap."
   ],
   [
-    "la cocina",
-    "The module treats cooking as part of family celebrations. Compare this drink mix-up with the food prepared for the family gathering in the Año Nuevo story."
+    "Año Nuevo · el hábito",
+    "The module’s story builds toward midnight. An early alarm lets you contrast the usual timing with one unusual night."
   ],
   [
-    "las velas",
-    "Blowing out candles is a familiar birthday custom. In the module’s New Year story, candles serve a different purpose: lighting the room after the power goes out."
+    "los antepasados · el legado",
+    "Photos and stories can keep family memories alive. Your explanation can connect the photo with a custom someone passed down."
   ],
   [
-    "el discurso",
-    "A speech can mark an important moment at a ceremony or celebration. The alarm interrupts the occasion and gives you a reason to describe how people reacted."
+    "las artesanías · la costumbre",
+    "A craft can be a skill learned from family or community members. Invent who taught you and why you shared it."
   ],
   [
-    "la decoración",
-    "Decorations help mark a space as ready for a celebration. Here the balloons end up on a guest instead of in the room."
+    "la Navidad · la Noche de las Brujas",
+    "This card mixes two named celebrations. Explain how the costume ended up at the wrong gathering."
   ],
   [
-    "el regalo",
-    "Wrapping a gift keeps its contents a surprise. The barking gives away a clue before anyone opens it."
+    "el pueblo · el día feriado · conmemorar",
+    "Communities can gather on a holiday to remember a shared event. Your group can choose what this town was commemorating."
   ],
   [
-    "el cumpleaños",
-    "A decorated cake can honor the person celebrating a birthday. The cat photo makes you ask who the cake was meant to celebrate."
+    "el carnaval · el desfile · disfrazarse",
+    "This card uses Carnival costumes to practice describing an ongoing feeling and the reaction that followed."
   ]
 ];
 const cultureTerm = document.querySelector('#culture-term');
