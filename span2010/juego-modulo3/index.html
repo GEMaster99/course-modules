@@ -124,12 +124,15 @@ button:focus-visible{outline:3px solid var(--wsu);outline-offset:3px}
 }
 @media (max-width:520px){ .tiles{grid-template-columns:1fr} .bar .count{display:none} }
 @media (prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} }
+
+/* Official WSU logo */
+.wsu-logo{display:block;line-height:0}.wsu-logo img{display:block;height:30px;width:auto;max-width:100%}.wsu-logo .wsu-rev{display:none}.brand{flex-direction:column;align-items:flex-start;gap:6px}:root[data-theme="dark"] .wsu-logo .wsu-color{display:none}:root[data-theme="dark"] .wsu-logo .wsu-rev{display:block}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .wsu-logo .wsu-color{display:none}:root:not([data-theme="light"]) .wsu-logo .wsu-rev{display:block}}
 </style>
 </head>
 <body>
 <main id="home" class="screen on">
   <div class="brandrow">
-    <div class="brand"><div class="mark">W</div><div><strong>SPAN 2010</strong><br>Módulo 3</div></div>
+    <div class="brand"><span class="wsu-logo"><img class="wsu-color" src="https://gemaster99.github.io/course-modules/assets/wsu/wsu-horizontal.svg" alt="Weber State University" width="229" height="30"><img class="wsu-rev" src="https://gemaster99.github.io/course-modules/assets/wsu/wsu-horizontal-reversed.svg" alt="Weber State University" width="220" height="30"></span><div><strong>SPAN 2010</strong><br>Módulo 3</div></div>
     <button class="iconbtn" id="themeBtn" aria-label="Toggle dark mode">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
     </button>

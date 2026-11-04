@@ -172,6 +172,9 @@
     .tab-btn .tab-num { display: none; }
     .listen-options.cols-2 { grid-template-columns: 1fr; }
   }
+
+/* Official WSU logo */
+.wsu-logo{display:block;line-height:0}.wsu-logo img{display:block;height:30px;width:auto;max-width:100%}.wsu-logo .wsu-rev{display:none}.brand{flex-direction:column;align-items:flex-start;gap:8px}[data-theme="dark"] .wsu-logo .wsu-color{display:none}[data-theme="dark"] .wsu-logo .wsu-rev{display:block}
 </style>
 <style>
   .scene-img { width: 100%; display: block; border-radius: 14px; border: 1.5px solid var(--line); box-shadow: var(--shadow-paper); margin-bottom: 28px; }
@@ -195,7 +198,7 @@
   <header>
     <div class="header-row">
       <div class="brand">
-        <div class="brand-mark">W</div>
+        <span class="wsu-logo"><img class="wsu-color" src="https://gemaster99.github.io/course-modules/assets/wsu/wsu-horizontal.svg" alt="Weber State University" width="229" height="30"><img class="wsu-rev" src="https://gemaster99.github.io/course-modules/assets/wsu/wsu-horizontal-reversed.svg" alt="Weber State University" width="220" height="30"></span>
         <div class="brand-text">SPAN 3000 <br><strong>Intermediate Spanish Conversation</strong></div>
       </div>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">

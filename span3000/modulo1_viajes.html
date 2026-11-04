@@ -171,6 +171,9 @@
     .tab-btn .tab-num { display: none; }
     .listen-options.cols-2 { grid-template-columns: 1fr; }
   }
+
+/* Official WSU logo */
+.wsu-logo{display:block;line-height:0}.wsu-logo img{display:block;height:30px;width:auto;max-width:100%}.wsu-logo .wsu-rev{display:none}.brand{flex-direction:column;align-items:flex-start;gap:8px}[data-theme="dark"] .wsu-logo .wsu-color{display:none}[data-theme="dark"] .wsu-logo .wsu-rev{display:block}
 </style>
 </head>
 <body>
@@ -178,8 +181,8 @@
 <header>
   <div class="header-row">
     <div class="brand">
-      <div class="brand-mark">W</div>
-      <div class="brand-text"><strong>SPAN 3000</strong> · Conversational Spanish<br>Weber State University</div>
+      <span class="wsu-logo"><img class="wsu-color" src="https://gemaster99.github.io/course-modules/assets/wsu/wsu-horizontal.svg" alt="Weber State University" width="229" height="30"><img class="wsu-rev" src="https://gemaster99.github.io/course-modules/assets/wsu/wsu-horizontal-reversed.svg" alt="Weber State University" width="220" height="30"></span>
+      <div class="brand-text"><strong>SPAN 3000</strong> · Conversational Spanish</div>
     </div>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
       <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
