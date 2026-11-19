@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Drafting the Researched Argument · ENGL 1010</title>
+<style>
+:root{color-scheme:light;--bg:#f5f3f8;--paper:#fff;--ink:#252131;--muted:#62586e;--line:#ded6e7;--purple:#492365;--soft:#f1eaf7;--accent:#784d97;--shadow:#21102f12}
+:root.dark{color-scheme:dark;--bg:#17131e;--paper:#241e2d;--ink:#f7f2fb;--muted:#cdc0d8;--line:#51445f;--purple:#e1baf9;--soft:#352744;--accent:#bc91d7;--shadow:#0004}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:19px/1.48 Lato,system-ui,Arial,sans-serif}button{font:inherit;color:inherit;cursor:pointer;border:1px solid var(--line);background:var(--paper);border-radius:9px;padding:.48rem .8rem}button:hover{background:var(--soft)}button:disabled{opacity:.4;cursor:default}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}button svg{width:21px;height:21px;display:block;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px clamp(12px,3vw,32px);min-height:60px;background:linear-gradient(110deg,#492365,#623a7e);color:#fff}.brand,.tools,.pager,.timer{display:flex;align-items:center;gap:8px}.brand{gap:14px}.brand img{display:block;width:40px;height:40px;object-fit:contain;border-radius:4px}.brand strong{font-size:17px}.tools button{background:#ffffff12;color:#fff;border-color:#ffffff55;padding:7px}.tools button:hover{background:#ffffff30}
+.layout{display:grid;grid-template-columns:225px minmax(0,1fr);min-height:calc(100vh - 60px)}.wide .layout{grid-template-columns:minmax(0,1fr)}aside{padding:15px 11px;border-right:1px solid var(--line)}aside[hidden]{display:none}nav{display:grid;gap:3px}nav button{text-align:left;border-color:transparent;background:transparent;font-size:14px;line-height:1.25;padding:8px 9px}nav button[aria-current=step]{background:var(--soft);color:var(--purple);border-color:var(--accent);font-weight:750}.group{color:var(--muted);font-size:12px;font-weight:750;margin:10px 9px 3px}.keys{margin:15px 9px;font-size:12px;color:var(--muted)}
+main{min-width:0;width:100%;max-width:1220px;margin:0 auto;padding:18px clamp(13px,3vw,36px) 14px}.meta{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:13px;margin-bottom:7px}.card{min-height:clamp(350px,58vh,590px);padding:clamp(20px,3.2vw,42px);background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:0 9px 28px var(--shadow)}
+h1{font-size:clamp(29px,4.15vw,51px);line-height:1.05;letter-spacing:-.033em;margin:0 0 17px;text-wrap:balance}h1:focus{outline:none}h2{font-size:1.12em;margin:0 0 5px;line-height:1.2}p{margin:0 0 .7em}p:last-child{margin-bottom:0}.lead{font-size:clamp(20px,2.15vw,28px);line-height:1.3;margin-bottom:.7em}.question{color:var(--purple);font-weight:700}.task,.example{padding:13px 16px;border-left:4px solid var(--accent);border-radius:0 9px 9px 0;background:var(--soft);margin:13px 0}.task strong,.example strong{color:var(--purple)}.split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:14px 0}.tile{border:1px solid var(--line);padding:13px 15px;border-radius:10px}.small{font-size:.84em;color:var(--muted)}.tag{color:var(--purple);font-weight:750}.subtle{color:var(--muted)}ol,ul{padding-left:1.3em;margin:.45em 0 .65em}li+li{margin-top:4px}
+details{margin-top:8px;border-top:1px solid var(--line);padding-top:7px}summary{cursor:pointer;font-weight:750;color:var(--purple);padding:4px 0}.reveal{margin:8px 0 3px}.reveal>a{color:var(--purple)}details[open]>.reveal{animation:enter .27s ease-out both}@keyframes enter{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}@media(prefers-reduced-motion:reduce){details[open]>.reveal{animation:none}}
+figure{margin:10px 0}table{width:100%;border-collapse:collapse;font-size:.91em;text-align:left}caption{text-align:left;font-weight:750;color:var(--purple);margin-bottom:6px}th,td{padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:top}th:last-child,td:last-child{text-align:right;white-space:nowrap}tfoot th{font-weight:800;color:var(--purple)}.bar{display:flex;gap:3px;height:9px;margin-top:10px}.bar span{background:var(--accent);border-radius:3px}.bar span:nth-child(even){opacity:.55}
+progress{display:block;width:100%;height:5px;margin:12px 0;accent-color:var(--accent)}footer{display:flex;justify-content:space-between;align-items:center;gap:8px}.timer{flex-wrap:wrap;font-size:13px}.timer output{font-size:17px;font-weight:800;min-width:52px;font-variant-numeric:tabular-nums}.timer button{padding:4px 8px}.timer output.done{color:var(--purple)}.pager button{font-size:19px;line-height:1}.pager button:hover{color:var(--purple)}.sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media(max-width:860px){.layout{grid-template-columns:178px minmax(0,1fr)}body{font-size:17px}.card{min-height:0}}
+@media(max-width:650px){.layout{grid-template-columns:minmax(0,1fr)}aside{border-right:0;border-bottom:1px solid var(--line)}nav{grid-template-columns:repeat(2,minmax(0,1fr))}.group{grid-column:1/-1}.brand strong{font-size:13px}.brand{gap:8px}.brand img{width:32px;height:32px}.tools{gap:4px}.tools button{padding:5px}.tools svg{width:18px;height:18px}.split{grid-template-columns:1fr}.timer{gap:4px}.card{padding:16px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><img src="https://apps.weber.edu/wsuimages/WSUToday/2023/Web%20graphic%20300x300.png" alt="Weber State University shield" width="40" height="40"><strong>ENGL 1010 · Researched Argument</strong></div>
+  <div class="tools">
+    <button id="menu" type="button" aria-label="Toggle slide list" aria-controls="sidebar" aria-expanded="true" title="Slide list"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <button id="theme" type="button" aria-label="Dark mode" aria-pressed="false" title="Dark mode"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15a8.5 8.5 0 0 1-11-11A8.5 8.5 0 1 0 20 15Z"/></svg></button>
+    <button id="fullscreen" type="button" aria-label="Toggle fullscreen" aria-pressed="false" title="Fullscreen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5m6 0h5v5m0 6v5h-5m-6 0H4v-5"/></svg></button>
+  </div>
+</header>
+<div class="layout">
+<aside id="sidebar"><nav id="slides" aria-label="Workshop slides"></nav><p class="keys">← / → Slides<br>R Next reveal</p></aside>
+<main>
+<div class="meta"><span id="context"></span><span id="count"></span></div>
+<article class="card" id="slide"></article>
+<progress id="progress" max="12" value="1" aria-label="Workshop progress"></progress>
+<footer>
+  <div class="timer" aria-label="Activity timer"><output id="clock" aria-label="Time remaining"></output><button id="start" type="button">Start timer</button><button id="reset" type="button">Reset</button><button id="add" type="button">+1 min</button></div>
+  <div class="pager"><button id="prev" type="button" aria-label="Previous slide" title="Previous slide">←</button><button id="next" type="button" aria-label="Next slide" title="Next slide">→</button></div>
+</footer>
+<p id="status" class="sr-only" role="status"></p>
+</main>
+</div>
+
+<template data-name="Today’s target" data-minutes="4">
+<h1>From the debate to your draft</h1>
+<p class="lead question">Under what conditions, if any, should university students be allowed to use AI in writing assignments?</p>
+<div class="task"><strong>Open your AI Research Project Google Doc.</strong> Find your working thesis and any paragraphs you drafted in earlier workshops.</div>
+<p>Tell a partner one point of disagreement from this morning. Where would you draw the line in a university writing course?</p>
+<div class="tile"><h2>Before you leave</h2><p>Have one complete working introduction in your Google Doc, roughly <strong>150 words</strong>, with a refined thesis. Under it, leave a short plan for the body of your paper.</p></div>
+</template>
+
+<template data-name="What the thesis does" data-minutes="4">
+<h1>Your thesis guides the whole paper</h1>
+<p class="lead">Read your current thesis to a partner. What does it commit you to proving?</p>
+<details><summary>Reveal · It answers the research question</summary><div class="reveal"><p>The reader can tell <strong>which use</strong> you would allow or restrict and <strong>under what conditions</strong>.</p></div></details>
+<details><summary>Reveal · It tells you what evidence to look for</summary><div class="reveal"><p>If you claim that guided feedback can help students revise, you need evidence about <strong>feedback and revision</strong>. An opinion survey could help show how students feel about a policy.</p></div></details>
+<details><summary>Reveal · It helps you choose what belongs</summary><div class="reveal"><p>Each body section should support a part of your thesis or respond to a serious objection. If a paragraph belongs in a different essay, revise its connection or set it aside.</p></div></details>
+</template>
+
+<template data-name="Refine the thesis" data-minutes="5">
+<h1>Sharpen the thesis you already have</h1>
+<p>Find the <strong>position</strong>, the <strong>condition</strong>, and the <strong>reason</strong> in your sentence. Which part needs the most precision?</p>
+<div class="task"><strong>Make one targeted edit.</strong> Keep the position your research supports. Add a limit or condition where it helps the reader understand your answer.</div>
+<details><summary>Reveal · Before and after</summary><div class="reveal split"><div class="tile"><h2>Before</h2><p>Students should be able to use AI if they use it responsibly.</p></div><div class="tile"><h2>After</h2><p>University writing courses should allow students to use AI for feedback on their own drafts when students verify the advice and explain their revisions, because these conditions let students get feedback while keeping responsibility for their writing choices.</p></div></div></details>
+</template>
+
+<template data-name="Open with a situation" data-minutes="5">
+<h1>Give the reader a way into the issue</h1>
+<p class="lead">Start with a concrete choice a student or instructor might actually face.</p>
+<div class="task">Write one or two opening sentences. Draw on a disagreement from the debate, or picture a student deciding when to use AI. What choice brings your question to life?</div>
+<details><summary>Reveal · A classroom situation</summary><div class="reveal example"><p>A student who has written a rough draft can ask an AI tool which paragraph is hardest to follow. The same tool can also rewrite the paragraph before the student has decided what it should say.</p></div></details>
+</template>
+
+<template data-name="Add context and stakes" data-minutes="6">
+<h1>Show why the decision matters</h1>
+<p>Give readers enough context to understand <strong>where your question applies</strong> and <strong>what the decision affects</strong>.</p>
+<div class="task">Name the setting and the concern. In your case, what could students gain, and what learning or responsibility could be at stake?</div>
+<details><summary>Reveal · Scope and stakes</summary><div class="reveal example"><p><strong>Scope.</strong> In a university writing course, both requests can come up during revision.</p><p><strong>Stakes.</strong> The decision matters because students need feedback to improve their drafts and practice making choices they can explain to a reader.</p></div></details>
+</template>
+
+<template data-name="Use research in the intro" data-minutes="7">
+<h1>Can research appear in the introduction?</h1>
+<p class="lead"><strong>Yes, when it helps readers understand the issue.</strong> A short paraphrase can establish what researchers are studying or show why the question matters.</p>
+<div class="task">Look at your source notes. Which idea would orient a new reader? Which finding needs a full paragraph to explain what it supports?</div>
+<details><summary>Reveal · One sentence with a citation</summary><div class="reveal example"><p>Mahapatra (2024) studied how university students learning English used ChatGPT to get feedback on their academic writing.</p><p class="small">This APA-style signal phrase names the source and keeps the study’s scope visible. Use your chosen citation style consistently and include its full entry at the end of your paper. <a href="https://doi.org/10.1186/s40561-024-00295-9" target="_blank" rel="noopener">Read the study</a>.</p><p class="small"><strong>References entry.</strong> Mahapatra, S. (2024). Impact of ChatGPT on ESL students’ academic writing skills: A mixed methods intervention study. <em>Smart Learning Environments, 11</em>, Article 9. <a href="https://doi.org/10.1186/s40561-024-00295-9" target="_blank" rel="noopener">https://doi.org/10.1186/s40561-024-00295-9</a></p></div></details>
+<details><summary>Reveal · How much belongs here?</summary><div class="reveal"><p>Often <strong>one sentence from one source</strong> is enough for this paragraph. You can also introduce the issue through a classroom scenario and cite your evidence in the body. Save study details, comparisons, and close analysis for a body claim.</p></div></details>
+</template>
+
+<template data-name="Assemble the paragraph" data-minutes="12">
+<h1>Put the introduction together</h1>
+<p class="lead">Give the reader a situation, the context and stakes, and your answer. Add research if it helps the reader get to that answer.</p>
+<div class="task"><strong>Draft in your Google Doc.</strong> Put your opening, context, optional source sentence, and thesis into one paragraph. Read it aloud and add a bridge where the ideas jump.</div>
+<details><summary>Reveal · Read the complete model</summary><div class="reveal example"><p>A student who has written a rough draft can ask an AI tool which paragraph is hardest to follow. The same tool can also rewrite the paragraph before the student has decided what it should say. In a university writing course, both requests can come up during revision, when students need feedback and practice making choices they can explain to a reader. Mahapatra (2024) studied how university students learning English used ChatGPT to get feedback on their academic writing. That research raises a practical question for instructors: how can students use AI feedback and still make their own decisions about what to change? University writing courses should allow students to use AI for feedback on their own drafts when students verify the advice and explain their revisions, because these conditions let students get feedback while keeping responsibility for their writing choices.</p></div></details>
+</template>
+
+<template data-name="Test it with a reader" data-minutes="8">
+<h1>Find out what your reader heard</h1>
+<div class="split"><div class="tile"><h2>Reader</h2><ul><li>What choice or problem is this paper about?</li><li>Why does it matter?</li><li>What position will this writer defend, and under what conditions?</li></ul></div><div class="tile"><h2>Writer</h2><ul><li>Listen for where your partner hesitates.</li><li>Revise one sentence or transition.</li><li>Check that any sourced idea has a citation.</li></ul></div></div>
+<div class="task">Read the revised paragraph once more. Mark the thesis in bold for today’s check, then keep it in the paragraph as you begin planning the body.</div>
+<details><summary>Reveal · A response that helps the writer revise</summary><div class="reveal example"><p>“I can tell you want universities to allow AI feedback. I’m still unsure what students should do when the tool offers to rewrite an entire paragraph.”</p></div></details>
+</template>
+
+<template data-name="Budget 1,200 words" data-minutes="6">
+<h1>Budget the whole draft</h1>
+<p>Use the thesis to decide what needs space. Start with the source-to-argument paragraphs you have already drafted.</p>
+<div class="task">What are two different jobs the body needs to do for your particular thesis? Sketch them before looking at the model.</div>
+<details><summary>Reveal · A 1,200-word plan</summary><div class="reveal"><figure><table>
+<caption>One way to develop the model thesis</caption>
+<thead><tr><th scope="col">Section</th><th scope="col">Job</th><th scope="col">Words</th></tr></thead>
+<tbody>
+<tr><td>Introduction</td><td>Frame the choice and state the thesis</td><td>150</td></tr>
+<tr><td>Body section 1</td><td>Explain what AI feedback can offer during revision</td><td>280</td></tr>
+<tr><td>Body section 2</td><td>Defend verification and revision explanations as conditions</td><td>300</td></tr>
+<tr><td>Objection and response</td><td>Address AI rewriting and explain where the policy draws a line</td><td>320</td></tr>
+<tr><td>Conclusion</td><td>Pull the reasons together and show what the policy means in practice</td><td>150</td></tr>
+</tbody><tfoot><tr><th scope="row" colspan="2">Total</th><th>1,200</th></tr></tfoot></table>
+<div class="bar" aria-hidden="true"><span style="flex:150"></span><span style="flex:280"></span><span style="flex:300"></span><span style="flex:320"></span><span style="flex:150"></span></div></figure>
+<p class="small">Use these as planning targets. A section can take more than one paragraph.</p></div></details>
+</template>
+
+<template data-name="Develop body claims" data-minutes="6">
+<h1>Build paragraphs around claims</h1>
+<p class="lead">Make a claim, introduce and cite evidence, explain what it shows, and connect it back to your thesis.</p>
+<div class="task">Choose one paragraph from your earlier work. Write its main claim in a sentence and name the evidence you can use to support it. What still needs explanation?</div>
+<details><summary>Reveal · From one source to a body section</summary><div class="reveal example"><p><strong>Claim.</strong> AI feedback can help writers identify a place in their draft that needs another look.</p><p><strong>Evidence.</strong> Mahapatra (2024) reported improved academic writing performance in an intervention that used ChatGPT for feedback with undergraduate students learning English.</p><p><strong>Analysis.</strong> The gains suggest that feedback can be useful when it is built into writing practice. A writer can use a comment about an unclear transition to decide what a reader needs, then make and explain the change. The study helps support the use of feedback. The proposed verification rule needs its own justification.</p><p><strong>Link.</strong> This helps make the case for limited use during revision.</p></div></details>
+</template>
+
+<template data-name="Answer an objection" data-minutes="5">
+<h1>Bring a real objection into the draft</h1>
+<p>Think back to this morning. What was the strongest reasonable question someone could ask about your position?</p>
+<div class="task">Write the objection in a way the other side would recognize. Decide what you can concede and how your proposed rule handles the concern. Mark where you still need evidence.</div>
+<details><summary>Reveal · Objection, concession, response</summary><div class="reveal example"><p><strong>Objection.</strong> An instructor may worry that students will submit AI-written paragraphs under a policy that allows feedback.</p><p><strong>Concession.</strong> Feedback and rewriting can be hard to distinguish when a tool offers a replacement paragraph.</p><p><strong>Response.</strong> The rule could allow diagnostic comments, ask students to retain their own drafts and explain major changes, and restrict pasting in AI-written prose. The draft should explain how those steps address the concern and where their limits are.</p></div></details>
+</template>
+
+<template data-name="Conclude and check out" data-minutes="7">
+<h1>End with what follows from your argument</h1>
+<p>Restate the position in fresh language, connect the reasons, and explain what readers should take away. Put any new evidence in the body, where you can explain it.</p>
+<div class="task">Tell a partner what an instructor, student, or university could do if your argument is persuasive.</div>
+<details><summary>Reveal · A conclusion model</summary><div class="reveal example"><p>A writing course can allow AI feedback while keeping the writer responsible for the draft. The policy can give students another way to identify problems and still ask them to explain which suggestions they accepted and why. One practical step is to ask students to submit a short revision note alongside the final draft. That note gives the instructor a chance to respond to the writer’s decisions, which are part of what the assignment is meant to teach.</p></div></details>
+<div class="tile"><h2>Before you leave</h2><p>In your <strong>AI Research Project</strong> Google Doc, have your <strong>complete working introduction with the revised thesis</strong>. Under it, leave a short draft plan with <strong>two body claims, a source or evidence note for each, and one objection to address</strong>.</p></div>
+</template>
+
+<script>
+const byId = id => document.getElementById(id);
+const templates = [...document.querySelectorAll('template')];
+const nav = byId('slides');
+const slide = byId('slide');
+const start = byId('start');
+const clock = byId('clock');
+const sidebar = byId('sidebar');
+const labels = ['Introduction', 'Rest of the draft'];
+const sectionAt = position => position < 8 ? 0 : 1;
+let current = 0;
+let timer = null;
+let deadline = 0;
+let seconds = 0;
+const openReveals = new Map();
+
+const navButtons = templates.map((template, position) => {
+  if (position === 0 || position === 8) {
+    const group = document.createElement('p');
+    group.className = 'group';
+    group.textContent = labels[sectionAt(position)];
+    nav.append(group);
+  }
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.textContent = template.dataset.name;
+  button.addEventListener('click', () => show(position));
+  nav.append(button);
+  return button;
+});
+
+function stopTimer() {
+  clearInterval(timer);
+  timer = null;
+  start.textContent = 'Start timer';
+}
+
+function drawClock() {
+  const minutes = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const remainder = String(seconds % 60).padStart(2, '0');
+  clock.textContent = minutes + ':' + remainder;
+  clock.classList.toggle('done', seconds === 0);
+}
+
+function resetTimer() {
+  stopTimer();
+  seconds = Number(templates[current].dataset.minutes) * 60;
+  drawClock();
+}
+
+function tick() {
+  seconds = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
+  drawClock();
+  if (seconds === 0) {
+    stopTimer();
+    byId('status').textContent = 'Activity timer finished.';
+  }
+}
+
+function show(position, moveFocus = true) {
+  if (position < 0 || position >= templates.length) return;
+  if (slide.firstChild) {
+    openReveals.set(current, [...slide.querySelectorAll('details')].map(item => item.open));
+  }
+  current = position;
+  slide.replaceChildren(templates[current].content.cloneNode(true));
+  const saved = openReveals.get(current) || [];
+  slide.querySelectorAll('details').forEach((item, index) => { item.open = Boolean(saved[index]); });
+  navButtons.forEach((button, index) => {
+    if (index === current) button.setAttribute('aria-current', 'step');
+    else button.removeAttribute('aria-current');
+  });
+  byId('context').textContent = labels[sectionAt(current)] + ' · ' + templates[current].dataset.minutes + ' min';
+  byId('count').textContent = (current + 1) + ' / ' + templates.length;
+  byId('progress').value = current + 1;
+  byId('prev').disabled = current === 0;
+  byId('next').disabled = current === templates.length - 1;
+  byId('status').textContent = '';
+  resetTimer();
+  if (moveFocus) {
+    const heading = slide.querySelector('h1');
+    heading.tabIndex = -1;
+    heading.focus({preventScroll:true});
+    window.scrollTo(0, 0);
+  }
+}
+
+start.addEventListener('click', () => {
+  if (timer !== null) {
+    tick();
+    stopTimer();
+    if (seconds > 0) start.textContent = 'Resume timer';
+    return;
+  }
+  if (seconds === 0) resetTimer();
+  byId('status').textContent = '';
+  deadline = Date.now() + seconds * 1000;
+  start.textContent = 'Pause timer';
+  timer = setInterval(tick, 200);
+});
+byId('reset').addEventListener('click', resetTimer);
+byId('add').addEventListener('click', () => {
+  if (timer !== null) {
+    deadline += 60000;
+    tick();
+  } else {
+    seconds += 60;
+    drawClock();
+  }
+});
+
+function setSidebar(hidden) {
+  sidebar.hidden = hidden;
+  document.body.classList.toggle('wide', hidden);
+  byId('menu').setAttribute('aria-expanded', String(!hidden));
+}
+
+byId('menu').addEventListener('click', () => setSidebar(!sidebar.hidden));
+byId('theme').addEventListener('click', () => {
+  const dark = document.documentElement.classList.toggle('dark');
+  byId('theme').setAttribute('aria-pressed', String(dark));
+});
+byId('fullscreen').addEventListener('click', async () => {
+  try {
+    if (document.fullscreenElement) await document.exitFullscreen();
+    else await document.documentElement.requestFullscreen();
+  } catch {
+    byId('status').textContent = 'Fullscreen is unavailable in this view.';
+  }
+});
+document.addEventListener('fullscreenchange', () => {
+  byId('fullscreen').setAttribute('aria-pressed', String(Boolean(document.fullscreenElement)));
+});
+byId('prev').addEventListener('click', () => show(current - 1));
+byId('next').addEventListener('click', () => show(current + 1));
+document.addEventListener('keydown', event => {
+  if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+  if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+    event.preventDefault();
+    show(current + (event.key === 'ArrowRight' ? 1 : -1));
+  }
+  if (event.key.toLowerCase() === 'r') {
+    const nextReveal = slide.querySelector('details:not([open])');
+    if (nextReveal) {
+      nextReveal.open = true;
+      nextReveal.querySelector('summary').focus({preventScroll:true});
+      nextReveal.scrollIntoView({block:'nearest'});
+    }
+  }
+});
+setSidebar(matchMedia('(max-width: 650px)').matches);
+show(0, false);
+</script>
+</body>
+</html>
