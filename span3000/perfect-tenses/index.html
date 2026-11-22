@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spanish 3000 Proficiency Development | Presente perfecto y pluscuamperfecto</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4fa;color:#241b35;font:17px/1.55 system-ui,sans-serif}header{background:#492365;color:#fff;padding:42px 24px}header p{margin:0;color:#e2d7f0}h1{font-size:clamp(2rem,6vw,3.5rem);line-height:1.08;margin:.3em 0}h2{line-height:1.15}main,.wrap{max-width:980px;margin:auto}main{padding:22px 16px 60px}section{padding:clamp(16px,4vw,32px);margin-bottom:20px;background:#fff;border:1px solid #ded6ea;border-radius:16px}nav{margin:0 0 20px}a{color:#56258a;text-underline-offset:3px}nav a{display:inline-block;margin:0 18px 6px 0}button,input,select{font:inherit}button,select,input{border:1px solid #8c7b9d;border-radius:8px;padding:8px 12px;background:white;color:inherit}button{cursor:pointer}button.primary{background:#56258a;color:white;border-color:#56258a}button:hover{box-shadow:0 0 0 2px #bea7db}button:disabled{opacity:.55;cursor:default}button[aria-pressed=true]{background:#eee3fc;border-color:#56258a;font-weight:700}fieldset{border:0;padding:0;margin:14px 0;min-width:0}legend{font-weight:700;margin-bottom:8px}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.model,.prompt,.feedback{background:#f1ebf8;border-radius:10px;padding:15px 18px;margin:16px 0}.prompt{font-size:1.25rem}.feedback:empty{display:none}.feedback[data-state=good]{background:#e5f6ee}.feedback[data-state=retry]{background:#fff1db}table{border-collapse:collapse;width:100%;font-size:.93rem}td,th{padding:8px;text-align:left;border-bottom:1px solid #ded6ea}details{margin:14px 0}summary{cursor:pointer;font-weight:650}input{width:min(100%,360px)}label{display:block;font-weight:650;margin-bottom:5px}.small{font-size:.9rem;color:#554964}.blank{white-space:nowrap;color:#56258a;font-weight:bold}.table-scroll{overflow:auto}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #ad63e2;outline-offset:2px}[hidden]{display:none!important}
+.course-header{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;column-gap:clamp(12px,3vw,28px)}
+.course-header p{grid-column:2}
+.course-header p:first-of-type{grid-row:1}
+.course-header p:last-of-type{grid-row:3}
+.course-header h1{grid-column:2;grid-row:2}
+.course-header .wsu-shield{grid-column:1;grid-row:2}
+.wsu-shield{object-fit:contain;flex:none;width:clamp(44px,8vw,68px);height:auto}
+.course-footer{background:#492365;color:white;padding:20px 24px}
+.lesson-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.lesson-tabs button{border-color:#ded6ea}
+.lesson-tabs button[aria-selected=true]{background:#492365;color:#fff;border-color:#492365}
+/* Display controls */
+.wrap.display-controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.display-controls button{background:transparent;color:white;border-color:#c9acd9}
+.display-controls button[aria-pressed=true]{background:#f1ebf8;color:#301c48}
+.display-controls a{align-self:center;color:white}
+:root[data-theme=dark]{color-scheme:dark}
+[data-theme=dark] body{background:#15111c;color:#f1e9f8}
+[data-theme=dark] section{background:#21192b;border-color:#493854}
+[data-theme=dark] button,[data-theme=dark] select,[data-theme=dark] input{background:#30243e;border-color:#776587}
+[data-theme=dark] .model,[data-theme=dark] .prompt,[data-theme=dark] .feedback{background:#352545}
+[data-theme=dark] .feedback[data-state=good]{background:#1d4939}
+[data-theme=dark] .feedback[data-state=retry]{background:#503917}
+[data-theme=dark] .small,[data-theme=dark] .blank{color:#dfcbf1}
+[data-theme=dark] button[aria-pressed=true]{background:#e5d1f6;color:#251232}
+[data-theme=dark] button.primary,[data-theme=dark] .lesson-tabs button[aria-selected=true]{background:#623a82;color:white}
+[data-theme=dark] .display-controls button[aria-pressed=true]{background:#e5d1f6;color:#251232}
+[data-theme=dark] td,[data-theme=dark] th{border-color:#55425f}
+</style>
+</head>
+<body>
+<header><div class="wrap course-header">
+<img class="wsu-shield" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIGlkPSJMYXllcl8yIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDEuNTQ2MyAxNDAuNzM4MiI+PGcgaWQ9IkNvbXBvbmVudHMiPjxnIGlkPSJfMDE3YzBlNjQtYTc0YS00MDQwLWI4NWEtNDFjMDdiZmMyNDhjXzEiPjxwYXRoIGQ9Ik05OS42ODMyLDM4LjkzNTFWMS44NkgxLjg1Nzl2MzcuNDY3OGMwLDcwLjQxNDEsNDguOTEyNyw5OS4yNzI1LDQ4LjkxMjcsOTkuMjcyNWgwczQ5LjE4MjctMjcuMDY3OSw0OC45MTI3LTk5LjQ2ODh2LS4xOTYzWiIgc3R5bGU9ImZpbGw6IzQ5MjM2NTsiLz48cGF0aCBkPSJNNTAuNzM1OCwxNDAuNzM4MmwtLjkxMTgtLjUzOTZjLS40OTY0LS4yOTQzLTQ5LjgyNC0zMC4yMTE0LTQ5LjgyNC0xMDAuODcwOFYwaDEwMS41NDUydjM4LjkzNTFjLjI2NzksNzIuODUwOS00OS4zNzY1LDEwMS4wMTgyLTQ5Ljg3NzIsMTAxLjI5NjJsLS45MzIzLjUwN1pNMy43MjAzLDMuNzE5OXYzNS42MDc5YzAsMzUuNzcxMiwxMy4wMzI3LDYwLjQwNjUsMjMuOTY0Nyw3NC43NzYyLDkuOTgzLDEzLjExMDUsMjAuMDgwNiwyMC4zMDU5LDIzLjExMjMsMjIuMzA5LDMuMDU5OC0xLjg5NjgsMTMuMTg4NC04Ljc1NjgsMjMuMTczNS0yMS42ODM2LDEwLjk1ODQtMTQuMTg2LDIzLjk4OTQtMzguODEyOSwyMy44NTQxLTc1LjU4OTZWMy43MTk5SDMuNzIwM1oiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PHBhdGggZD0iTTcyLjQ3NjcsMzUuODExOGMtNi45MzE2LTkuMTA4LTUuNzYwMy0xMy4yNDUzLTUuNzYwMy0xMy4yNDUzLDAsMC0zLjY3Myw2LjU4NTgtNS41MTkyLDEyLjA1MTgtMi4yNjA2LDYuNjYzNywyLjIwMzYsMTMuNTI3NSwyLjIwMzYsMTMuNTI3NWw3LjU4NTUsMTEuMDAxNWMyLjkzNzUsNC41OTQ4LTQuMzE5LDE1LjI3MzEtNC4zMTksMTUuMjczMWwtMTUuNzE5LTM2LjYxMzRjLTYuMzgzNi0xNC44NTYyLTIuNTY1My0yMC40NjkxLTIuNTY1My0yMC40NjkxLTEzLjAwNDEsMTMuNzE1NC0xMS4yNzMyLDIyLjM1OC05LjI4NDMsMjguNDA0MiwwLDAsMi44NjE3LDcuMDg5LDYuNTI0NywxNi4xNTY0bC01LjA0NjUsMTMuMTE4OS0xMC4xMjQ1LTI0LjA5NTdjLTMuNTE3Ny05LjE0MTEuMjYzNy0xNS4yODE1LjI2MzctMTUuMjgxNS0xNi4zMzQ0LDE0LjI4ODEtMTAuMjk2MSwyOC45Njg5LTcuMTk3NCwzNi40NjY1LDYuOTYwMSwxNi44OTYyLDExLjU2MzcsMjcuNjE5MywxMi42NDY3LDMwLjU0NjMuMjMxMS42Mjk2LjQ0MTcsMS4xNTI5LjQ0MTcsMS4xNTI5aDMuMTA0OWMuMjU5NS0uMDQwNi40NzAxLS4xNzE2LjYyOTYtLjQwODYuMTU5NS0uMjI5LDEuMTY5Mi0zLjUzMjQsMS4xNjkyLTMuNTMyNGw4LjI0MTktMjcuNzI5OGM1LjM1NzIsMTMuMjgyNiwxMi4wMzcyLDI5LjY5NjUsMTIuNDYyNSwzMC44MjA1LjIwNjQuNTQ4LjM0NTQuODUwMi4zNDU0Ljg1MDItLjAwOCwwLDMuMDQ3NiwwLDMuMDQ3NiwwLC4xNzQxLS4wMzI3LjM0NzktLjExNDMuNTU4LS4zNzU5LjI0NTQtLjMyNjksMS4zMjI5LTMuNTk3NywxLjMyMjktMy41OTc3bDEyLjA2MTktMzQuODQ3M2M1LjkwNTYtMTUuMzYzMS0xLjQ3NTctMjEuODE0Mi03LjA3NDQtMjkuMTczMloiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9nPjwvZz48L3N2Zz4=" alt="Weber State University shield" width="68" height="68">
+<p>Spanish 3000 Proficiency Development</p>
+<h1 lang="es">Presente perfecto y pluscuamperfecto</h1>
+<p lang="es">Indicativo y subjuntivo</p>
+</div>
+<div class="wrap display-controls">
+<button type="button" id="themeToggle" aria-pressed="false">Dark mode</button>
+<button type="button" id="fullscreenToggle" aria-pressed="false">Fullscreen</button>
+<a id="fullscreenFallback" target="_blank" rel="noopener" hidden>Open in a new tab</a>
+</div>
+</header>
+<main>
+<div class="lesson-tabs" role="tablist" aria-label="Lesson sections">
+<button type="button" id="tab-learn" role="tab" aria-controls="learn" aria-selected="true" tabindex="0">Learn the forms</button>
+<button type="button" id="tab-model" role="tab" aria-controls="model" aria-selected="false" tabindex="-1">Explore examples</button>
+<button type="button" id="tab-practice" role="tab" aria-controls="practice" aria-selected="false" tabindex="-1">Practice</button>
+</div>
+<section id="learn" role="tabpanel" aria-labelledby="tab-learn" tabindex="0">
+<h2>Choose the time frame, then the mood</h2>
+<ol>
+<li><strong>Time frame.</strong> Use the <em>presente perfecto</em> for an action already completed by now or by a relevant future point. Use the <em>pluscuamperfecto</em> for an action that happened before another point in the past.</li>
+<li><strong>Mood.</strong> Use the indicative when the speaker presents the event as known, certain, or believed. Use the subjunctive in contexts such as doubt, hope, and reactions. A reaction can take the subjunctive even when the event really happened.</li>
+<li><strong>Form.</strong> Conjugate <em>haber</em> for the subject of the blank and add the past participle. With <em>haber</em>, the participle stays the same.</li>
+</ol>
+<div class="table-scroll"><table lang="es">
+<thead><tr><th scope="col">Tiempo</th><th scope="col">Indicativo</th><th scope="col">Subjuntivo</th></tr></thead>
+<tbody><tr><th scope="row">Presente perfecto</th><td>ha terminado</td><td>haya terminado</td></tr><tr><th scope="row">Pluscuamperfecto</th><td>había terminado</td><td>hubiera terminado</td></tr></tbody></table></div>
+<details><summary>Full forms of <em>haber</em></summary><div class="table-scroll"><table lang="es">
+<thead><tr><th scope="col">Sujeto</th><th scope="col">Pres. perf. ind.</th><th scope="col">Pres. perf. subj.</th><th scope="col">Plusc. ind.</th><th scope="col">Plusc. subj.</th></tr></thead>
+<tbody><tr><th scope="row">yo</th><td>he</td><td>haya</td><td>había</td><td>hubiera</td></tr><tr><th scope="row">tú</th><td>has</td><td>hayas</td><td>habías</td><td>hubieras</td></tr><tr><th scope="row">él / ella / usted</th><td>ha</td><td>haya</td><td>había</td><td>hubiera</td></tr><tr><th scope="row">nosotros/as</th><td>hemos</td><td>hayamos</td><td>habíamos</td><td>hubiéramos</td></tr><tr><th scope="row">vosotros/as</th><td>habéis</td><td>hayáis</td><td>habíais</td><td>hubierais</td></tr><tr><th scope="row">ellos / ellas / ustedes</th><td>han</td><td>hayan</td><td>habían</td><td>hubieran</td></tr></tbody>
+</table></div><p>The pluperfect subjunctive also has <span lang="es">-se</span> forms, such as <em lang="es">hubiese terminado</em>. Both sets are accepted in this practice.</p></details>
+<details><summary>Participles and pronoun placement</summary><p lang="es">hablar → hablado · comer → comido · vivir → vivido</p><p lang="es">abrir → abierto · decir → dicho · escribir → escrito · hacer → hecho · poner → puesto · resolver → resuelto · ver → visto · volver → vuelto</p><p>Keep any reflexive or object pronoun before <em>haber</em>. Compare <em lang="es">se han preparado</em> and <em lang="es">se habían preparado</em>.</p></details>
+</section>
+<section id="model" role="tabpanel" aria-labelledby="tab-model" tabindex="0" hidden>
+<h2>Four ways to frame each event</h2>
+<p>Change the time frame or the speaker’s stance and watch the verb change.</p>
+<fieldset><legend>Time frame</legend><div class="row"><button type="button" data-model-time="0" aria-pressed="true">Up to now</button><button type="button" data-model-time="1" aria-pressed="false">Before a past point</button></div></fieldset>
+<fieldset><legend>Speaker’s stance</legend><div class="row"><button type="button" data-model-mood="0" aria-pressed="true">Certainty</button><button type="button" data-model-mood="1" aria-pressed="false">Doubt</button></div></fieldset>
+<div class="model" aria-live="polite"><div id="modelPosition" class="small"></div><div id="modelSentence" lang="es"></div><div id="modelWhy" class="small"></div></div>
+<button type="button" id="moreModels" class="primary">More examples</button>
+</section>
+<section id="practice" role="tabpanel" aria-labelledby="tab-practice" tabindex="0" hidden>
+<h2>Complete the sentences</h2>
+<p>Choose a set. Then select the tense and mood and type the words that belong in the blank.</p>
+<label for="set">Practice set</label><select id="set"><option value="mixed">Mixed review</option><option value="0">Presente perfecto</option><option value="1">Pluscuamperfecto</option></select>
+<p class="small" id="progress"></p>
+<form id="exercise">
+<p class="prompt" id="prompt" lang="es"></p>
+<fieldset><legend>Tense and mood</legend><div class="row">
+<select id="tense" aria-label="Tense" required><option value="">Choose the tense</option><option value="0">Presente perfecto</option><option value="1">Pluscuamperfecto</option></select>
+<select id="mood" aria-label="Mood" required><option value="">Choose the mood</option><option value="0">Indicativo</option><option value="1">Subjuntivo</option></select>
+</div></fieldset>
+<label for="answer">Verb phrase</label><input id="answer" lang="es" autocomplete="off" spellcheck="false" required aria-describedby="prompt">
+<div class="row" style="margin-top:10px" aria-label="Accent buttons"><button type="button" data-character="á">á</button><button type="button" data-character="é">é</button><button type="button" data-character="í">í</button><button type="button" data-character="ó">ó</button><button type="button" data-character="ú">ú</button></div>
+<div class="row" style="margin-top:16px"><button class="primary" type="submit">Check answer</button><button type="button" id="hint">Hint</button><button type="button" id="reveal">Show answer</button><button type="button" id="next" disabled>Next</button></div>
+<div class="feedback" id="feedback" role="status"></div>
+</form>
+<div id="summary" hidden><p id="result" role="status"></p><button type="button" id="restart" class="primary">Practice this set again</button></div>
+</section>
+</main>
+<footer class="course-footer"><div class="wrap">Dr. Rama · Weber State University</div></footer>
+<script>
+const byId = id => document.getElementById(id);
+const themeToggle = byId('themeToggle');
+const fullscreenToggle = byId('fullscreenToggle');
+const fullscreenFallback = byId('fullscreenFallback');
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
+}
+try {
+  applyTheme(localStorage.getItem('span3000-perfect-tenses-theme') === 'dark' ? 'dark' : 'light');
+} catch {
+  applyTheme('light');
+}
+themeToggle.addEventListener('click', () => {
+  const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  applyTheme(theme);
+  try { localStorage.setItem('span3000-perfect-tenses-theme', theme); } catch {}
+});
+
+document.addEventListener('fullscreenchange', () => {
+  const active = Boolean(document.fullscreenElement);
+  fullscreenToggle.setAttribute('aria-pressed', String(active));
+  fullscreenToggle.textContent = active ? 'Exit fullscreen' : 'Fullscreen';
+});
+fullscreenToggle.addEventListener('click', async () => {
+  try {
+    if (document.fullscreenElement) await document.exitFullscreen();
+    else await document.documentElement.requestFullscreen();
+    fullscreenFallback.hidden = true;
+  } catch {
+    fullscreenFallback.href = window.location.href;
+    fullscreenFallback.hidden = false;
+  }
+});
+const lessonTabs = Array.from(document.querySelectorAll('.lesson-tabs [role="tab"]'));
+
+function selectLessonTab(activeTab) {
+  lessonTabs.forEach(tab => {
+    const active = tab === activeTab;
+    tab.setAttribute('aria-selected', String(active));
+    tab.tabIndex = active ? 0 : -1;
+    byId(tab.getAttribute('aria-controls')).hidden = !active;
+  });
+  activeTab.focus();
+}
+lessonTabs.forEach((tab, index) => {
+  tab.addEventListener('click', () => selectLessonTab(tab));
+  tab.addEventListener('keydown', event => {
+    const last = lessonTabs.length - 1;
+    const targets = {
+      ArrowLeft: index === 0 ? last : index - 1,
+      ArrowRight: index === last ? 0 : index + 1,
+      Home: 0,
+      End: last
+    };
+    if (!Object.hasOwn(targets, event.key)) return;
+    event.preventDefault();
+    selectLessonTab(lessonTabs[targets[event.key]]);
+  });
+});
+const firstModel = [
+  ['Sé que Ana ', 'ha terminado', ' el informe.', 'Sé que presents the completed action as known. The reference point is now.'],
+  ['Dudo que Ana ', 'haya terminado', ' el informe.', 'Dudo que expresses doubt about a completed action as of now.'],
+  ['Sabía que Ana ', 'había terminado', ' el informe antes de la reunión.', 'Sabía que presents the event as known. The report was completed before the past meeting.'],
+  ['Dudaba que Ana ', 'hubiera terminado', ' el informe antes de la reunión.', 'Dudaba que expresses doubt. The report would have been completed before the past meeting.']
+];
+const additionalModels = [
+  ['tú', 'abierto', ['has', 'hayas', 'habías', 'hubieras'], 'la ventana', 'de que empezara la clase'],
+  ['nosotros', 'puesto', ['hemos', 'hayamos', 'habíamos', 'hubiéramos'], 'la mesa', 'de que llegaran los invitados'],
+  ['los estudiantes', 'leído', ['han', 'hayan', 'habían', 'hubieran'], 'el capítulo', 'de la discusión'],
+  ['ustedes', 'reservado', ['han', 'hayan', 'habían', 'hubieran'], 'los boletos', 'del cambio de precio'],
+  ['Marta y Luis', 'preparado', ['han', 'hayan', 'habían', 'hubieran'], 'para la entrevista', 'del simulacro', 'se']
+];
+const modelFrames = [
+  ['Sé que', 'Sé que presents the action as known. The reference point is now.'],
+  ['Dudo que', 'Dudo que expresses doubt about whether the action has happened by now.'],
+  ['Sabía que', 'Sabía que presents the action as known. Antes marks the past reference point.'],
+  ['Dudaba que', 'Dudaba que expresses past doubt. Antes marks the point by which the action would have happened.']
+];
+const models = [firstModel, ...additionalModels.map(([subject, participle, auxiliaries, complement, pastPoint, pronoun]) =>
+  modelFrames.map(([clause, explanation], form) => [
+    `${clause} ${subject} `,
+    [pronoun, auxiliaries[form], participle].filter(Boolean).join(' '),
+    ` ${complement}${form >= 2 ? ` antes ${pastPoint}` : ''}.`,
+    explanation
+  ])
+)];
+let modelIndex = 0;
+let modelTime = 0;
+let modelMood = 0;
+function renderModel() {
+  const [before, verb, after, why] = models[modelIndex][modelTime * 2 + modelMood];
+  const highlight = document.createElement('strong');
+  highlight.textContent = verb;
+  byId('modelPosition').textContent = `Example ${modelIndex + 1} of ${models.length}`;
+  byId('modelSentence').replaceChildren(before, highlight, after);
+  byId('modelWhy').textContent = why;
+  document.querySelectorAll('[data-model-time]').forEach(button => button.setAttribute('aria-pressed', Number(button.dataset.modelTime) === modelTime));
+  document.querySelectorAll('[data-model-mood]').forEach(button => button.setAttribute('aria-pressed', Number(button.dataset.modelMood) === modelMood));
+}
+document.querySelectorAll('[data-model-time]').forEach(button => button.onclick = () => { modelTime = Number(button.dataset.modelTime); renderModel(); });
+document.querySelectorAll('[data-model-mood]').forEach(button => button.onclick = () => { modelMood = Number(button.dataset.modelMood); renderModel(); });
+byId('moreModels').onclick = () => {
+  modelIndex = (modelIndex + 1) % models.length;
+  renderModel();
+};
+renderModel();
+
+const items = [
+  [0, 0, 'Estoy segura de que Elena | (escribir) el correo esta mañana, y ya podemos responderle.', 'ha escrito', 'Estoy segura de que presents the event as certain. Esta mañana connects the completed action to the present.'],
+  [1, 1, 'Nos sorprendió que los vecinos | (resolver) el problema antes de la reunión.', 'hubieran resuelto', 'Nos sorprendió que introduces a reaction. The resolution came before the past meeting.'],
+  [0, 1, 'Espero que ustedes | (encontrar) las llaves para estas alturas.', 'hayan encontrado', 'Espero que introduces a hope about whether ustedes have found the keys by now.'],
+  [1, 0, 'Ayer descubrí que tú ya | (poner) los documentos en la carpeta antes de la cita.', 'habías puesto', 'Descubrí que presents the event as a fact. Putting the documents away happened before the appointment.'],
+  [0, 0, 'No dudo que ustedes | (hacer) un buen trabajo hasta ahora.', 'han hecho', 'No dudo que expresses confidence here. Hasta ahora makes now the reference point.'],
+  [1, 1, 'Era poco probable que nosotros | (ver) ese anuncio antes del viaje.', 'hubiéramos visto', 'Era poco probable que expresses uncertainty. Seeing the ad would have happened before the past trip.'],
+  [0, 1, 'Me alegra que tú | (volver) a casa sano y salvo. Acabo de recibir tu mensaje.', 'hayas vuelto', 'Me alegra que expresses a present reaction to a completed action.'],
+  [1, 0, 'Cuando empezó la entrevista, yo ya | (prepararse) para las primeras preguntas.', 'me había preparado', 'Ya marks preparation before the interview began. The speaker states a fact, and me goes before había.'],
+  [0, 1, 'Cuando usted | (leer) las instrucciones, avíseme.', 'haya leído', 'The reading must be complete before the future action avíseme. Cuando introduces a future event that has yet to occur.'],
+  [1, 1, 'Fue una lástima que Marta no | (poder) llegar antes del cierre.', 'hubiera podido', 'Fue una lástima que gives a past evaluation. The arrival would have preceded the closing.'],
+  [0, 0, 'Sabemos que ellos | (organizarse) bien hasta ahora.', 'se han organizado', 'Sabemos que presents the event as known. Hasta ahora links the time frame to now, and se goes before han.'],
+  [1, 0, 'El guía explicó que los turistas ya | (salir) antes de la tormenta.', 'habían salido', 'Explicó que reports what happened. The departure preceded the storm.'],
+  [0, 1, 'Buscamos a alguien que | (trabajar) con estudiantes internacionales.', 'haya trabajado', 'Alguien que describes an as-yet-unidentified person we are looking for. Their prior experience is the requirement.'],
+  [1, 1, 'La directora dudaba de que yo | (decir) eso antes de la reunión.', 'hubiera dicho', 'Dudaba de que signals doubt. The claim concerns something said before a past meeting.'],
+  [0, 0, 'Creo que nosotros | (abrir) todas las ventanas hoy. Ya se nota el aire fresco.', 'hemos abierto', 'Creo que presents the speaker’s belief. Hoy provides a time frame connected to the present.'],
+  [1, 0, 'Era cierto que Ana y Luis | (conocerse) antes de empezar el curso.', 'se habían conocido', 'Era cierto que presents the event as certain. They met before the course began, and se goes before habían.']
+];
+const alternate = {hubiera:'hubiese', hubieras:'hubieses', hubiéramos:'hubiésemos', hubierais:'hubieseis', hubieran:'hubiesen'};
+const tenseLabels = ['Presente perfecto', 'Pluscuamperfecto'];
+const moodLabels = ['indicativo', 'subjuntivo'];
+let queue = [];
+let index = 0;
+let solved = 0;
+let finished = false;
+
+function normalize(value) {
+  return value.trim().toLowerCase().normalize('NFD').replace(/\p{M}/gu, '').replace(/\s+/g, ' ');
+}
+function feedback(message, state) {
+  byId('feedback').dataset.state = state;
+  byId('feedback').textContent = message;
+}
+function start() {
+  const set = byId('set').value;
+  queue = items.filter(item => set === 'mixed' || item[0] === Number(set));
+  for (let i = queue.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [queue[i], queue[j]] = [queue[j], queue[i]];
+  }
+  index = solved = 0;
+  byId('summary').hidden = true;
+  byId('exercise').hidden = false;
+  renderItem();
+}
+function renderItem() {
+  finished = false;
+  byId('exercise').reset();
+  byId('next').disabled = true;
+  byId('next').textContent = index + 1 === queue.length ? 'See results' : 'Next';
+  byId('progress').textContent = `Sentence ${index + 1} of ${queue.length}`;
+  const [before, after] = queue[index][2].split('|');
+  const blank = document.createElement('span');
+  blank.className = 'blank';
+  blank.textContent = '________';
+  byId('prompt').replaceChildren(before, blank, after);
+  feedback('', '');
+}
+function complete(earned, message) {
+  if (finished) return;
+  finished = true;
+  if (earned) solved++;
+  feedback(message, earned ? 'good' : 'retry');
+  byId('next').disabled = false;
+}
+byId('exercise').addEventListener('submit', event => {
+  event.preventDefault();
+  if (finished) return;
+  const [tense, mood, , correct, why] = queue[index];
+  const selectedTense = Number(byId('tense').value);
+  const selectedMood = Number(byId('mood').value);
+  if (selectedTense !== tense || selectedMood !== mood) {
+    const cue = selectedTense !== tense ? 'Recheck when the action was completed relative to the reference point.' : 'Recheck what the main clause expresses and how it frames the event.';
+    feedback(cue, 'retry');
+    return;
+  }
+  const variant = correct.split(' ').map(word => alternate[word] || word).join(' ');
+  const typed = byId('answer').value.trim().toLowerCase().normalize('NFC').replace(/\s+/g, ' ');
+  if (normalize(typed) !== normalize(correct) && normalize(typed) !== normalize(variant)) {
+    feedback('The tense and mood are right. Check the subject, the form of haber, and the participle. Include any pronoun required by the blank.', 'retry');
+    return;
+  }
+  const accentNote = typed !== correct && typed !== variant ? ' Check the written accents in the model.' : '';
+  complete(true, `Correct. Model answer: ${correct}. ${why}${accentNote}`);
+});
+byId('hint').onclick = () => {
+  if (!finished) feedback(queue[index][4], '');
+};
+byId('reveal').onclick = () => {
+  const [tense, mood, , answer, why] = queue[index];
+  complete(false, `${answer} · ${tenseLabels[tense]} de ${moodLabels[mood]}. ${why}`);
+};
+byId('next').onclick = () => {
+  index++;
+  if (index < queue.length) {
+    renderItem();
+    byId('tense').focus();
+    return;
+  }
+  byId('exercise').hidden = true;
+  byId('summary').hidden = false;
+  byId('progress').textContent = 'Practice set complete';
+  byId('result').textContent = `You solved ${solved} of ${queue.length} sentences before revealing the answer.`;
+  byId('restart').focus();
+};
+byId('restart').onclick = () => { start(); byId('tense').focus(); };
+byId('set').onchange = start;
+document.querySelectorAll('[data-character]').forEach(button => button.onclick = () => {
+  const input = byId('answer');
+  input.setRangeText(button.dataset.character, input.selectionStart, input.selectionEnd, 'end');
+  input.focus();
+});
+start();
+</script>
+</body>
+</html>
