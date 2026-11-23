@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>El miércoles, ¿qué pedirás? · SPAN 2010</title>
+<style>
+:root{color-scheme:light;--paper:#fbf2db;--card:#fffaf0;--ink:#261e1b;--soft:#59453e;--line:#b9966c;--red:#8b1736;--green:#174c36;--tint:#fae3b4;--vocab:#e9f1e2;--white:#fffaf0;--gold:#92551f;--ribbon:#cb972f}
+:root[data-theme=dark]{color-scheme:dark;--paper:#142820;--card:#26382d;--ink:#fff3db;--soft:#efdbbf;--line:#9a835e;--red:#ffafbc;--green:#bdeac5;--tint:#3d3026;--vocab:#192e24;--white:#142820;--gold:#ffcf73;--ribbon:#e3ad45}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:clamp(16px,2.1vw,22px)/1.5 system-ui,sans-serif}
+.frame{max-width:1240px;margin:auto;padding:0 clamp(16px,4vw,58px);min-height:100vh;display:flex;flex-direction:column}
+header,footer,.actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}header{padding:14px 0;border-bottom:1px solid var(--line);justify-content:space-between}
+.brand,.eyebrow,.counter{font:700 .7rem/1.4 system-ui,sans-serif;letter-spacing:.13em;text-transform:uppercase}.brand,.eyebrow{color:var(--red)}.counter{color:var(--soft)}
+main{flex:1;display:grid;align-items:start}section{padding:clamp(28px,5vw,68px) 0 30px}h1{margin:0 0 16px;font:700 clamp(2.3rem,7vw,5.6rem)/.98 Georgia,serif;letter-spacing:-.05em;max-width:19ch}
+.eyebrow{margin:0 0 13px}h2{font:700 clamp(1.15rem,3vw,1.65rem)/1.15 Georgia,serif;margin:0 0 10px}
+.lede{max-width:62ch;color:var(--soft);margin:0 0 21px}p{margin:.5em 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:16px;margin:18px 0}
+.card,.ticket{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:clamp(15px,3vw,27px)}.card ul,.card ol{margin:.5em 0 0;padding-left:1.3em}.card li+li{margin-top:.4em}
+.ticket{border-left:5px solid var(--red);margin:16px 0}.ticket p:first-child{margin-top:0}.ticket p:last-child{margin-bottom:0}
+strong,.key{color:var(--green)}.gloss,.small{font-size:.82em;color:var(--soft)}.gloss{display:block}summary{cursor:pointer;color:var(--red);font-size:.84em;font-weight:700}details{margin-top:17px}details p,details ul{font-size:.9em}
+button,select{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:.45em .72em;min-height:44px}button{cursor:pointer;font-weight:650}
+button:hover:not(:disabled){border-color:var(--red);color:var(--red)}button:disabled{opacity:.44;cursor:default}button:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:3px}h1:focus{outline:none}
+.icon{display:grid;place-items:center;width:44px;padding:0}.icon svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.primary{background:var(--green);border-color:var(--green);color:var(--white)}button.primary:hover:not(:disabled){background:var(--card)}
+footer{justify-content:space-between;border-top:1px solid var(--line);padding:12px 0;position:sticky;bottom:0;background:var(--paper);z-index:1}.expanded .frame{max-width:none}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));gap:10px;margin:10px 0}.fields label{display:grid;align-content:start;gap:5px;font-size:.86em;font-weight:650}.fields select{width:100%;min-width:0}
+.menu{width:100%;border-collapse:collapse}.menu th,.menu td{text-align:left;padding:.26em .1em;border-bottom:1px solid var(--line)}.menu th:last-child,.menu td:last-child{text-align:right}
+.dialogue{padding-left:0;list-style:none;margin:0}.dialogue li{border-bottom:1px solid var(--line);padding:.5em 0}.dialogue b{color:var(--red);padding-right:.4em}
+#dialogueControls{margin-top:14px}
+.dialogue-layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);align-items:start;gap:16px}
+.dialogue-vocab{position:sticky;top:12px}
+.dialogue-vocab dl{margin:0}
+.dialogue-vocab dl div{padding:.48em 0}
+.dialogue-vocab dl div+div{border-top:1px solid var(--line)}
+.dialogue-vocab dt{font-weight:700;color:var(--green)}
+.dialogue-vocab dd{margin:.14em 0 0}
+@media(max-width:680px){.dialogue-layout{grid-template-columns:minmax(0,1fr)}.dialogue-vocab{position:static}}
+@media(max-width:560px){header,footer{gap:6px}.grid{margin:12px 0;gap:10px}.small.keys{display:none}.fields select{font-size:16px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+header{box-shadow:inset 0 3px 0 var(--ribbon)}
+h1{color:var(--red)}
+.ticket{background:var(--tint)}
+.dialogue-vocab{background:var(--vocab);border-top:3px solid var(--green)}
+.dialogue-vocab h2{color:var(--green)}
+.counter{color:var(--red)}
+</style>
+</head>
+<body>
+<div class="frame">
+<header>
+<span class="brand">SPAN 2010 · Módulo 7</span>
+<div class="actions">
+<button class="icon" id="theme" type="button" aria-label="Cambiar tema" title="Cambiar tema" aria-pressed="false"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 15A8 8 0 0 1 9 4a8.5 8.5 0 1 0 11 11Z"/></svg></button>
+<button class="icon" id="fullscreen" type="button" aria-label="Pantalla completa" title="Pantalla completa" aria-pressed="false"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13 0h5v-5"/></svg></button>
+</div>
+</header>
+<main>
+<section aria-labelledby="s1">
+<p class="eyebrow">Lo que ya has probado</p>
+<h1 id="s1" tabindex="-1">¿Qué has comido? ¿Qué has probado?</h1>
+<p class="lede" lang="en">Answer out loud, then ask a classmate. Give one thing you’ve tried and one you’ve never tried.</p>
+<div class="grid">
+<div class="card"><h2>¿Has comido tacos de birria?</h2><p>Sí, <strong>he comido</strong> tacos de birria.</p><p>Todavía no <strong>he comido</strong> tacos de birria.</p></div>
+<div class="card"><h2>¿Alguna vez has probado el agua de horchata?</h2><p>Sí, ya <strong>la he probado</strong>.</p><p>Nunca <strong>la he probado</strong>.</p></div>
+</div>
+<details><summary>Forma y significado</summary><p><strong>he / has / ha / hemos / habéis / han</strong> + participio. <em>Probar → probado</em> y <em>comer → comido</em>.</p><p lang="en">Have you ever tried it? → ¿Alguna vez lo has probado?</p></details>
+</section>
+<section hidden aria-labelledby="s2">
+<p class="eyebrow">Entrevista en parejas</p>
+<h1 id="s2" tabindex="-1">¿Y tu compañero?</h1>
+<p class="lede" lang="en">Ask two questions each. Change the food or drink, then report one thing your partner has or hasn’t tried.</p>
+<div class="ticket"><p id="interviewQuestion" aria-live="polite"><strong>¿Has probado los tacos de pastor?</strong></p><button type="button" id="nextPrompt">Otra pregunta</button></div>
+<div class="grid">
+<div class="card"><h2>Responde</h2><p>Sí, ya <strong>he probado</strong>…</p><p>No, todavía no <strong>he comido</strong>…</p></div>
+<div class="card"><h2>Cuenta lo que sabes</h2><p>Mi compañero <strong>ha probado</strong>…</p><p>Mi compañera nunca <strong>ha comido</strong>…</p></div>
+</div>
+</section>
+<section hidden aria-labelledby="s3">
+<p class="eyebrow">El miércoles · Futuro simple</p>
+<h1 id="s3" tabindex="-1">¿Qué pedirás el miércoles?</h1>
+<p class="lede" lang="en">Build an order from the practice menu, then tell a partner what you’ll order. Ask what they’ll order and how they’ll pay.</p>
+<div class="grid">
+<div class="card"><h2>Menú de práctica</h2>
+<table class="menu"><thead><tr><th scope="col">Tacos</th><th scope="col">Cada uno</th></tr></thead><tbody><tr><td>Asada</td><td>$3</td></tr><tr><td>Pastor</td><td>$3</td></tr><tr><td>Pollo</td><td>$3</td></tr><tr><td>Champiñones</td><td>$3</td></tr><tr><td>Birria</td><td>$4</td></tr></tbody></table>
+<p>Agua de horchata $3 · Consomé $2</p><p class="small" lang="en">Sample items and prices.</p></div>
+<div class="card"><h2>Tu pedido</h2>
+<div class="fields">
+<label>Cantidad<select id="quantity"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select></label>
+<label>Relleno<select id="filling"><option value="asada">Asada</option><option value="pastor">Pastor</option><option value="pollo">Pollo</option><option value="champiñones">Champiñones</option><option value="birria">Birria</option></select></label>
+<label>Con o sin…<select id="topping"><option>con todo</option><option>sin cebolla</option><option>sin cilantro</option><option>con la salsa aparte</option></select></label>
+<label>Pago<select id="payment"><option>con tarjeta</option><option>en efectivo</option></select></label>
+</div>
+<div class="ticket"><p id="futureLine" aria-live="polite">El miércoles pediré dos tacos de asada con todo. Pagaré con tarjeta.</p></div>
+</div>
+</div>
+<details><summary>Forma del futuro</summary><p>Conserva el infinitivo y añade la terminación. <strong>Pedir + é</strong> → <em>pediré</em>. <strong>Pagar + ás</strong> → <em>pagarás</em>.</p></details>
+</section>
+<section hidden aria-labelledby="s4">
+<p class="eyebrow">Un plan B</p>
+<h1 id="s4" tabindex="-1">¿Y si se acaba?</h1>
+<p class="lede" lang="en">Give a backup plan, then have your partner introduce a different surprise.</p>
+<div class="grid">
+<div class="card"><h2>Se acabó la birria.</h2><p><strong>Si no tienen birria, pediré</strong> dos tacos de pollo.</p></div>
+<div class="card"><h2>Solo aceptan efectivo.</h2><p><strong>Si no aceptan tarjeta, pagaré</strong> en efectivo.</p></div>
+</div>
+<p class="ticket"><strong>Si</strong> no tienen… / <strong>Si</strong> no hay… / <strong>Si</strong> no aceptan…, <strong>pediré</strong>… / <strong>pagaré</strong>…</p>
+<details><summary>Forma de la frase</summary><p lang="en">Use the present after <em>si</em> for the open condition and the simple future for the result.</p></details>
+</section>
+<section hidden aria-labelledby="s5">
+<p class="eyebrow">En la ventanilla</p>
+<h1 id="s5" tabindex="-1">¿Qué le damos?</h1>
+<p class="lede" lang="en">Say the customer’s next line out loud. Reveal one line at a time to compare.</p>
+<div class="dialogue-layout">
+<div class="card">
+<ol class="dialogue" id="dialogue">
+<li><b>Ventanilla</b> Buenas tardes. ¿Qué le damos?</li>
+<li hidden><b>Cliente</b> ¿Me da dos tacos de asada, por favor?</li>
+<li hidden><b>Ventanilla</b> Claro. ¿Con todo?</li>
+<li hidden><b>Cliente</b> Sin cebolla, por favor. ¿Me pone la salsa aparte?</li>
+<li hidden><b>Ventanilla</b> Sí. ¿Para aquí o para llevar?</li>
+<li hidden><b>Cliente</b> Para llevar, por favor. ¿Cuánto es?</li>
+<li hidden><b>Ventanilla</b> Son seis dólares.</li>
+<li hidden><b>Cliente</b> ¿Aceptan tarjeta?</li>
+<li hidden><b>Ventanilla</b> Sí. Su número de pedido es el diecisiete.</li>
+</ol>
+<div class="actions" id="dialogueControls"><button class="primary" type="button" id="reveal">Mostrar siguiente línea</button><button type="button" id="resetDialogue">Reiniciar diálogo</button><span class="small" id="revealStatus" role="status">1 de 9 líneas</span></div>
+</div>
+<aside class="card dialogue-vocab" aria-labelledby="vocabHeading">
+<h2 id="vocabHeading">Vocabulario útil</h2>
+<dl id="dialogueVocab" aria-live="polite"></dl>
+</aside>
+</div>
+<details><summary>Si necesitas aclarar algo</summary><p>Perdón, ¿me lo puede repetir más despacio? <span class="gloss" lang="en">Sorry, could you repeat that more slowly?</span></p></details>
+</section>
+<section hidden aria-labelledby="s6">
+<p class="eyebrow">Juego de roles</p>
+<h1 id="s6" tabindex="-1">Te toca pedir.</h1>
+<p class="lede" lang="en">Use the practice menu from the slides. Do one order, then switch roles and draw a new situation.</p>
+<div class="grid">
+<div class="card"><h2>Cliente</h2><ol><li>Saluda y pide una cantidad y un relleno.</li><li>Cambia algo del pedido y responde a las preguntas.</li><li>Confirma el precio y cómo vas a pagar.</li></ol></div>
+<div class="card"><h2>Ventanilla</h2><ol><li>Empieza con <em>¿Qué le damos?</em></li><li>Haz dos preguntas. <em>¿Con todo? ¿Para aquí o para llevar? ¿Algo más?</em></li><li>Da el total y el número de pedido.</li></ol></div>
+</div>
+<div class="ticket"><p><strong>Situación</strong></p><p id="rolePrompt" aria-live="polite">Ventanilla: «Se nos acabó el pastor». Cliente: pregunta qué te recomiendan y cambia el relleno.</p><button type="button" id="nextRole">Otra situación</button></div>
+<details><summary>Ver el menú de práctica</summary><p>Tacos de asada, pastor, pollo o champiñones $3 c/u · Tacos de birria $4 c/u · Agua de horchata $3 · Consomé $2.</p></details>
+</section>
+<section hidden aria-labelledby="s7">
+<p class="eyebrow">Antes de salir</p>
+<h1 id="s7" tabindex="-1">Tu plan para el miércoles</h1>
+<p class="lede" lang="en">Tell your partner three things. Then say the first line you’ll use at the truck.</p>
+<div class="grid">
+<div class="card"><h2>Lo que ya has probado</h2><p>Ya <strong>he probado</strong>… / Todavía no <strong>he probado</strong>…</p></div>
+<div class="card"><h2>Lo que pedirás</h2><p>El miércoles <strong>pediré</strong>…</p></div>
+<div class="card"><h2>Tu plan B</h2><p><strong>Si no tienen</strong>…, <strong>pediré</strong>…</p></div>
+</div>
+<p class="ticket">Buenas tardes. <strong>¿Me da…</strong>, por favor?</p>
+</section>
+</main>
+<footer>
+<div class="actions">
+<button class="icon" type="button" id="previous" aria-label="Diapositiva anterior" title="Diapositiva anterior"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m14 5-7 7 7 7"/></svg></button>
+<span class="counter" id="counter" aria-live="polite"></span>
+<button class="icon" type="button" id="next" aria-label="Siguiente diapositiva" title="Siguiente diapositiva"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m10 5 7 7-7 7"/></svg></button>
+</div>
+<label class="small">Ir a <select id="jump" aria-label="Ir a una diapositiva">
+<option value="0">Lo que has probado</option><option value="1">Entrevista</option><option value="2">El miércoles</option><option value="3">Plan B</option><option value="4">Diálogo</option><option value="5">Juego de roles</option><option value="6">Cierre</option>
+</select></label>
+<span class="small keys" lang="en">Use ← and → to navigate</span>
+</footer>
+</div>
+<script>
+const byId = id => document.getElementById(id);
+const slides = [...document.querySelectorAll('main > section')];
+const previous = byId('previous');
+const next = byId('next');
+const jump = byId('jump');
+let current = 0;
+function showSlide(index, focusHeading = true) {
+  current = Math.max(0, Math.min(index, slides.length - 1));
+  slides.forEach((slide, i) => { slide.hidden = i !== current; });
+  previous.disabled = current === 0;
+  next.disabled = current === slides.length - 1;
+  jump.value = String(current);
+  byId('counter').textContent = (current + 1) + ' / ' + slides.length;
+  if (focusHeading) {
+    slides[current].querySelector('h1').focus({preventScroll:true});
+    window.scrollTo(0, 0);
+  }
+}
+previous.addEventListener('click', () => showSlide(current - 1));
+next.addEventListener('click', () => showSlide(current + 1));
+jump.addEventListener('change', () => showSlide(Number(jump.value)));
+document.addEventListener('keydown', event => {
+  if (event.ctrlKey || event.metaKey || event.altKey || event.target.closest('select, input, textarea, [contenteditable]')) return;
+  const step = {'ArrowLeft': -1, 'ArrowRight': 1}[event.key];
+  if (!step) return;
+  event.preventDefault();
+  const target = current + step;
+  if (target >= 0 && target < slides.length) showSlide(target);
+});
+showSlide(0, false);
+
+function rotatePrompt(button, output, prompts) {
+  let index = 0;
+  byId(button).addEventListener('click', () => {
+    index = (index + 1) % prompts.length;
+    byId(output).textContent = prompts[index];
+  });
+}
+rotatePrompt('nextPrompt', 'interviewQuestion', [
+  '¿Has probado los tacos de pastor?',
+  '¿Has comido tacos de champiñones?',
+  '¿Alguna vez has tomado agua de horchata?',
+  '¿Has probado el consomé con los tacos de birria?',
+  '¿Has comido un taco con salsa verde?'
+]);
+rotatePrompt('nextRole', 'rolePrompt', [
+  'Ventanilla: «Se nos acabó el pastor». Cliente: pregunta qué te recomiendan y cambia el relleno.',
+  'Ventanilla: «Solo aceptamos efectivo». Cliente: tienes ocho dólares. Pide tacos y una bebida, y ajusta tu pedido si es necesario.',
+  'Ventanilla: «La salsa roja pica mucho». Cliente: pregunta por la verde y pídela aparte.',
+  'Ventanilla: repite el pedido con la cantidad equivocada. Cliente: confirma cuántos tacos quieres y pide tu número de pedido.'
+]);
+
+const orderFields = ['quantity', 'filling', 'topping', 'payment'].map(byId);
+function updateOrder() {
+  const [quantity, filling, topping, payment] = orderFields.map(field => field.value);
+  const tacos = {'1':'un taco', '2':'dos tacos', '3':'tres tacos'};
+  byId('futureLine').textContent = 'El miércoles pediré ' + tacos[quantity] + ' de ' + filling + ' ' + topping + '. Pagaré ' + payment + '.';
+}
+orderFields.forEach(field => field.addEventListener('change', updateOrder));
+
+const dialogueLines = [...byId('dialogue').children];
+const reveal = byId('reveal');
+const dialogueVocab = byId('dialogueVocab');
+const vocabByLine = [
+  [
+    ["¿Qué le damos?", "What can we get you?"],
+    ["pedir", "to order"],
+    ["de asada / de pollo", "with grilled beef / with chicken"],
+    ["por favor", "please"]
+  ],
+  [
+    ["¿Me da…?", "Could I get…?"],
+    ["de asada", "with grilled beef"],
+    ["el relleno", "the filling"]
+  ],
+  [
+    ["¿Con todo?", "With all the usual toppings?"],
+    ["sin / con", "without / with"],
+    ["la cebolla / el cilantro", "onion / cilantro"],
+    ["aparte", "on the side"]
+  ],
+  [
+    ["¿Me pone…?", "Could you add or give me…?"],
+    ["sin cebolla", "without onion"],
+    ["la salsa aparte", "salsa on the side"]
+  ],
+  [
+    ["para aquí", "for here"],
+    ["para llevar", "to go"],
+    ["el total", "the total"]
+  ],
+  [
+    ["para llevar", "to go"],
+    ["¿Cuánto es?", "How much is it?"],
+    ["la cuenta", "the bill"]
+  ],
+  [
+    ["Son seis dólares.", "That’s six dollars."],
+    ["en efectivo", "in cash"],
+    ["con tarjeta", "by card"]
+  ],
+  [
+    ["¿Aceptan tarjeta?", "Do you take cards?"],
+    ["pagar", "to pay"],
+    ["el número de pedido", "the order number"]
+  ],
+  [
+    ["su número de pedido", "your order number"],
+    ["diecisiete", "seventeen"],
+    ["recoger el pedido", "to pick up the order"]
+  ]
+];
+function showVocabulary(line) {
+  const entries = vocabByLine[line].map(([spanish, english]) => {
+    const entry = document.createElement('div');
+    const term = document.createElement('dt');
+    const gloss = document.createElement('dd');
+    term.textContent = spanish;
+    gloss.lang = 'en';
+    gloss.className = 'small';
+    gloss.textContent = english;
+    entry.append(term, gloss);
+    return entry;
+  });
+  dialogueVocab.replaceChildren(...entries);
+}
+let revealed = 1;
+function showDialogue() {
+  dialogueLines.forEach((line, index) => { line.hidden = index >= revealed; });
+  reveal.disabled = revealed === dialogueLines.length;
+  showVocabulary(revealed - 1);
+  byId('revealStatus').textContent = revealed === dialogueLines.length ? 'Diálogo completo' : revealed + ' de ' + dialogueLines.length + ' líneas';
+}
+reveal.addEventListener('click', () => {
+  revealed += 1;
+  showDialogue();
+  dialogueLines[revealed - 1].scrollIntoView({block:'nearest'});
+});
+byId('resetDialogue').addEventListener('click', () => {
+  revealed = 1;
+  showDialogue();
+  reveal.focus();
+});
+showDialogue();
+
+const theme = byId('theme');
+theme.addEventListener('click', () => {
+  const root = document.documentElement;
+  const dark = root.dataset.theme !== 'dark';
+  root.dataset.theme = dark ? 'dark' : 'light';
+  theme.setAttribute('aria-pressed', String(dark));
+});
+const fullscreen = byId('fullscreen');
+function syncFullscreen() {
+  const expanded = Boolean(document.fullscreenElement) || document.body.classList.contains('expanded');
+  fullscreen.setAttribute('aria-pressed', String(expanded));
+  const label = expanded ? 'Salir de pantalla completa' : 'Pantalla completa';
+  fullscreen.setAttribute('aria-label', label);
+  fullscreen.title = label;
+}
+fullscreen.addEventListener('click', async () => {
+  try {
+    if (document.fullscreenElement) await document.exitFullscreen();
+    else if (document.body.classList.contains('expanded')) document.body.classList.remove('expanded');
+    else if (document.documentElement.requestFullscreen) await document.documentElement.requestFullscreen();
+    else document.body.classList.add('expanded');
+  } catch {
+    document.body.classList.toggle('expanded');
+  }
+  syncFullscreen();
+});
+document.addEventListener('fullscreenchange', syncFullscreen);
+</script>
+</body>
+</html>
