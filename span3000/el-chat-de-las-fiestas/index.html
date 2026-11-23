@@ -53,6 +53,42 @@
 #discussionPrompt,#twistText{font-size:clamp(1.4rem,3vw,2.15rem);line-height:1.36}
 #discussionPrompt{margin:0}
 #practice .model{padding:clamp(16px,3vw,28px)}
+/* Holiday palette and compact course banner */
+header{background:#173e34;border-bottom:3px solid #caa45f;padding:9px 16px}
+.course-header{grid-template-columns:auto minmax(0,1fr) auto;column-gap:12px}
+.course-heading{display:contents}
+.course-heading p{grid-row:1}
+.course-heading .display-controls{grid-column:3;grid-row:1 / 4}
+.course-header .wsu-shield{grid-row:1 / 4;width:34px}
+.course-header h1{font-size:clamp(1.15rem,2.4vw,1.6rem);margin:2px 0;line-height:1.12}
+.course-header p{font-size:clamp(.68rem,1.3vw,.82rem);line-height:1.22;color:#f5e9cc}
+.display-controls button{padding:8px;border-color:#d9ba7d}
+.display-controls a{background:#173e34}
+body{background:#f8f4e9;color:#26362e}
+section,.lesson-tabs button,td,th{border-color:#dcd3be}
+button,select,input,.timeline{border-color:#a69476}
+button.primary,.lesson-tabs button[aria-selected=true]{background:#8a3043;border-color:#8a3043;color:#fff}
+button:hover{box-shadow:0 0 0 2px #caa45f}
+button[aria-pressed=true]{background:#e2efe3;border-color:#346451}
+.model,.prompt,.feedback{background:#eaf1e6}
+#practice .model{border-inline-start:5px solid #ba8b45}
+a,.blank{color:#8a3043}
+.small{color:#53645a}
+.timeline .marker{color:#295746}
+.timeline [data-reference=true] .marker{background:#295746;color:white}
+.timeline li:not(:last-child)::after{border-color:#a69476}
+.course-footer{background:#173e34;color:#f5e9cc}
+:where(button,a,input,select,summary):focus-visible{outline-color:#b17b28}
+[data-theme=dark] body{background:#131d19;color:#f2efe5}
+[data-theme=dark] section{background:#1b2922;border-color:#4d6053}
+[data-theme=dark] button,[data-theme=dark] select,[data-theme=dark] input{background:#293b32;border-color:#758476}
+[data-theme=dark] .model,[data-theme=dark] .prompt,[data-theme=dark] .feedback{background:#263c31}
+[data-theme=dark] button.primary,[data-theme=dark] .lesson-tabs button[aria-selected=true]{background:#963e52;border-color:#d28a96;color:#fff}
+[data-theme=dark] button[aria-pressed=true],.display-controls button[aria-pressed=true],[data-theme=dark] .display-controls button[aria-pressed=true]{background:#f4e6c2;color:#26362e}
+[data-theme=dark] .small,[data-theme=dark] .blank{color:#f1dbac}
+[data-theme=dark] td,[data-theme=dark] th{border-color:#4d6053}
+[data-theme=dark] .timeline .marker{background:#293b32;color:#f1dbac}
+[data-theme=dark] .timeline [data-reference=true] .marker{background:#f1dbac;color:#26362e}
 </style>
 </head>
 <body>
