@@ -49,6 +49,10 @@
 .timeline small{display:block}
 [data-theme=dark] .timeline .marker{background:#30243e;color:#ead9fb}
 [data-theme=dark] .timeline [data-reference=true] .marker{background:#e5d1f6;color:#251232}
+#discussionTitle{font-size:clamp(1.65rem,3.5vw,2.6rem);line-height:1.15;margin:0 0 .55em}
+#discussionPrompt,#twistText{font-size:clamp(1.4rem,3vw,2.15rem);line-height:1.36}
+#discussionPrompt{margin:0}
+#practice .model{padding:clamp(16px,3vw,28px)}
 </style>
 </head>
 <body>
@@ -127,8 +131,6 @@
 </section>
 <section id="practice" role="tabpanel" aria-labelledby="tab-practice" tabindex="0" hidden>
 <h2>¿Qué harías tú?</h2>
-<p>In pairs, decide what you’d actually do. Take opposite sides, give a reason, and agree on what to tell the group chat. Then reveal the twist and decide if it changes your answer.</p>
-<p>Before you move on, give the group chat two updates in Spanish: one about what has happened so far and one about what had happened before the party. Your partner adds a doubt or a reaction.</p>
 <label for="discussionScene">Choose a dilemma</label>
 <select id="discussionScene"></select>
 <div class="model" aria-live="polite" lang="es">
