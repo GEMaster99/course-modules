@@ -126,24 +126,28 @@
 </details>
 </section>
 <section id="practice" role="tabpanel" aria-labelledby="tab-practice" tabindex="0" hidden>
-<h2>Save the group chat</h2>
-<p>Pick a holiday chat. For each mix-up, read the setup, choose the tense and mood, and type the missing verb phrase. Compare your reasoning with a partner before checking.</p>
-<label for="set">Practice set</label><select id="set"><option value="mixed">Both holiday chats</option><option value="thanksgiving">Thanksgiving dinner</option><option value="gifts">Christmas gift exchange</option></select>
-<p class="small" id="progress"></p>
-<form id="exercise">
-<p id="scene" lang="es"></p>
-<p class="prompt" id="prompt" lang="es"></p>
-<details id="gloss"><summary>Vocabulary help</summary><p id="vocab"></p></details>
-<fieldset><legend>Tense and mood</legend><div class="row">
-<select id="tense" aria-label="Tense" required><option value="">Choose the tense</option><option value="0">Presente perfecto</option><option value="1">Pluscuamperfecto</option></select>
-<select id="mood" aria-label="Mood" required><option value="">Choose the mood</option><option value="0">Indicativo</option><option value="1">Subjuntivo</option></select>
-</div></fieldset>
-<label for="answer">Verb phrase</label><input id="answer" lang="es" autocomplete="off" spellcheck="false" required aria-describedby="prompt">
-<div class="row" style="margin-top:10px" aria-label="Accent buttons"><button type="button" data-character="á">á</button><button type="button" data-character="é">é</button><button type="button" data-character="í">í</button><button type="button" data-character="ó">ó</button><button type="button" data-character="ú">ú</button></div>
-<div class="row" style="margin-top:16px"><button class="primary" type="submit">Check answer</button><button type="button" id="hint">Hint</button><button type="button" id="reveal">Show answer</button><button type="button" id="next" disabled>Next</button></div>
-<div class="feedback" id="feedback" role="status"></div>
-</form>
-<div id="summary" hidden><h3>One last message</h3><p>Pick a role: the host, the roommate, or the person who brought the wrong gift. Tell your partner what you know has happened and what you doubt had happened before the party. Your partner adds a surprise and replies using two different forms.</p><details><summary>Sentence starters</summary><p lang="es">Sé que alguien ha… · Dudaba que alguien hubiera… · Me alegra que ustedes hayan… · Ya sabía que ellos habían…</p></details><p id="result" role="status"></p><button type="button" id="restart" class="primary">Practice this set again</button></div>
+<h2>¿Qué harías tú?</h2>
+<p>In pairs, decide what you’d actually do. Take opposite sides, give a reason, and agree on what to tell the group chat. Then reveal the twist and decide if it changes your answer.</p>
+<p>Before you move on, give the group chat two updates in Spanish: one about what has happened so far and one about what had happened before the party. Your partner adds a doubt or a reaction.</p>
+<label for="discussionScene">Choose a dilemma</label>
+<select id="discussionScene"></select>
+<div class="model" aria-live="polite" lang="es">
+<h3 id="discussionTitle"></h3>
+<p id="discussionPrompt"></p>
+</div>
+<details id="discussionTwist"><summary>Reveal the twist</summary><p id="twistText" lang="es"></p></details>
+<details><summary>Spanish starters and vocabulary</summary>
+<p id="discussionVocab"></p>
+<ul lang="es">
+<li>Si eso me pasara, yo…</li>
+<li>Si hubiera sabido que…, habría…</li>
+<li>Hasta ahora, lo único que sé es que alguien ha…</li>
+<li>Dudo que alguien haya…</li>
+<li>Antes de la fiesta, yo ya había…</li>
+<li>Me sorprendió que alguien hubiera…</li>
+</ul>
+</details>
+<button class="primary" type="button" id="nextDiscussion">Next dilemma</button>
 </section>
 </main>
 <footer class="course-footer"><div class="wrap">Dr. Rama · Weber State University</div></footer>
@@ -303,267 +307,35 @@ byId('moreModels').onclick = () => {
 };
 renderModel();
 
-const items = [
-  [
-    0,
-    0,
-    "La foto confirma que ustedes | (traer) cinco postres.",
-    "han traído",
-    "La foto confirma presents evidence of a result visible now.",
-    "thanksgiving",
-    "Alguien publicó una foto de la mesa. Hay cinco postres y ningún plato principal.",
-    "plato principal = main dish · traer = to bring"
-  ],
-  [
-    0,
-    1,
-    "Espero que nadie | (poner) caldo de pollo en esta salsa.",
-    "haya puesto",
-    "Espero que expresses a hope about an action that may already have happened. Nadie takes a singular verb.",
-    "thanksgiving",
-    "Se acabó la salsa. Tu amiga vegana lee la etiqueta antes de servirse.",
-    "caldo = broth · servirse = to serve oneself"
-  ],
-  [
-    1,
-    0,
-    "Sabíamos que los vecinos ya | (prestar) unas sillas antes de que llegaran los invitados.",
-    "habían prestado",
-    "Sabíamos que reports something known. The neighbors lent the chairs before the guests arrived.",
-    "thanksgiving",
-    "Anoche llegaron seis invitados extra. Por suerte, todos pudieron sentarse.",
-    "prestar = to lend · por suerte = luckily"
-  ],
-  [
-    1,
-    1,
-    "Nos sorprendió que el perro ya | (comerse) un panecillo antes de entrar.",
-    "se hubiera comido",
-    "Nos sorprendió que expresses a past reaction. The dog ate the roll before coming in. Put se before haber.",
-    "thanksgiving",
-    "Se abrió la puerta y entró un perro con una servilleta en la boca.",
-    "panecillo = dinner roll · servilleta = napkin"
-  ],
-  [
-    0,
-    0,
-    "Ahora sé que tú | (comprar) la última tarta de la tienda.",
-    "has comprado",
-    "Ahora sé que treats the purchase as known now. The subject is tú.",
-    "thanksgiving",
-    "Acabas de encontrar el recibo del supermercado.",
-    "recibo = receipt · tarta = pie or cake"
-  ],
-  [
-    0,
-    1,
-    "Me alegra que ustedes | (hacer) sitio para mi amiga.",
-    "hayan hecho",
-    "Me alegra que expresses a reaction now to something already done. Hacer has an irregular participle.",
-    "thanksgiving",
-    "La mesa está llena, pero hay un rincón para tu invitada.",
-    "hacer sitio = to make room · rincón = corner"
-  ],
-  [
-    1,
-    0,
-    "Era evidente que él ya | (leer) el plan antes de la cena.",
-    "había leído",
-    "Era evidente que presents a fact. The reading preceded dinner.",
-    "thanksgiving",
-    "Cuando empezó la cena ayer, tu compañero sabía exactamente dónde estaba cada plato.",
-    "plato = dish · evidente = obvious"
-  ],
-  [
-    1,
-    1,
-    "Dudábamos que ustedes | (resolver) el problema antes de que llegáramos.",
-    "hubieran resuelto",
-    "Dudábamos que signals past doubt. The solution would have come before our arrival.",
-    "thanksgiving",
-    "Ayer la cocina del piso se quedó sin horno. Alguien dijo que la cena ya estaba lista.",
-    "quedarse sin = to be left without · horno = oven"
-  ],
-  [
-    0,
-    0,
-    "Ahora veo que tú | (envolver) mi sudadera.",
-    "has envuelto",
-    "Ahora veo que signals a fact just discovered. Envolver has an irregular participle.",
-    "gifts",
-    "El chat tiene una foto del regalo. Es tu propia sudadera.",
-    "envolver = to wrap · sudadera = sweatshirt"
-  ],
-  [
-    0,
-    1,
-    "Dudo que esa persona | (gastar) solo diez dólares.",
-    "haya gastado",
-    "Dudo que expresses doubt now about a purchase already made.",
-    "gifts",
-    "El límite son diez dólares. Alguien acaba de llegar con una caja enorme.",
-    "gastar = to spend · límite = limit"
-  ],
-  [
-    1,
-    0,
-    "Antes de abrirla, ya sabíamos que Dani | (pedir) un par de calcetines.",
-    "había pedido",
-    "Sabíamos que presents the request as known. It happened before the box was opened.",
-    "gifts",
-    "Anoche alguien abrió una caja que decía «Para Dani». Dentro había tres calcetines sueltos.",
-    "sueltos = loose or unpaired · par = pair"
-  ],
-  [
-    1,
-    1,
-    "Nos dio risa que las dos | (elegir) la misma taza antes del intercambio.",
-    "hubieran elegido",
-    "Nos dio risa que expresses a reaction in the past. The gift choices preceded the exchange.",
-    "gifts",
-    "Llegaron a la fiesta dos personas con la misma taza. Cada una pensaba que su regalo era único.",
-    "dar risa = to make someone laugh · taza = mug"
-  ],
-  [
-    0,
-    0,
-    "El mensaje confirma que ellos | (guardar) el recibo.",
-    "han guardado",
-    "Confirma que reports evidence now about something they already did.",
-    "gifts",
-    "La tienda acaba de mandar una confirmación. El regalo de broma se puede devolver.",
-    "devolver = to return · de broma = as a joke"
-  ],
-  [
-    0,
-    1,
-    "Me alegra que nosotros | (escoger) un rompecabezas para él.",
-    "hayamos escogido",
-    "Me alegra que expresses a reaction to a choice already made. The subject is nosotros.",
-    "gifts",
-    "Acabas de descubrir que a tu amigo invisible le encantan los rompecabezas.",
-    "amigo invisible = Secret Santa recipient · rompecabezas = puzzle"
-  ],
-  [
-    1,
-    0,
-    "Ya sabía que yo la | (poner) debajo del árbol antes de la fiesta.",
-    "había puesto",
-    "Sabía que reports what the speaker knew. Putting the bag there happened earlier. La is already in the sentence.",
-    "gifts",
-    "Ayer, al comenzar el intercambio, busqué mi bolsa debajo del árbol.",
-    "bolsa = bag · debajo de = under"
-  ],
-  [
-    1,
-    1,
-    "Era posible que nosotros | (cambiar) las cajas sin querer antes del intercambio.",
-    "hubiéramos cambiado",
-    "Era posible que expresses uncertainty about an event that would have happened earlier.",
-    "gifts",
-    "Anoche se mezclaron dos cajas idénticas. La tuya tenía un cargador y la otra un trozo de carbón.",
-    "carbón = coal · cargador = charger · sin querer = by accident"
-  ]
+const dilemmas = [
+  ['El pavo rival', '¿Qué harías si prepararas un pavo para tu fiesta y tu mejor amigo llegara con otro que se ve objetivamente mucho mejor? Solo hay espacio para uno en el centro de la mesa. ¿Cuál sirves primero? ¿Qué le dices a tu amigo?', 'Tu amigo ya ha subido una foto de los dos pavos. En el chat han empezado a votar. El suyo va ganando 12 a 0. ¿Pides que borre la foto o te unes a la votación?', 'pavo = turkey · subir una foto = to upload a photo · ir ganando = to be ahead'],
+  ['El regalo prestado', '¿Qué harías si abrieras tu regalo de Navidad y encontraras la misma sudadera que le habías prestado a tu compañero de piso en septiembre? ¿Le das las gracias o reclamas intereses por el préstamo?', 'Dentro hay una tarjeta: «La he lavado por primera vez». ¿Eso mejora o empeora el regalo?', 'sudadera = sweatshirt · prestar = to lend · reclamar intereses = to charge interest'],
+  ['El puré secreto', '¿Qué harías si todos te felicitaran por el puré que trajiste y alguien te pidiera la receta delante de toda la mesa? Lo compraste de camino a la fiesta y lo pusiste en tu mejor fuente.', 'El anfitrión ya ha anunciado que tú vas a enseñar a todos a prepararlo el próximo fin de semana. ¿Qué dices ahora?', 'puré = mashed potatoes · fuente = serving dish · de camino = on the way'],
+  ['El regalo de diez dólares', '¿Qué harías si el límite del intercambio fuera de diez dólares y recibieras unos auriculares de doscientos? Tú habías llevado una vela con olor a pizza. ¿Aceptas el regalo o propones repetir el intercambio?', 'Quien trajo los auriculares acaba de escribir: «Espero que nadie haya tirado mi caja: el regalo era la vela». ¿Devuelves los auriculares antes de que te lo pida?', 'límite = spending cap · auriculares = headphones · vela = candle'],
+  ['La silla del invitado extra', '¿Qué harías si tu amigo llegara a la cena con tres personas que no conoces y solo quedara una silla? Tu compañero de piso había prometido traer más. ¿Cambias el plan o le pides a alguien que coma de pie?', 'Las tres personas han traído el único postre de la noche. Ahora todos quieren que se queden. ¿Cuál es tu plan?', 'quedar = to be left · de pie = standing · quedarse = to stay'],
+  ['La taza que volvió', '¿Qué harías si vieras que tu amiga le está regalando a otra persona la taza personalizada que tú le diste el año pasado? La taza todavía tiene tu mensaje escrito debajo. ¿Avisas a alguien?', 'La persona que la ha recibido dice: «¡Qué bonito! ¿Quién ha escrito esto?». Tu amiga te mira. ¿Qué contestas?', 'taza = mug · debajo = underneath · avisar = to tell or alert']
 ];
-const alternate = {hubiera:'hubiese', hubieras:'hubieses', hubiéramos:'hubiésemos', hubierais:'hubieseis', hubieran:'hubiesen'};
-const tenseLabels = ['Presente perfecto', 'Pluscuamperfecto'];
-const moodLabels = ['indicativo', 'subjuntivo'];
-let queue = [];
-let index = 0;
-let solved = 0;
-let finished = false;
-
-function normalize(value) {
-  return value.trim().toLowerCase().normalize('NFD').replace(/\p{M}/gu, '').replace(/\s+/g, ' ');
-}
-function feedback(message, state) {
-  byId('feedback').dataset.state = state;
-  byId('feedback').textContent = message;
-}
-function start() {
-  const set = byId('set').value;
-  queue = items.filter(item => set === 'mixed' || item[5] === set);
-  for (let i = queue.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [queue[i], queue[j]] = [queue[j], queue[i]];
-  }
-  index = solved = 0;
-  byId('summary').hidden = true;
-  byId('exercise').hidden = false;
-  renderItem();
-}
-function renderItem() {
-  finished = false;
-  byId('exercise').reset();
-  byId('next').disabled = true;
-  byId('next').textContent = index + 1 === queue.length ? 'See results' : 'Next';
-  byId('progress').textContent = `Chat message ${index + 1} of ${queue.length}`;
-  const [,, sentence,,, group, scene, vocab] = queue[index];
-  byId('scene').textContent = (group === 'thanksgiving' ? 'Cena de Acción de Gracias · ' : 'Intercambio de regalos · ') + scene;
-  byId('vocab').textContent = vocab;
-  byId('gloss').open = false;
-  const [before, after] = sentence.split('|');
-  const blank = document.createElement('span');
-  blank.className = 'blank';
-  blank.textContent = '________';
-  byId('prompt').replaceChildren(before, blank, after);
-  feedback('', '');
-}
-function complete(earned, message) {
-  if (finished) return;
-  finished = true;
-  if (earned) solved++;
-  feedback(message, earned ? 'good' : 'retry');
-  byId('next').disabled = false;
-}
-byId('exercise').addEventListener('submit', event => {
-  event.preventDefault();
-  if (finished) return;
-  const [tense, mood, , correct, why] = queue[index];
-  const selectedTense = Number(byId('tense').value);
-  const selectedMood = Number(byId('mood').value);
-  if (selectedTense !== tense || selectedMood !== mood) {
-    const cue = selectedTense !== tense ? 'Recheck when the action was completed relative to the reference point.' : 'Recheck what the main clause expresses and how it frames the event.';
-    feedback(cue, 'retry');
-    return;
-  }
-  const variant = correct.split(' ').map(word => alternate[word] || word).join(' ');
-  const typed = byId('answer').value.trim().toLowerCase().normalize('NFC').replace(/\s+/g, ' ');
-  if (normalize(typed) !== normalize(correct) && normalize(typed) !== normalize(variant)) {
-    feedback('The tense and mood are right. Check the subject, the form of haber, and the participle. Include any pronoun required by the blank.', 'retry');
-    return;
-  }
-  const accentNote = typed !== correct && typed !== variant ? ' Check the written accents in the model.' : '';
-  complete(true, `Correct. Model answer: ${correct}. ${why}${accentNote}`);
+const discussionSelect = byId('discussionScene');
+dilemmas.forEach(([title], index) => {
+  const option = document.createElement('option');
+  option.value = String(index);
+  option.textContent = title;
+  discussionSelect.append(option);
 });
-byId('hint').onclick = () => {
-  if (!finished) feedback(queue[index][4], '');
+function showDiscussion() {
+  const [title, prompt, twist, vocab] = dilemmas[Number(discussionSelect.value)];
+  byId('discussionTitle').textContent = title;
+  byId('discussionPrompt').textContent = prompt;
+  byId('twistText').textContent = twist;
+  byId('discussionVocab').textContent = vocab;
+  byId('discussionTwist').open = false;
+}
+discussionSelect.onchange = showDiscussion;
+byId('nextDiscussion').onclick = () => {
+  discussionSelect.value = String((Number(discussionSelect.value) + 1) % dilemmas.length);
+  showDiscussion();
 };
-byId('reveal').onclick = () => {
-  const [tense, mood, , answer, why] = queue[index];
-  complete(false, `${answer} · ${tenseLabels[tense]} de ${moodLabels[mood]}. ${why}`);
-};
-byId('next').onclick = () => {
-  index++;
-  if (index < queue.length) {
-    renderItem();
-    byId('tense').focus();
-    return;
-  }
-  byId('exercise').hidden = true;
-  byId('summary').hidden = false;
-  byId('progress').textContent = 'Practice set complete';
-  byId('result').textContent = `You solved ${solved} of ${queue.length} sentences before revealing the answer.`;
-  byId('restart').focus();
-};
-byId('restart').onclick = () => { start(); byId('tense').focus(); };
-byId('set').onchange = start;
-document.querySelectorAll('[data-character]').forEach(button => button.onclick = () => {
-  const input = byId('answer');
-  input.setRangeText(button.dataset.character, input.selectionStart, input.selectionEnd, 'end');
-  input.focus();
-});
-start();
+showDiscussion();
 </script>
 </body>
 </html>
