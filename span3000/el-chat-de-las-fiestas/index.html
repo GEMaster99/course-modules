@@ -75,10 +75,10 @@
 </div>
 <section id="model" role="tabpanel" aria-labelledby="tab-model" tabindex="0">
 <h2 id="modelTitle">The pumpkin pie has vanished</h2>
-<p>Switch the time frame and the speaker’s stance to see four ways to report what happened. Then try another holiday scenario.</p>
+<p>Switch the time frame and the speaker’s stance to see four ways to report what happened. Try saying the sentence in Spanish, then reveal the translation.</p>
 <fieldset><legend>Time frame</legend><div class="row"><button type="button" data-model-time="0" aria-pressed="true">Up to now</button><button type="button" data-model-time="1" aria-pressed="false">Before a past point</button></div></fieldset>
 <fieldset><legend>Speaker’s stance</legend><div class="row"><button type="button" data-model-mood="0" aria-pressed="true">Certainty</button><button type="button" data-model-mood="1" aria-pressed="false">Doubt</button></div></fieldset>
-<div class="model" aria-live="polite"><div id="modelPosition" class="small"></div><div id="modelSentence" lang="es"></div><div id="modelForm" class="small" lang="es"></div><div id="modelWhy" class="small"></div></div>
+<div class="model" aria-live="polite"><div id="modelPosition" class="small"></div><p id="modelEnglish"></p><button type="button" id="modelReveal" aria-expanded="false" aria-controls="modelAnswer">Reveal Spanish</button><div id="modelAnswer" hidden style="margin-top:12px"><div id="modelSentence" lang="es"></div><div id="modelForm" class="small" lang="es"></div><div id="modelWhy" class="small"></div></div></div>
 <figure class="timeline" aria-labelledby="timelineCaption">
 <figcaption id="timelineCaption" aria-live="polite"></figcaption>
 <ol lang="es">
@@ -265,8 +265,26 @@ function renderTimeline() {
 let modelIndex = 0;
 let modelTime = 0;
 let modelMood = 0;
+const englishModels = [
+  ['my roommate', 'has', 'had', 'put the pumpkin pie in the fridge', 'before dinner'],
+  ['you', 'have', 'had', 'wrapped your roommate’s gift', 'before the gift exchange'],
+  ['we', 'have', 'had', 'set the dining table', 'before the guests arrived'],
+  ['the neighbors', 'have', 'had', 'opened the wrong package', 'before the delivery driver arrived'],
+  ['you all', 'have', 'had', 'brought enough chairs', 'before dinner started'],
+  ['Marta and Luis', 'have', 'had', 'agreed on the budget', 'before the gift exchange']
+];
+function setModelAnswerVisible(visible) {
+  byId('modelAnswer').hidden = !visible;
+  byId('modelReveal').setAttribute('aria-expanded', String(visible));
+  byId('modelReveal').textContent = visible ? 'Hide Spanish' : 'Reveal Spanish';
+}
+byId('modelReveal').onclick = () => setModelAnswerVisible(byId('modelAnswer').hidden);
 function renderModel() {
   renderTimeline();
+  setModelAnswerVisible(false);
+  const [subject, presentAux, pastAux, action, pastPoint] = englishModels[modelIndex];
+  const lead = modelTime ? (modelMood ? 'I doubted' : 'I knew') : (modelMood ? 'I doubt' : 'I know');
+  byId('modelEnglish').textContent = `${lead} that ${subject} ${modelTime ? pastAux : presentAux} ${action}${modelTime ? ' ' + pastPoint : ''}.`;
   const [before, verb, after, why] = models[modelIndex][modelTime * 2 + modelMood];
   const highlight = document.createElement('strong');
   highlight.textContent = verb;
