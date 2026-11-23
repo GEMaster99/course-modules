@@ -38,6 +38,17 @@
 [data-theme=dark] button.primary,[data-theme=dark] .lesson-tabs button[aria-selected=true]{background:#623a82;color:white}
 [data-theme=dark] .display-controls button[aria-pressed=true]{background:#e5d1f6;color:#251232}
 [data-theme=dark] td,[data-theme=dark] th{border-color:#55425f}
+.timeline{margin:18px 0 0;padding:14px;border:1px solid #8c7b9d;border-radius:10px}
+.timeline figcaption{font-weight:700;margin-bottom:10px}
+.timeline ol{display:flex;list-style:none;margin:0;padding:0}
+.timeline li{position:relative;flex:1;min-width:0;text-align:center;padding:0 5px}
+.timeline li:not(:last-child)::after{content:"";position:absolute;top:14px;left:50%;width:100%;border-top:2px solid #8c7b9d}
+.timeline .marker{position:relative;z-index:1;display:grid;place-items:center;margin:0 auto 6px;width:30px;height:30px;border-radius:50%;border:2px solid currentColor;background:#fff;color:#492365;font-weight:700}
+.timeline [data-reference=true] .marker{background:#56258a;color:white}
+.timeline .uncertain .marker{border-style:dashed}
+.timeline small{display:block}
+[data-theme=dark] .timeline .marker{background:#30243e;color:#ead9fb}
+[data-theme=dark] .timeline [data-reference=true] .marker{background:#e5d1f6;color:#251232}
 </style>
 </head>
 <body>
@@ -63,12 +74,20 @@
 <button type="button" id="tab-practice" role="tab" aria-controls="practice" aria-selected="false" tabindex="-1">Practice</button>
 </div>
 <section id="model" role="tabpanel" aria-labelledby="tab-model" tabindex="0">
-<h2>The pumpkin pie has vanished</h2>
-<p>Your roommate claims they left the pie in the fridge. Switch the time frame and the speaker’s stance to see four ways to report what happened. Then try another holiday scenario.</p>
+<h2 id="modelTitle">The pumpkin pie has vanished</h2>
+<p>Switch the time frame and the speaker’s stance to see four ways to report what happened. Then try another holiday scenario.</p>
 <fieldset><legend>Time frame</legend><div class="row"><button type="button" data-model-time="0" aria-pressed="true">Up to now</button><button type="button" data-model-time="1" aria-pressed="false">Before a past point</button></div></fieldset>
 <fieldset><legend>Speaker’s stance</legend><div class="row"><button type="button" data-model-mood="0" aria-pressed="true">Certainty</button><button type="button" data-model-mood="1" aria-pressed="false">Doubt</button></div></fieldset>
 <div class="model" aria-live="polite"><div id="modelPosition" class="small"></div><div id="modelSentence" lang="es"></div><div id="modelForm" class="small" lang="es"></div><div id="modelWhy" class="small"></div></div>
-<button type="button" id="moreModels" class="primary">More examples</button>
+<figure class="timeline" aria-labelledby="timelineCaption">
+<figcaption id="timelineCaption" aria-live="polite"></figcaption>
+<ol lang="es">
+<li id="timelineEvent"><span class="marker" id="timelineMarker" aria-hidden="true"></span><strong id="timelineAction"></strong><small id="timelineStatus"></small></li>
+<li id="timelinePast" data-reference="true"><span class="marker" aria-hidden="true">◆</span><strong id="timelinePastLabel"></strong><small>Punto de referencia</small></li>
+<li id="timelineNow"><span class="marker" aria-hidden="true">◆</span><strong>Ahora</strong><small id="timelineNowLabel"></small></li>
+</ol>
+</figure>
+<button type="button" id="moreModels" class="primary" style="margin-top:14px">More examples</button>
 </section>
 <section id="learn" role="tabpanel" aria-labelledby="tab-learn" tabindex="0" hidden>
 <h2>Choose the time frame, then the mood</h2>
@@ -222,10 +241,32 @@ const models = [firstModel, ...additionalModels.map(([subject, participle, auxil
     explanation
   ])
 )];
+const timelineScenes = [
+  ['The pumpkin pie has vanished', 'Guardar el pastel', 'La cena'],
+  ['Wrap the roommate’s gift', 'Envolver el regalo', 'El intercambio'],
+  ['Set the table', 'Poner la mesa', 'Llegan los invitados'],
+  ['The wrong package', 'Abrir el paquete equivocado', 'Llega el mensajero'],
+  ['Enough chairs for everyone?', 'Traer las sillas', 'Empieza la cena'],
+  ['Agree on the gift budget', 'Acordar el presupuesto', 'El intercambio']
+];
+function renderTimeline() {
+  const [title, action, pastPoint] = timelineScenes[modelIndex];
+  byId('modelTitle').textContent = title;
+  byId('timelineCaption').textContent = modelTime ? 'Timeline · Before a past point' : 'Timeline · Up to now';
+  byId('timelineAction').textContent = action;
+  byId('timelineEvent').classList.toggle('uncertain', Boolean(modelMood));
+  byId('timelineMarker').textContent = modelMood ? '?' : '●';
+  byId('timelineStatus').textContent = modelMood ? 'Acción en duda' : 'Acción presentada como un hecho';
+  byId('timelinePast').hidden = !modelTime;
+  byId('timelinePastLabel').textContent = pastPoint;
+  byId('timelineNow').dataset.reference = String(!modelTime);
+  byId('timelineNowLabel').textContent = modelTime ? '' : 'Punto de referencia';
+}
 let modelIndex = 0;
 let modelTime = 0;
 let modelMood = 0;
 function renderModel() {
+  renderTimeline();
   const [before, verb, after, why] = models[modelIndex][modelTime * 2 + modelMood];
   const highlight = document.createElement('strong');
   highlight.textContent = verb;
